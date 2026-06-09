@@ -73,27 +73,39 @@ export interface DbLandingPortfolioItem {
 const initialNews: DbNews[] = [
   {
     id: '1',
-    title: 'Pameran Kriya Nusantara 2026 Menampilkan Karya Mahasiswa UMB',
-    title_en: 'Archipelago Craft Exhibition 2026 Showcases UMB Student Artworks',
-    category: 'Pameran',
-    category_en: 'Exhibition',
-    snippet: 'Mahasiswa Kriya Tekstil dan Fashion UMB Bandung memukau pengunjung dengan instalasi batik kontemporer.',
-    snippet_en: 'UMB Bandung Craft Textile and Fashion students wowed visitors with contemporary batik installations.',
-    date: '12 Mei 2026',
-    img_src: 'https://images.unsplash.com/photo-1513364776144-60967b0f800f?q=80&w=600&auto=format&fit=crop',
+    title: 'Workshop Cloud Computing & DevOps untuk Komunitas Lokal',
+    title_en: 'Cloud Computing & DevOps Workshop for Local Community',
+    category: 'Pengabdian Masyarakat',
+    category_en: 'Community Service',
+    snippet: 'Dosen dan mahasiswa Teknik Informatika UMB menyelenggarakan workshop pemanfaatan layanan cloud open-source untuk digitalisasi UMKM lokal.',
+    snippet_en: 'UMB IT lecturers and students host a workshop on open-source cloud services utilization for local MSMEs digitization.',
+    date: '02 Jun 2026',
+    img_src: 'https://images.unsplash.com/photo-1517694712202-14dd9538aa97?q=80&w=600&auto=format&fit=crop',
     created_at: new Date(Date.now() - 5 * 24 * 60 * 60 * 1000).toISOString()
   },
   {
     id: '2',
-    title: 'Kolaborasi Eksklusif Prodi KTF dengan Industri Tekstil Jawa Barat',
-    title_en: 'Exclusive Collaboration between KTF Department and West Java Textile Industry',
-    category: 'Kerjasama',
-    category_en: 'Collaboration',
-    snippet: 'Program magang industri baru yang menghubungkan mahasiswa langsung dengan pabrik tenun tradisional.',
-    snippet_en: 'New industrial internship program linking students directly with traditional weaving mills.',
-    date: '28 Apr 2026',
-    img_src: 'https://images.unsplash.com/photo-1558278224-5db3792d47d5?q=80&w=600&auto=format&fit=crop',
+    title: 'Tim Mahasiswa Informatika UMB Raih Juara I Hackathon Nasional',
+    title_en: 'UMB IT Student Team Wins 1st Place in National Hackathon',
+    category: 'Prestasi Mahasiswa',
+    category_en: 'Student Achievement',
+    snippet: 'Mengusung arsitektur serverless modern dengan sistem antrian pintar, karya mahasiswa angkatan 2024 berhasil memukau dewan juri.',
+    snippet_en: 'Using modern serverless architecture with a smart queuing system, the project by class of 2024 students wowed the jury.',
+    date: '28 Mei 2026',
+    img_src: 'https://images.unsplash.com/photo-1504384308090-c894fdcc538d?q=80&w=600&auto=format&fit=crop',
     created_at: new Date(Date.now() - 15 * 24 * 60 * 60 * 1000).toISOString()
+  },
+  {
+    id: '3',
+    title: 'Kolaborasi Riset Cybersecurity Bersama Asosiasi IT Indonesia',
+    title_en: 'Cybersecurity Research Collaboration with Indonesian IT Association',
+    category: 'Kolaborasi Riset',
+    category_en: 'Research Collaboration',
+    snippet: 'Program studi resmi menandatangani kerjasama pengembangan standardisasi keamanan informasi dan sertifikasi kompetensi jaringan.',
+    snippet_en: 'The study program officially signed a partnership for information security standardization development and network competency certification.',
+    date: '15 Mei 2026',
+    img_src: 'https://images.unsplash.com/photo-1563986768609-322da13575f3?q=80&w=600&auto=format&fit=crop',
+    created_at: new Date(Date.now() - 25 * 24 * 60 * 60 * 1000).toISOString()
   }
 ];
 
@@ -102,84 +114,111 @@ const initialEvents: DbEvent[] = [
     id: '1',
     date_day: '18',
     date_month: 'JUN',
-    title: 'Workshop Desain Tekstil Digital',
-    title_en: 'Digital Textile Design Workshop',
-    location: 'Lab Komputer Kampus UMB',
-    location_en: 'UMB Campus Computer Lab',
+    title: 'INFOTEC 2026: Capstone Project Showcase & IT Career Expo',
+    title_en: 'INFOTEC 2026: Capstone Project Showcase & IT Career Expo',
+    location: 'Aula Utama KH. Ahmad Dahlan, UMB Bandung',
+    location_en: 'KH. Ahmad Dahlan Main Hall, UMB Bandung',
     created_at: new Date(Date.now() + 10 * 24 * 60 * 60 * 1000).toISOString()
   },
   {
     id: '2',
+    date_day: '25',
+    date_month: 'JUN',
+    title: 'Coding Workshop: Building Web Apps with React & Supabase',
+    title_en: 'Coding Workshop: Building Web Apps with React & Supabase',
+    location: 'Lab Komputasi Gedung UMB',
+    location_en: 'UMB Building Computing Lab',
+    created_at: new Date(Date.now() + 25 * 24 * 60 * 60 * 1000).toISOString()
+  },
+  {
+    id: '3',
     date_day: '05',
     date_month: 'JUL',
-    title: 'Fashion Show Tahunan "Eco-Future"',
-    title_en: 'Annual Fashion Show "Eco-Future"',
-    location: 'Aula Utama Universitas Muhammadiyah Bandung',
-    location_en: 'Main Hall of Universitas Muhammadiyah Bandung',
-    created_at: new Date(Date.now() + 25 * 24 * 60 * 60 * 1000).toISOString()
+    title: 'Kuliah Umum: Tren Kecerdasan Buatan di Era Komputasi Awan',
+    title_en: 'Public Lecture: Artificial Intelligence Trends in the Cloud Computing Era',
+    location: 'Auditorium Utama UMB Bandung',
+    location_en: 'UMB Bandung Main Auditorium',
+    created_at: new Date(Date.now() + 35 * 24 * 60 * 60 * 1000).toISOString()
   }
 ];
 
 const initialTestimonials: DbTestimonial[] = [
   {
     id: '1',
-    testimonial: 'Kuliah di KTF UMB Bandung memberikan saya kebebasan mengeksplorasi teknik tenun tradisional dengan sentuhan teknologi modern.',
-    testimonial_en: 'Studying at KTF UMB Bandung gave me the freedom to explore traditional weaving techniques with a modern tech touch.',
-    by: 'Sarah Amalia, Alumni 2024',
-    by_en: 'Sarah Amalia, Alumni 2024',
+    testimonial: 'Materi kurikulum yang berfokus pada software engineering dan arsitektur modern sangat relevan dengan kebutuhan industri teknologi saat ini.',
+    testimonial_en: 'Curriculum material focusing on software engineering and modern architecture is highly relevant to current tech industry needs.',
+    by: 'Andini Kusuma, S.Kom (Software Engineer at Tokopedia)',
+    by_en: 'Andini Kusuma, S.Kom (Software Engineer at Tokopedia)',
     img_src: 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?q=80&w=200&auto=format&fit=crop',
     created_at: new Date(Date.now() - 50 * 24 * 60 * 60 * 1000).toISOString()
+  },
+  {
+    id: '2',
+    testimonial: 'Program magang laboratorium memberikan saya kesempatan berjejaring langsung dengan praktisi cloud dan devops nasional sejak awal perkuliahan.',
+    testimonial_en: 'The lab internship program gave me the opportunity to network directly with national cloud and devops practitioners since the beginning of college.',
+    by: 'Rian Hidayat, S.Kom (DevOps Engineer at GoTo)',
+    by_en: 'Rian Hidayat, S.Kom (DevOps Engineer at GoTo)',
+    img_src: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=200&auto=format&fit=crop',
+    created_at: new Date(Date.now() - 40 * 24 * 60 * 60 * 1000).toISOString()
+  },
+  {
+    id: '3',
+    testimonial: 'Pembekalan portofolio proyek berkala selama perkuliahan sangat mempermudah saya ketika melamar kerja di perusahaan multinasional.',
+    testimonial_en: 'Regular project portfolio preparation during college made it very easy for me when applying for jobs at multinational companies.',
+    by: 'Sarah Amalia, S.Kom (Technical Product Manager at Shopee)',
+    by_en: 'Sarah Amalia, S.Kom (Technical Product Manager at Shopee)',
+    img_src: 'https://images.unsplash.com/photo-1438761681033-6461ffad8d80?q=80&w=200&auto=format&fit=crop',
+    created_at: new Date(Date.now() - 30 * 24 * 60 * 60 * 1000).toISOString()
   }
 ];
 
 const initialPartners: DbPartner[] = [
-  { id: '1', name: 'PT Gistex', created_at: new Date().toISOString() },
-  { id: '2', name: 'Badan Ekonomi Kreatif (Bekraf)', created_at: new Date().toISOString() },
-  { id: '3', name: 'Dewan Kerajinan Nasional Daerah (Dekranasda) Jabar', created_at: new Date().toISOString() }
+  { id: '1', name: 'Asosiasi Telekomunikasi Indonesia', created_at: new Date().toISOString() },
+  { id: '2', name: 'Google Developer Groups Bandung', created_at: new Date().toISOString() },
+  { id: '3', name: 'PT GoTo Gojek Tokopedia Tbk', created_at: new Date().toISOString() }
 ];
 
 const initialLandingStats: DbLandingStat[] = [
-  { id: '1', number: '95%', label: 'Tingkat Keterserapan Lulusan', sort_order: 1 },
-  { id: '2', number: '15+', label: 'Mitra Industri Aktif', sort_order: 2 },
-  { id: '3', number: '250+', label: 'Karya Mahasiswa Terpublikasi', sort_order: 3 },
-  { id: '4', number: '5', label: 'Laboratorium & Studio Kriya', sort_order: 4 }
+  { id: '1', number: '98%', label: 'Keterserapan Lulusan di Industri', sort_order: 1 },
+  { id: '2', number: '20+', label: 'Mitra Industri & Tech Company', sort_order: 2 },
+  { id: '3', number: '150+', label: 'Project Apps Mahasiswa Terpublikasi', sort_order: 3 },
+  { id: '4', number: '8', label: 'Laboratorium Komputasi & Riset', sort_order: 4 }
 ];
 
 const initialLandingPartners: DbLandingPartner[] = [
-  { id: '1', name: 'Gistex Textile', sort_order: 1 },
-  { id: '2', name: 'Hijab Chic', sort_order: 2 },
-  { id: '3', name: 'Rabbani', sort_order: 3 },
-  { id: '4', name: 'C59 Sablon', sort_order: 4 }
+  { id: '1', name: 'PT GoTo Gojek Tokopedia Tbk', sort_order: 1 },
+  { id: '2', name: 'Google Developer Groups Bandung', sort_order: 2 },
+  { id: '3', name: 'Asosiasi Telekomunikasi Indonesia', sort_order: 3 }
 ];
 
 const initialLandingPortfolioItems: DbLandingPortfolioItem[] = [
   {
     id: '1',
-    image: 'https://images.unsplash.com/photo-1544816155-12df9643f363?q=80&w=600&auto=format&fit=crop',
-    title: 'Tenun Ikat Indigo Modern',
-    medium: 'Serat Alam & Pewarna Alami',
-    technique: 'Tenun Gedogan',
-    year: '2025',
+    image: 'https://images.unsplash.com/photo-1555066931-4365d14bab8c?q=80&w=600&auto=format&fit=crop',
+    title: 'Smart Campus Mobile & Analytics App',
+    medium: 'React Native & Node.js',
+    technique: 'Developer: Naila Putri',
+    year: 'Juara I // Hackathon Nasional',
     gridClass: 'col-span-2 row-span-2',
     sort_order: 1
   },
   {
     id: '2',
-    image: 'https://images.unsplash.com/photo-1524295988556-47a82da2fe04?q=80&w=600&auto=format&fit=crop',
-    title: 'Ecoprint Kanvas Flora',
-    medium: 'Katun Kanvas',
-    technique: 'Steaming Ecoprint',
-    year: '2025',
+    image: 'https://images.unsplash.com/photo-1518770660439-4636190af475?q=80&w=600&auto=format&fit=crop',
+    title: 'IoT Automated Greenhouse Controller',
+    medium: 'Raspberry Pi & Python',
+    technique: 'Developer: Daniel Wijaya',
+    year: 'Karya Terbaik // Exhibition ITB',
     gridClass: 'col-span-1 row-span-1',
     sort_order: 2
   },
   {
     id: '3',
-    image: 'https://images.unsplash.com/photo-1490481651871-ab68de25d43d?q=80&w=600&auto=format&fit=crop',
-    title: 'Busana Avant-Garde "Rekonstruksi"',
-    medium: 'Linen & Benang Katun',
-    technique: 'Macrame & Tailoring',
-    year: '2026',
+    image: 'https://images.unsplash.com/photo-1563986768609-322da13575f3?q=80&w=600&auto=format&fit=crop',
+    title: 'Decentralized Academic Credentials',
+    medium: 'Solidity & Ethereum',
+    technique: 'Developer: Arya Dinata',
+    year: 'Proyek Riset // Kementerian Dikti',
     gridClass: 'col-span-1 row-span-2',
     sort_order: 3
   }
@@ -188,44 +227,44 @@ const initialLandingPortfolioItems: DbLandingPortfolioItem[] = [
 const initialSiteContent: DbSiteContent[] = [
   {
     key: 'hero_title',
-    value: 'Kriya Tekstil dan Fashion UMB Bandung',
-    value_en: 'Craft Textile and Fashion UMB Bandung',
+    value: 'Teknik Informatika UMB Bandung',
+    value_en: 'Informatics Engineering UMB Bandung',
     updated_at: new Date().toISOString()
   },
   {
     key: 'hero_subtitle',
-    value: 'Pusat Keunggulan Pendidikan Seni Kriya dan Fashion Berbasis Nilai Islam & Kearifan Lokal.',
-    value_en: 'Center of Excellence for Craft & Fashion Education based on Islamic Values & Local Wisdom.',
+    value: 'Membentuk Software Engineer dan Praktisi Cloud Modern Berbasis Nilai Islam & Inovasi Teknologi.',
+    value_en: 'Forming Modern Software Engineers and Cloud Practitioners based on Islamic Values & Tech Innovation.',
     updated_at: new Date().toISOString()
   },
   {
     key: 'kaprodi_welcome',
-    value: 'Selamat datang di Program Studi Kriya Tekstil dan Fashion Universitas Muhammadiyah Bandung. Kami berkomitmen mencetak desainer kreatif dan akademisi tangguh yang siap menjawab tantangan industri kreatif global.',
-    value_en: 'Welcome to the Craft Textile and Fashion Program at Universitas Muhammadiyah Bandung. We are committed to producing creative designers and resilient academics ready to meet global creative industry challenges.',
+    value: 'Selamat datang di Program Studi Teknik Informatika Universitas Muhammadiyah Bandung. Kami berfokus pada kurikulum modern berbasis proyek nyata, cloud computing, cybersecurity, dan kecerdasan buatan.',
+    value_en: 'Welcome to the Informatics Engineering Department of Universitas Muhammadiyah Bandung. We focus on modern curricula based on real projects, cloud computing, cybersecurity, and artificial intelligence.',
     updated_at: new Date().toISOString()
   },
   {
     key: 'kaprodi_name',
-    value: 'Dra. Hajah Hindun, M.Sn.',
-    value_en: 'Dra. Hajah Hindun, M.Sn.',
+    value: 'Ir. H. Muhammad Adi, M.T.',
+    value_en: 'Ir. H. Muhammad Adi, M.T.',
     updated_at: new Date().toISOString()
   },
   {
     key: 'kaprodi_title',
-    value: 'Ketua Program Studi KTF',
-    value_en: 'Head of KTF Department',
+    value: 'Ketua Program Studi Teknik Informatika',
+    value_en: 'Head of Informatics Department',
     updated_at: new Date().toISOString()
   },
   {
     key: 'philosophy_title',
-    value: 'Filosofi Desain Kami',
-    value_en: 'Our Design Philosophy',
+    value: 'Filosofi Pembelajaran Kami',
+    value_en: 'Our Learning Philosophy',
     updated_at: new Date().toISOString()
   },
   {
     key: 'philosophy_body',
-    value: 'Kami percaya bahwa kriya bukan sekadar kerajinan tangan, melainkan jembatan antara identitas budaya dan estetika masa depan. Kurikulum kami menyatukan kelestarian ekologi dengan eksperimen material baru.',
-    value_en: 'We believe that craft is not just handicraft, but a bridge between cultural identity and future aesthetics. Our curriculum integrates ecological sustainability with new material experimentation.',
+    value: 'Kami percaya bahwa pemrograman bukan hanya tentang mengetik baris kode, melainkan tentang membangun solusi komputasi yang efisien, etis, dan memberikan dampak nyata bagi masyarakat.',
+    value_en: 'We believe programming is not just about writing lines of code, but about building efficient, ethical computing solutions that deliver real impact to society.',
     updated_at: new Date().toISOString()
   }
 ];
