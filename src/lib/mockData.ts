@@ -150,7 +150,7 @@ const initialTestimonials: DbTestimonial[] = [
     by: 'Andini Kusuma, S.Kom (Software Engineer at Tokopedia)',
     by_en: 'Andini Kusuma, S.Kom (Software Engineer at Tokopedia)',
     img_src: 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?q=80&w=200&auto=format&fit=crop',
-    created_at: new Date(Date.now() - 50 * 24 * 60 * 60 * 1000).toISOString()
+    created_at: new Date(Date.now() - 60 * 24 * 60 * 60 * 1000).toISOString()
   },
   {
     id: '2',
@@ -159,23 +159,53 @@ const initialTestimonials: DbTestimonial[] = [
     by: 'Rian Hidayat, S.Kom (DevOps Engineer at GoTo)',
     by_en: 'Rian Hidayat, S.Kom (DevOps Engineer at GoTo)',
     img_src: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=200&auto=format&fit=crop',
-    created_at: new Date(Date.now() - 40 * 24 * 60 * 60 * 1000).toISOString()
+    created_at: new Date(Date.now() - 50 * 24 * 60 * 60 * 1000).toISOString()
   },
   {
     id: '3',
+    testimonial: 'Informatika UMB benar-benar mengasah kemampuan berpikir logis dan pemecahan masalah kompleks menggunakan teknologi kecerdasan buatan.',
+    testimonial_en: 'Informatics UMB really sharpens logical thinking and complex problem solving skills using artificial intelligence technology.',
+    by: 'Melati Indah, S.Kom (AI Researcher at Bukalapak)',
+    by_en: 'Melati Indah, S.Kom (AI Researcher at Bukalapak)',
+    img_src: 'https://images.unsplash.com/photo-1438761681033-6461ffad8d80?q=80&w=200&auto=format&fit=crop',
+    created_at: new Date(Date.now() - 40 * 24 * 60 * 60 * 1000).toISOString()
+  },
+  {
+    id: '4',
+    testimonial: 'Suasana lab yang kolaboratif membuat saya terbiasa melakukan eksperimen sistem dan coding tanpa takut gagal.',
+    testimonial_en: 'The collaborative lab atmosphere makes me accustomed to conducting system experiments and coding without fear of failure.',
+    by: 'Fauzan Adhi, S.Kom (Cybersecurity Analyst at Cyber Security Agency)',
+    by_en: 'Fauzan Adhi, S.Kom (Cybersecurity Analyst at Cyber Security Agency)',
+    img_src: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?q=80&w=200&auto=format&fit=crop',
+    created_at: new Date(Date.now() - 30 * 24 * 60 * 60 * 1000).toISOString()
+  },
+  {
+    id: '5',
     testimonial: 'Pembekalan portofolio proyek berkala selama perkuliahan sangat mempermudah saya ketika melamar kerja di perusahaan multinasional.',
     testimonial_en: 'Regular project portfolio preparation during college made it very easy for me when applying for jobs at multinational companies.',
     by: 'Sarah Amalia, S.Kom (Technical Product Manager at Shopee)',
     by_en: 'Sarah Amalia, S.Kom (Technical Product Manager at Shopee)',
-    img_src: 'https://images.unsplash.com/photo-1438761681033-6461ffad8d80?q=80&w=200&auto=format&fit=crop',
-    created_at: new Date(Date.now() - 30 * 24 * 60 * 60 * 1000).toISOString()
+    img_src: 'https://images.unsplash.com/photo-1544005313-94ddf0286df2?q=80&w=200&auto=format&fit=crop',
+    created_at: new Date(Date.now() - 20 * 24 * 60 * 60 * 1000).toISOString()
+  },
+  {
+    id: '6',
+    testimonial: 'Berkat bimbingan intensif dosen-dosen praktisi industri, saya bisa merilis proyek akhir saya di ajang kompetisi IT nasional.',
+    testimonial_en: 'Thanks to the intensive guidance of industry practitioner lecturers, I was able to release my final project in a national IT competition.',
+    by: 'Yusuf Maulana, S.Kom (Data Scientist at Telkom Indonesia)',
+    by_en: 'Yusuf Maulana, S.Kom (Data Scientist at Telkom Indonesia)',
+    img_src: 'https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?q=80&w=200&auto=format&fit=crop',
+    created_at: new Date(Date.now() - 10 * 24 * 60 * 60 * 1000).toISOString()
   }
 ];
 
 const initialPartners: DbPartner[] = [
   { id: '1', name: 'Asosiasi Telekomunikasi Indonesia', created_at: new Date().toISOString() },
-  { id: '2', name: 'Google Developer Groups Bandung', created_at: new Date().toISOString() },
-  { id: '3', name: 'PT GoTo Gojek Tokopedia Tbk', created_at: new Date().toISOString() }
+  { id: '2', name: 'PT Indonesia Digital Teknologi', created_at: new Date().toISOString() },
+  { id: '3', name: 'Google Developer Groups Bandung', created_at: new Date().toISOString() },
+  { id: '4', name: 'Kementerian Komunikasi & Informatika', created_at: new Date().toISOString() },
+  { id: '5', name: 'Ikatan Alumni Teknik Informatika (IKATI)', created_at: new Date().toISOString() },
+  { id: '6', name: 'PT GoTo Gojek Tokopedia Tbk', created_at: new Date().toISOString() }
 ];
 
 const initialLandingStats: DbLandingStat[] = [
@@ -188,7 +218,10 @@ const initialLandingStats: DbLandingStat[] = [
 const initialLandingPartners: DbLandingPartner[] = [
   { id: '1', name: 'PT GoTo Gojek Tokopedia Tbk', sort_order: 1 },
   { id: '2', name: 'Google Developer Groups Bandung', sort_order: 2 },
-  { id: '3', name: 'Asosiasi Telekomunikasi Indonesia', sort_order: 3 }
+  { id: '3', name: 'Asosiasi Telekomunikasi Indonesia', sort_order: 3 },
+  { id: '4', name: 'PT Indonesia Digital Teknologi', sort_order: 4 },
+  { id: '5', name: 'Kementerian Komunikasi & Informatika', sort_order: 5 },
+  { id: '6', name: 'Ikatan Alumni Teknik Informatika (IKATI)', sort_order: 6 }
 ];
 
 const initialLandingPortfolioItems: DbLandingPortfolioItem[] = [
@@ -221,6 +254,26 @@ const initialLandingPortfolioItems: DbLandingPortfolioItem[] = [
     year: 'Proyek Riset // Kementerian Dikti',
     gridClass: 'col-span-1 row-span-2',
     sort_order: 3
+  },
+  {
+    id: '4',
+    image: 'https://images.unsplash.com/photo-1576091160550-2173dba999ef?q=80&w=600&auto=format&fit=crop',
+    title: 'AI Lung Cancer Detection Model',
+    medium: 'Python & PyTorch',
+    technique: 'Developer: Ryu Hansen',
+    year: 'Karya Inovatif // Global Health',
+    gridClass: 'col-span-1 row-span-1',
+    sort_order: 4
+  },
+  {
+    id: '5',
+    image: 'https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?q=80&w=600&auto=format&fit=crop',
+    title: 'AR Campus Navigation System',
+    medium: 'Unity & C#',
+    technique: 'Developer: Farah Amalia',
+    year: 'Finalis // Indonesian Young Inventor',
+    gridClass: 'col-span-2 row-span-1',
+    sort_order: 5
   }
 ];
 
