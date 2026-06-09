@@ -1,5 +1,5 @@
 import { getSupabaseClient } from './supabase';
-import { mockDb, type DbNews, type DbEvent, type DbTestimonial, type DbPartner, type DbSiteContent, type DbLandingStat, type DbLandingPartner, type DbLandingPortfolioItem, type DbDosen } from './mockData';
+import { mockDb, initialSiteContent, type DbNews, type DbEvent, type DbTestimonial, type DbPartner, type DbSiteContent, type DbLandingStat, type DbLandingPartner, type DbLandingPortfolioItem, type DbDosen } from './mockData';
 
 export type ConnectionMode = 'supabase' | 'mock';
 
@@ -312,8 +312,20 @@ export const dataService = {
   // --- SITE CONTENT ---
   getSiteContent: async (): Promise<DbSiteContent[]> => {
     const supabase = getSupabaseClient();
+    
     if (!supabase) {
-      return mockDb.getAll<DbSiteContent>('site_content');
+      let localItems = mockDb.getAll<DbSiteContent>('site_content');
+      let updated = false;
+      for (const defaultItem of initialSiteContent) {
+        if (!localItems.some(item => item.key === defaultItem.key)) {
+          mockDb.insert<DbSiteContent>('site_content', defaultItem);
+          updated = true;
+        }
+      }
+      if (updated) {
+        localItems = mockDb.getAll<DbSiteContent>('site_content');
+      }
+      return localItems;
     }
 
     const { data, error } = await supabase
@@ -322,9 +334,38 @@ export const dataService = {
 
     if (error) {
       console.warn('Supabase getSiteContent failed, falling back to mock:', error.message);
-      return mockDb.getAll<DbSiteContent>('site_content');
+      let localItems = mockDb.getAll<DbSiteContent>('site_content');
+      let updated = false;
+      for (const defaultItem of initialSiteContent) {
+        if (!localItems.some(item => item.key === defaultItem.key)) {
+          mockDb.insert<DbSiteContent>('site_content', defaultItem);
+          updated = true;
+        }
+      }
+      if (updated) {
+        localItems = mockDb.getAll<DbSiteContent>('site_content');
+      }
+      return localItems;
     }
-    return data || [];
+
+    const fetchedData = data || [];
+    const missingItems = initialSiteContent.filter(
+      defaultItem => !fetchedData.some(item => item.key === defaultItem.key)
+    );
+
+    if (missingItems.length > 0) {
+      console.log('Inserting missing site content keys to Supabase:', missingItems.map(i => i.key));
+      const { data: insertedData, error: insertError } = await supabase
+        .from('site_content')
+        .insert(missingItems)
+        .select();
+      
+      if (!insertError && insertedData) {
+        return [...fetchedData, ...insertedData];
+      }
+    }
+
+    return fetchedData;
   },
 
   updateSiteContent: async (key: string, value: string, valueEn: string | null): Promise<DbSiteContent> => {

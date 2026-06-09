@@ -337,7 +337,7 @@ const initialLandingPortfolioItems: DbLandingPortfolioItem[] = [
   }
 ];
 
-const initialSiteContent: DbSiteContent[] = [
+export const initialSiteContent: DbSiteContent[] = [
   {
     key: 'hero_title',
     value: 'Teknik Informatika UMB Bandung',
