@@ -98,25 +98,6 @@ export default function Auth({
           </button>
         </form>
 
-        {/* Local Mock Helper */}
-        {connectionMode === 'mock' && (
-          <div className="mt-8 pt-6 border-t border-gray-100 text-center">
-            <p className="text-[10px] text-gray-400 mb-3 leading-relaxed">
-              * Local mode active. You can log in using any email & password (min 4 chars) to test the dashboard.
-            </p>
-            <button
-              type="button"
-              className="px-4 py-2 border border-gray-200 hover:bg-[#0B2545]/5 hover:border-[#0B2545]/20 text-[#0B2545] rounded-xl text-xs font-semibold transition cursor-pointer"
-              onClick={() => {
-                setAuthEmail('admin@umb.ac.id');
-                setAuthPassword('admin123');
-                triggerToast('Credentials pre-filled. Click Sign In!', 'warning');
-              }}
-            >
-              Auto-fill Credentials
-            </button>
-          </div>
-        )}
 
         {/* Bypass to settings */}
         <div className="mt-6 pt-4 border-t border-gray-100 flex justify-center">
