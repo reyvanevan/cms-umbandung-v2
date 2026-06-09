@@ -292,20 +292,26 @@ const initialSiteContent: DbSiteContent[] = [
   },
   {
     key: 'kaprodi_welcome',
-    value: 'Selamat datang di Program Studi Teknik Informatika Universitas Muhammadiyah Bandung. Kami berfokus pada kurikulum modern berbasis proyek nyata, cloud computing, cybersecurity, dan kecerdasan buatan.',
-    value_en: 'Welcome to the Informatics Engineering Department of Universitas Muhammadiyah Bandung. We focus on modern curricula based on real projects, cloud computing, cybersecurity, and artificial intelligence.',
+    value: 'Selamat datang di portal resmi Program Studi S1 Teknik Informatika Universitas Muhammadiyah Bandung. Kami berkomitmen untuk mencetak pemimpin teknologi dan rekayasawan perangkat lunak masa depan yang menguasai komputasi modern, sistem pemrograman, dan kecerdasan buatan.',
+    value_en: 'Welcome to the official portal of the S1 Program in Informatics Engineering at Universitas Muhammadiyah Bandung. We are committed to shaping future technology leaders and software engineers who master modern computing, programming systems, and artificial intelligence.',
+    updated_at: new Date().toISOString()
+  },
+  {
+    key: 'kaprodi_welcome_p2',
+    value: 'Fokus pengembangan kami terletak pada integrasi kemajuan ilmu komputer dengan kebutuhan praktis industri, menciptakan solusi dan sistem digital yang berdaya saing global serta berdampak sosial.',
+    value_en: 'Our development focus lies in integrating computer science advancements with practical industry needs, creating digital solutions and systems that are globally competitive and socially impactful.',
     updated_at: new Date().toISOString()
   },
   {
     key: 'kaprodi_name',
-    value: 'Ir. H. Muhammad Adi, M.T.',
-    value_en: 'Ir. H. Muhammad Adi, M.T.',
+    value: 'M. Yusuf Efendi, S.T., M.T.',
+    value_en: 'M. Yusuf Efendi, S.T., M.T.',
     updated_at: new Date().toISOString()
   },
   {
     key: 'kaprodi_title',
     value: 'Ketua Program Studi Teknik Informatika',
-    value_en: 'Head of Informatics Department',
+    value_en: 'Head of Informatics Engineering Department',
     updated_at: new Date().toISOString()
   },
   {
