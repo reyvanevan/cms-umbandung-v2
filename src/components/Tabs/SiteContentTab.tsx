@@ -171,12 +171,19 @@ export default function SiteContentTab({
                             <div className="space-y-3">
                               <div className="flex flex-col sm:flex-row gap-3 items-center">
                                 {vals.id && (
-                                  <img src={vals.id} className="w-20 h-20 object-cover rounded-xl border border-gray-200 shrink-0 bg-gray-50" alt="Preview" />
+                                  vals.id.toLowerCase().endsWith('.mp4') ||
+                                  vals.id.toLowerCase().endsWith('.webm') ||
+                                  vals.id.toLowerCase().endsWith('.ogg') ||
+                                  vals.id.startsWith('data:video/') ? (
+                                    <video src={vals.id} className="w-20 h-20 object-cover rounded-xl border border-gray-200 shrink-0 bg-gray-50" controls muted />
+                                  ) : (
+                                    <img src={vals.id} className="w-20 h-20 object-cover rounded-xl border border-gray-200 shrink-0 bg-gray-50" alt="Preview" />
+                                  )
                                 )}
                                 <div className="flex-1 w-full space-y-2">
                                   <input
                                     type="file"
-                                    accept="image/*"
+                                    accept="image/*,video/*"
                                     onChange={(e) => {
                                       const file = e.target.files?.[0];
                                       if (file) handleFileUpload(item.key, file);
@@ -186,7 +193,7 @@ export default function SiteContentTab({
                                   />
                                   <input
                                     type="text"
-                                    placeholder="Atau masukkan URL gambar langsung..."
+                                    placeholder="Atau masukkan URL media langsung..."
                                     className="w-full px-4 py-2 bg-white border border-gray-200 rounded-xl text-xs focus:outline-none focus:ring-2 focus:ring-gray-200 transition"
                                     value={vals.id}
                                     onChange={(e) => {

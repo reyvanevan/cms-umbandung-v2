@@ -315,6 +315,12 @@ const initialSiteContent: DbSiteContent[] = [
     updated_at: new Date().toISOString()
   },
   {
+    key: 'hero_bg_url',
+    value: '/assets/hero-mono-stigma.png',
+    value_en: '/assets/hero-mono-stigma.png',
+    updated_at: new Date().toISOString()
+  },
+  {
     key: 'kaprodi_name',
     value: 'M. Yusuf Efendi, S.T., M.T.',
     value_en: 'M. Yusuf Efendi, S.T., M.T.',
