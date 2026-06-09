@@ -1,6 +1,7 @@
 import React from 'react';
 import { X, Save } from 'lucide-react';
 import { type TabType } from '../../App';
+import { handleImageUpload } from '../../lib/supabase';
 import {
   type DbNews,
   type DbEvent,
@@ -13,6 +14,7 @@ import {
 interface CrudModalProps {
   activeModal: 'create' | 'edit' | null;
   activeTab: TabType;
+  connectionMode: 'supabase' | 'mock';
   onClose: () => void;
   onSubmit: (e: React.FormEvent) => void;
   newsForm: Omit<DbNews, 'id' | 'created_at'>;
@@ -32,6 +34,7 @@ interface CrudModalProps {
 export default function CrudModal({
   activeModal,
   activeTab,
+  connectionMode,
   onClose,
   onSubmit,
   newsForm,
@@ -47,6 +50,30 @@ export default function CrudModal({
   portfolioForm,
   setPortfolioForm
 }: CrudModalProps) {
+  const [isUploading, setIsUploading] = React.useState(false);
+  const [uploadError, setUploadError] = React.useState<string | null>(null);
+
+  const handleFileChange = async (
+    e: React.ChangeEvent<HTMLInputElement>,
+    onUploadSuccess: (url: string) => void
+  ) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+
+    setIsUploading(true);
+    setUploadError(null);
+    try {
+      const isSupabase = connectionMode === 'supabase';
+      const url = await handleImageUpload(file, isSupabase);
+      onUploadSuccess(url);
+    } catch (err: any) {
+      console.error(err);
+      setUploadError(err.message || 'Gagal mengunggah gambar');
+    } finally {
+      setIsUploading(false);
+    }
+  };
+
   if (!activeModal) return null;
 
   const getTabTitle = () => {
@@ -151,14 +178,31 @@ export default function CrudModal({
                   />
                 </div>
                 <div className="space-y-1">
-                  <label className="text-xs font-semibold text-gray-500 uppercase tracking-wider">Foto URL</label>
-                  <input
-                    type="text"
-                    className="w-full px-4 py-2.5 bg-gray-50 border border-gray-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-gray-200 focus:bg-white transition"
-                    value={newsForm.img_src}
-                    onChange={(e) => setNewsForm({ ...newsForm, img_src: e.target.value })}
-                    required
-                  />
+                  <label className="text-xs font-semibold text-gray-500 uppercase tracking-wider block">Foto Berita</label>
+                  <div className="flex flex-col sm:flex-row gap-3 items-center">
+                    {newsForm.img_src && (
+                      <img src={newsForm.img_src} className="w-14 h-14 object-cover rounded-xl border border-gray-200 shrink-0 bg-gray-50" alt="Preview" />
+                    )}
+                    <div className="flex-1 w-full space-y-2">
+                      <input
+                        type="file"
+                        accept="image/*"
+                        onChange={(e) => handleFileChange(e, (url) => setNewsForm({ ...newsForm, img_src: url }))}
+                        className="w-full text-xs text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-xl file:border-0 file:text-xs file:font-semibold file:bg-black file:text-white hover:file:bg-gray-800 file:cursor-pointer"
+                        disabled={isUploading}
+                      />
+                      <input
+                        type="text"
+                        placeholder="Atau masukkan URL gambar langsung..."
+                        className="w-full px-4 py-2 bg-gray-50 border border-gray-200 rounded-xl text-xs focus:outline-none focus:ring-2 focus:ring-gray-200 focus:bg-white transition"
+                        value={newsForm.img_src}
+                        onChange={(e) => setNewsForm({ ...newsForm, img_src: e.target.value })}
+                        required
+                      />
+                    </div>
+                  </div>
+                  {isUploading && <p className="text-[10px] text-gray-500 animate-pulse">Mengunggah gambar...</p>}
+                  {uploadError && <p className="text-[10px] text-red-500 font-semibold">{uploadError}</p>}
                 </div>
               </div>
             </>
@@ -274,14 +318,31 @@ export default function CrudModal({
                 </div>
               </div>
               <div className="space-y-1">
-                <label className="text-xs font-semibold text-gray-500 uppercase tracking-wider">Avatar / Foto Alumni URL</label>
-                <input
-                  type="text"
-                  className="w-full px-4 py-2.5 bg-gray-50 border border-gray-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-gray-200 focus:bg-white transition"
-                  value={testimonialForm.img_src}
-                  onChange={(e) => setTestimonialForm({ ...testimonialForm, img_src: e.target.value })}
-                  required
-                />
+                <label className="text-xs font-semibold text-gray-500 uppercase tracking-wider block">Avatar / Foto Alumni</label>
+                <div className="flex flex-col sm:flex-row gap-3 items-center">
+                  {testimonialForm.img_src && (
+                    <img src={testimonialForm.img_src} className="w-14 h-14 object-cover rounded-xl border border-gray-200 shrink-0 bg-gray-50" alt="Preview" />
+                  )}
+                  <div className="flex-1 w-full space-y-2">
+                    <input
+                      type="file"
+                      accept="image/*"
+                      onChange={(e) => handleFileChange(e, (url) => setTestimonialForm({ ...testimonialForm, img_src: url }))}
+                      className="w-full text-xs text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-xl file:border-0 file:text-xs file:font-semibold file:bg-black file:text-white hover:file:bg-gray-800 file:cursor-pointer"
+                      disabled={isUploading}
+                    />
+                    <input
+                      type="text"
+                      placeholder="Atau masukkan URL avatar langsung..."
+                      className="w-full px-4 py-2 bg-gray-50 border border-gray-200 rounded-xl text-xs focus:outline-none focus:ring-2 focus:ring-gray-200 focus:bg-white transition"
+                      value={testimonialForm.img_src}
+                      onChange={(e) => setTestimonialForm({ ...testimonialForm, img_src: e.target.value })}
+                      required
+                    />
+                  </div>
+                </div>
+                {isUploading && <p className="text-[10px] text-gray-500 animate-pulse">Mengunggah gambar...</p>}
+                {uploadError && <p className="text-[10px] text-red-500 font-semibold">{uploadError}</p>}
               </div>
             </>
           )}
@@ -408,14 +469,31 @@ export default function CrudModal({
                 </div>
               </div>
               <div className="space-y-1">
-                <label className="text-xs font-semibold text-gray-500 uppercase tracking-wider">Karya Foto URL</label>
-                <input
-                  type="text"
-                  className="w-full px-4 py-2.5 bg-gray-50 border border-gray-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-gray-200 focus:bg-white transition"
-                  value={portfolioForm.image}
-                  onChange={(e) => setPortfolioForm({ ...portfolioForm, image: e.target.value })}
-                  required
-                />
+                <label className="text-xs font-semibold text-gray-500 uppercase tracking-wider block">Foto Karya / Portfolio</label>
+                <div className="flex flex-col sm:flex-row gap-3 items-center">
+                  {portfolioForm.image && (
+                    <img src={portfolioForm.image} className="w-14 h-14 object-cover rounded-xl border border-gray-200 shrink-0 bg-gray-50" alt="Preview" />
+                  )}
+                  <div className="flex-1 w-full space-y-2">
+                    <input
+                      type="file"
+                      accept="image/*"
+                      onChange={(e) => handleFileChange(e, (url) => setPortfolioForm({ ...portfolioForm, image: url }))}
+                      className="w-full text-xs text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-xl file:border-0 file:text-xs file:font-semibold file:bg-black file:text-white hover:file:bg-gray-800 file:cursor-pointer"
+                      disabled={isUploading}
+                    />
+                    <input
+                      type="text"
+                      placeholder="Atau masukkan URL gambar langsung..."
+                      className="w-full px-4 py-2 bg-gray-50 border border-gray-200 rounded-xl text-xs focus:outline-none focus:ring-2 focus:ring-gray-200 focus:bg-white transition"
+                      value={portfolioForm.image}
+                      onChange={(e) => setPortfolioForm({ ...portfolioForm, image: e.target.value })}
+                      required
+                    />
+                  </div>
+                </div>
+                {isUploading && <p className="text-[10px] text-gray-500 animate-pulse">Mengunggah gambar...</p>}
+                {uploadError && <p className="text-[10px] text-red-500 font-semibold">{uploadError}</p>}
               </div>
             </>
           )}

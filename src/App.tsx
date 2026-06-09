@@ -627,6 +627,7 @@ export default function App() {
             <SiteContentTab
               siteContent={siteContents}
               isLoadingData={isLoadingData}
+              connectionMode={connectionMode}
               onUpdateContent={handleUpdateSiteContent}
             />
           )}
@@ -653,6 +654,7 @@ export default function App() {
         <CrudModal
           activeModal={activeModal}
           activeTab={activeTab}
+          connectionMode={connectionMode}
           onClose={() => {
             setActiveModal(null);
             setEditingId(null);

@@ -1,21 +1,42 @@
 import React, { useState } from 'react';
 import { Save, Search, RefreshCw } from 'lucide-react';
 import { type DbSiteContent } from '../../lib/mockData';
+import { handleImageUpload } from '../../lib/supabase';
 
 interface SiteContentTabProps {
   siteContent: DbSiteContent[];
   isLoadingData: boolean;
+  connectionMode: 'supabase' | 'mock';
   onUpdateContent: (key: string, value: string, valueEn: string | null) => Promise<void>;
 }
 
 export default function SiteContentTab({
   siteContent,
   isLoadingData,
+  connectionMode,
   onUpdateContent
 }: SiteContentTabProps) {
   const [searchQuery, setSearchQuery] = useState('');
   const [editValues, setEditValues] = useState<{ [key: string]: { id: string; en: string } }>({});
   const [savingKeys, setSavingKeys] = useState<{ [key: string]: boolean }>({});
+  const [uploadingKeys, setUploadingKeys] = useState<{ [key: string]: boolean }>({});
+  const [uploadErrors, setUploadErrors] = useState<{ [key: string]: string }>({});
+
+  const handleFileUpload = async (key: string, file: File) => {
+    setUploadingKeys((prev) => ({ ...prev, [key]: true }));
+    setUploadErrors((prev) => ({ ...prev, [key]: '' }));
+    try {
+      const isSupabase = connectionMode === 'supabase';
+      const url = await handleImageUpload(file, isSupabase);
+      handleInputChange(key, 'id', url);
+      handleInputChange(key, 'en', url);
+    } catch (err: any) {
+      console.error(err);
+      setUploadErrors((prev) => ({ ...prev, [key]: err.message || 'Gagal mengunggah gambar' }));
+    } finally {
+      setUploadingKeys((prev) => ({ ...prev, [key]: false }));
+    }
+  };
 
   // Initialize input state when values change
   React.useEffect(() => {
@@ -146,32 +167,68 @@ export default function SiteContentTab({
 
                         {/* Input Fields */}
                         <div className="flex-1 w-full space-y-3">
-                          {/* Indonesian */}
-                          <div>
-                            <div className="flex items-center gap-1.5 mb-1.5">
-                              <span className="text-[10px] font-bold px-1.5 py-0.5 bg-gray-100 rounded text-gray-500">ID</span>
-                              <span className="text-xs font-semibold text-gray-500">Bahasa Indonesia</span>
+                          {item.key.includes('photo') || item.key.includes('image') || item.key.includes('_url') ? (
+                            <div className="space-y-3">
+                              <div className="flex flex-col sm:flex-row gap-3 items-center">
+                                {vals.id && (
+                                  <img src={vals.id} className="w-20 h-20 object-cover rounded-xl border border-gray-200 shrink-0 bg-gray-50" alt="Preview" />
+                                )}
+                                <div className="flex-1 w-full space-y-2">
+                                  <input
+                                    type="file"
+                                    accept="image/*"
+                                    onChange={(e) => {
+                                      const file = e.target.files?.[0];
+                                      if (file) handleFileUpload(item.key, file);
+                                    }}
+                                    className="w-full text-xs text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-xl file:border-0 file:text-xs file:font-semibold file:bg-black file:text-white hover:file:bg-gray-800 file:cursor-pointer"
+                                    disabled={uploadingKeys[item.key]}
+                                  />
+                                  <input
+                                    type="text"
+                                    placeholder="Atau masukkan URL gambar langsung..."
+                                    className="w-full px-4 py-2 bg-white border border-gray-200 rounded-xl text-xs focus:outline-none focus:ring-2 focus:ring-gray-200 transition"
+                                    value={vals.id}
+                                    onChange={(e) => {
+                                      handleInputChange(item.key, 'id', e.target.value);
+                                      handleInputChange(item.key, 'en', e.target.value);
+                                    }}
+                                  />
+                                </div>
+                              </div>
+                              {uploadingKeys[item.key] && <p className="text-[10px] text-gray-500 animate-pulse">Mengunggah gambar...</p>}
+                              {uploadErrors[item.key] && <p className="text-[10px] text-red-500 font-semibold">{uploadErrors[item.key]}</p>}
                             </div>
-                            <textarea
-                              className="w-full px-4 py-2.5 bg-white border border-gray-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-gray-200 transition min-h-[60px]"
-                              value={vals.id}
-                              onChange={(e) => handleInputChange(item.key, 'id', e.target.value)}
-                            />
-                          </div>
+                          ) : (
+                            <>
+                              {/* Indonesian */}
+                              <div>
+                                <div className="flex items-center gap-1.5 mb-1.5">
+                                  <span className="text-[10px] font-bold px-1.5 py-0.5 bg-gray-100 rounded text-gray-500">ID</span>
+                                  <span className="text-xs font-semibold text-gray-500">Bahasa Indonesia</span>
+                                </div>
+                                <textarea
+                                  className="w-full px-4 py-2.5 bg-white border border-gray-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-gray-200 transition min-h-[60px]"
+                                  value={vals.id}
+                                  onChange={(e) => handleInputChange(item.key, 'id', e.target.value)}
+                                />
+                              </div>
 
-                          {/* English */}
-                          <div>
-                            <div className="flex items-center gap-1.5 mb-1.5">
-                              <span className="text-[10px] font-bold px-1.5 py-0.5 bg-gray-100 rounded text-gray-500">EN</span>
-                              <span className="text-xs font-semibold text-gray-500">English Translation</span>
-                            </div>
-                            <textarea
-                              className="w-full px-4 py-2.5 bg-white border border-gray-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-gray-200 transition min-h-[60px]"
-                              value={vals.en}
-                              onChange={(e) => handleInputChange(item.key, 'en', e.target.value)}
-                              placeholder="Leave blank to use Indonesian value"
-                            />
-                          </div>
+                              {/* English */}
+                              <div>
+                                <div className="flex items-center gap-1.5 mb-1.5">
+                                  <span className="text-[10px] font-bold px-1.5 py-0.5 bg-gray-100 rounded text-gray-500">EN</span>
+                                  <span className="text-xs font-semibold text-gray-500">English Translation</span>
+                                </div>
+                                <textarea
+                                  className="w-full px-4 py-2.5 bg-white border border-gray-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-gray-200 transition min-h-[60px]"
+                                  value={vals.en}
+                                  onChange={(e) => handleInputChange(item.key, 'en', e.target.value)}
+                                  placeholder="Leave blank to use Indonesian value"
+                                />
+                              </div>
+                            </>
+                          )}
                         </div>
 
                         {/* Save Button */}

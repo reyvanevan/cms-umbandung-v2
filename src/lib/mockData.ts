@@ -303,6 +303,12 @@ const initialSiteContent: DbSiteContent[] = [
     updated_at: new Date().toISOString()
   },
   {
+    key: 'kaprodi_photo_url',
+    value: '/assets/kaprodi.png',
+    value_en: '/assets/kaprodi.png',
+    updated_at: new Date().toISOString()
+  },
+  {
     key: 'kaprodi_name',
     value: 'M. Yusuf Efendi, S.T., M.T.',
     value_en: 'M. Yusuf Efendi, S.T., M.T.',

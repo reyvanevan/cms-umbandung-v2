@@ -114,3 +114,65 @@ export async function testConnection(): Promise<{ success: boolean; message: str
     return { success: false, message: `Network error: ${error?.message || 'Unknown error'}` };
   }
 }
+
+/**
+ * Upload a file to Supabase Storage bucket.
+ * Returns the public URL of the uploaded file.
+ */
+export async function uploadFile(
+  bucketName: string, 
+  filePath: string, 
+  file: File
+): Promise<{ success: boolean; url?: string; message?: string }> {
+  const supabase = getSupabaseClient();
+  if (!supabase) {
+    return { success: false, message: 'Supabase client not initialized' };
+  }
+
+  try {
+    const { error } = await supabase.storage
+      .from(bucketName)
+      .upload(filePath, file, {
+        cacheControl: '3600',
+        upsert: true
+      });
+
+    if (error) {
+      throw error;
+    }
+
+    const { data: { publicUrl } } = supabase.storage
+      .from(bucketName)
+      .getPublicUrl(filePath);
+
+    return { success: true, url: publicUrl };
+  } catch (error: any) {
+    console.error('File upload error:', error);
+    return { success: false, message: error.message || 'Error uploading file' };
+  }
+}
+
+/**
+ * Main upload handler for files (supporting both Supabase Storage and Local Base64 fallbacks)
+ */
+export async function handleImageUpload(
+  file: File,
+  isSupabase: boolean
+): Promise<string> {
+  if (isSupabase) {
+    const fileName = `${Date.now()}-${file.name.replace(/[^a-zA-Z0-9.]/g, '_')}`;
+    const result = await uploadFile('prodi-assets', `uploads/${fileName}`, file);
+    if (result.success && result.url) {
+      return result.url;
+    } else {
+      throw new Error(result.message || 'Gagal mengunggah file ke Supabase Storage');
+    }
+  } else {
+    return new Promise((resolve, reject) => {
+      const reader = new FileReader();
+      reader.onloadend = () => resolve(reader.result as string);
+      reader.onerror = reject;
+      reader.readAsDataURL(file);
+    });
+  }
+}
