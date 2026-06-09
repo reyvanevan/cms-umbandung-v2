@@ -69,6 +69,66 @@ export interface DbLandingPortfolioItem {
   sort_order: number;
 }
 
+export interface DbDosen {
+  id: string;
+  name: string;
+  img_src: string | null;
+  scopus: string | null;
+  sinta: string | null;
+  scholar: string | null;
+  facebook: string | null;
+  twitter: string | null;
+  tiktok: string | null;
+  instagram: string | null;
+  sort_order: number;
+  created_at: string;
+}
+
+const initialDosen: DbDosen[] = [
+  {
+    id: 'dosen-1',
+    name: 'Hanif Alamudin Manshur, S.Gz., M.Si.',
+    img_src: 'https://images.unsplash.com/photo-1560250097-0b93528c311a?q=80&w=300&auto=format&fit=crop',
+    scopus: '-',
+    sinta: '6704890',
+    scholar: '#',
+    facebook: '#',
+    twitter: '#',
+    tiktok: '#',
+    instagram: '#',
+    sort_order: 1,
+    created_at: new Date().toISOString()
+  },
+  {
+    id: 'dosen-2',
+    name: 'Vritta Amroini Wahyudi, S.Si., M.Si.',
+    img_src: 'https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?q=80&w=300&auto=format&fit=crop',
+    scopus: '-',
+    sinta: '6640055',
+    scholar: '#',
+    facebook: '#',
+    twitter: '#',
+    tiktok: '#',
+    instagram: '#',
+    sort_order: 2,
+    created_at: new Date().toISOString()
+  },
+  {
+    id: 'dosen-3',
+    name: 'Prof. Dr. Ir. Noor Harini, M.S.',
+    img_src: 'https://images.unsplash.com/photo-1580894732444-8fecef2271ff?q=80&w=300&auto=format&fit=crop',
+    scopus: '57203912449',
+    sinta: '6042313',
+    scholar: '#',
+    facebook: '#',
+    twitter: '#',
+    tiktok: '#',
+    instagram: '#',
+    sort_order: 3,
+    created_at: new Date().toISOString()
+  }
+];
+
 // Initial mock datasets
 const initialNews: DbNews[] = [
   {
@@ -371,6 +431,9 @@ function initStorage() {
   }
   if (!localStorage.getItem('mock_site_content')) {
     localStorage.setItem('mock_site_content', JSON.stringify(initialSiteContent));
+  }
+  if (!localStorage.getItem('mock_dosen')) {
+    localStorage.setItem('mock_dosen', JSON.stringify(initialDosen));
   }
 }
 

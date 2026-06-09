@@ -8,7 +8,8 @@ import {
   type DbTestimonial,
   type DbPartner,
   type DbLandingStat,
-  type DbLandingPortfolioItem
+  type DbLandingPortfolioItem,
+  type DbDosen
 } from '../../lib/mockData';
 
 interface CrudModalProps {
@@ -29,6 +30,8 @@ interface CrudModalProps {
   setStatForm: React.Dispatch<React.SetStateAction<Omit<DbLandingStat, 'id'>>>;
   portfolioForm: Omit<DbLandingPortfolioItem, 'id'>;
   setPortfolioForm: React.Dispatch<React.SetStateAction<Omit<DbLandingPortfolioItem, 'id'>>>;
+  dosenForm?: Omit<DbDosen, 'id' | 'created_at'>;
+  setDosenForm?: React.Dispatch<React.SetStateAction<Omit<DbDosen, 'id' | 'created_at'>>>;
 }
 
 export default function CrudModal({
@@ -48,7 +51,9 @@ export default function CrudModal({
   statForm,
   setStatForm,
   portfolioForm,
-  setPortfolioForm
+  setPortfolioForm,
+  dosenForm,
+  setDosenForm
 }: CrudModalProps) {
   const [isUploading, setIsUploading] = React.useState(false);
   const [uploadError, setUploadError] = React.useState<string | null>(null);
@@ -84,6 +89,7 @@ export default function CrudModal({
       case 'partners': return 'Mitra Industri';
       case 'landing_stats': return 'Statistik Ribbon';
       case 'landing_portfolio': return 'Portofolio';
+      case 'dosen': return 'Dosen & Staff';
       default: return 'Data';
     }
   };
@@ -488,6 +494,130 @@ export default function CrudModal({
                       className="w-full px-4 py-2 bg-gray-50 border border-gray-200 rounded-xl text-xs focus:outline-none focus:ring-2 focus:ring-gray-200 focus:bg-white transition"
                       value={portfolioForm.image}
                       onChange={(e) => setPortfolioForm({ ...portfolioForm, image: e.target.value })}
+                      required
+                    />
+                  </div>
+                </div>
+                {isUploading && <p className="text-[10px] text-gray-500 animate-pulse">Mengunggah gambar...</p>}
+                {uploadError && <p className="text-[10px] text-red-500 font-semibold">{uploadError}</p>}
+              </div>
+            </>
+          )}
+
+          {/* DOSEN FIELDS */}
+          {activeTab === 'dosen' && dosenForm && setDosenForm && (
+            <>
+              <div className="grid grid-cols-2 gap-4">
+                <div className="space-y-1">
+                  <label className="text-xs font-semibold text-gray-500 uppercase tracking-wider">Nama Lengkap & Gelar</label>
+                  <input
+                    type="text"
+                    className="w-full px-4 py-2.5 bg-gray-50 border border-gray-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-gray-200 focus:bg-white transition"
+                    value={dosenForm.name}
+                    onChange={(e) => setDosenForm({ ...dosenForm, name: e.target.value })}
+                    required
+                  />
+                </div>
+                <div className="space-y-1">
+                  <label className="text-xs font-semibold text-gray-500 uppercase tracking-wider">Urutan Tampilan</label>
+                  <input
+                    type="number"
+                    className="w-full px-4 py-2.5 bg-gray-50 border border-gray-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-gray-200 focus:bg-white transition"
+                    value={dosenForm.sort_order}
+                    onChange={(e) => setDosenForm({ ...dosenForm, sort_order: parseInt(e.target.value) || 0 })}
+                    required
+                  />
+                </div>
+              </div>
+              <div className="grid grid-cols-3 gap-4">
+                <div className="space-y-1">
+                  <label className="text-xs font-semibold text-gray-500 uppercase tracking-wider">ID Scopus</label>
+                  <input
+                    type="text"
+                    className="w-full px-4 py-2.5 bg-gray-50 border border-gray-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-gray-200 focus:bg-white transition"
+                    value={dosenForm.scopus || ''}
+                    onChange={(e) => setDosenForm({ ...dosenForm, scopus: e.target.value })}
+                  />
+                </div>
+                <div className="space-y-1">
+                  <label className="text-xs font-semibold text-gray-500 uppercase tracking-wider">ID Sinta</label>
+                  <input
+                    type="text"
+                    className="w-full px-4 py-2.5 bg-gray-50 border border-gray-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-gray-200 focus:bg-white transition"
+                    value={dosenForm.sinta || ''}
+                    onChange={(e) => setDosenForm({ ...dosenForm, sinta: e.target.value })}
+                  />
+                </div>
+                <div className="space-y-1">
+                  <label className="text-xs font-semibold text-gray-500 uppercase tracking-wider">ID Scholar</label>
+                  <input
+                    type="text"
+                    className="w-full px-4 py-2.5 bg-gray-50 border border-gray-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-gray-200 focus:bg-white transition"
+                    value={dosenForm.scholar || ''}
+                    onChange={(e) => setDosenForm({ ...dosenForm, scholar: e.target.value })}
+                  />
+                </div>
+              </div>
+              <div className="grid grid-cols-2 gap-4">
+                <div className="space-y-1">
+                  <label className="text-xs font-semibold text-gray-500 uppercase tracking-wider">Facebook URL</label>
+                  <input
+                    type="text"
+                    className="w-full px-4 py-2.5 bg-gray-50 border border-gray-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-gray-200 focus:bg-white transition"
+                    value={dosenForm.facebook || ''}
+                    onChange={(e) => setDosenForm({ ...dosenForm, facebook: e.target.value })}
+                  />
+                </div>
+                <div className="space-y-1">
+                  <label className="text-xs font-semibold text-gray-500 uppercase tracking-wider">Twitter URL</label>
+                  <input
+                    type="text"
+                    className="w-full px-4 py-2.5 bg-gray-50 border border-gray-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-gray-200 focus:bg-white transition"
+                    value={dosenForm.twitter || ''}
+                    onChange={(e) => setDosenForm({ ...dosenForm, twitter: e.target.value })}
+                  />
+                </div>
+              </div>
+              <div className="grid grid-cols-2 gap-4">
+                <div className="space-y-1">
+                  <label className="text-xs font-semibold text-gray-500 uppercase tracking-wider">TikTok URL</label>
+                  <input
+                    type="text"
+                    className="w-full px-4 py-2.5 bg-gray-50 border border-gray-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-gray-200 focus:bg-white transition"
+                    value={dosenForm.tiktok || ''}
+                    onChange={(e) => setDosenForm({ ...dosenForm, tiktok: e.target.value })}
+                  />
+                </div>
+                <div className="space-y-1">
+                  <label className="text-xs font-semibold text-gray-500 uppercase tracking-wider">Instagram URL</label>
+                  <input
+                    type="text"
+                    className="w-full px-4 py-2.5 bg-gray-50 border border-gray-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-gray-200 focus:bg-white transition"
+                    value={dosenForm.instagram || ''}
+                    onChange={(e) => setDosenForm({ ...dosenForm, instagram: e.target.value })}
+                  />
+                </div>
+              </div>
+              <div className="space-y-1">
+                <label className="text-xs font-semibold text-gray-500 uppercase tracking-wider block">Foto Dosen</label>
+                <div className="flex flex-col sm:flex-row gap-3 items-center">
+                  {dosenForm.img_src && (
+                    <img src={dosenForm.img_src} className="w-14 h-14 object-cover rounded-xl border border-gray-200 shrink-0 bg-gray-50" alt="Preview" />
+                  )}
+                  <div className="flex-1 w-full space-y-2">
+                    <input
+                      type="file"
+                      accept="image/*"
+                      onChange={(e) => handleFileChange(e, (url) => setDosenForm({ ...dosenForm, img_src: url }))}
+                      className="w-full text-xs text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-xl file:border-0 file:text-xs file:font-semibold file:bg-black file:text-white hover:file:bg-gray-800 file:cursor-pointer"
+                      disabled={isUploading}
+                    />
+                    <input
+                      type="text"
+                      placeholder="Atau masukkan URL foto langsung..."
+                      className="w-full px-4 py-2 bg-gray-50 border border-gray-200 rounded-xl text-xs focus:outline-none focus:ring-2 focus:ring-gray-200 focus:bg-white transition"
+                      value={dosenForm.img_src || ''}
+                      onChange={(e) => setDosenForm({ ...dosenForm, img_src: e.target.value })}
                       required
                     />
                   </div>

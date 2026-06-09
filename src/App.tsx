@@ -8,7 +8,8 @@ import {
   type DbPartner,
   type DbSiteContent,
   type DbLandingStat,
-  type DbLandingPortfolioItem
+  type DbLandingPortfolioItem,
+  type DbDosen
 } from './lib/mockData';
 
 // Import modular layouts
@@ -28,6 +29,7 @@ import StatsTab from './components/Tabs/StatsTab';
 import PortfolioTab from './components/Tabs/PortfolioTab';
 import SiteContentTab from './components/Tabs/SiteContentTab';
 import SettingsTab from './components/Tabs/SettingsTab';
+import DosenTab from './components/Tabs/DosenTab';
 
 export interface Toast {
   id: string;
@@ -44,7 +46,8 @@ export type TabType =
   | 'landing_stats'
   | 'landing_portfolio'
   | 'site_content'
-  | 'settings';
+  | 'settings'
+  | 'dosen';
 
 export default function App() {
   // --- Auth State ---
@@ -69,6 +72,7 @@ export default function App() {
   const [siteContents, setSiteContents] = useState<DbSiteContent[]>([]);
   const [landingStats, setLandingStats] = useState<DbLandingStat[]>([]);
   const [landingPortfolioItems, setLandingPortfolioItems] = useState<DbLandingPortfolioItem[]>([]);
+  const [dosenList, setDosenList] = useState<DbDosen[]>([]);
 
   const [isLoadingData, setIsLoadingData] = useState<boolean>(false);
 
@@ -103,6 +107,10 @@ export default function App() {
 
   const [portfolioForm, setPortfolioForm] = useState<Omit<DbLandingPortfolioItem, 'id'>>({
     image: '', title: '', medium: '', technique: '', year: '', gridClass: 'col-span-1', sort_order: 0
+  });
+
+  const [dosenForm, setDosenForm] = useState<Omit<DbDosen, 'id' | 'created_at'>>({
+    name: '', img_src: '', scopus: '', sinta: '', scholar: '', facebook: '', twitter: '', tiktok: '', instagram: '', sort_order: 0
   });
 
   // --- Toast Trigger Helper ---
@@ -193,6 +201,8 @@ export default function App() {
         setLandingStats(await dataService.getLandingStats());
       } else if (activeTab === 'landing_portfolio') {
         setLandingPortfolioItems(await dataService.getLandingPortfolioItems());
+      } else if (activeTab === 'dosen') {
+        setDosenList(await dataService.getDosen());
       }
     } catch (err: any) {
       console.error(err);
@@ -286,6 +296,7 @@ export default function App() {
     localStorage.removeItem('mock_landing_partners');
     localStorage.removeItem('mock_landing_portfolio_items');
     localStorage.removeItem('mock_site_content');
+    localStorage.removeItem('mock_dosen');
     triggerToast('Mock database reset to defaults!', 'success');
     fetchCollectionData();
   };
@@ -342,6 +353,14 @@ export default function App() {
           await dataService.updateLandingPortfolioItem(editingId, portfolioForm);
           triggerToast('Karya berhasil diperbarui!');
         }
+      } else if (activeTab === 'dosen') {
+        if (activeModal === 'create') {
+          await dataService.createDosen(dosenForm);
+          triggerToast('Dosen berhasil ditambahkan!');
+        } else if (activeModal === 'edit' && editingId) {
+          await dataService.updateDosen(editingId, dosenForm);
+          triggerToast('Dosen berhasil diperbarui!');
+        }
       }
 
       setActiveModal(null);
@@ -367,6 +386,8 @@ export default function App() {
         await dataService.deleteLandingStat(deletingId);
       } else if (activeTab === 'landing_portfolio') {
         await dataService.deleteLandingPortfolioItem(deletingId);
+      } else if (activeTab === 'dosen') {
+        await dataService.deleteDosen(deletingId);
       }
 
       triggerToast('Item berhasil dihapus!', 'success');
@@ -398,6 +419,7 @@ export default function App() {
     setPartnerForm({ name: '' });
     setStatForm({ number: '', label: '', sort_order: landingStats.length + 1 });
     setPortfolioForm({ image: '', title: '', medium: '', technique: '', year: '', gridClass: 'col-span-1', sort_order: landingPortfolioItems.length + 1 });
+    setDosenForm({ name: '', img_src: '', scopus: '', sinta: '', scholar: '', facebook: '', twitter: '', tiktok: '', instagram: '', sort_order: dosenList.length + 1 });
     setActiveModal('create');
   };
 
@@ -450,6 +472,19 @@ export default function App() {
         year: item.year,
         gridClass: item.gridClass,
         sort_order: item.sort_order
+      });
+    } else if (activeTab === 'dosen') {
+      setDosenForm({
+        name: item.name,
+        img_src: item.img_src || '',
+        scopus: item.scopus || '',
+        sinta: item.sinta || '',
+        scholar: item.scholar || '',
+        facebook: item.facebook || '',
+        twitter: item.twitter || '',
+        tiktok: item.tiktok || '',
+        instagram: item.instagram || '',
+        sort_order: item.sort_order || 0
       });
     }
     setActiveModal('edit');
@@ -596,6 +631,19 @@ export default function App() {
             />
           )}
 
+          {/* DOSEN VIEW */}
+          {activeTab === 'dosen' && (
+            <DosenTab
+              dosenList={dosenList}
+              searchQuery={searchQuery}
+              setSearchQuery={setSearchQuery}
+              isLoadingData={isLoadingData}
+              openCreateModal={openCreateModal}
+              openEditModal={openEditModal}
+              openDeleteModal={openDeleteModal}
+            />
+          )}
+
           {/* LANDING STATS VIEW */}
           {activeTab === 'landing_stats' && (
             <StatsTab
@@ -672,6 +720,8 @@ export default function App() {
           setStatForm={setStatForm}
           portfolioForm={portfolioForm}
           setPortfolioForm={setPortfolioForm}
+          dosenForm={dosenForm}
+          setDosenForm={setDosenForm}
         />
       )}
 

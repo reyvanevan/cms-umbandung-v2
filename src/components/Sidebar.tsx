@@ -9,7 +9,8 @@ import {
   LayoutGrid,
   TrendingUp,
   Image,
-  FileText
+  FileText,
+  GraduationCap
 } from 'lucide-react';
 import { type TabType } from '../App';
 
@@ -96,6 +97,16 @@ export default function Sidebar({
             >
               <Users className="w-4 h-4 text-gray-500" />
               <span>Mitra Industri</span>
+            </button>
+
+            <button
+              onClick={() => setActiveTab('dosen')}
+              className={`w-full sidebar-item flex items-center gap-3 px-3 py-2.5 rounded-xl transition text-left ${
+                activeTab === 'dosen' ? 'active text-black' : 'hover:bg-gray-50'
+              }`}
+            >
+              <GraduationCap className="w-4 h-4 text-gray-500" />
+              <span>Dosen & Staff</span>
             </button>
           </div>
         </div>

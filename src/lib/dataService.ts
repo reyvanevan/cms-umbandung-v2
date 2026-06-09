@@ -1,5 +1,5 @@
 import { getSupabaseClient } from './supabase';
-import { mockDb, type DbNews, type DbEvent, type DbTestimonial, type DbPartner, type DbSiteContent, type DbLandingStat, type DbLandingPartner, type DbLandingPortfolioItem } from './mockData';
+import { mockDb, type DbNews, type DbEvent, type DbTestimonial, type DbPartner, type DbSiteContent, type DbLandingStat, type DbLandingPartner, type DbLandingPortfolioItem, type DbDosen } from './mockData';
 
 export type ConnectionMode = 'supabase' | 'mock';
 
@@ -567,6 +567,81 @@ export const dataService = {
 
     const { error } = await supabase
       .from('landing_portfolio_items')
+      .delete()
+      .eq('id', id);
+
+    if (error) {
+      throw new Error(`Supabase error: ${error.message}`);
+    }
+  },
+
+  // --- DOSEN ---
+  getDosen: async (): Promise<DbDosen[]> => {
+    const supabase = getSupabaseClient();
+    if (!supabase) {
+      return mockDb.getAll<DbDosen>('dosen').sort((a, b) => a.sort_order - b.sort_order);
+    }
+
+    const { data, error } = await supabase
+      .from('dosen')
+      .select('*')
+      .order('sort_order', { ascending: true });
+
+    if (error) {
+      console.warn('Supabase getDosen failed, falling back to mock:', error.message);
+      return mockDb.getAll<DbDosen>('dosen').sort((a, b) => a.sort_order - b.sort_order);
+    }
+    return data || [];
+  },
+
+  createDosen: async (dosen: Omit<DbDosen, 'id' | 'created_at'>): Promise<DbDosen> => {
+    const supabase = getSupabaseClient();
+    if (!supabase) {
+      return mockDb.insert<DbDosen>('dosen', dosen);
+    }
+
+    const { data, error } = await supabase
+      .from('dosen')
+      .insert([dosen])
+      .select()
+      .single();
+
+    if (error) {
+      throw new Error(`Supabase error: ${error.message}`);
+    }
+    return data;
+  },
+
+  updateDosen: async (id: string, updates: Partial<DbDosen>): Promise<DbDosen> => {
+    const supabase = getSupabaseClient();
+    if (!supabase) {
+      const updated = mockDb.update<DbDosen>('dosen', id, updates);
+      if (!updated) throw new Error('Item not found in mock database');
+      return updated;
+    }
+
+    const { data, error } = await supabase
+      .from('dosen')
+      .update(updates)
+      .eq('id', id)
+      .select()
+      .single();
+
+    if (error) {
+      throw new Error(`Supabase error: ${error.message}`);
+    }
+    return data;
+  },
+
+  deleteDosen: async (id: string): Promise<void> => {
+    const supabase = getSupabaseClient();
+    if (!supabase) {
+      mockDb.delete('dosen', id);
+      return;
+    }
+
+    const { error } = await supabase
+      .from('dosen')
       .delete()
       .eq('id', id);
 
