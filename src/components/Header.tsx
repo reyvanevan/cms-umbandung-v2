@@ -1,4 +1,4 @@
-import { RefreshCw } from 'lucide-react';
+import { RefreshCw, Database, Wifi, WifiOff } from 'lucide-react';
 import { type TabType } from '../App';
 import { type ConnectionMode } from '../lib/dataService';
 
@@ -11,6 +11,38 @@ interface HeaderProps {
   children?: React.ReactNode;
 }
 
+const TAB_LABELS: Record<TabType, string> = {
+  dashboard: 'Dashboard',
+  news: 'Berita & Artikel',
+  events: 'Agenda & Kegiatan',
+  testimonials: 'Testimoni Alumni',
+  partners: 'Mitra Industri',
+  landing_stats: 'Statistik Ribbon',
+  landing_portfolio: 'Galeri Portfolio',
+  site_content: 'Konten Teks Halaman',
+  settings: 'Database & Setup',
+  dosen: 'Dosen & Staff',
+  kurikulum_courses: 'Mata Kuliah',
+  kurikulum_plos: 'CPL / PLO',
+  kurikulum_profiles: 'Profil Lulusan',
+  tugas_akhir_steps: 'Tahapan Tugas Akhir',
+};
+
+const TAB_GROUPS: Partial<Record<TabType, string>> = {
+  news: 'Konten Umum',
+  events: 'Konten Umum',
+  testimonials: 'Konten Umum',
+  kurikulum_courses: 'Akademik',
+  kurikulum_plos: 'Akademik',
+  kurikulum_profiles: 'Akademik',
+  tugas_akhir_steps: 'Akademik',
+  dosen: 'Halaman & Konten',
+  partners: 'Halaman & Konten',
+  landing_stats: 'Halaman & Konten',
+  landing_portfolio: 'Halaman & Konten',
+  site_content: 'Halaman & Konten',
+};
+
 export default function Header({
   activeTab,
   connectionMode,
@@ -19,59 +51,60 @@ export default function Header({
   checkDatabaseConnection,
   children
 }: HeaderProps) {
-  const getTabLabel = () => {
-    switch (activeTab) {
-      case 'dashboard':
-        return 'Home';
-      case 'news':
-        return 'Berita & Artikel';
-      case 'events':
-        return 'Agenda & Kegiatan';
-      case 'testimonials':
-        return 'Testimoni Alumni';
-      case 'partners':
-        return 'Mitra Industri';
-      case 'landing_stats':
-        return 'Statistik Ribbon';
-      case 'landing_portfolio':
-        return 'Galeri Portfolio';
-      case 'site_content':
-        return 'Konten Teks Halaman';
-      case 'settings':
-        return 'Database & Setup';
-      default:
-        return 'CMS Prodi';
-    }
-  };
+  const group = TAB_GROUPS[activeTab];
+  const label = TAB_LABELS[activeTab] ?? 'CMS Prodi';
+  const isOnline = connectionMode === 'supabase';
 
   return (
-    <header className="px-8 py-5 flex items-center justify-between border-b border-gray-100 bg-white">
+    <header className="px-7 py-4 flex items-center justify-between border-b border-gray-100 bg-white/80 backdrop-blur-sm sticky top-0 z-20">
       {/* Breadcrumbs */}
-      <div className="flex items-center gap-2 text-sm text-gray-400 font-medium">
-        <span>CMS Prodi</span>
+      <div className="flex items-center gap-1.5 text-sm">
+        <span className="text-gray-400 font-medium">CMS Prodi</span>
+        {group && (
+          <>
+            <span className="text-gray-300">/</span>
+            <span className="text-gray-400 font-medium">{group}</span>
+          </>
+        )}
         <span className="text-gray-300">/</span>
-        <span className="text-gray-800 font-semibold">{getTabLabel()}</span>
+        <span className="text-gray-900 font-semibold">{label}</span>
       </div>
 
       {/* Right-hand Controls */}
-      <div className="flex items-center gap-4">
-        {/* Connection status card */}
-        <div className="flex items-center gap-2 px-3 py-1.5 bg-gray-50 border border-gray-100 rounded-xl text-xs text-gray-600">
-          <span className={`w-2 h-2 rounded-full ${connectionMode === 'supabase' ? 'bg-green-500 animate-pulse' : 'bg-amber-500'}`} />
-          <span className="font-semibold uppercase truncate max-w-[150px]" title={dbStatusMessage}>
-            {connectionMode === 'supabase' ? 'Database Online' : 'Local Mock Mode'}
+      <div className="flex items-center gap-3">
+        {/* Connection status */}
+        <button
+          onClick={checkDatabaseConnection}
+          disabled={isStatusChecking}
+          className="flex items-center gap-2 px-3 py-1.5 rounded-xl text-xs font-semibold border transition-all cursor-pointer"
+          style={{
+            background: isOnline ? '#F0FDF4' : '#FFFBEB',
+            borderColor: isOnline ? '#BBF7D0' : '#FDE68A',
+            color: isOnline ? '#15803D' : '#92400E',
+          }}
+          title={dbStatusMessage}
+        >
+          {isStatusChecking
+            ? <RefreshCw className="w-3 h-3 animate-spin" />
+            : isOnline
+              ? <Wifi className="w-3 h-3" />
+              : <WifiOff className="w-3 h-3" />
+          }
+          <span className="hidden sm:inline">
+            {isOnline ? 'Supabase Connected' : 'Local Mock Mode'}
           </span>
-          <button
-            onClick={checkDatabaseConnection}
-            className="p-1 hover:bg-gray-200 rounded text-gray-400 hover:text-gray-900 transition ml-1 cursor-pointer"
-            title="Recheck Connection"
-            disabled={isStatusChecking}
-          >
-            <RefreshCw className={`w-3.5 h-3.5 ${isStatusChecking ? 'animate-spin text-black' : ''}`} />
-          </button>
+          <span
+            className="w-1.5 h-1.5 rounded-full"
+            style={{ background: isOnline ? '#22C55E' : '#F59E0B' }}
+          />
+        </button>
+
+        {/* DB Icon shortcut */}
+        <div title={dbStatusMessage} className="hidden md:flex">
+          <Database className="w-4 h-4 text-gray-300" />
         </div>
 
-        {/* Custom Actions (e.g. "Add News" button) */}
+        {/* Custom action buttons from parent */}
         {children && <div className="flex items-center gap-2">{children}</div>}
       </div>
     </header>

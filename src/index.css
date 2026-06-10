@@ -3,56 +3,52 @@
 @layer base {
   body {
     font-family: 'Inter', -apple-system, sans-serif;
-    background-color: #F9FAFB;
+    background-color: #F1F5F9;
     color: #1F2937;
   }
 }
 
+/* Legacy sidebar-item (kept for any remaining references) */
 .sidebar-item:hover {
-  background-color: #F3F4F6;
+  background-color: rgba(255, 255, 255, 0.05);
 }
-
 .sidebar-item.active {
-  background-color: #F3F4F6;
+  background-color: rgba(59, 130, 246, 0.18);
   font-weight: 600;
 }
 
+/* Glass card */
 .glass-card {
-  background: rgba(255, 255, 255, 0.8);
-  backdrop-filter: blur(10px);
+  background: rgba(255, 255, 255, 0.85);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(255,255,255,0.6);
 }
 
-.gradient-1 {
-  background: linear-gradient(135deg, #fdf2f8 0%, #eef2ff 100%);
-}
+/* Dashboard gradient cards */
+.gradient-1 { background: linear-gradient(135deg, #dbeafe 0%, #ede9fe 100%); }
+.gradient-2 { background: linear-gradient(135deg, #d1fae5 0%, #cffafe 100%); }
+.gradient-3 { background: linear-gradient(135deg, #fef3c7 0%, #fde8d8 100%); }
+.gradient-4 { background: linear-gradient(135deg, #fce7f3 0%, #ede9fe 100%); }
 
-.gradient-2 {
-  background: linear-gradient(135deg, #f5f3ff 0%, #ecfeff 100%);
-}
+/* Dark sidebar scrollbar */
+aside::-webkit-scrollbar { width: 3px; }
+aside::-webkit-scrollbar-track { background: transparent; }
+aside::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.1); border-radius: 99px; }
+aside::-webkit-scrollbar-thumb:hover { background: rgba(255,255,255,0.2); }
 
-.gradient-3 {
-  background: linear-gradient(135deg, #eff6ff 0%, #f0fdf4 100%);
-}
+/* Main content area scrollbar */
+main::-webkit-scrollbar,
+.main-scroll::-webkit-scrollbar { width: 5px; height: 5px; }
+main::-webkit-scrollbar-track,
+.main-scroll::-webkit-scrollbar-track { background: #F1F5F9; }
+main::-webkit-scrollbar-thumb,
+.main-scroll::-webkit-scrollbar-thumb { background: #CBD5E1; border-radius: 4px; }
+main::-webkit-scrollbar-thumb:hover,
+.main-scroll::-webkit-scrollbar-thumb:hover { background: #94A3B8; }
 
-.gradient-4 {
-  background: linear-gradient(135deg, #fff1f2 0%, #fef2f2 100%);
+/* Smooth group expand animation */
+@keyframes slideDown {
+  from { opacity: 0; transform: translateY(-4px); }
+  to { opacity: 1; transform: translateY(0); }
 }
-
-/* Custom scrollbars matching modern light style */
-::-webkit-scrollbar {
-  width: 6px;
-  height: 6px;
-}
-
-::-webkit-scrollbar-track {
-  background: #F9FAFB;
-}
-
-::-webkit-scrollbar-thumb {
-  background: #E5E7EB;
-  border-radius: 4px;
-}
-
-::-webkit-scrollbar-thumb:hover {
-  background: #D1D5DB;
-}
+.nav-group-items { animation: slideDown 0.15s ease-out; }
