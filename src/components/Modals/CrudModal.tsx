@@ -116,98 +116,98 @@ export default function CrudModal({
           {activeTab === 'news' && (
             <>
               <div className="space-y-1">
-                <label className="text-xs font-semibold text-gray-500 uppercase tracking-wider">Judul Berita (Indonesian)</label>
+                <label className="text-xs font-bold text-slate-700">Judul Berita (Bahasa Indonesia)</label>
                 <input
                   type="text"
-                  className="w-full px-4 py-2.5 bg-gray-50 border border-gray-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-gray-200 focus:bg-white transition"
+                  className="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-slate-900/10 focus:border-slate-400 focus:bg-white transition"
                   value={newsForm.title}
                   onChange={(e) => setNewsForm({ ...newsForm, title: e.target.value })}
                   required
                 />
               </div>
               <div className="space-y-1">
-                <label className="text-xs font-semibold text-gray-500 uppercase tracking-wider">Judul Berita (English Translation)</label>
+                <label className="text-xs font-bold text-slate-700">Judul Berita (English)</label>
                 <input
                   type="text"
-                  className="w-full px-4 py-2.5 bg-gray-50 border border-gray-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-gray-200 focus:bg-white transition"
+                  className="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-slate-900/10 focus:border-slate-400 focus:bg-white transition"
                   value={newsForm.title_en || ''}
                   onChange={(e) => setNewsForm({ ...newsForm, title_en: e.target.value })}
                 />
               </div>
               <div className="grid grid-cols-2 gap-4">
                 <div className="space-y-1">
-                  <label className="text-xs font-semibold text-gray-500 uppercase tracking-wider">Kategori (ID)</label>
+                  <label className="text-xs font-bold text-slate-700">Kategori (Bahasa Indonesia)</label>
                   <input
                     type="text"
-                    className="w-full px-4 py-2.5 bg-gray-50 border border-gray-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-gray-200 focus:bg-white transition"
+                    className="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-slate-900/10 focus:border-slate-400 focus:bg-white transition"
                     value={newsForm.category}
                     onChange={(e) => setNewsForm({ ...newsForm, category: e.target.value })}
                     required
                   />
                 </div>
                 <div className="space-y-1">
-                  <label className="text-xs font-semibold text-gray-500 uppercase tracking-wider">Category (EN)</label>
+                  <label className="text-xs font-bold text-slate-700">Kategori (English)</label>
                   <input
                     type="text"
-                    className="w-full px-4 py-2.5 bg-gray-50 border border-gray-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-gray-200 focus:bg-white transition"
+                    className="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-slate-900/10 focus:border-slate-400 focus:bg-white transition"
                     value={newsForm.category_en || ''}
                     onChange={(e) => setNewsForm({ ...newsForm, category_en: e.target.value })}
                   />
                 </div>
               </div>
               <div className="space-y-1">
-                <label className="text-xs font-semibold text-gray-500 uppercase tracking-wider">Ringkasan / Snippet (ID)</label>
+                <label className="text-xs font-bold text-slate-700">Ringkasan Berita (Bahasa Indonesia)</label>
                 <textarea
-                  className="w-full px-4 py-2.5 bg-gray-50 border border-gray-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-gray-200 focus:bg-white transition min-h-[80px]"
+                  className="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-slate-900/10 focus:border-slate-400 focus:bg-white transition min-h-[80px]"
                   value={newsForm.snippet}
                   onChange={(e) => setNewsForm({ ...newsForm, snippet: e.target.value })}
                   required
                 />
               </div>
               <div className="space-y-1">
-                <label className="text-xs font-semibold text-gray-500 uppercase tracking-wider">Snippet (EN)</label>
+                <label className="text-xs font-bold text-slate-700">Ringkasan Berita (English)</label>
                 <textarea
-                  className="w-full px-4 py-2.5 bg-gray-50 border border-gray-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-gray-200 focus:bg-white transition min-h-[80px]"
+                  className="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-slate-900/10 focus:border-slate-400 focus:bg-white transition min-h-[80px]"
                   value={newsForm.snippet_en || ''}
                   onChange={(e) => setNewsForm({ ...newsForm, snippet_en: e.target.value })}
                 />
               </div>
               <div className="grid grid-cols-2 gap-4">
                 <div className="space-y-1">
-                  <label className="text-xs font-semibold text-gray-500 uppercase tracking-wider">Tanggal Tampilan (e.g. 12 Okt 2026)</label>
+                  <label className="text-xs font-bold text-slate-700">Tanggal Tampilan (contoh: 12 Okt 2026)</label>
                   <input
                     type="text"
-                    className="w-full px-4 py-2.5 bg-gray-50 border border-gray-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-gray-200 focus:bg-white transition"
+                    className="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-slate-900/10 focus:border-slate-400 focus:bg-white transition"
                     value={newsForm.date}
                     onChange={(e) => setNewsForm({ ...newsForm, date: e.target.value })}
                     required
                   />
                 </div>
                 <div className="space-y-1">
-                  <label className="text-xs font-semibold text-gray-500 uppercase tracking-wider block">Foto Berita</label>
+                  <label className="text-xs font-bold text-slate-700 block">Foto Berita</label>
                   <div className="flex flex-col sm:flex-row gap-3 items-center">
                     {newsForm.img_src && (
-                      <img src={newsForm.img_src} className="w-14 h-14 object-cover rounded-xl border border-gray-200 shrink-0 bg-gray-50" alt="Preview" />
+                      <img src={newsForm.img_src} className="w-14 h-14 object-cover rounded-xl border border-slate-200 shrink-0 bg-slate-50" alt="Preview" />
                     )}
                     <div className="flex-1 w-full space-y-2">
                       <input
                         type="file"
                         accept="image/*"
                         onChange={(e) => handleFileChange(e, (url) => setNewsForm({ ...newsForm, img_src: url }))}
-                        className="w-full text-xs text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-xl file:border-0 file:text-xs file:font-semibold file:bg-black file:text-white hover:file:bg-gray-800 file:cursor-pointer"
+                        className="w-full text-xs text-slate-500 file:mr-4 file:py-1.5 file:px-3 file:rounded-lg file:border-0 file:text-[11px] file:font-semibold file:bg-slate-900 file:text-white hover:file:bg-slate-800 file:cursor-pointer"
                         disabled={isUploading}
                       />
                       <input
                         type="text"
                         placeholder="Atau masukkan URL gambar langsung..."
-                        className="w-full px-4 py-2 bg-gray-50 border border-gray-200 rounded-xl text-xs focus:outline-none focus:ring-2 focus:ring-gray-200 focus:bg-white transition"
+                        className="w-full px-4 py-2 bg-slate-50 border border-slate-200 rounded-xl text-xs focus:outline-none focus:ring-2 focus:ring-slate-900/10 focus:border-slate-400 focus:bg-white transition"
                         value={newsForm.img_src}
                         onChange={(e) => setNewsForm({ ...newsForm, img_src: e.target.value })}
                         required
                       />
                     </div>
                   </div>
-                  {isUploading && <p className="text-[10px] text-gray-500 animate-pulse">Mengunggah gambar...</p>}
+                  {isUploading && <p className="text-[10px] text-slate-500 animate-pulse">Mengunggah gambar...</p>}
                   {uploadError && <p className="text-[10px] text-red-500 font-semibold">{uploadError}</p>}
                 </div>
               </div>
@@ -219,20 +219,20 @@ export default function CrudModal({
             <>
               <div className="grid grid-cols-2 gap-4">
                 <div className="space-y-1">
-                  <label className="text-xs font-semibold text-gray-500 uppercase tracking-wider">Hari / Tanggal Angka (e.g. 24)</label>
+                  <label className="text-xs font-bold text-slate-700">Hari / Tanggal Angka (contoh: 24)</label>
                   <input
                     type="text"
-                    className="w-full px-4 py-2.5 bg-gray-50 border border-gray-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-gray-200 focus:bg-white transition"
+                    className="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-slate-900/10 focus:border-slate-400 focus:bg-white transition"
                     value={eventForm.date_day}
                     onChange={(e) => setEventForm({ ...eventForm, date_day: e.target.value })}
                     required
                   />
                 </div>
                 <div className="space-y-1">
-                  <label className="text-xs font-semibold text-gray-500 uppercase tracking-wider">Bulan Singkat (e.g. OKT)</label>
+                  <label className="text-xs font-bold text-slate-700">Bulan Singkat (contoh: OKT)</label>
                   <input
                     type="text"
-                    className="w-full px-4 py-2.5 bg-gray-50 border border-gray-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-gray-200 focus:bg-white transition"
+                    className="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-slate-900/10 focus:border-slate-400 focus:bg-white transition"
                     value={eventForm.date_month}
                     onChange={(e) => setEventForm({ ...eventForm, date_month: e.target.value })}
                     required
@@ -240,40 +240,40 @@ export default function CrudModal({
                 </div>
               </div>
               <div className="space-y-1">
-                <label className="text-xs font-semibold text-gray-500 uppercase tracking-wider">Judul Agenda (Indonesian)</label>
+                <label className="text-xs font-bold text-slate-700">Judul Agenda (Bahasa Indonesia)</label>
                 <input
                   type="text"
-                  className="w-full px-4 py-2.5 bg-gray-50 border border-gray-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-gray-200 focus:bg-white transition"
+                  className="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-slate-900/10 focus:border-slate-400 focus:bg-white transition"
                   value={eventForm.title}
                   onChange={(e) => setEventForm({ ...eventForm, title: e.target.value })}
                   required
                 />
               </div>
               <div className="space-y-1">
-                <label className="text-xs font-semibold text-gray-500 uppercase tracking-wider">Judul Agenda (English)</label>
+                <label className="text-xs font-bold text-slate-700">Judul Agenda (English)</label>
                 <input
                   type="text"
-                  className="w-full px-4 py-2.5 bg-gray-50 border border-gray-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-gray-200 focus:bg-white transition"
+                  className="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-slate-900/10 focus:border-slate-400 focus:bg-white transition"
                   value={eventForm.title_en || ''}
                   onChange={(e) => setEventForm({ ...eventForm, title_en: e.target.value })}
                 />
               </div>
               <div className="grid grid-cols-2 gap-4">
                 <div className="space-y-1">
-                  <label className="text-xs font-semibold text-gray-500 uppercase tracking-wider">Lokasi (ID)</label>
+                  <label className="text-xs font-bold text-slate-700">Lokasi (Bahasa Indonesia)</label>
                   <input
                     type="text"
-                    className="w-full px-4 py-2.5 bg-gray-50 border border-gray-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-gray-200 focus:bg-white transition"
+                    className="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-slate-900/10 focus:border-slate-400 focus:bg-white transition"
                     value={eventForm.location}
                     onChange={(e) => setEventForm({ ...eventForm, location: e.target.value })}
                     required
                   />
                 </div>
                 <div className="space-y-1">
-                  <label className="text-xs font-semibold text-gray-500 uppercase tracking-wider">Location (EN)</label>
+                  <label className="text-xs font-bold text-slate-700">Lokasi (English)</label>
                   <input
                     type="text"
-                    className="w-full px-4 py-2.5 bg-gray-50 border border-gray-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-gray-200 focus:bg-white transition"
+                    className="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-slate-900/10 focus:border-slate-400 focus:bg-white transition"
                     value={eventForm.location_en || ''}
                     onChange={(e) => setEventForm({ ...eventForm, location_en: e.target.value })}
                   />
@@ -286,68 +286,68 @@ export default function CrudModal({
           {activeTab === 'testimonials' && (
             <>
               <div className="space-y-1">
-                <label className="text-xs font-semibold text-gray-500 uppercase tracking-wider">Isi Kutipan Testimoni (ID)</label>
+                <label className="text-xs font-bold text-slate-700">Isi Kutipan Testimoni (Bahasa Indonesia)</label>
                 <textarea
-                  className="w-full px-4 py-2.5 bg-gray-50 border border-gray-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-gray-200 focus:bg-white transition min-h-[90px]"
+                  className="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-slate-900/10 focus:border-slate-400 focus:bg-white transition min-h-[90px]"
                   value={testimonialForm.testimonial}
                   onChange={(e) => setTestimonialForm({ ...testimonialForm, testimonial: e.target.value })}
                   required
                 />
               </div>
               <div className="space-y-1">
-                <label className="text-xs font-semibold text-gray-500 uppercase tracking-wider">Testimonial Quote (EN)</label>
+                <label className="text-xs font-bold text-slate-700">Isi Kutipan Testimoni (English)</label>
                 <textarea
-                  className="w-full px-4 py-2.5 bg-gray-50 border border-gray-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-gray-200 focus:bg-white transition min-h-[90px]"
+                  className="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-slate-900/10 focus:border-slate-400 focus:bg-white transition min-h-[90px]"
                   value={testimonialForm.testimonial_en || ''}
                   onChange={(e) => setTestimonialForm({ ...testimonialForm, testimonial_en: e.target.value })}
                 />
               </div>
               <div className="grid grid-cols-2 gap-4">
                 <div className="space-y-1">
-                  <label className="text-xs font-semibold text-gray-500 uppercase tracking-wider">Nama Alumni & Jabatan (ID)</label>
+                  <label className="text-xs font-bold text-slate-700">Nama Alumni & Jabatan (Bahasa Indonesia)</label>
                   <input
                     type="text"
-                    className="w-full px-4 py-2.5 bg-gray-50 border border-gray-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-gray-200 focus:bg-white transition"
+                    className="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-slate-900/10 focus:border-slate-400 focus:bg-white transition"
                     value={testimonialForm.by}
                     onChange={(e) => setTestimonialForm({ ...testimonialForm, by: e.target.value })}
                     required
                   />
                 </div>
                 <div className="space-y-1">
-                  <label className="text-xs font-semibold text-gray-500 uppercase tracking-wider">Alumni & Role Title (EN)</label>
+                  <label className="text-xs font-bold text-slate-700">Nama Alumni & Jabatan (English)</label>
                   <input
                     type="text"
-                    className="w-full px-4 py-2.5 bg-gray-50 border border-gray-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-gray-200 focus:bg-white transition"
+                    className="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-slate-900/10 focus:border-slate-400 focus:bg-white transition"
                     value={testimonialForm.by_en || ''}
                     onChange={(e) => setTestimonialForm({ ...testimonialForm, by_en: e.target.value })}
                   />
                 </div>
               </div>
               <div className="space-y-1">
-                <label className="text-xs font-semibold text-gray-500 uppercase tracking-wider block">Avatar / Foto Alumni</label>
+                <label className="text-xs font-bold text-slate-700 block">Foto Alumni</label>
                 <div className="flex flex-col sm:flex-row gap-3 items-center">
                   {testimonialForm.img_src && (
-                    <img src={testimonialForm.img_src} className="w-14 h-14 object-cover rounded-xl border border-gray-200 shrink-0 bg-gray-50" alt="Preview" />
+                    <img src={testimonialForm.img_src} className="w-14 h-14 object-cover rounded-xl border border-slate-200 shrink-0 bg-slate-50" alt="Preview" />
                   )}
                   <div className="flex-1 w-full space-y-2">
                     <input
                       type="file"
                       accept="image/*"
                       onChange={(e) => handleFileChange(e, (url) => setTestimonialForm({ ...testimonialForm, img_src: url }))}
-                      className="w-full text-xs text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-xl file:border-0 file:text-xs file:font-semibold file:bg-black file:text-white hover:file:bg-gray-800 file:cursor-pointer"
+                      className="w-full text-xs text-slate-500 file:mr-4 file:py-1.5 file:px-3 file:rounded-lg file:border-0 file:text-[11px] file:font-semibold file:bg-slate-900 file:text-white hover:file:bg-slate-800 file:cursor-pointer"
                       disabled={isUploading}
                     />
                     <input
                       type="text"
                       placeholder="Atau masukkan URL avatar langsung..."
-                      className="w-full px-4 py-2 bg-gray-50 border border-gray-200 rounded-xl text-xs focus:outline-none focus:ring-2 focus:ring-gray-200 focus:bg-white transition"
+                      className="w-full px-4 py-2 bg-slate-50 border border-slate-200 rounded-xl text-xs focus:outline-none focus:ring-2 focus:ring-slate-900/10 focus:border-slate-400 focus:bg-white transition"
                       value={testimonialForm.img_src}
                       onChange={(e) => setTestimonialForm({ ...testimonialForm, img_src: e.target.value })}
                       required
                     />
                   </div>
                 </div>
-                {isUploading && <p className="text-[10px] text-gray-500 animate-pulse">Mengunggah gambar...</p>}
+                {isUploading && <p className="text-[10px] text-slate-500 animate-pulse">Mengunggah gambar...</p>}
                 {uploadError && <p className="text-[10px] text-red-500 font-semibold">{uploadError}</p>}
               </div>
             </>
@@ -356,10 +356,10 @@ export default function CrudModal({
           {/* PARTNERS FIELDS */}
           {activeTab === 'partners' && (
             <div>
-              <label className="text-xs font-semibold text-gray-500 uppercase tracking-wider mb-1 block">Nama Mitra Kerja</label>
+              <label className="text-xs font-bold text-slate-700 mb-1 block">Nama Mitra Kerja</label>
               <input
                 type="text"
-                className="w-full px-4 py-2.5 bg-gray-50 border border-gray-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-gray-200 focus:bg-white transition"
+                className="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-slate-900/10 focus:border-slate-400 focus:bg-white transition"
                 value={partnerForm.name}
                 onChange={(e) => setPartnerForm({ ...partnerForm, name: e.target.value })}
                 required
@@ -372,20 +372,20 @@ export default function CrudModal({
             <>
               <div className="grid grid-cols-2 gap-4">
                 <div className="space-y-1">
-                  <label className="text-xs font-semibold text-gray-500 uppercase tracking-wider">Angka / Nilai (e.g. 100+)</label>
+                  <label className="text-xs font-bold text-slate-700">Angka / Nilai (contoh: 100+)</label>
                   <input
                     type="text"
-                    className="w-full px-4 py-2.5 bg-gray-50 border border-gray-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-gray-200 focus:bg-white transition"
+                    className="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-slate-900/10 focus:border-slate-400 focus:bg-white transition"
                     value={statForm.number}
                     onChange={(e) => setStatForm({ ...statForm, number: e.target.value })}
                     required
                   />
                 </div>
                 <div className="space-y-1">
-                  <label className="text-xs font-semibold text-gray-500 uppercase tracking-wider">Urutan Tampilan</label>
+                  <label className="text-xs font-bold text-slate-700">Urutan Tampilan</label>
                   <input
                     type="number"
-                    className="w-full px-4 py-2.5 bg-gray-50 border border-gray-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-gray-200 focus:bg-white transition"
+                    className="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-slate-900/10 focus:border-slate-400 focus:bg-white transition"
                     value={statForm.sort_order}
                     onChange={(e) => setStatForm({ ...statForm, sort_order: parseInt(e.target.value) || 0 })}
                     required
@@ -393,20 +393,20 @@ export default function CrudModal({
                 </div>
               </div>
               <div className="space-y-1">
-                <label className="text-xs font-semibold text-gray-500 uppercase tracking-wider">Keterangan Label Stat (Indonesian)</label>
+                <label className="text-xs font-bold text-slate-700">Label Statistik (Bahasa Indonesia)</label>
                 <input
                   type="text"
-                  className="w-full px-4 py-2.5 bg-gray-50 border border-gray-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-gray-200 focus:bg-white transition"
+                  className="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-slate-900/10 focus:border-slate-400 focus:bg-white transition"
                   value={statForm.label}
                   onChange={(e) => setStatForm({ ...statForm, label: e.target.value })}
                   required
                 />
               </div>
               <div className="space-y-1">
-                <label className="text-xs font-semibold text-gray-500 uppercase tracking-wider">Keterangan Label Stat (English Translation)</label>
+                <label className="text-xs font-bold text-slate-700">Label Statistik (English)</label>
                 <input
                   type="text"
-                  className="w-full px-4 py-2.5 bg-gray-50 border border-gray-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-gray-200 focus:bg-white transition"
+                  className="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-slate-900/10 focus:border-slate-400 focus:bg-white transition"
                   value={statForm.label_en || ''}
                   onChange={(e) => setStatForm({ ...statForm, label_en: e.target.value })}
                 />
@@ -419,20 +419,20 @@ export default function CrudModal({
             <>
               <div className="grid grid-cols-2 gap-4">
                 <div className="space-y-1">
-                  <label className="text-xs font-semibold text-gray-500 uppercase tracking-wider">Judul Karya</label>
+                  <label className="text-xs font-bold text-slate-700">Judul Karya</label>
                   <input
                     type="text"
-                    className="w-full px-4 py-2.5 bg-gray-50 border border-gray-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-gray-200 focus:bg-white transition"
+                    className="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-slate-900/10 focus:border-slate-400 focus:bg-white transition"
                     value={portfolioForm.title}
                     onChange={(e) => setPortfolioForm({ ...portfolioForm, title: e.target.value })}
                     required
                   />
                 </div>
                 <div className="space-y-1">
-                  <label className="text-xs font-semibold text-gray-500 uppercase tracking-wider">Tahun Pembuatan</label>
+                  <label className="text-xs font-bold text-slate-700">Tahun Pembuatan</label>
                   <input
                     type="text"
-                    className="w-full px-4 py-2.5 bg-gray-50 border border-gray-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-gray-200 focus:bg-white transition"
+                    className="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-slate-900/10 focus:border-slate-400 focus:bg-white transition"
                     value={portfolioForm.year}
                     onChange={(e) => setPortfolioForm({ ...portfolioForm, year: e.target.value })}
                     required
@@ -441,20 +441,20 @@ export default function CrudModal({
               </div>
               <div className="grid grid-cols-2 gap-4">
                 <div className="space-y-1">
-                  <label className="text-xs font-semibold text-gray-500 uppercase tracking-wider">Medium / Alat</label>
+                  <label className="text-xs font-bold text-slate-700">Medium / Alat</label>
                   <input
                     type="text"
-                    className="w-full px-4 py-2.5 bg-gray-50 border border-gray-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-gray-200 focus:bg-white transition"
+                    className="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-slate-900/10 focus:border-slate-400 focus:bg-white transition"
                     value={portfolioForm.medium}
                     onChange={(e) => setPortfolioForm({ ...portfolioForm, medium: e.target.value })}
                     required
                   />
                 </div>
                 <div className="space-y-1">
-                  <label className="text-xs font-semibold text-gray-500 uppercase tracking-wider">Teknik</label>
+                  <label className="text-xs font-bold text-slate-700">Teknik</label>
                   <input
                     type="text"
-                    className="w-full px-4 py-2.5 bg-gray-50 border border-gray-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-gray-200 focus:bg-white transition"
+                    className="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-slate-900/10 focus:border-slate-400 focus:bg-white transition"
                     value={portfolioForm.technique}
                     onChange={(e) => setPortfolioForm({ ...portfolioForm, technique: e.target.value })}
                     required
@@ -463,20 +463,20 @@ export default function CrudModal({
               </div>
               <div className="grid grid-cols-2 gap-4">
                 <div className="space-y-1">
-                  <label className="text-xs font-semibold text-gray-500 uppercase tracking-wider">Grid Class (e.g. col-span-1)</label>
+                  <label className="text-xs font-bold text-slate-700">Ukuran Grid (contoh: col-span-1)</label>
                   <input
                     type="text"
-                    className="w-full px-4 py-2.5 bg-gray-50 border border-gray-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-gray-200 focus:bg-white transition"
+                    className="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-slate-900/10 focus:border-slate-400 focus:bg-white transition"
                     value={portfolioForm.gridClass}
                     onChange={(e) => setPortfolioForm({ ...portfolioForm, gridClass: e.target.value })}
                     required
                   />
                 </div>
                 <div className="space-y-1">
-                  <label className="text-xs font-semibold text-gray-500 uppercase tracking-wider">Urutan Tampilan</label>
+                  <label className="text-xs font-bold text-slate-700">Urutan Tampilan</label>
                   <input
                     type="number"
-                    className="w-full px-4 py-2.5 bg-gray-50 border border-gray-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-gray-200 focus:bg-white transition"
+                    className="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-slate-900/10 focus:border-slate-400 focus:bg-white transition"
                     value={portfolioForm.sort_order}
                     onChange={(e) => setPortfolioForm({ ...portfolioForm, sort_order: parseInt(e.target.value) || 0 })}
                     required
@@ -484,30 +484,30 @@ export default function CrudModal({
                 </div>
               </div>
               <div className="space-y-1">
-                <label className="text-xs font-semibold text-gray-500 uppercase tracking-wider block">Foto Karya / Portfolio</label>
+                <label className="text-xs font-bold text-slate-700 block">Foto Karya / Portfolio</label>
                 <div className="flex flex-col sm:flex-row gap-3 items-center">
                   {portfolioForm.image && (
-                    <img src={portfolioForm.image} className="w-14 h-14 object-cover rounded-xl border border-gray-200 shrink-0 bg-gray-50" alt="Preview" />
+                    <img src={portfolioForm.image} className="w-14 h-14 object-cover rounded-xl border border-slate-200 shrink-0 bg-slate-50" alt="Preview" />
                   )}
                   <div className="flex-1 w-full space-y-2">
                     <input
                       type="file"
                       accept="image/*"
                       onChange={(e) => handleFileChange(e, (url) => setPortfolioForm({ ...portfolioForm, image: url }))}
-                      className="w-full text-xs text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-xl file:border-0 file:text-xs file:font-semibold file:bg-black file:text-white hover:file:bg-gray-800 file:cursor-pointer"
+                      className="w-full text-xs text-slate-500 file:mr-4 file:py-1.5 file:px-3 file:rounded-lg file:border-0 file:text-[11px] file:font-semibold file:bg-slate-900 file:text-white hover:file:bg-slate-800 file:cursor-pointer"
                       disabled={isUploading}
                     />
                     <input
                       type="text"
                       placeholder="Atau masukkan URL gambar langsung..."
-                      className="w-full px-4 py-2 bg-gray-50 border border-gray-200 rounded-xl text-xs focus:outline-none focus:ring-2 focus:ring-gray-200 focus:bg-white transition"
+                      className="w-full px-4 py-2 bg-slate-50 border border-slate-200 rounded-xl text-xs focus:outline-none focus:ring-2 focus:ring-slate-900/10 focus:border-slate-400 focus:bg-white transition"
                       value={portfolioForm.image}
                       onChange={(e) => setPortfolioForm({ ...portfolioForm, image: e.target.value })}
                       required
                     />
                   </div>
                 </div>
-                {isUploading && <p className="text-[10px] text-gray-500 animate-pulse">Mengunggah gambar...</p>}
+                {isUploading && <p className="text-[10px] text-slate-500 animate-pulse">Mengunggah gambar...</p>}
                 {uploadError && <p className="text-[10px] text-red-500 font-semibold">{uploadError}</p>}
               </div>
             </>
@@ -518,20 +518,20 @@ export default function CrudModal({
             <>
               <div className="grid grid-cols-2 gap-4">
                 <div className="space-y-1">
-                  <label className="text-xs font-semibold text-gray-500 uppercase tracking-wider">Nama Lengkap & Gelar</label>
+                  <label className="text-xs font-bold text-slate-700">Nama Lengkap & Gelar</label>
                   <input
                     type="text"
-                    className="w-full px-4 py-2.5 bg-gray-50 border border-gray-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-gray-200 focus:bg-white transition"
+                    className="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-slate-900/10 focus:border-slate-400 focus:bg-white transition"
                     value={dosenForm.name}
                     onChange={(e) => setDosenForm({ ...dosenForm, name: e.target.value })}
                     required
                   />
                 </div>
                 <div className="space-y-1">
-                  <label className="text-xs font-semibold text-gray-500 uppercase tracking-wider">Urutan Tampilan</label>
+                  <label className="text-xs font-bold text-slate-700">Urutan Tampilan</label>
                   <input
                     type="number"
-                    className="w-full px-4 py-2.5 bg-gray-50 border border-gray-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-gray-200 focus:bg-white transition"
+                    className="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-slate-900/10 focus:border-slate-400 focus:bg-white transition"
                     value={dosenForm.sort_order}
                     onChange={(e) => setDosenForm({ ...dosenForm, sort_order: parseInt(e.target.value) || 0 })}
                     required
@@ -540,28 +540,28 @@ export default function CrudModal({
               </div>
               <div className="grid grid-cols-3 gap-4">
                 <div className="space-y-1">
-                  <label className="text-xs font-semibold text-gray-500 uppercase tracking-wider">ID Scopus</label>
+                  <label className="text-xs font-bold text-slate-700">ID Scopus</label>
                   <input
                     type="text"
-                    className="w-full px-4 py-2.5 bg-gray-50 border border-gray-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-gray-200 focus:bg-white transition"
+                    className="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-slate-900/10 focus:border-slate-400 focus:bg-white transition"
                     value={dosenForm.scopus || ''}
                     onChange={(e) => setDosenForm({ ...dosenForm, scopus: e.target.value })}
                   />
                 </div>
                 <div className="space-y-1">
-                  <label className="text-xs font-semibold text-gray-500 uppercase tracking-wider">ID Sinta</label>
+                  <label className="text-xs font-bold text-slate-700">ID Sinta</label>
                   <input
                     type="text"
-                    className="w-full px-4 py-2.5 bg-gray-50 border border-gray-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-gray-200 focus:bg-white transition"
+                    className="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-slate-900/10 focus:border-slate-400 focus:bg-white transition"
                     value={dosenForm.sinta || ''}
                     onChange={(e) => setDosenForm({ ...dosenForm, sinta: e.target.value })}
                   />
                 </div>
                 <div className="space-y-1">
-                  <label className="text-xs font-semibold text-gray-500 uppercase tracking-wider">ID Scholar</label>
+                  <label className="text-xs font-bold text-slate-700">ID Scholar</label>
                   <input
                     type="text"
-                    className="w-full px-4 py-2.5 bg-gray-50 border border-gray-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-gray-200 focus:bg-white transition"
+                    className="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-slate-900/10 focus:border-slate-400 focus:bg-white transition"
                     value={dosenForm.scholar || ''}
                     onChange={(e) => setDosenForm({ ...dosenForm, scholar: e.target.value })}
                   />
@@ -569,19 +569,19 @@ export default function CrudModal({
               </div>
               <div className="grid grid-cols-2 gap-4">
                 <div className="space-y-1">
-                  <label className="text-xs font-semibold text-gray-500 uppercase tracking-wider">Facebook URL</label>
+                  <label className="text-xs font-bold text-slate-700">Facebook URL</label>
                   <input
                     type="text"
-                    className="w-full px-4 py-2.5 bg-gray-50 border border-gray-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-gray-200 focus:bg-white transition"
+                    className="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-slate-900/10 focus:border-slate-400 focus:bg-white transition"
                     value={dosenForm.facebook || ''}
                     onChange={(e) => setDosenForm({ ...dosenForm, facebook: e.target.value })}
                   />
                 </div>
                 <div className="space-y-1">
-                  <label className="text-xs font-semibold text-gray-500 uppercase tracking-wider">Twitter URL</label>
+                  <label className="text-xs font-bold text-slate-700">Twitter URL</label>
                   <input
                     type="text"
-                    className="w-full px-4 py-2.5 bg-gray-50 border border-gray-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-gray-200 focus:bg-white transition"
+                    className="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-slate-900/10 focus:border-slate-400 focus:bg-white transition"
                     value={dosenForm.twitter || ''}
                     onChange={(e) => setDosenForm({ ...dosenForm, twitter: e.target.value })}
                   />
@@ -589,49 +589,49 @@ export default function CrudModal({
               </div>
               <div className="grid grid-cols-2 gap-4">
                 <div className="space-y-1">
-                  <label className="text-xs font-semibold text-gray-500 uppercase tracking-wider">TikTok URL</label>
+                  <label className="text-xs font-bold text-slate-700">TikTok URL</label>
                   <input
                     type="text"
-                    className="w-full px-4 py-2.5 bg-gray-50 border border-gray-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-gray-200 focus:bg-white transition"
+                    className="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-slate-900/10 focus:border-slate-400 focus:bg-white transition"
                     value={dosenForm.tiktok || ''}
                     onChange={(e) => setDosenForm({ ...dosenForm, tiktok: e.target.value })}
                   />
                 </div>
                 <div className="space-y-1">
-                  <label className="text-xs font-semibold text-gray-500 uppercase tracking-wider">Instagram URL</label>
+                  <label className="text-xs font-bold text-slate-700">Instagram URL</label>
                   <input
                     type="text"
-                    className="w-full px-4 py-2.5 bg-gray-50 border border-gray-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-gray-200 focus:bg-white transition"
+                    className="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-slate-900/10 focus:border-slate-400 focus:bg-white transition"
                     value={dosenForm.instagram || ''}
                     onChange={(e) => setDosenForm({ ...dosenForm, instagram: e.target.value })}
                   />
                 </div>
               </div>
               <div className="space-y-1">
-                <label className="text-xs font-semibold text-gray-500 uppercase tracking-wider block">Foto Dosen</label>
+                <label className="text-xs font-bold text-slate-700 block">Foto Dosen</label>
                 <div className="flex flex-col sm:flex-row gap-3 items-center">
                   {dosenForm.img_src && (
-                    <img src={dosenForm.img_src} className="w-14 h-14 object-cover rounded-xl border border-gray-200 shrink-0 bg-gray-50" alt="Preview" />
+                    <img src={dosenForm.img_src} className="w-14 h-14 object-cover rounded-xl border border-slate-200 shrink-0 bg-slate-50" alt="Preview" />
                   )}
                   <div className="flex-1 w-full space-y-2">
                     <input
                       type="file"
                       accept="image/*"
                       onChange={(e) => handleFileChange(e, (url) => setDosenForm({ ...dosenForm, img_src: url }))}
-                      className="w-full text-xs text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-xl file:border-0 file:text-xs file:font-semibold file:bg-black file:text-white hover:file:bg-gray-800 file:cursor-pointer"
+                      className="w-full text-xs text-slate-500 file:mr-4 file:py-1.5 file:px-3 file:rounded-lg file:border-0 file:text-[11px] file:font-semibold file:bg-slate-900 file:text-white hover:file:bg-slate-800 file:cursor-pointer"
                       disabled={isUploading}
                     />
                     <input
                       type="text"
                       placeholder="Atau masukkan URL foto langsung..."
-                      className="w-full px-4 py-2 bg-gray-50 border border-gray-200 rounded-xl text-xs focus:outline-none focus:ring-2 focus:ring-gray-200 focus:bg-white transition"
+                      className="w-full px-4 py-2 bg-slate-50 border border-slate-200 rounded-xl text-xs focus:outline-none focus:ring-2 focus:ring-slate-900/10 focus:border-slate-400 focus:bg-white transition"
                       value={dosenForm.img_src || ''}
                       onChange={(e) => setDosenForm({ ...dosenForm, img_src: e.target.value })}
                       required
                     />
                   </div>
                 </div>
-                {isUploading && <p className="text-[10px] text-gray-500 animate-pulse">Mengunggah gambar...</p>}
+                {isUploading && <p className="text-[10px] text-slate-500 animate-pulse">Mengunggah gambar...</p>}
                 {uploadError && <p className="text-[10px] text-red-500 font-semibold">{uploadError}</p>}
               </div>
             </>

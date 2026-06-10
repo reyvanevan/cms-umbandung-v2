@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
-import { Save, Search, RefreshCw } from 'lucide-react';
+import { Save, Search, RefreshCw, Upload, Link as LinkIcon } from 'lucide-react';
 import { type DbSiteContent } from '../../lib/mockData';
 import { handleImageUpload } from '../../lib/supabase';
+import { getHumanLabel, getHelpText } from '../../lib/cmsLabels';
 
 interface SiteContentTabProps {
   siteContent: DbSiteContent[];
@@ -98,10 +99,10 @@ export default function SiteContentTab({
 
   const getSectionTitle = (sec: string) => {
     switch (sec.toLowerCase()) {
-      case 'hero': return 'Hero / Banner Utama';
-      case 'kaprodi': return 'Tentang Kaprodi';
-      case 'philosophy': return 'Filosofi Desain';
-      default: return 'General / Umum';
+      case 'hero': return 'Hero / Spanduk Utama';
+      case 'kaprodi': return 'Profil Kepala Program Studi';
+      case 'philosophy': return 'Filosofi Pembelajaran';
+      default: return 'Pengaturan Umum';
     }
   };
 
@@ -109,8 +110,10 @@ export default function SiteContentTab({
     if (!searchQuery) return true;
     const q = searchQuery.toLowerCase();
     const sec = getSectionName(item.key);
+    const humanLabel = getHumanLabel(item.key).toLowerCase();
     return (
       item.key.toLowerCase().includes(q) ||
+      humanLabel.includes(q) ||
       item.value.toLowerCase().includes(q) ||
       (item.value_en && item.value_en.toLowerCase().includes(q)) ||
       sec.toLowerCase().includes(q)
@@ -118,154 +121,177 @@ export default function SiteContentTab({
   });
 
   return (
-    <div className="bg-white border border-gray-100 rounded-3xl p-6 shadow-sm space-y-6 select-none glass-card">
-      {/* Header controls */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+    <div className="space-y-6">
+      {/* Header Controls */}
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 bg-white border border-slate-200/80 rounded-2xl p-6 shadow-xs">
         <div>
-          <h2 className="text-base font-bold text-gray-950 uppercase tracking-wider">Editor Teks Halaman</h2>
-          <p className="text-xs text-gray-400 mt-0.5">Edit teks statis bilingual di website utama Anda secara dinamis.</p>
+          <h2 className="text-lg font-bold text-slate-900 tracking-tight">Editor Konten Halaman</h2>
+          <p className="text-xs text-slate-500 mt-1">Perbarui teks, gambar, dan media bilingual pada website utama Anda tanpa mengubah kode.</p>
         </div>
 
         {/* Search */}
         <div className="relative w-full sm:max-w-xs">
-          <Search className="absolute left-3 top-2.5 w-4.5 h-4.5 text-gray-400" />
+          <Search className="absolute left-3 top-2.5 w-4 h-4 text-slate-400" />
           <input
             type="text"
-            placeholder="Cari teks berdasarkan kata kunci..."
-            className="w-full pl-10 pr-4 py-2 bg-gray-50 border border-gray-100 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-gray-200 focus:bg-white transition"
+            placeholder="Cari kata kunci atau nama label..."
+            className="w-full pl-9 pr-4 py-2 bg-slate-50 border border-slate-200 rounded-xl text-xs focus:outline-none focus:ring-2 focus:ring-slate-900/10 focus:border-slate-400 focus:bg-white transition"
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
           />
         </div>
       </div>
 
-      {/* Loading */}
+      {/* Loading State */}
       {isLoadingData ? (
-        <div className="py-20 flex flex-col items-center justify-center gap-3 text-gray-400">
-          <RefreshCw className="w-8 h-8 animate-spin text-black" />
-          <p className="text-sm">Memuat data konten teks...</p>
+        <div className="py-20 flex flex-col items-center justify-center gap-3 text-slate-400">
+          <RefreshCw className="w-6 h-6 animate-spin text-slate-900" />
+          <p className="text-xs font-medium">Memuat data editor...</p>
         </div>
       ) : (
-        <div className="space-y-8">
+        <div className="space-y-10">
           {sections.map((sectionName) => {
             const sectionItems = filteredContent.filter((c) => getSectionName(c.key) === sectionName);
             if (sectionItems.length === 0) return null;
 
             return (
               <div key={sectionName} className="space-y-4">
-                {/* Section title banner */}
-                <div className="px-4 py-2 bg-gray-50 border-l-2 border-indigo-600 rounded-r-xl">
-                  <h3 className="text-xs font-bold text-gray-700 uppercase tracking-wider">
-                    Section: {getSectionTitle(sectionName)}
+                {/* Section title header */}
+                <div className="flex items-center gap-2 px-1">
+                  <div className="w-1.5 h-4.5 bg-slate-900 rounded-full" />
+                  <h3 className="text-xs font-bold text-slate-800 uppercase tracking-widest">
+                    {getSectionTitle(sectionName)}
                   </h3>
                 </div>
 
-                {/* Items */}
+                {/* Items grid */}
                 <div className="grid grid-cols-1 gap-6">
                   {sectionItems.map((item) => {
                     const vals = editValues[item.key] || { id: '', en: '' };
                     const isSaving = savingKeys[item.key] || false;
 
                     return (
-                      <div key={item.key} className="p-5 border border-gray-100 rounded-2xl flex flex-col md:flex-row gap-5 items-start bg-gray-50/20">
-                        {/* Description field */}
-                        <div className="md:w-1/4">
-                          <span className="block text-xs font-bold text-gray-800 uppercase tracking-wider font-mono">
-                            {item.key}
-                          </span>
-                          <span className="block text-[10px] text-gray-400 mt-1">
-                            Digunakan pada bagian {getSectionTitle(sectionName)}
-                          </span>
-                        </div>
-
-                        {/* Input Fields */}
-                        <div className="flex-1 w-full space-y-3">
-                          {item.key.includes('photo') || item.key.includes('image') || item.key.includes('_url') ? (
-                            <div className="space-y-3">
-                              <div className="flex flex-col sm:flex-row gap-3 items-center">
-                                {vals.id && (
-                                  vals.id.toLowerCase().endsWith('.mp4') ||
-                                  vals.id.toLowerCase().endsWith('.webm') ||
-                                  vals.id.toLowerCase().endsWith('.ogg') ||
-                                  vals.id.startsWith('data:video/') ? (
-                                    <video src={vals.id} className="w-20 h-20 object-cover rounded-xl border border-gray-200 shrink-0 bg-gray-50" controls muted />
-                                  ) : (
-                                    <img src={vals.id} className="w-20 h-20 object-cover rounded-xl border border-gray-200 shrink-0 bg-gray-50" alt="Preview" />
-                                  )
-                                )}
-                                <div className="flex-1 w-full space-y-2">
-                                  <input
-                                    type="file"
-                                    accept="image/*,video/*"
-                                    onChange={(e) => {
-                                      const file = e.target.files?.[0];
-                                      if (file) handleFileUpload(item.key, file);
-                                    }}
-                                    className="w-full text-xs text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-xl file:border-0 file:text-xs file:font-semibold file:bg-black file:text-white hover:file:bg-gray-800 file:cursor-pointer"
-                                    disabled={uploadingKeys[item.key]}
-                                  />
-                                  <input
-                                    type="text"
-                                    placeholder="Atau masukkan URL media langsung..."
-                                    className="w-full px-4 py-2 bg-white border border-gray-200 rounded-xl text-xs focus:outline-none focus:ring-2 focus:ring-gray-200 transition"
-                                    value={vals.id}
-                                    onChange={(e) => {
-                                      handleInputChange(item.key, 'id', e.target.value);
-                                      handleInputChange(item.key, 'en', e.target.value);
-                                    }}
-                                  />
-                                </div>
-                              </div>
-                              {uploadingKeys[item.key] && <p className="text-[10px] text-gray-500 animate-pulse">Mengunggah gambar...</p>}
-                              {uploadErrors[item.key] && <p className="text-[10px] text-red-500 font-semibold">{uploadErrors[item.key]}</p>}
+                      <div key={item.key} className="p-6 bg-white border border-slate-200/70 rounded-2xl flex flex-col gap-6 shadow-xs hover:border-slate-300 transition-colors">
+                        
+                        {/* Item Header */}
+                        <div className="flex flex-col sm:flex-row sm:items-start justify-between gap-4 pb-4 border-b border-slate-100">
+                          <div className="space-y-1">
+                            <div className="flex flex-wrap items-center gap-2">
+                              <h4 className="text-sm font-bold text-slate-900">
+                                {getHumanLabel(item.key)}
+                              </h4>
+                              <span className="text-[9px] font-mono font-medium text-slate-400 bg-slate-100/80 px-2 py-0.5 rounded-md border border-slate-200/30">
+                                {item.key}
+                              </span>
                             </div>
-                          ) : (
-                            <>
-                              {/* Indonesian */}
-                              <div>
-                                <div className="flex items-center gap-1.5 mb-1.5">
-                                  <span className="text-[10px] font-bold px-1.5 py-0.5 bg-gray-100 rounded text-gray-500">ID</span>
-                                  <span className="text-xs font-semibold text-gray-500">Bahasa Indonesia</span>
-                                </div>
-                                <textarea
-                                  className="w-full px-4 py-2.5 bg-white border border-gray-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-gray-200 transition min-h-[60px]"
-                                  value={vals.id}
-                                  onChange={(e) => handleInputChange(item.key, 'id', e.target.value)}
-                                />
-                              </div>
+                            <p className="text-xs text-slate-500 leading-relaxed max-w-2xl">
+                              {getHelpText(item.key)}
+                            </p>
+                          </div>
 
-                              {/* English */}
-                              <div>
-                                <div className="flex items-center gap-1.5 mb-1.5">
-                                  <span className="text-[10px] font-bold px-1.5 py-0.5 bg-gray-100 rounded text-gray-500">EN</span>
-                                  <span className="text-xs font-semibold text-gray-500">English Translation</span>
-                                </div>
-                                <textarea
-                                  className="w-full px-4 py-2.5 bg-white border border-gray-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-gray-200 transition min-h-[60px]"
-                                  value={vals.en}
-                                  onChange={(e) => handleInputChange(item.key, 'en', e.target.value)}
-                                  placeholder="Leave blank to use Indonesian value"
-                                />
-                              </div>
-                            </>
-                          )}
-                        </div>
-
-                        {/* Save Button */}
-                        <div className="md:self-center">
                           <button
                             onClick={() => handleSave(item.key)}
                             disabled={isSaving}
-                            className="px-4 py-2 bg-indigo-600 hover:bg-indigo-700 disabled:bg-indigo-300 text-white rounded-xl text-xs font-semibold flex items-center justify-center gap-1.5 shadow-sm shadow-indigo-100 transition cursor-pointer w-full md:w-auto"
+                            className="px-4 py-2 bg-slate-900 hover:bg-slate-800 disabled:bg-slate-300 text-white rounded-xl text-xs font-semibold flex items-center justify-center gap-1.5 shadow-sm transition cursor-pointer shrink-0"
                           >
                             {isSaving ? (
                               <RefreshCw className="w-3.5 h-3.5 animate-spin" />
                             ) : (
                               <Save className="w-3.5 h-3.5" />
                             )}
-                            <span>Update</span>
+                            <span>Simpan</span>
                           </button>
                         </div>
+
+                        {/* Item Inputs */}
+                        <div className="w-full">
+                          {item.key.includes('photo') || item.key.includes('image') || item.key.includes('_url') ? (
+                            <div className="space-y-4">
+                              <div className="flex flex-col md:flex-row gap-4 items-center bg-slate-50/50 p-4 border border-slate-150 rounded-xl">
+                                {vals.id && (
+                                  vals.id.toLowerCase().endsWith('.mp4') ||
+                                  vals.id.toLowerCase().endsWith('.webm') ||
+                                  vals.id.toLowerCase().endsWith('.ogg') ||
+                                  vals.id.startsWith('data:video/') ? (
+                                    <video src={vals.id} className="w-24 h-24 object-cover rounded-xl border border-slate-200 shrink-0 bg-white shadow-xs" controls muted />
+                                  ) : (
+                                    <img src={vals.id} className="w-24 h-24 object-cover rounded-xl border border-slate-200 shrink-0 bg-white shadow-xs" alt="Preview" />
+                                  )
+                                )}
+                                <div className="flex-1 w-full space-y-3">
+                                  <div className="space-y-1">
+                                    <span className="flex items-center gap-1 text-[11px] font-bold text-slate-600">
+                                      <Upload className="w-3.5 h-3.5" />
+                                      <span>Unggah File Baru</span>
+                                    </span>
+                                    <input
+                                      type="file"
+                                      accept="image/*,video/*"
+                                      onChange={(e) => {
+                                        const file = e.target.files?.[0];
+                                        if (file) handleFileUpload(item.key, file);
+                                      }}
+                                      className="w-full text-xs text-slate-500 file:mr-4 file:py-1.5 file:px-3 file:rounded-lg file:border-0 file:text-[11px] file:font-semibold file:bg-slate-900 file:text-white hover:file:bg-slate-800 file:cursor-pointer"
+                                      disabled={uploadingKeys[item.key]}
+                                    />
+                                  </div>
+                                  <div className="space-y-1">
+                                    <span className="flex items-center gap-1 text-[11px] font-bold text-slate-600">
+                                      <LinkIcon className="w-3.5 h-3.5" />
+                                      <span>Atau Alamat URL Media</span>
+                                    </span>
+                                    <input
+                                      type="text"
+                                      placeholder="Masukkan url gambar/video, misal: /assets/nama-file.png"
+                                      className="w-full px-3 py-2 bg-white border border-slate-200 rounded-lg text-xs focus:outline-none focus:ring-2 focus:ring-slate-900/10 focus:border-slate-400 transition"
+                                      value={vals.id}
+                                      onChange={(e) => {
+                                        handleInputChange(item.key, 'id', e.target.value);
+                                        handleInputChange(item.key, 'en', e.target.value);
+                                      }}
+                                    />
+                                  </div>
+                                </div>
+                              </div>
+                              {uploadingKeys[item.key] && (
+                                <p className="text-[10px] text-indigo-600 animate-pulse font-medium">Sedang mengunggah file...</p>
+                              )}
+                              {uploadErrors[item.key] && (
+                                <p className="text-[10px] text-red-500 font-semibold">{uploadErrors[item.key]}</p>
+                              )}
+                            </div>
+                          ) : (
+                            <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 w-full">
+                              {/* Indonesian Input */}
+                              <div className="space-y-2">
+                                <div className="flex items-center gap-2">
+                                  <span className="text-[10px] font-bold px-2 py-0.5 bg-slate-100 rounded text-slate-600 border border-slate-200/50">ID</span>
+                                  <span className="text-xs font-semibold text-slate-600">Bahasa Indonesia</span>
+                                </div>
+                                <textarea
+                                  className="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-xl text-xs focus:outline-none focus:ring-2 focus:ring-slate-900/10 focus:border-slate-450 focus:bg-white transition min-h-[90px] leading-relaxed"
+                                  value={vals.id}
+                                  onChange={(e) => handleInputChange(item.key, 'id', e.target.value)}
+                                />
+                              </div>
+
+                              {/* English Input */}
+                              <div className="space-y-2">
+                                <div className="flex items-center gap-2">
+                                  <span className="text-[10px] font-bold px-2 py-0.5 bg-indigo-50 rounded text-indigo-600 border border-indigo-100/50">EN</span>
+                                  <span className="text-xs font-semibold text-slate-600">English Translation</span>
+                                </div>
+                                <textarea
+                                  className="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-xl text-xs focus:outline-none focus:ring-2 focus:ring-slate-900/10 focus:border-slate-450 focus:bg-white transition min-h-[90px] leading-relaxed"
+                                  value={vals.en}
+                                  onChange={(e) => handleInputChange(item.key, 'en', e.target.value)}
+                                  placeholder="Biarkan kosong untuk menggunakan teks bahasa Indonesia"
+                                />
+                              </div>
+                            </div>
+                          )}
+                        </div>
+
                       </div>
                     );
                   })}
