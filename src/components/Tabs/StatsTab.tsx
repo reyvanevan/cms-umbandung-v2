@@ -82,7 +82,10 @@ export default function StatsTab({
                     {item.number}
                   </td>
                   <td className="p-4 text-gray-600 font-medium text-xs">
-                    {item.label}
+                    <div className="font-bold text-gray-900">{item.label}</div>
+                    {item.label_en && (
+                      <div className="text-[10px] text-gray-400 mt-0.5 italic">EN: {item.label_en}</div>
+                    )}
                   </td>
                   <td className="p-4">
                     <div className="flex gap-2">

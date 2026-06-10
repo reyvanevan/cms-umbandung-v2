@@ -393,13 +393,22 @@ export default function CrudModal({
                 </div>
               </div>
               <div className="space-y-1">
-                <label className="text-xs font-semibold text-gray-500 uppercase tracking-wider">Keterangan Label Stat</label>
+                <label className="text-xs font-semibold text-gray-500 uppercase tracking-wider">Keterangan Label Stat (Indonesian)</label>
                 <input
                   type="text"
                   className="w-full px-4 py-2.5 bg-gray-50 border border-gray-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-gray-200 focus:bg-white transition"
                   value={statForm.label}
                   onChange={(e) => setStatForm({ ...statForm, label: e.target.value })}
                   required
+                />
+              </div>
+              <div className="space-y-1">
+                <label className="text-xs font-semibold text-gray-500 uppercase tracking-wider">Keterangan Label Stat (English Translation)</label>
+                <input
+                  type="text"
+                  className="w-full px-4 py-2.5 bg-gray-50 border border-gray-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-gray-200 focus:bg-white transition"
+                  value={statForm.label_en || ''}
+                  onChange={(e) => setStatForm({ ...statForm, label_en: e.target.value })}
                 />
               </div>
             </>

@@ -102,7 +102,7 @@ export default function App() {
   });
 
   const [statForm, setStatForm] = useState<Omit<DbLandingStat, 'id'>>({
-    number: '', label: '', sort_order: 0
+    number: '', label: '', label_en: '', sort_order: 0
   });
 
   const [portfolioForm, setPortfolioForm] = useState<Omit<DbLandingPortfolioItem, 'id'>>({
@@ -417,7 +417,7 @@ export default function App() {
     setEventForm({ date_day: '', date_month: '', title: '', title_en: '', location: '', location_en: '' });
     setTestimonialForm({ testimonial: '', testimonial_en: '', by: '', by_en: '', img_src: '' });
     setPartnerForm({ name: '' });
-    setStatForm({ number: '', label: '', sort_order: landingStats.length + 1 });
+    setStatForm({ number: '', label: '', label_en: '', sort_order: landingStats.length + 1 });
     setPortfolioForm({ image: '', title: '', medium: '', technique: '', year: '', gridClass: 'col-span-1', sort_order: landingPortfolioItems.length + 1 });
     setDosenForm({ name: '', img_src: '', scopus: '', sinta: '', scholar: '', facebook: '', twitter: '', tiktok: '', instagram: '', sort_order: dosenList.length + 1 });
     setActiveModal('create');
@@ -461,6 +461,7 @@ export default function App() {
       setStatForm({
         number: item.number,
         label: item.label,
+        label_en: item.label_en || '',
         sort_order: item.sort_order
       });
     } else if (activeTab === 'landing_portfolio') {

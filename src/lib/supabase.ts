@@ -130,12 +130,35 @@ export async function uploadFile(
   }
 
   try {
-    const { error } = await supabase.storage
+    let uploadResult = await supabase.storage
       .from(bucketName)
       .upload(filePath, file, {
         cacheControl: '3600',
         upsert: true
       });
+
+    let error = uploadResult.error;
+
+    if (error && (error.message?.includes('bucket') || error.message?.includes('not found') || (error as any).status === 404)) {
+      console.log(`Bucket "${bucketName}" not found. Attempting to create bucket...`);
+      const { error: createError } = await supabase.storage.createBucket(bucketName, {
+        public: true,
+        allowedMimeTypes: ['image/*', 'video/*'],
+      });
+
+      if (!createError) {
+        console.log(`Successfully created bucket "${bucketName}". Retrying upload...`);
+        const retryResult = await supabase.storage
+          .from(bucketName)
+          .upload(filePath, file, {
+            cacheControl: '3600',
+            upsert: true
+          });
+        error = retryResult.error;
+      } else {
+        console.error('Failed to create bucket:', createError);
+      }
+    }
 
     if (error) {
       throw error;

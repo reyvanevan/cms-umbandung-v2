@@ -49,6 +49,7 @@ export interface DbLandingStat {
   id: string;
   number: string;
   label: string;
+  label_en?: string;
   sort_order: number;
 }
 
@@ -269,10 +270,10 @@ const initialPartners: DbPartner[] = [
 ];
 
 const initialLandingStats: DbLandingStat[] = [
-  { id: '1', number: '98%', label: 'Keterserapan Lulusan di Industri', sort_order: 1 },
-  { id: '2', number: '20+', label: 'Mitra Industri & Tech Company', sort_order: 2 },
-  { id: '3', number: '150+', label: 'Project Apps Mahasiswa Terpublikasi', sort_order: 3 },
-  { id: '4', number: '8', label: 'Laboratorium Komputasi & Riset', sort_order: 4 }
+  { id: '1', number: '98%', label: 'Keterserapan Lulusan di Industri', label_en: 'Graduate Employment Rate in Industry', sort_order: 1 },
+  { id: '2', number: '20+', label: 'Mitra Industri & Tech Company', label_en: 'Industry Partners & Tech Companies', sort_order: 2 },
+  { id: '3', number: '150+', label: 'Project Apps Mahasiswa Terpublikasi', label_en: 'Published Student Project Apps', sort_order: 3 },
+  { id: '4', number: '8', label: 'Laboratorium Komputasi & Riset', label_en: 'Computing & Research Laboratories', sort_order: 4 }
 ];
 
 const initialLandingPartners: DbLandingPartner[] = [

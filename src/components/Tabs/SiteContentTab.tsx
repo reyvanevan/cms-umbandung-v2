@@ -51,13 +51,26 @@ export default function SiteContentTab({
   }, [siteContent]);
 
   const handleInputChange = (key: string, lang: 'id' | 'en', val: string) => {
-    setEditValues((prev) => ({
-      ...prev,
-      [key]: {
-        ...prev[key],
-        [lang]: val
+    setEditValues((prev) => {
+      const current = prev[key] || { id: '', en: '' };
+      if (lang === 'id') {
+        const shouldSyncEn = !current.en || current.en === current.id;
+        return {
+          ...prev,
+          [key]: {
+            id: val,
+            en: shouldSyncEn ? val : current.en
+          }
+        };
       }
-    }));
+      return {
+        ...prev,
+        [key]: {
+          ...current,
+          en: val
+        }
+      };
+    });
   };
 
   const handleSave = async (key: string) => {

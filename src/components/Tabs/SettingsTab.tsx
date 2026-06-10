@@ -134,6 +134,28 @@ export default function SettingsTab({
   section text,
   updated_at timestamp with time zone default timezone('utc'::text, now())
 );`
+    },
+    {
+      title: 'Setup Storage Bucket (Penyimpanan Gambar/Video)',
+      sql: `-- 1. Jalankan query ini jika ingin membuat bucket prodi-assets & kebijakan akses secara manual
+insert into storage.buckets (id, name, public)
+values ('prodi-assets', 'prodi-assets', true)
+on conflict (id) do nothing;
+
+-- 2. Kebijakan akses publik untuk membaca berkas
+create policy "Allow public read-only access"
+on storage.objects for select
+using ( bucket_id = 'prodi-assets' );
+
+-- 3. Kebijakan untuk mengizinkan unggah berkas (insert)
+create policy "Allow public uploads"
+on storage.objects for insert
+with check ( bucket_id = 'prodi-assets' );
+
+-- 4. Kebijakan untuk memperbarui berkas (update)
+create policy "Allow public updates"
+on storage.objects for update
+using ( bucket_id = 'prodi-assets' );`
     }
   ];
 
