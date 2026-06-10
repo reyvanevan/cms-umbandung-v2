@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Save, Search, RefreshCw, Upload, Link as LinkIcon } from 'lucide-react';
+import { Save, Search, RefreshCw, Upload, Link as LinkIcon, Home, FileText, Users, GraduationCap, BookOpen, Award } from 'lucide-react';
 import { type DbSiteContent } from '../../lib/mockData';
 import { handleImageUpload } from '../../lib/supabase';
 import { getHumanLabel, getHelpText } from '../../lib/cmsLabels';
@@ -18,6 +18,7 @@ export default function SiteContentTab({
   onUpdateContent
 }: SiteContentTabProps) {
   const [searchQuery, setSearchQuery] = useState('');
+  const [activeCategory, setActiveCategory] = useState<'beranda' | 'visi_misi' | 'tata_kelola' | 'kurikulum' | 'tugas_akhir' | 'kerjasama'>('beranda');
   const [editValues, setEditValues] = useState<{ [key: string]: { id: string; en: string } }>({});
   const [savingKeys, setSavingKeys] = useState<{ [key: string]: boolean }>({});
   const [uploadingKeys, setUploadingKeys] = useState<{ [key: string]: boolean }>({});
@@ -86,39 +87,65 @@ export default function SiteContentTab({
     }
   };
 
-  // Helper to resolve section from content key prefix
-  const getSectionName = (key: string) => {
-    if (key.startsWith('hero_')) return 'Hero';
-    if (key.startsWith('kaprodi_')) return 'Kaprodi';
-    if (key.startsWith('philosophy_')) return 'Philosophy';
+  // Helper to categorize content key
+  const getCategoryForKey = (key: string) => {
+    if (key.startsWith('hero_') || key.startsWith('kaprodi_') || key.startsWith('philosophy_') || key.startsWith('logo_') || key.startsWith('sambutan_')) {
+      return 'beranda';
+    }
+    if (key.startsWith('visi_misi_')) return 'visi_misi';
+    if (key.startsWith('gov_')) return 'tata_kelola';
+    if (key.startsWith('kurikulum_')) return 'kurikulum';
+    if (key.startsWith('tugas_akhir_')) return 'tugas_akhir';
+    if (key.startsWith('kerjasama_')) return 'kerjasama';
+    return 'beranda';
+  };
+
+  const getSubSectionName = (key: string) => {
+    if (key.startsWith('hero_')) return 'Spanduk & Jumbotron';
+    if (key.startsWith('kaprodi_')) return 'Sambutan Kepala Program Studi';
+    if (key.startsWith('philosophy_')) return 'Filosofi Pembelajaran';
+    if (key.startsWith('gov_sec_')) return 'Sekretaris Program Studi';
+    if (key.startsWith('gov_lab_')) return 'Kepala Laboratorium Komputasi';
+    if (key.startsWith('visi_misi_')) return 'Visi & Misi Akademik';
+    if (key.startsWith('kurikulum_')) return 'Panduan Kurikulum & MBKM';
+    if (key.startsWith('tugas_akhir_')) return 'Persyaratan & Timeline Tugas Akhir';
+    if (key.startsWith('kerjasama_')) return 'Kemitraan Industri';
     return 'General';
   };
 
-  // Group content by section
-  const sections = Array.from(new Set(siteContent.map((c) => getSectionName(c.key))));
+  const CATEGORIES = [
+    { id: 'beranda', name: 'Beranda / Landing', icon: Home, desc: 'Pengaturan slide utama, sambutan, dan filosofi.' },
+    { id: 'visi_misi', name: 'Visi & Misi', icon: FileText, desc: 'Rumusan tujuan akademik, visi, dan misi.' },
+    { id: 'tata_kelola', name: 'Tata Kelola', icon: Users, desc: 'Kontak dan foto pimpinan (Sekretaris & Kalab).' },
+    { id: 'kurikulum', name: 'Kurikulum', icon: GraduationCap, desc: 'Pengantar sebaran SKS dan program magang.' },
+    { id: 'tugas_akhir', name: 'Tugas Akhir', icon: BookOpen, desc: 'Persyaratan dan timeline skripsi mahasiswa.' },
+    { id: 'kerjasama', name: 'Kerjasama', icon: Award, desc: 'Kalimat pembuka daftar mitra industri.' }
+  ] as const;
 
-  const getSectionTitle = (sec: string) => {
-    switch (sec.toLowerCase()) {
-      case 'hero': return 'Hero / Spanduk Utama';
-      case 'kaprodi': return 'Profil Kepala Program Studi';
-      case 'philosophy': return 'Filosofi Pembelajaran';
-      default: return 'Pengaturan Umum';
-    }
-  };
-
+  // Filter content by search query & category
   const filteredContent = siteContent.filter((item) => {
-    if (!searchQuery) return true;
-    const q = searchQuery.toLowerCase();
-    const sec = getSectionName(item.key);
-    const humanLabel = getHumanLabel(item.key).toLowerCase();
-    return (
-      item.key.toLowerCase().includes(q) ||
-      humanLabel.includes(q) ||
-      item.value.toLowerCase().includes(q) ||
-      (item.value_en && item.value_en.toLowerCase().includes(q)) ||
-      sec.toLowerCase().includes(q)
-    );
+    const keyCategory = getCategoryForKey(item.key);
+    
+    // If searching, show match regardless of category (helps find things quickly)
+    if (searchQuery) {
+      const q = searchQuery.toLowerCase();
+      const subSec = getSubSectionName(item.key).toLowerCase();
+      const humanLabel = getHumanLabel(item.key).toLowerCase();
+      return (
+        item.key.toLowerCase().includes(q) ||
+        humanLabel.includes(q) ||
+        item.value.toLowerCase().includes(q) ||
+        (item.value_en && item.value_en.toLowerCase().includes(q)) ||
+        subSec.includes(q)
+      );
+    }
+
+    // Else filter strictly by active category
+    return keyCategory === activeCategory;
   });
+
+  // Unique subsections for rendering group titles
+  const subsections = Array.from(new Set(filteredContent.map((c) => getSubSectionName(c.key))));
 
   return (
     <div className="space-y-6">
@@ -142,6 +169,36 @@ export default function SiteContentTab({
         </div>
       </div>
 
+      {/* Sub-tabs Category Selector (only visible when not searching) */}
+      {!searchQuery && (
+        <div className="bg-white border border-slate-200/80 rounded-2xl p-4 shadow-xs">
+          <p className="text-[10px] font-bold text-slate-400 uppercase tracking-widest mb-3 px-1">Pilih Halaman Yang Ingin Diedit</p>
+          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-2">
+            {CATEGORIES.map((cat) => {
+              const Icon = cat.icon;
+              const isActive = activeCategory === cat.id;
+              return (
+                <button
+                  key={cat.id}
+                  onClick={() => setActiveCategory(cat.id)}
+                  className={`flex flex-col items-center justify-center p-3 rounded-xl border text-center transition cursor-pointer select-none group ${
+                    isActive
+                      ? 'bg-slate-900 border-slate-900 text-white shadow-sm'
+                      : 'bg-slate-50 border-slate-200/80 text-slate-600 hover:bg-slate-100 hover:border-slate-300'
+                  }`}
+                >
+                  <Icon className={`w-5 h-5 mb-1.5 transition-transform group-hover:scale-105 ${isActive ? 'text-white' : 'text-slate-500'}`} />
+                  <span className="text-xs font-bold">{cat.name}</span>
+                </button>
+              );
+            })}
+          </div>
+          <p className="text-[11px] text-slate-400 mt-3 px-1 italic">
+            * {CATEGORIES.find((c) => c.id === activeCategory)?.desc}
+          </p>
+        </div>
+      )}
+
       {/* Loading State */}
       {isLoadingData ? (
         <div className="py-20 flex flex-col items-center justify-center gap-3 text-slate-400">
@@ -150,155 +207,162 @@ export default function SiteContentTab({
         </div>
       ) : (
         <div className="space-y-10">
-          {sections.map((sectionName) => {
-            const sectionItems = filteredContent.filter((c) => getSectionName(c.key) === sectionName);
-            if (sectionItems.length === 0) return null;
+          {filteredContent.length === 0 ? (
+            <div className="py-16 bg-white border border-slate-200 rounded-2xl text-center space-y-2">
+              <p className="text-sm font-medium text-slate-600">Tidak ada konten yang cocok</p>
+              <p className="text-xs text-slate-400">Coba kata kunci pencarian lain.</p>
+            </div>
+          ) : (
+            subsections.map((subName) => {
+              const sectionItems = filteredContent.filter((c) => getSubSectionName(c.key) === subName);
+              if (sectionItems.length === 0) return null;
 
-            return (
-              <div key={sectionName} className="space-y-4">
-                {/* Section title header */}
-                <div className="flex items-center gap-2 px-1">
-                  <div className="w-1.5 h-4.5 bg-slate-900 rounded-full" />
-                  <h3 className="text-xs font-bold text-slate-800 uppercase tracking-widest">
-                    {getSectionTitle(sectionName)}
-                  </h3>
-                </div>
+              return (
+                <div key={subName} className="space-y-4">
+                  {/* Section title header */}
+                  <div className="flex items-center gap-2 px-1">
+                    <div className="w-1.5 h-4.5 bg-slate-900 rounded-full" />
+                    <h3 className="text-xs font-bold text-slate-800 uppercase tracking-widest">
+                      {subName}
+                    </h3>
+                  </div>
 
-                {/* Items grid */}
-                <div className="grid grid-cols-1 gap-6">
-                  {sectionItems.map((item) => {
-                    const vals = editValues[item.key] || { id: '', en: '' };
-                    const isSaving = savingKeys[item.key] || false;
+                  {/* Items grid */}
+                  <div className="grid grid-cols-1 gap-6">
+                    {sectionItems.map((item) => {
+                      const vals = editValues[item.key] || { id: '', en: '' };
+                      const isSaving = savingKeys[item.key] || false;
 
-                    return (
-                      <div key={item.key} className="p-6 bg-white border border-slate-200/70 rounded-2xl flex flex-col gap-6 shadow-xs hover:border-slate-300 transition-colors">
-                        
-                        {/* Item Header */}
-                        <div className="flex flex-col sm:flex-row sm:items-start justify-between gap-4 pb-4 border-b border-slate-100">
-                          <div className="space-y-1">
-                            <div className="flex flex-wrap items-center gap-2">
-                              <h4 className="text-sm font-bold text-slate-900">
-                                {getHumanLabel(item.key)}
-                              </h4>
-                              <span className="text-[9px] font-mono font-medium text-slate-400 bg-slate-100/80 px-2 py-0.5 rounded-md border border-slate-200/30">
-                                {item.key}
-                              </span>
+                      return (
+                        <div key={item.key} className="p-6 bg-white border border-slate-200/70 rounded-2xl flex flex-col gap-6 shadow-xs hover:border-slate-300 transition-colors">
+                          
+                          {/* Item Header */}
+                          <div className="flex flex-col sm:flex-row sm:items-start justify-between gap-4 pb-4 border-b border-slate-100">
+                            <div className="space-y-1">
+                              <div className="flex flex-wrap items-center gap-2">
+                                <h4 className="text-sm font-bold text-slate-900">
+                                  {getHumanLabel(item.key)}
+                                </h4>
+                                <span className="text-[9px] font-mono font-medium text-slate-400 bg-slate-100/80 px-2 py-0.5 rounded-md border border-slate-200/30">
+                                  {item.key}
+                                </span>
+                              </div>
+                              <p className="text-xs text-slate-500 leading-relaxed max-w-2xl">
+                                {getHelpText(item.key)}
+                              </p>
                             </div>
-                            <p className="text-xs text-slate-500 leading-relaxed max-w-2xl">
-                              {getHelpText(item.key)}
-                            </p>
+
+                            <button
+                              onClick={() => handleSave(item.key)}
+                              disabled={isSaving}
+                              className="px-4 py-2 bg-slate-900 hover:bg-slate-800 disabled:bg-slate-300 text-white rounded-xl text-xs font-semibold flex items-center justify-center gap-1.5 shadow-sm transition cursor-pointer shrink-0"
+                            >
+                              {isSaving ? (
+                                <RefreshCw className="w-3.5 h-3.5 animate-spin" />
+                              ) : (
+                                <Save className="w-3.5 h-3.5" />
+                              )}
+                              <span>Simpan</span>
+                            </button>
                           </div>
 
-                          <button
-                            onClick={() => handleSave(item.key)}
-                            disabled={isSaving}
-                            className="px-4 py-2 bg-slate-900 hover:bg-slate-800 disabled:bg-slate-300 text-white rounded-xl text-xs font-semibold flex items-center justify-center gap-1.5 shadow-sm transition cursor-pointer shrink-0"
-                          >
-                            {isSaving ? (
-                              <RefreshCw className="w-3.5 h-3.5 animate-spin" />
-                            ) : (
-                              <Save className="w-3.5 h-3.5" />
-                            )}
-                            <span>Simpan</span>
-                          </button>
-                        </div>
-
-                        {/* Item Inputs */}
-                        <div className="w-full">
-                          {item.key.includes('photo') || item.key.includes('image') || item.key.includes('_url') ? (
-                            <div className="space-y-4">
-                              <div className="flex flex-col md:flex-row gap-4 items-center bg-slate-50/50 p-4 border border-slate-150 rounded-xl">
-                                {vals.id && (
-                                  vals.id.toLowerCase().endsWith('.mp4') ||
-                                  vals.id.toLowerCase().endsWith('.webm') ||
-                                  vals.id.toLowerCase().endsWith('.ogg') ||
-                                  vals.id.startsWith('data:video/') ? (
-                                    <video src={vals.id} className="w-24 h-24 object-cover rounded-xl border border-slate-200 shrink-0 bg-white shadow-xs" controls muted />
-                                  ) : (
-                                    <img src={vals.id} className="w-24 h-24 object-cover rounded-xl border border-slate-200 shrink-0 bg-white shadow-xs" alt="Preview" />
-                                  )
+                          {/* Item Inputs */}
+                          <div className="w-full">
+                            {item.key.includes('photo') || item.key.includes('image') || item.key.includes('_url') ? (
+                              <div className="space-y-4">
+                                <div className="flex flex-col md:flex-row gap-4 items-center bg-slate-50/50 p-4 border border-slate-150 rounded-xl">
+                                  {vals.id && (
+                                    vals.id.toLowerCase().endsWith('.mp4') ||
+                                    vals.id.toLowerCase().endsWith('.webm') ||
+                                    vals.id.toLowerCase().endsWith('.ogg') ||
+                                    vals.id.startsWith('data:video/') ? (
+                                      <video src={vals.id} className="w-24 h-24 object-cover rounded-xl border border-slate-200 shrink-0 bg-white shadow-xs" controls muted />
+                                    ) : (
+                                      <img src={vals.id} className="w-24 h-24 object-cover rounded-xl border border-slate-200 shrink-0 bg-white shadow-xs" alt="Preview" />
+                                    )
+                                  )}
+                                  <div className="flex-1 w-full space-y-3">
+                                    <div className="space-y-1">
+                                      <span className="flex items-center gap-1 text-[11px] font-bold text-slate-600">
+                                        <Upload className="w-3.5 h-3.5" />
+                                        <span>Unggah File Baru</span>
+                                      </span>
+                                      <input
+                                        type="file"
+                                        accept="image/*,video/*"
+                                        onChange={(e) => {
+                                          const file = e.target.files?.[0];
+                                          if (file) handleFileUpload(item.key, file);
+                                        }}
+                                        className="w-full text-xs text-slate-500 file:mr-4 file:py-1.5 file:px-3 file:rounded-lg file:border-0 file:text-[11px] file:font-semibold file:bg-slate-900 file:text-white hover:file:bg-slate-800 file:cursor-pointer"
+                                        disabled={uploadingKeys[item.key]}
+                                      />
+                                    </div>
+                                    <div className="space-y-1">
+                                      <span className="flex items-center gap-1 text-[11px] font-bold text-slate-600">
+                                        <LinkIcon className="w-3.5 h-3.5" />
+                                        <span>Atau Alamat URL Media</span>
+                                      </span>
+                                      <input
+                                        type="text"
+                                        placeholder="Masukkan url gambar/video, misal: /assets/nama-file.png"
+                                        className="w-full px-3 py-2 bg-white border border-slate-200 rounded-lg text-xs focus:outline-none focus:ring-2 focus:ring-slate-900/10 focus:border-slate-400 transition"
+                                        value={vals.id}
+                                        onChange={(e) => {
+                                          handleInputChange(item.key, 'id', e.target.value);
+                                          handleInputChange(item.key, 'en', e.target.value);
+                                        }}
+                                      />
+                                    </div>
+                                  </div>
+                                </div>
+                                {uploadingKeys[item.key] && (
+                                  <p className="text-[10px] text-indigo-600 animate-pulse font-medium">Sedang mengunggah file...</p>
                                 )}
-                                <div className="flex-1 w-full space-y-3">
-                                  <div className="space-y-1">
-                                    <span className="flex items-center gap-1 text-[11px] font-bold text-slate-600">
-                                      <Upload className="w-3.5 h-3.5" />
-                                      <span>Unggah File Baru</span>
-                                    </span>
-                                    <input
-                                      type="file"
-                                      accept="image/*,video/*"
-                                      onChange={(e) => {
-                                        const file = e.target.files?.[0];
-                                        if (file) handleFileUpload(item.key, file);
-                                      }}
-                                      className="w-full text-xs text-slate-500 file:mr-4 file:py-1.5 file:px-3 file:rounded-lg file:border-0 file:text-[11px] file:font-semibold file:bg-slate-900 file:text-white hover:file:bg-slate-800 file:cursor-pointer"
-                                      disabled={uploadingKeys[item.key]}
-                                    />
-                                  </div>
-                                  <div className="space-y-1">
-                                    <span className="flex items-center gap-1 text-[11px] font-bold text-slate-600">
-                                      <LinkIcon className="w-3.5 h-3.5" />
-                                      <span>Atau Alamat URL Media</span>
-                                    </span>
-                                    <input
-                                      type="text"
-                                      placeholder="Masukkan url gambar/video, misal: /assets/nama-file.png"
-                                      className="w-full px-3 py-2 bg-white border border-slate-200 rounded-lg text-xs focus:outline-none focus:ring-2 focus:ring-slate-900/10 focus:border-slate-400 transition"
-                                      value={vals.id}
-                                      onChange={(e) => {
-                                        handleInputChange(item.key, 'id', e.target.value);
-                                        handleInputChange(item.key, 'en', e.target.value);
-                                      }}
-                                    />
-                                  </div>
-                                </div>
+                                {uploadErrors[item.key] && (
+                                  <p className="text-[10px] text-red-500 font-semibold">{uploadErrors[item.key]}</p>
+                                )}
                               </div>
-                              {uploadingKeys[item.key] && (
-                                <p className="text-[10px] text-indigo-600 animate-pulse font-medium">Sedang mengunggah file...</p>
-                              )}
-                              {uploadErrors[item.key] && (
-                                <p className="text-[10px] text-red-500 font-semibold">{uploadErrors[item.key]}</p>
-                              )}
-                            </div>
-                          ) : (
-                            <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 w-full">
-                              {/* Indonesian Input */}
-                              <div className="space-y-2">
-                                <div className="flex items-center gap-2">
-                                  <span className="text-[10px] font-bold px-2 py-0.5 bg-slate-100 rounded text-slate-600 border border-slate-200/50">ID</span>
-                                  <span className="text-xs font-semibold text-slate-600">Bahasa Indonesia</span>
+                            ) : (
+                              <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 w-full">
+                                {/* Indonesian Input */}
+                                <div className="space-y-2">
+                                  <div className="flex items-center gap-2">
+                                    <span className="text-[10px] font-bold px-2 py-0.5 bg-slate-100 rounded text-slate-600 border border-slate-200/50">ID</span>
+                                    <span className="text-xs font-semibold text-slate-600">Bahasa Indonesia</span>
+                                  </div>
+                                  <textarea
+                                    className="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-xl text-xs focus:outline-none focus:ring-2 focus:ring-slate-900/10 focus:border-slate-450 focus:bg-white transition min-h-[90px] leading-relaxed"
+                                    value={vals.id}
+                                    onChange={(e) => handleInputChange(item.key, 'id', e.target.value)}
+                                  />
                                 </div>
-                                <textarea
-                                  className="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-xl text-xs focus:outline-none focus:ring-2 focus:ring-slate-900/10 focus:border-slate-450 focus:bg-white transition min-h-[90px] leading-relaxed"
-                                  value={vals.id}
-                                  onChange={(e) => handleInputChange(item.key, 'id', e.target.value)}
-                                />
-                              </div>
 
-                              {/* English Input */}
-                              <div className="space-y-2">
-                                <div className="flex items-center gap-2">
-                                  <span className="text-[10px] font-bold px-2 py-0.5 bg-indigo-50 rounded text-indigo-600 border border-indigo-100/50">EN</span>
-                                  <span className="text-xs font-semibold text-slate-600">English Translation</span>
+                                {/* English Input */}
+                                <div className="space-y-2">
+                                  <div className="flex items-center gap-2">
+                                    <span className="text-[10px] font-bold px-2 py-0.5 bg-indigo-50 rounded text-indigo-600 border border-indigo-100/50">EN</span>
+                                    <span className="text-xs font-semibold text-slate-600">English Translation</span>
+                                  </div>
+                                  <textarea
+                                    className="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-xl text-xs focus:outline-none focus:ring-2 focus:ring-slate-900/10 focus:border-slate-450 focus:bg-white transition min-h-[90px] leading-relaxed"
+                                    value={vals.en}
+                                    onChange={(e) => handleInputChange(item.key, 'en', e.target.value)}
+                                    placeholder="Biarkan kosong untuk menggunakan teks bahasa Indonesia"
+                                  />
                                 </div>
-                                <textarea
-                                  className="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-xl text-xs focus:outline-none focus:ring-2 focus:ring-slate-900/10 focus:border-slate-450 focus:bg-white transition min-h-[90px] leading-relaxed"
-                                  value={vals.en}
-                                  onChange={(e) => handleInputChange(item.key, 'en', e.target.value)}
-                                  placeholder="Biarkan kosong untuk menggunakan teks bahasa Indonesia"
-                                />
                               </div>
-                            </div>
-                          )}
+                            )}
+                          </div>
+
                         </div>
-
-                      </div>
-                    );
-                  })}
+                      );
+                    })}
+                  </div>
                 </div>
-              </div>
-            );
-          })}
+              );
+            })
+          )}
         </div>
       )}
     </div>

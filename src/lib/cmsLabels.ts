@@ -47,6 +47,70 @@ export const SITE_CONTENT_LABELS: Record<string, LabelConfig> = {
   philosophy_body: {
     label: 'Isi Filosofi Pembelajaran',
     desc: 'Penjelasan lengkap atau narasi dari filosofi pembelajaran program studi.'
+  },
+  visi_misi_vision: {
+    label: 'Visi Program Studi',
+    desc: 'Rumusan Visi utama Program Studi Teknik Informatika.'
+  },
+  visi_misi_missions: {
+    label: 'Misi Program Studi',
+    desc: 'Rumusan Misi operasional Program Studi. Masukkan tiap misi di baris baru (tekan Enter).'
+  },
+  visi_misi_goals: {
+    label: 'Tujuan Program Studi (Educational Goals)',
+    desc: 'Sasaran strategis lulusan prodi. Masukkan tiap tujuan di baris baru (tekan Enter).'
+  },
+  gov_sec_name: {
+    label: 'Nama Sekretaris Program Studi',
+    desc: 'Nama lengkap beserta gelar akademik Sekretaris Prodi.'
+  },
+  gov_sec_role: {
+    label: 'Jabatan Sekretaris Program Studi',
+    desc: 'Nama jabatan resmi untuk Sekretaris Prodi.'
+  },
+  gov_sec_email: {
+    label: 'E-mail Sekretaris Program Studi',
+    desc: 'Alamat e-mail aktif Sekretaris Prodi.'
+  },
+  gov_sec_photo: {
+    label: 'Foto Sekretaris Program Studi',
+    desc: 'Foto profil resmi Sekretaris Prodi.'
+  },
+  gov_lab_name: {
+    label: 'Nama Kepala Lab Komputasi',
+    desc: 'Nama lengkap beserta gelar akademik Kepala Laboratorium.'
+  },
+  gov_lab_role: {
+    label: 'Jabatan Kepala Lab Komputasi',
+    desc: 'Nama jabatan resmi untuk Kepala Lab.'
+  },
+  gov_lab_email: {
+    label: 'E-mail Kepala Lab Komputasi',
+    desc: 'Alamat e-mail aktif Kepala Lab Komputasi.'
+  },
+  gov_lab_photo: {
+    label: 'Foto Kepala Lab Komputasi',
+    desc: 'Foto profil resmi Kepala Laboratorium Komputasi.'
+  },
+  kurikulum_description: {
+    label: 'Deskripsi Kurikulum & CPL',
+    desc: 'Penjelasan umum mengenai visi kurikulum, sertifikasi, dan integrasi standar internasional.'
+  },
+  kurikulum_internship_desc: {
+    label: 'Deskripsi Magang MBKM',
+    desc: 'Penjelasan tata cara konversi kredit dan kemitraan magang industri.'
+  },
+  tugas_akhir_description: {
+    label: 'Deskripsi Portal Tugas Akhir',
+    desc: 'Kalimat pembuka / pengantar pada portal Tugas Akhir.'
+  },
+  tugas_akhir_prereq_desc: {
+    label: 'Persyaratan Akademik Tugas Akhir',
+    desc: 'Ketentuan jumlah SKS lulus, IPK minimal, dan prasyarat pendaftaran proposal skripsi.'
+  },
+  kerjasama_description: {
+    label: 'Deskripsi Kerjasama & Kemitraan',
+    desc: 'Kalimat pembuka / pengantar pada halaman direktori kerjasama industri.'
   }
 };
 

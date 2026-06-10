@@ -404,6 +404,102 @@ export const initialSiteContent: DbSiteContent[] = [
     value: 'Kami percaya bahwa pemrograman bukan hanya tentang mengetik baris kode, melainkan tentang membangun solusi komputasi yang efisien, etis, dan memberikan dampak nyata bagi masyarakat.',
     value_en: 'We believe programming is not just about writing lines of code, but about building efficient, ethical computing solutions that deliver real impact to society.',
     updated_at: new Date().toISOString()
+  },
+  {
+    key: 'visi_misi_vision',
+    value: 'Menjadi program studi rekayasa perangkat lunak yang unggul di tingkat nasional, berdaya saing global, terintegrasi dengan nilai-nilai Keislaman serta inovasi teknologi digital pada tahun 2030.',
+    value_en: 'To become a leading, globally-recognized center of software engineering education and research that integrates Islamic values and digital technological innovations by 2030.',
+    updated_at: new Date().toISOString()
+  },
+  {
+    key: 'visi_misi_missions',
+    value: 'Menyelenggarakan pendidikan rekayasa perangkat lunak berkualitas tinggi yang selaras dengan standar komputasi global dan kebutuhan dinamis industri teknologi.\nMelaksanakan riset inovatif dan kolaboratif di bidang sistem awan, kecerdasan buatan, dan keamanan siber dengan publikasi akademis yang berdampak.\nMengimplementasikan program pengabdian masyarakat berbasis transformasi digital untuk memberdayakan UMKM lokal dan sektor sosial kemasyarakatan.\nMengintegrasikan etika Keislaman, integritas profesional, dan prinsip moral dalam pembelajaran akademik serta pembinaan karakter.',
+    value_en: 'Deliver a high-quality software engineering curriculum that aligns with global computing standards and dynamic tech industry demands.\nConduct innovative, collaborative research in cloud systems, artificial intelligence, and cybersecurity with meaningful academic publications.\nImplement digital transformation initiatives and community service programs to support local MSMEs and community sectors.\nIntegrate Islamic ethics, professional integrity, and moral principles into academic learning and character development.',
+    updated_at: new Date().toISOString()
+  },
+  {
+    key: 'visi_misi_goals',
+    value: 'Kompetensi Profesional Global\nOutput Riset yang Inovatif\nEkosistem Digital Berkelanjutan\nKarakter Islami & Kepemimpinan',
+    value_en: 'Global Professional Competency\nInnovative Research Output\nSustainable Digital Ecosystems\nIslamic Character & Leadership',
+    updated_at: new Date().toISOString()
+  },
+  {
+    key: 'gov_sec_name',
+    value: 'Vritta Amroini Wahyudi, S.Si., M.Si.',
+    value_en: 'Vritta Amroini Wahyudi, S.Si., M.Si.',
+    updated_at: new Date().toISOString()
+  },
+  {
+    key: 'gov_sec_role',
+    value: 'Sekretaris Program Studi',
+    value_en: 'Secretary of Department',
+    updated_at: new Date().toISOString()
+  },
+  {
+    key: 'gov_sec_email',
+    value: 'vritta.aw@umbandung.ac.id',
+    value_en: 'vritta.aw@umbandung.ac.id',
+    updated_at: new Date().toISOString()
+  },
+  {
+    key: 'gov_sec_photo',
+    value: 'https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?q=80&w=300&auto=format&fit=crop',
+    value_en: 'https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?q=80&w=300&auto=format&fit=crop',
+    updated_at: new Date().toISOString()
+  },
+  {
+    key: 'gov_lab_name',
+    value: 'Hanif Alamudin Manshur, S.Gz., M.Si.',
+    value_en: 'Hanif Alamudin Manshur, S.Gz., M.Si.',
+    updated_at: new Date().toISOString()
+  },
+  {
+    key: 'gov_lab_role',
+    value: 'Kepala Laboratorium Komputasi',
+    value_en: 'Head of Computing Laboratories',
+    updated_at: new Date().toISOString()
+  },
+  {
+    key: 'gov_lab_email',
+    value: 'hanif.am@umbandung.ac.id',
+    value_en: 'hanif.am@umbandung.ac.id',
+    updated_at: new Date().toISOString()
+  },
+  {
+    key: 'gov_lab_photo',
+    value: 'https://images.unsplash.com/photo-1560250097-0b93528c311a?q=80&w=300&auto=format&fit=crop',
+    value_en: 'https://images.unsplash.com/photo-1560250097-0b93528c311a?q=80&w=300&auto=format&fit=crop',
+    updated_at: new Date().toISOString()
+  },
+  {
+    key: 'kurikulum_description',
+    value: 'Pelajari kurikulum adaptif kami yang disusun berdasarkan standar komputasi internasional (ACM/IEEE), sertifikasi profesi industri, serta skema Merdeka Belajar Kampus Merdeka (MBKM).',
+    value_en: 'Explore our modern, adaptive curriculum structured around international computing standards (ACM/IEEE), industry certifications, and MBKM learning path designs.',
+    updated_at: new Date().toISOString()
+  },
+  {
+    key: 'kurikulum_internship_desc',
+    value: 'Mahasiswa kami difasilitasi untuk mengkonversikan pengalaman kerja lapangan / magang industri riil hingga 20 SKS akademik di bawah skema MBKM Kemendikbud, bermitra dengan startup dan BUMN teknologi terkemuka.',
+    value_en: 'Our students are eligible to convert real-world industrial experiences into up to 20 academic credits under the Kemendikbud MBKM schema, collaborating with global and national technology enterprises.',
+    updated_at: new Date().toISOString()
+  },
+  {
+    key: 'tugas_akhir_description',
+    value: 'Akses panduan akademik, persyaratan kelayakan, alur pengajuan proposal, serta berkas unduhan template untuk menyelesaikan Tugas Akhir (Skripsi) Anda.',
+    value_en: 'Access guidelines, academic prerequisites, research workflows, and download templates required to successfully complete your capstone final project.',
+    updated_at: new Date().toISOString()
+  },
+  {
+    key: 'tugas_akhir_prereq_desc',
+    value: 'Telah menempuh dan lulus minimal 110 SKS mata kuliah akademik, tidak memiliki nilai D/E untuk core courses, IPK Kumulatif minimal 2.00, serta menyertakan Seminar Proposal di KRS berjalan.',
+    value_en: 'Successfully completed a minimum of 110 academic credits (SKS), no D or E grades for core courses, minimum GPA of 2.00, and enrolled in Thesis Proposal Seminar in the current KRS.',
+    updated_at: new Date().toISOString()
+  },
+  {
+    key: 'kerjasama_description',
+    value: 'Membuka peluang kolaborasi global guna mendukung Tri Dharma Perguruan Tinggi, magang industri mahasiswa, riset bersama, serta penyerapan karir lulusan.',
+    value_en: 'Exploring global collaborations to support the Tri Dharma of Higher Education, student internships, joint research programs, and professional career transitions.',
+    updated_at: new Date().toISOString()
   }
 ];
 
