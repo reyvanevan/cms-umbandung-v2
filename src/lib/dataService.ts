@@ -1,5 +1,5 @@
 import { getSupabaseClient } from './supabase';
-import { mockDb, initialSiteContent, type DbNews, type DbEvent, type DbTestimonial, type DbPartner, type DbSiteContent, type DbLandingStat, type DbLandingPartner, type DbLandingPortfolioItem, type DbDosen } from './mockData';
+import { mockDb, initialSiteContent, type DbNews, type DbEvent, type DbTestimonial, type DbPartner, type DbSiteContent, type DbLandingStat, type DbLandingPartner, type DbLandingPortfolioItem, type DbDosen, type DbKurikulumCourse, type DbKurikulumPlo, type DbKurikulumProfile, type DbTaStep } from './mockData';
 
 export type ConnectionMode = 'supabase' | 'mock';
 
@@ -683,6 +683,306 @@ export const dataService = {
 
     const { error } = await supabase
       .from('dosen')
+      .delete()
+      .eq('id', id);
+
+    if (error) {
+      throw new Error(`Supabase error: ${error.message}`);
+    }
+  },
+
+  // --- KURIKULUM COURSES ---
+  getKurikulumCourses: async (): Promise<DbKurikulumCourse[]> => {
+    const supabase = getSupabaseClient();
+    if (!supabase) {
+      return mockDb.getAll<DbKurikulumCourse>('kurikulum_courses').sort((a, b) => a.sort_order - b.sort_order);
+    }
+
+    const { data, error } = await supabase
+      .from('kurikulum_courses')
+      .select('*')
+      .order('sort_order', { ascending: true });
+
+    if (error) {
+      console.warn('Supabase getKurikulumCourses failed, falling back to mock:', error.message);
+      return mockDb.getAll<DbKurikulumCourse>('kurikulum_courses').sort((a, b) => a.sort_order - b.sort_order);
+    }
+    return data || [];
+  },
+
+  createKurikulumCourse: async (course: Omit<DbKurikulumCourse, 'id' | 'created_at'>): Promise<DbKurikulumCourse> => {
+    const supabase = getSupabaseClient();
+    if (!supabase) {
+      return mockDb.insert<DbKurikulumCourse>('kurikulum_courses', course);
+    }
+
+    const { data, error } = await supabase
+      .from('kurikulum_courses')
+      .insert([course])
+      .select()
+      .single();
+
+    if (error) {
+      throw new Error(`Supabase error: ${error.message}`);
+    }
+    return data;
+  },
+
+  updateKurikulumCourse: async (id: string, updates: Partial<DbKurikulumCourse>): Promise<DbKurikulumCourse> => {
+    const supabase = getSupabaseClient();
+    if (!supabase) {
+      const updated = mockDb.update<DbKurikulumCourse>('kurikulum_courses', id, updates);
+      if (!updated) throw new Error('Item not found in mock database');
+      return updated;
+    }
+
+    const { data, error } = await supabase
+      .from('kurikulum_courses')
+      .update(updates)
+      .eq('id', id)
+      .select()
+      .single();
+
+    if (error) {
+      throw new Error(`Supabase error: ${error.message}`);
+    }
+    return data;
+  },
+
+  deleteKurikulumCourse: async (id: string): Promise<void> => {
+    const supabase = getSupabaseClient();
+    if (!supabase) {
+      mockDb.delete('kurikulum_courses', id);
+      return;
+    }
+
+    const { error } = await supabase
+      .from('kurikulum_courses')
+      .delete()
+      .eq('id', id);
+
+    if (error) {
+      throw new Error(`Supabase error: ${error.message}`);
+    }
+  },
+
+  // --- KURIKULUM PLOS ---
+  getKurikulumPlos: async (): Promise<DbKurikulumPlo[]> => {
+    const supabase = getSupabaseClient();
+    if (!supabase) {
+      return mockDb.getAll<DbKurikulumPlo>('kurikulum_plos').sort((a, b) => a.sort_order - b.sort_order);
+    }
+
+    const { data, error } = await supabase
+      .from('kurikulum_plos')
+      .select('*')
+      .order('sort_order', { ascending: true });
+
+    if (error) {
+      console.warn('Supabase getKurikulumPlos failed, falling back to mock:', error.message);
+      return mockDb.getAll<DbKurikulumPlo>('kurikulum_plos').sort((a, b) => a.sort_order - b.sort_order);
+    }
+    return data || [];
+  },
+
+  createKurikulumPlo: async (plo: Omit<DbKurikulumPlo, 'id' | 'created_at'>): Promise<DbKurikulumPlo> => {
+    const supabase = getSupabaseClient();
+    if (!supabase) {
+      return mockDb.insert<DbKurikulumPlo>('kurikulum_plos', plo);
+    }
+
+    const { data, error } = await supabase
+      .from('kurikulum_plos')
+      .insert([plo])
+      .select()
+      .single();
+
+    if (error) {
+      throw new Error(`Supabase error: ${error.message}`);
+    }
+    return data;
+  },
+
+  updateKurikulumPlo: async (id: string, updates: Partial<DbKurikulumPlo>): Promise<DbKurikulumPlo> => {
+    const supabase = getSupabaseClient();
+    if (!supabase) {
+      const updated = mockDb.update<DbKurikulumPlo>('kurikulum_plos', id, updates);
+      if (!updated) throw new Error('Item not found in mock database');
+      return updated;
+    }
+
+    const { data, error } = await supabase
+      .from('kurikulum_plos')
+      .update(updates)
+      .eq('id', id)
+      .select()
+      .single();
+
+    if (error) {
+      throw new Error(`Supabase error: ${error.message}`);
+    }
+    return data;
+  },
+
+  deleteKurikulumPlo: async (id: string): Promise<void> => {
+    const supabase = getSupabaseClient();
+    if (!supabase) {
+      mockDb.delete('kurikulum_plos', id);
+      return;
+    }
+
+    const { error } = await supabase
+      .from('kurikulum_plos')
+      .delete()
+      .eq('id', id);
+
+    if (error) {
+      throw new Error(`Supabase error: ${error.message}`);
+    }
+  },
+
+  // --- KURIKULUM PROFILES ---
+  getKurikulumProfiles: async (): Promise<DbKurikulumProfile[]> => {
+    const supabase = getSupabaseClient();
+    if (!supabase) {
+      return mockDb.getAll<DbKurikulumProfile>('kurikulum_profiles').sort((a, b) => a.sort_order - b.sort_order);
+    }
+
+    const { data, error } = await supabase
+      .from('kurikulum_profiles')
+      .select('*')
+      .order('sort_order', { ascending: true });
+
+    if (error) {
+      console.warn('Supabase getKurikulumProfiles failed, falling back to mock:', error.message);
+      return mockDb.getAll<DbKurikulumProfile>('kurikulum_profiles').sort((a, b) => a.sort_order - b.sort_order);
+    }
+    return data || [];
+  },
+
+  createKurikulumProfile: async (profile: Omit<DbKurikulumProfile, 'id' | 'created_at'>): Promise<DbKurikulumProfile> => {
+    const supabase = getSupabaseClient();
+    if (!supabase) {
+      return mockDb.insert<DbKurikulumProfile>('kurikulum_profiles', profile);
+    }
+
+    const { data, error } = await supabase
+      .from('kurikulum_profiles')
+      .insert([profile])
+      .select()
+      .single();
+
+    if (error) {
+      throw new Error(`Supabase error: ${error.message}`);
+    }
+    return data;
+  },
+
+  updateKurikulumProfile: async (id: string, updates: Partial<DbKurikulumProfile>): Promise<DbKurikulumProfile> => {
+    const supabase = getSupabaseClient();
+    if (!supabase) {
+      const updated = mockDb.update<DbKurikulumProfile>('kurikulum_profiles', id, updates);
+      if (!updated) throw new Error('Item not found in mock database');
+      return updated;
+    }
+
+    const { data, error } = await supabase
+      .from('kurikulum_profiles')
+      .update(updates)
+      .eq('id', id)
+      .select()
+      .single();
+
+    if (error) {
+      throw new Error(`Supabase error: ${error.message}`);
+    }
+    return data;
+  },
+
+  deleteKurikulumProfile: async (id: string): Promise<void> => {
+    const supabase = getSupabaseClient();
+    if (!supabase) {
+      mockDb.delete('kurikulum_profiles', id);
+      return;
+    }
+
+    const { error } = await supabase
+      .from('kurikulum_profiles')
+      .delete()
+      .eq('id', id);
+
+    if (error) {
+      throw new Error(`Supabase error: ${error.message}`);
+    }
+  },
+
+  // --- TUGAS AKHIR STEPS ---
+  getTaSteps: async (): Promise<DbTaStep[]> => {
+    const supabase = getSupabaseClient();
+    if (!supabase) {
+      return mockDb.getAll<DbTaStep>('tugas_akhir_steps').sort((a, b) => a.sort_order - b.sort_order);
+    }
+
+    const { data, error } = await supabase
+      .from('tugas_akhir_steps')
+      .select('*')
+      .order('sort_order', { ascending: true });
+
+    if (error) {
+      console.warn('Supabase getTaSteps failed, falling back to mock:', error.message);
+      return mockDb.getAll<DbTaStep>('tugas_akhir_steps').sort((a, b) => a.sort_order - b.sort_order);
+    }
+    return data || [];
+  },
+
+  createTaStep: async (step: Omit<DbTaStep, 'id' | 'created_at'>): Promise<DbTaStep> => {
+    const supabase = getSupabaseClient();
+    if (!supabase) {
+      return mockDb.insert<DbTaStep>('tugas_akhir_steps', step);
+    }
+
+    const { data, error } = await supabase
+      .from('tugas_akhir_steps')
+      .insert([step])
+      .select()
+      .single();
+
+    if (error) {
+      throw new Error(`Supabase error: ${error.message}`);
+    }
+    return data;
+  },
+
+  updateTaStep: async (id: string, updates: Partial<DbTaStep>): Promise<DbTaStep> => {
+    const supabase = getSupabaseClient();
+    if (!supabase) {
+      const updated = mockDb.update<DbTaStep>('tugas_akhir_steps', id, updates);
+      if (!updated) throw new Error('Item not found in mock database');
+      return updated;
+    }
+
+    const { data, error } = await supabase
+      .from('tugas_akhir_steps')
+      .update(updates)
+      .eq('id', id)
+      .select()
+      .single();
+
+    if (error) {
+      throw new Error(`Supabase error: ${error.message}`);
+    }
+    return data;
+  },
+
+  deleteTaStep: async (id: string): Promise<void> => {
+    const supabase = getSupabaseClient();
+    if (!supabase) {
+      mockDb.delete('tugas_akhir_steps', id);
+      return;
+    }
+
+    const { error } = await supabase
+      .from('tugas_akhir_steps')
       .delete()
       .eq('id', id);
 

@@ -85,6 +85,48 @@ export interface DbDosen {
   created_at: string;
 }
 
+export interface DbKurikulumCourse {
+  id: string;
+  semester: string;
+  name: string;
+  name_en: string | null;
+  credits: number;
+  sort_order: number;
+  created_at: string;
+}
+
+export interface DbKurikulumPlo {
+  id: string;
+  code: string;
+  type: string;
+  type_en: string | null;
+  text: string;
+  text_en: string | null;
+  sort_order: number;
+  created_at: string;
+}
+
+export interface DbKurikulumProfile {
+  id: string;
+  title: string;
+  title_en: string | null;
+  desc: string;
+  desc_en: string | null;
+  sort_order: number;
+  created_at: string;
+}
+
+export interface DbTaStep {
+  id: string;
+  num: string;
+  title: string;
+  title_en: string | null;
+  desc: string;
+  desc_en: string | null;
+  sort_order: number;
+  created_at: string;
+}
+
 const initialDosen: DbDosen[] = [
   {
     id: 'dosen-1',
@@ -503,6 +545,166 @@ export const initialSiteContent: DbSiteContent[] = [
   }
 ];
 
+const initialKurikulumCourses: DbKurikulumCourse[] = [
+  { id: 'course-1', semester: 'I', name: 'Pengantar Teknologi Pangan', name_en: 'Introduction to Food Technology', credits: 2, sort_order: 1, created_at: new Date().toISOString() },
+  { id: 'course-2', semester: 'I', name: 'Kimia Dasar', name_en: 'General Chemistry', credits: 3, sort_order: 2, created_at: new Date().toISOString() },
+  { id: 'course-3', semester: 'I', name: 'Biologi Umum', name_en: 'General Biology', credits: 3, sort_order: 3, created_at: new Date().toISOString() },
+  { id: 'course-4', semester: 'II', name: 'Kimia Organik', name_en: 'Organic Chemistry', credits: 3, sort_order: 4, created_at: new Date().toISOString() },
+  { id: 'course-5', semester: 'II', name: 'Mikrobiologi Umum', name_en: 'General Microbiology', credits: 3, sort_order: 5, created_at: new Date().toISOString() },
+  { id: 'course-6', semester: 'II', name: 'Matematika Pangan', name_en: 'Food Mathematics', credits: 2, sort_order: 6, created_at: new Date().toISOString() },
+  { id: 'course-7', semester: 'III', name: 'Kimia Pangan', name_en: 'Food Chemistry', credits: 3, sort_order: 7, created_at: new Date().toISOString() },
+  { id: 'course-8', semester: 'III', name: 'Mikrobiologi Pangan', name_en: 'Food Microbiology', credits: 3, sort_order: 8, created_at: new Date().toISOString() },
+  { id: 'course-9', semester: 'III', name: 'Biokimia Pangan', name_en: 'Food Biochemistry', credits: 3, sort_order: 9, created_at: new Date().toISOString() },
+  { id: 'course-10', semester: 'IV', name: 'Analisis Pangan', name_en: 'Food Analysis', credits: 3, sort_order: 10, created_at: new Date().toISOString() },
+  { id: 'course-11', semester: 'IV', name: 'Satuan Operasi Industri Pangan', name_en: 'Unit Operations in Food Industry', credits: 3, sort_order: 11, created_at: new Date().toISOString() },
+  { id: 'course-12', semester: 'IV', name: 'Bahan Tambahan Pangan', name_en: 'Food Additives', credits: 2, sort_order: 12, created_at: new Date().toISOString() },
+  { id: 'course-13', semester: 'V', name: 'Teknologi Pengolahan Pangan', name_en: 'Food Processing Technology', credits: 4, sort_order: 13, created_at: new Date().toISOString() },
+  { id: 'course-14', semester: 'V', name: 'Sensoris Pangan', name_en: 'Food Sensory Evaluation', credits: 3, sort_order: 14, created_at: new Date().toISOString() },
+  { id: 'course-15', semester: 'V', name: 'Peraturan & Undang-Undang Pangan', name_en: 'Food Regulations & Laws', credits: 2, sort_order: 15, created_at: new Date().toISOString() },
+  { id: 'course-16', semester: 'VI', name: 'Sistem Jaminan Produk Halal', name_en: 'Halal Product Assurance System', credits: 3, sort_order: 16, created_at: new Date().toISOString() },
+  { id: 'course-17', semester: 'VI', name: 'Manajemen Mutu & Keamanan Pangan', name_en: 'Food Quality & Safety Management', credits: 3, sort_order: 17, created_at: new Date().toISOString() },
+  { id: 'course-18', semester: 'VI', name: 'Desain & Inovasi Produk Pangan', name_en: 'Food Product Design & Innovation', credits: 3, sort_order: 18, created_at: new Date().toISOString() },
+  { id: 'course-19', semester: 'VII', name: 'Metodologi Penelitian Pangan', name_en: 'Food Research Methodology', credits: 2, sort_order: 19, created_at: new Date().toISOString() },
+  { id: 'course-20', semester: 'VII', name: 'Seminar Proposal Tugas Akhir', name_en: 'Final Project Proposal Seminar', credits: 1, sort_order: 20, created_at: new Date().toISOString() },
+  { id: 'course-21', semester: 'VII', name: 'Magang Industri Pangan', name_en: 'Food Industry Internship', credits: 4, sort_order: 21, created_at: new Date().toISOString() },
+  { id: 'course-22', semester: 'VIII', name: 'Tugas Akhir / Skripsi', name_en: 'Final Project / Undergraduate Thesis', credits: 6, sort_order: 22, created_at: new Date().toISOString() }
+];
+
+const initialKurikulumPlos: DbKurikulumPlo[] = [
+  {
+    id: 'plo-1',
+    code: 'CPL-01',
+    type: 'Sikap & Nilai Keislaman',
+    type_en: 'Islamic Attitude & Values',
+    text: 'Mampu menginternalisasikan nilai-nilai Islam, etika profesi pangan, dan prinsip kehalalan dalam kehidupan bermasyarakat dan dunia industri.',
+    text_en: 'Able to internalize Islamic values, food professional ethics, and halal principles in community life and the industrial world.',
+    sort_order: 1,
+    created_at: new Date().toISOString()
+  },
+  {
+    id: 'plo-2',
+    code: 'CPL-02',
+    type: 'Penguasaan Pengetahuan Sains Pangan',
+    type_en: 'Food Science Knowledge Mastery',
+    text: 'Menguasai konsep sains pangan, kimia pangan, mikrobiologi pangan, analisis pangan, gizi, dan rekayasa proses pengolahan pangan secara mendalam.',
+    text_en: 'Mastering food science concepts, food chemistry, food microbiology, food analysis, nutrition, and food processing engineering deeply.',
+    sort_order: 2,
+    created_at: new Date().toISOString()
+  },
+  {
+    id: 'plo-3',
+    code: 'CPL-03',
+    type: 'Keterampilan Kerja Khusus',
+    type_en: 'Specific Work Skills',
+    text: 'Mampu mengaplikasikan ilmu teknologi pangan dalam merancang produk pangan halal, aman, bermutu, dan mengelola sistem penjaminan mutu (HACCP & Sertifikasi Halal).',
+    text_en: 'Able to apply food technology science to design halal, safe, and quality food products, and manage quality assurance systems (HACCP & Halal Certification).',
+    sort_order: 3,
+    created_at: new Date().toISOString()
+  },
+  {
+    id: 'plo-4',
+    code: 'CPL-04',
+    type: 'Technopreneurship & Inovasi',
+    type_en: 'Technopreneurship & Innovation',
+    text: 'Mampu mengidentifikasi peluang bisnis pangan berbasis pangan lokal Nusantara dengan pendekatan technopreneurship sirkular berkelanjutan.',
+    text_en: 'Able to identify food business opportunities based on local Nusantara food with a sustainable circular technopreneurship approach.',
+    sort_order: 4,
+    created_at: new Date().toISOString()
+  }
+];
+
+const initialKurikulumProfiles: DbKurikulumProfile[] = [
+  {
+    id: 'prof-1',
+    title: 'QA/QC & Food Safety Specialist',
+    title_en: 'QA/QC & Food Safety Specialist',
+    desc: 'Profesional yang mampu menjamin mutu, keamanan, dan kehalalan produk pangan dari bahan baku hingga produk jadi di industri makanan dan minuman.',
+    desc_en: 'Professionals capable of ensuring the quality, safety, and halal integrity of food products from raw materials to finished products in the food and beverage industry.',
+    sort_order: 1,
+    created_at: new Date().toISOString()
+  },
+  {
+    id: 'prof-2',
+    title: 'R&D & Product Development Specialist',
+    title_en: 'R&D & Product Development Specialist',
+    desc: 'Inovator yang mampu merancang formulasi baru, diversifikasi pangan lokal Nusantara, serta rekayasa kemasan pangan bernilai gizi tinggi.',
+    desc_en: 'Innovators capable of designing new formulations, diversifying local Nusantara food, and engineering high-nutrition food packaging.',
+    sort_order: 2,
+    created_at: new Date().toISOString()
+  },
+  {
+    id: 'prof-3',
+    title: 'Halal Food Auditor / Consultant',
+    title_en: 'Halal Food Auditor / Consultant',
+    desc: 'Ahli bersertifikasi yang mendampingi industri pangan dan UMKM dalam mengaudit, menyusun dokumen Sistem Jaminan Produk Halal (SJPH).',
+    desc_en: 'Certified experts assisting the food industry and MSMEs in auditing and compiling Halal Product Assurance System documents.',
+    sort_order: 3,
+    created_at: new Date().toISOString()
+  },
+  {
+    id: 'prof-4',
+    title: 'Food Technopreneur',
+    title_en: 'Food Technopreneur',
+    desc: 'Wirausahawan mandiri yang mengembangkan bisnis pengolahan pangan lokal yang inovatif dengan mengedepankan aspek halal dan keberlanjutan.',
+    desc_en: 'Independent entrepreneurs developing innovative local food processing businesses prioritizing halal and sustainability aspects.',
+    sort_order: 4,
+    created_at: new Date().toISOString()
+  }
+];
+
+const initialTaSteps: DbTaStep[] = [
+  {
+    id: 'step-1',
+    num: '01',
+    title: 'Pengajuan Judul & Proposal',
+    title_en: 'Title & Proposal Submission',
+    desc: 'Mahasiswa mengajukan draf rencana penelitian beserta calon dosen pembimbing ke prodi untuk dievaluasi kesesuaian topiknya.',
+    desc_en: 'Students submit research plan drafts along with prospective advisors to the department for topic suitability evaluation.',
+    sort_order: 1,
+    created_at: new Date().toISOString()
+  },
+  {
+    id: 'step-2',
+    num: '02',
+    title: 'Seminar Proposal',
+    title_en: 'Proposal Seminar',
+    desc: 'Pemaparan rencana penelitian di hadapan dosen penguji untuk mendapat masukan metodologi ilmiah dan kelayakan riset.',
+    desc_en: 'Presentation of research plans before examiners to receive scientific methodology feedback and research feasibility validation.',
+    sort_order: 2,
+    created_at: new Date().toISOString()
+  },
+  {
+    id: 'step-3',
+    num: '03',
+    title: 'Penelitian Laboratorium & Analisis',
+    title_en: 'Lab Research & Analysis',
+    desc: 'Pelaksanaan eksperimen, analisis laboratorium (fisik, kimia, mikrobiologi, atau organoleptik) sesuai metodologi proposal.',
+    desc_en: 'Conducting experiments and laboratory analyses (physical, chemical, microbiological, or organoleptic) per proposal methodology.',
+    sort_order: 3,
+    created_at: new Date().toISOString()
+  },
+  {
+    id: 'step-4',
+    num: '04',
+    title: 'Sidang Tugas Akhir',
+    title_en: 'Undergraduate Thesis Defense',
+    desc: 'Ujian lisan komprehensif untuk mempertahankan hasil penelitian, analisis data, dan kesimpulan di hadapan dewan penguji.',
+    desc_en: 'Comprehensive oral exam to defend research results, data analysis, and conclusions before the board of examiners.',
+    sort_order: 4,
+    created_at: new Date().toISOString()
+  },
+  {
+    id: 'step-5',
+    num: '05',
+    title: 'Revisi & Pengumpulan Berkas',
+    title_en: 'Revision & Submission',
+    desc: 'Penyempurnaan draf naskah skripsi berdasarkan masukan penguji serta pengunggahan manuskrip ke repositori institusi.',
+    desc_en: 'Perfecting the thesis draft per examiners\' feedback and uploading the final manuscript to the institutional repository.',
+    sort_order: 5,
+    created_at: new Date().toISOString()
+  }
+];
+
 // Initialize localStorage if empty
 function initStorage() {
   if (!localStorage.getItem('mock_news')) {
@@ -531,6 +733,18 @@ function initStorage() {
   }
   if (!localStorage.getItem('mock_dosen')) {
     localStorage.setItem('mock_dosen', JSON.stringify(initialDosen));
+  }
+  if (!localStorage.getItem('mock_kurikulum_courses')) {
+    localStorage.setItem('mock_kurikulum_courses', JSON.stringify(initialKurikulumCourses));
+  }
+  if (!localStorage.getItem('mock_kurikulum_plos')) {
+    localStorage.setItem('mock_kurikulum_plos', JSON.stringify(initialKurikulumPlos));
+  }
+  if (!localStorage.getItem('mock_kurikulum_profiles')) {
+    localStorage.setItem('mock_kurikulum_profiles', JSON.stringify(initialKurikulumProfiles));
+  }
+  if (!localStorage.getItem('mock_tugas_akhir_steps')) {
+    localStorage.setItem('mock_tugas_akhir_steps', JSON.stringify(initialTaSteps));
   }
 }
 

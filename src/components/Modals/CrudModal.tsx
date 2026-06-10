@@ -9,7 +9,11 @@ import {
   type DbPartner,
   type DbLandingStat,
   type DbLandingPortfolioItem,
-  type DbDosen
+  type DbDosen,
+  type DbKurikulumCourse,
+  type DbKurikulumPlo,
+  type DbKurikulumProfile,
+  type DbTaStep
 } from '../../lib/mockData';
 
 interface CrudModalProps {
@@ -32,6 +36,14 @@ interface CrudModalProps {
   setPortfolioForm: React.Dispatch<React.SetStateAction<Omit<DbLandingPortfolioItem, 'id'>>>;
   dosenForm?: Omit<DbDosen, 'id' | 'created_at'>;
   setDosenForm?: React.Dispatch<React.SetStateAction<Omit<DbDosen, 'id' | 'created_at'>>>;
+  courseForm?: Omit<DbKurikulumCourse, 'id' | 'created_at'>;
+  setCourseForm?: React.Dispatch<React.SetStateAction<Omit<DbKurikulumCourse, 'id' | 'created_at'>>>;
+  ploForm?: Omit<DbKurikulumPlo, 'id' | 'created_at'>;
+  setPloForm?: React.Dispatch<React.SetStateAction<Omit<DbKurikulumPlo, 'id' | 'created_at'>>>;
+  profileForm?: Omit<DbKurikulumProfile, 'id' | 'created_at'>;
+  setProfileForm?: React.Dispatch<React.SetStateAction<Omit<DbKurikulumProfile, 'id' | 'created_at'>>>;
+  stepForm?: Omit<DbTaStep, 'id' | 'created_at'>;
+  setStepForm?: React.Dispatch<React.SetStateAction<Omit<DbTaStep, 'id' | 'created_at'>>>;
 }
 
 export default function CrudModal({
@@ -53,7 +65,15 @@ export default function CrudModal({
   portfolioForm,
   setPortfolioForm,
   dosenForm,
-  setDosenForm
+  setDosenForm,
+  courseForm,
+  setCourseForm,
+  ploForm,
+  setPloForm,
+  profileForm,
+  setProfileForm,
+  stepForm,
+  setStepForm
 }: CrudModalProps) {
   const [isUploading, setIsUploading] = React.useState(false);
   const [uploadError, setUploadError] = React.useState<string | null>(null);
@@ -90,6 +110,10 @@ export default function CrudModal({
       case 'landing_stats': return 'Statistik Ribbon';
       case 'landing_portfolio': return 'Portofolio';
       case 'dosen': return 'Dosen & Staff';
+      case 'kurikulum_courses': return 'Mata Kuliah';
+      case 'kurikulum_plos': return 'CPL Akademik';
+      case 'kurikulum_profiles': return 'Profil Lulusan';
+      case 'tugas_akhir_steps': return 'Tahapan Tugas Akhir';
       default: return 'Data';
     }
   };
@@ -632,7 +656,295 @@ export default function CrudModal({
                   </div>
                 </div>
                 {isUploading && <p className="text-[10px] text-slate-500 animate-pulse">Mengunggah gambar...</p>}
+                {isUploading && <p className="text-[10px] text-slate-500 animate-pulse">Mengunggah gambar...</p>}
                 {uploadError && <p className="text-[10px] text-red-500 font-semibold">{uploadError}</p>}
+              </div>
+            </>
+          )}
+
+          {/* KURIKULUM COURSES FORM */}
+          {activeTab === 'kurikulum_courses' && courseForm && setCourseForm && (
+            <>
+              <div className="grid grid-cols-2 gap-4">
+                <div className="space-y-1">
+                  <label className="text-xs font-bold text-slate-700">Semester</label>
+                  <select
+                    className="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-slate-900/10 focus:border-slate-400 focus:bg-white transition"
+                    value={courseForm.semester}
+                    onChange={(e) => setCourseForm({ ...courseForm, semester: e.target.value })}
+                    required
+                  >
+                    <option value="I">Semester I</option>
+                    <option value="II">Semester II</option>
+                    <option value="III">Semester III</option>
+                    <option value="IV">Semester IV</option>
+                    <option value="V">Semester V</option>
+                    <option value="VI">Semester VI</option>
+                    <option value="VII">Semester VII</option>
+                    <option value="VIII">Semester VIII</option>
+                  </select>
+                </div>
+                <div className="space-y-1">
+                  <label className="text-xs font-bold text-slate-700">Bobot SKS</label>
+                  <input
+                    type="number"
+                    min="1"
+                    max="10"
+                    className="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-slate-900/10 focus:border-slate-400 focus:bg-white transition"
+                    value={courseForm.credits}
+                    onChange={(e) => setCourseForm({ ...courseForm, credits: parseInt(e.target.value) || 0 })}
+                    required
+                  />
+                </div>
+              </div>
+
+              <div className="space-y-1">
+                <label className="text-xs font-bold text-slate-700">Nama Mata Kuliah (ID)</label>
+                <input
+                  type="text"
+                  className="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-slate-900/10 focus:border-slate-400 focus:bg-white transition"
+                  value={courseForm.name}
+                  onChange={(e) => setCourseForm({ ...courseForm, name: e.target.value })}
+                  placeholder="Contoh: Pengantar Teknologi Pangan"
+                  required
+                />
+              </div>
+
+              <div className="space-y-1">
+                <label className="text-xs font-bold text-slate-700">Nama Mata Kuliah (EN)</label>
+                <input
+                  type="text"
+                  className="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-slate-900/10 focus:border-slate-400 focus:bg-white transition"
+                  value={courseForm.name_en || ''}
+                  onChange={(e) => setCourseForm({ ...courseForm, name_en: e.target.value })}
+                  placeholder="Contoh: Introduction to Food Technology"
+                />
+              </div>
+
+              <div className="space-y-1">
+                <label className="text-xs font-bold text-slate-700">No. Urut (Sort Order)</label>
+                <input
+                  type="number"
+                  className="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-slate-900/10 focus:border-slate-400 focus:bg-white transition"
+                  value={courseForm.sort_order}
+                  onChange={(e) => setCourseForm({ ...courseForm, sort_order: parseInt(e.target.value) || 0 })}
+                  required
+                />
+              </div>
+            </>
+          )}
+
+          {/* KURIKULUM PLOS FORM */}
+          {activeTab === 'kurikulum_plos' && ploForm && setPloForm && (
+            <>
+              <div className="grid grid-cols-2 gap-4">
+                <div className="space-y-1">
+                  <label className="text-xs font-bold text-slate-700">Kode CPL</label>
+                  <input
+                    type="text"
+                    className="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-slate-900/10 focus:border-slate-400 focus:bg-white transition"
+                    value={ploForm.code}
+                    onChange={(e) => setPloForm({ ...ploForm, code: e.target.value })}
+                    placeholder="Contoh: CPL-01"
+                    required
+                  />
+                </div>
+                <div className="space-y-1">
+                  <label className="text-xs font-bold text-slate-700">No. Urut (Sort Order)</label>
+                  <input
+                    type="number"
+                    className="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-slate-900/10 focus:border-slate-400 focus:bg-white transition"
+                    value={ploForm.sort_order}
+                    onChange={(e) => setPloForm({ ...ploForm, sort_order: parseInt(e.target.value) || 0 })}
+                    required
+                  />
+                </div>
+              </div>
+
+              <div className="grid grid-cols-2 gap-4">
+                <div className="space-y-1">
+                  <label className="text-xs font-bold text-slate-700">Aspek / Kategori (ID)</label>
+                  <input
+                    type="text"
+                    className="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-slate-900/10 focus:border-slate-400 focus:bg-white transition"
+                    value={ploForm.type}
+                    onChange={(e) => setPloForm({ ...ploForm, type: e.target.value })}
+                    placeholder="Contoh: Sikap & Tata Nilai"
+                    required
+                  />
+                </div>
+                <div className="space-y-1">
+                  <label className="text-xs font-bold text-slate-700">Aspek / Kategori (EN)</label>
+                  <input
+                    type="text"
+                    className="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-slate-900/10 focus:border-slate-400 focus:bg-white transition"
+                    value={ploForm.type_en || ''}
+                    onChange={(e) => setPloForm({ ...ploForm, type_en: e.target.value })}
+                    placeholder="Contoh: Attitude & Values"
+                  />
+                </div>
+              </div>
+
+              <div className="space-y-1">
+                <label className="text-xs font-bold text-slate-700">Deskripsi CPL (ID)</label>
+                <textarea
+                  rows={3}
+                  className="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-slate-900/10 focus:border-slate-400 focus:bg-white transition resize-none"
+                  value={ploForm.text}
+                  onChange={(e) => setPloForm({ ...ploForm, text: e.target.value })}
+                  placeholder="Masukkan deskripsi capaian pembelajaran..."
+                  required
+                />
+              </div>
+
+              <div className="space-y-1">
+                <label className="text-xs font-bold text-slate-700">Deskripsi CPL (EN)</label>
+                <textarea
+                  rows={3}
+                  className="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-slate-900/10 focus:border-slate-400 focus:bg-white transition resize-none"
+                  value={ploForm.text_en || ''}
+                  onChange={(e) => setPloForm({ ...ploForm, text_en: e.target.value })}
+                  placeholder="Enter learning outcome description in English..."
+                />
+              </div>
+            </>
+          )}
+
+          {/* KURIKULUM PROFILES FORM */}
+          {activeTab === 'kurikulum_profiles' && profileForm && setProfileForm && (
+            <>
+              <div className="grid grid-cols-2 gap-4">
+                <div className="space-y-1">
+                  <label className="text-xs font-bold text-slate-700 font-semibold">Profil Lulusan (ID)</label>
+                  <input
+                    type="text"
+                    className="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-slate-900/10 focus:border-slate-400 focus:bg-white transition"
+                    value={profileForm.title}
+                    onChange={(e) => setProfileForm({ ...profileForm, title: e.target.value })}
+                    placeholder="Contoh: Peneliti Pangan"
+                    required
+                  />
+                </div>
+                <div className="space-y-1">
+                  <label className="text-xs font-bold text-slate-700 font-semibold">Profil Lulusan (EN)</label>
+                  <input
+                    type="text"
+                    className="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-slate-900/10 focus:border-slate-400 focus:bg-white transition"
+                    value={profileForm.title_en || ''}
+                    onChange={(e) => setProfileForm({ ...profileForm, title_en: e.target.value })}
+                    placeholder="Contoh: Food Researcher"
+                  />
+                </div>
+              </div>
+
+              <div className="space-y-1">
+                <label className="text-xs font-bold text-slate-700">Deskripsi / Peran Kerja (ID)</label>
+                <textarea
+                  rows={3}
+                  className="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-slate-900/10 focus:border-slate-400 focus:bg-white transition resize-none"
+                  value={profileForm.desc}
+                  onChange={(e) => setProfileForm({ ...profileForm, desc: e.target.value })}
+                  placeholder="Masukkan peran kerja profil lulusan..."
+                  required
+                />
+              </div>
+
+              <div className="space-y-1">
+                <label className="text-xs font-bold text-slate-700">Deskripsi / Peran Kerja (EN)</label>
+                <textarea
+                  rows={3}
+                  className="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-slate-900/10 focus:border-slate-400 focus:bg-white transition resize-none"
+                  value={profileForm.desc_en || ''}
+                  onChange={(e) => setProfileForm({ ...profileForm, desc_en: e.target.value })}
+                  placeholder="Enter role description in English..."
+                />
+              </div>
+
+              <div className="space-y-1">
+                <label className="text-xs font-bold text-slate-700">No. Urut (Sort Order)</label>
+                <input
+                  type="number"
+                  className="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-slate-900/10 focus:border-slate-400 focus:bg-white transition"
+                  value={profileForm.sort_order}
+                  onChange={(e) => setProfileForm({ ...profileForm, sort_order: parseInt(e.target.value) || 0 })}
+                  required
+                />
+              </div>
+            </>
+          )}
+
+          {/* TUGAS AKHIR STEPS FORM */}
+          {activeTab === 'tugas_akhir_steps' && stepForm && setStepForm && (
+            <>
+              <div className="grid grid-cols-3 gap-4">
+                <div className="space-y-1">
+                  <label className="text-xs font-bold text-slate-700">Nomor Tahap</label>
+                  <input
+                    type="text"
+                    className="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-slate-900/10 focus:border-slate-400 focus:bg-white transition"
+                    value={stepForm.num}
+                    onChange={(e) => setStepForm({ ...stepForm, num: e.target.value })}
+                    placeholder="Contoh: 01"
+                    required
+                  />
+                </div>
+                <div className="space-y-1 col-span-2">
+                  <label className="text-xs font-bold text-slate-700">No. Urut (Sort Order)</label>
+                  <input
+                    type="number"
+                    className="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-slate-900/10 focus:border-slate-400 focus:bg-white transition"
+                    value={stepForm.sort_order}
+                    onChange={(e) => setStepForm({ ...stepForm, sort_order: parseInt(e.target.value) || 0 })}
+                    required
+                  />
+                </div>
+              </div>
+
+              <div className="grid grid-cols-2 gap-4">
+                <div className="space-y-1">
+                  <label className="text-xs font-bold text-slate-700">Judul Tahapan (ID)</label>
+                  <input
+                    type="text"
+                    className="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-slate-900/10 focus:border-slate-400 focus:bg-white transition"
+                    value={stepForm.title}
+                    onChange={(e) => setStepForm({ ...stepForm, title: e.target.value })}
+                    placeholder="Contoh: Pengajuan Proposal"
+                    required
+                  />
+                </div>
+                <div className="space-y-1">
+                  <label className="text-xs font-bold text-slate-700">Judul Tahapan (EN)</label>
+                  <input
+                    type="text"
+                    className="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-slate-900/10 focus:border-slate-400 focus:bg-white transition"
+                    value={stepForm.title_en || ''}
+                    onChange={(e) => setStepForm({ ...stepForm, title_en: e.target.value })}
+                    placeholder="Contoh: Proposal Submission"
+                  />
+                </div>
+              </div>
+
+              <div className="space-y-1">
+                <label className="text-xs font-bold text-slate-700">Penjelasan / Deskripsi (ID)</label>
+                <textarea
+                  rows={3}
+                  className="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-slate-900/10 focus:border-slate-400 focus:bg-white transition resize-none"
+                  value={stepForm.desc}
+                  onChange={(e) => setStepForm({ ...stepForm, desc: e.target.value })}
+                  placeholder="Masukkan penjelasan tahapan skripsi..."
+                  required
+                />
+              </div>
+
+              <div className="space-y-1">
+                <label className="text-xs font-bold text-slate-700">Penjelasan / Deskripsi (EN)</label>
+                <textarea
+                  rows={3}
+                  className="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-slate-900/10 focus:border-slate-400 focus:bg-white transition resize-none"
+                  value={stepForm.desc_en || ''}
+                  onChange={(e) => setStepForm({ ...stepForm, desc_en: e.target.value })}
+                  placeholder="Enter step description in English..."
+                />
               </div>
             </>
           )}

@@ -10,7 +10,9 @@ import {
   TrendingUp,
   Image,
   FileText,
-  GraduationCap
+  GraduationCap,
+  BookOpen,
+  Award
 } from 'lucide-react';
 import { type TabType } from '../App';
 
@@ -142,6 +144,51 @@ export default function Sidebar({
             >
               <FileText className="w-4 h-4 text-gray-500" />
               <span>Konten Teks Halaman</span>
+            </button>
+          </div>
+        </div>
+
+        <div>
+          <p className="px-3 text-xs font-semibold text-gray-400 uppercase tracking-widest mb-3">Data Akademik</p>
+          <div className="space-y-1 text-sm text-gray-600">
+            <button
+              onClick={() => setActiveTab('kurikulum_courses')}
+              className={`w-full sidebar-item flex items-center gap-3 px-3 py-2.5 rounded-xl transition text-left ${
+                activeTab === 'kurikulum_courses' ? 'active text-black' : 'hover:bg-gray-50'
+              }`}
+            >
+              <BookOpen className="w-4 h-4 text-gray-500" />
+              <span>Mata Kuliah</span>
+            </button>
+
+            <button
+              onClick={() => setActiveTab('kurikulum_plos')}
+              className={`w-full sidebar-item flex items-center gap-3 px-3 py-2.5 rounded-xl transition text-left ${
+                activeTab === 'kurikulum_plos' ? 'active text-black' : 'hover:bg-gray-50'
+              }`}
+            >
+              <Award className="w-4 h-4 text-gray-500" />
+              <span>CPL Akademik</span>
+            </button>
+
+            <button
+              onClick={() => setActiveTab('kurikulum_profiles')}
+              className={`w-full sidebar-item flex items-center gap-3 px-3 py-2.5 rounded-xl transition text-left ${
+                activeTab === 'kurikulum_profiles' ? 'active text-black' : 'hover:bg-gray-50'
+              }`}
+            >
+              <Users className="w-4 h-4 text-gray-500" />
+              <span>Profil Lulusan</span>
+            </button>
+
+            <button
+              onClick={() => setActiveTab('tugas_akhir_steps')}
+              className={`w-full sidebar-item flex items-center gap-3 px-3 py-2.5 rounded-xl transition text-left ${
+                activeTab === 'tugas_akhir_steps' ? 'active text-black' : 'hover:bg-gray-50'
+              }`}
+            >
+              <GraduationCap className="w-4 h-4 text-gray-500" />
+              <span>Tahapan Tugas Akhir</span>
             </button>
           </div>
         </div>

@@ -9,7 +9,11 @@ import {
   type DbSiteContent,
   type DbLandingStat,
   type DbLandingPortfolioItem,
-  type DbDosen
+  type DbDosen,
+  type DbKurikulumCourse,
+  type DbKurikulumPlo,
+  type DbKurikulumProfile,
+  type DbTaStep
 } from './lib/mockData';
 
 // Import modular layouts
@@ -30,6 +34,10 @@ import PortfolioTab from './components/Tabs/PortfolioTab';
 import SiteContentTab from './components/Tabs/SiteContentTab';
 import SettingsTab from './components/Tabs/SettingsTab';
 import DosenTab from './components/Tabs/DosenTab';
+import CoursesTab from './components/Tabs/CoursesTab';
+import PlosTab from './components/Tabs/PlosTab';
+import ProfilesTab from './components/Tabs/ProfilesTab';
+import TaStepsTab from './components/Tabs/TaStepsTab';
 
 export interface Toast {
   id: string;
@@ -47,7 +55,11 @@ export type TabType =
   | 'landing_portfolio'
   | 'site_content'
   | 'settings'
-  | 'dosen';
+  | 'dosen'
+  | 'kurikulum_courses'
+  | 'kurikulum_plos'
+  | 'kurikulum_profiles'
+  | 'tugas_akhir_steps';
 
 export default function App() {
   // --- Auth State ---
@@ -73,6 +85,10 @@ export default function App() {
   const [landingStats, setLandingStats] = useState<DbLandingStat[]>([]);
   const [landingPortfolioItems, setLandingPortfolioItems] = useState<DbLandingPortfolioItem[]>([]);
   const [dosenList, setDosenList] = useState<DbDosen[]>([]);
+  const [courses, setCourses] = useState<DbKurikulumCourse[]>([]);
+  const [plos, setPlos] = useState<DbKurikulumPlo[]>([]);
+  const [profiles, setProfiles] = useState<DbKurikulumProfile[]>([]);
+  const [steps, setSteps] = useState<DbTaStep[]>([]);
 
   const [isLoadingData, setIsLoadingData] = useState<boolean>(false);
 
@@ -111,6 +127,22 @@ export default function App() {
 
   const [dosenForm, setDosenForm] = useState<Omit<DbDosen, 'id' | 'created_at'>>({
     name: '', img_src: '', scopus: '', sinta: '', scholar: '', facebook: '', twitter: '', tiktok: '', instagram: '', sort_order: 0
+  });
+
+  const [courseForm, setCourseForm] = useState<Omit<DbKurikulumCourse, 'id' | 'created_at'>>({
+    semester: 'I', name: '', name_en: '', credits: 2, sort_order: 0
+  });
+
+  const [ploForm, setPloForm] = useState<Omit<DbKurikulumPlo, 'id' | 'created_at'>>({
+    code: '', type: '', type_en: '', text: '', text_en: '', sort_order: 0
+  });
+
+  const [profileForm, setProfileForm] = useState<Omit<DbKurikulumProfile, 'id' | 'created_at'>>({
+    title: '', title_en: '', desc: '', desc_en: '', sort_order: 0
+  });
+
+  const [stepForm, setStepForm] = useState<Omit<DbTaStep, 'id' | 'created_at'>>({
+    num: '', title: '', title_en: '', desc: '', desc_en: '', sort_order: 0
   });
 
   // --- Toast Trigger Helper ---
@@ -203,6 +235,14 @@ export default function App() {
         setLandingPortfolioItems(await dataService.getLandingPortfolioItems());
       } else if (activeTab === 'dosen') {
         setDosenList(await dataService.getDosen());
+      } else if (activeTab === 'kurikulum_courses') {
+        setCourses(await dataService.getKurikulumCourses());
+      } else if (activeTab === 'kurikulum_plos') {
+        setPlos(await dataService.getKurikulumPlos());
+      } else if (activeTab === 'kurikulum_profiles') {
+        setProfiles(await dataService.getKurikulumProfiles());
+      } else if (activeTab === 'tugas_akhir_steps') {
+        setSteps(await dataService.getTaSteps());
       }
     } catch (err: any) {
       console.error(err);
@@ -297,6 +337,10 @@ export default function App() {
     localStorage.removeItem('mock_landing_portfolio_items');
     localStorage.removeItem('mock_site_content');
     localStorage.removeItem('mock_dosen');
+    localStorage.removeItem('mock_kurikulum_courses');
+    localStorage.removeItem('mock_kurikulum_plos');
+    localStorage.removeItem('mock_kurikulum_profiles');
+    localStorage.removeItem('mock_tugas_akhir_steps');
     triggerToast('Mock database reset to defaults!', 'success');
     fetchCollectionData();
   };
@@ -361,6 +405,38 @@ export default function App() {
           await dataService.updateDosen(editingId, dosenForm);
           triggerToast('Dosen berhasil diperbarui!');
         }
+      } else if (activeTab === 'kurikulum_courses') {
+        if (activeModal === 'create') {
+          await dataService.createKurikulumCourse(courseForm);
+          triggerToast('Mata kuliah berhasil ditambahkan!');
+        } else if (activeModal === 'edit' && editingId) {
+          await dataService.updateKurikulumCourse(editingId, courseForm);
+          triggerToast('Mata kuliah berhasil diperbarui!');
+        }
+      } else if (activeTab === 'kurikulum_plos') {
+        if (activeModal === 'create') {
+          await dataService.createKurikulumPlo(ploForm);
+          triggerToast('CPL berhasil ditambahkan!');
+        } else if (activeModal === 'edit' && editingId) {
+          await dataService.updateKurikulumPlo(editingId, ploForm);
+          triggerToast('CPL berhasil diperbarui!');
+        }
+      } else if (activeTab === 'kurikulum_profiles') {
+        if (activeModal === 'create') {
+          await dataService.createKurikulumProfile(profileForm);
+          triggerToast('Profil lulusan berhasil ditambahkan!');
+        } else if (activeModal === 'edit' && editingId) {
+          await dataService.updateKurikulumProfile(editingId, profileForm);
+          triggerToast('Profil lulusan berhasil diperbarui!');
+        }
+      } else if (activeTab === 'tugas_akhir_steps') {
+        if (activeModal === 'create') {
+          await dataService.createTaStep(stepForm);
+          triggerToast('Tahapan Tugas Akhir berhasil ditambahkan!');
+        } else if (activeModal === 'edit' && editingId) {
+          await dataService.updateTaStep(editingId, stepForm);
+          triggerToast('Tahapan Tugas Akhir berhasil diperbarui!');
+        }
       }
 
       setActiveModal(null);
@@ -388,6 +464,14 @@ export default function App() {
         await dataService.deleteLandingPortfolioItem(deletingId);
       } else if (activeTab === 'dosen') {
         await dataService.deleteDosen(deletingId);
+      } else if (activeTab === 'kurikulum_courses') {
+        await dataService.deleteKurikulumCourse(deletingId);
+      } else if (activeTab === 'kurikulum_plos') {
+        await dataService.deleteKurikulumPlo(deletingId);
+      } else if (activeTab === 'kurikulum_profiles') {
+        await dataService.deleteKurikulumProfile(deletingId);
+      } else if (activeTab === 'tugas_akhir_steps') {
+        await dataService.deleteTaStep(deletingId);
       }
 
       triggerToast('Item berhasil dihapus!', 'success');
@@ -420,6 +504,10 @@ export default function App() {
     setStatForm({ number: '', label: '', label_en: '', sort_order: landingStats.length + 1 });
     setPortfolioForm({ image: '', title: '', medium: '', technique: '', year: '', gridClass: 'col-span-1', sort_order: landingPortfolioItems.length + 1 });
     setDosenForm({ name: '', img_src: '', scopus: '', sinta: '', scholar: '', facebook: '', twitter: '', tiktok: '', instagram: '', sort_order: dosenList.length + 1 });
+    setCourseForm({ semester: 'I', name: '', name_en: '', credits: 2, sort_order: courses.length + 1 });
+    setPloForm({ code: '', type: '', type_en: '', text: '', text_en: '', sort_order: plos.length + 1 });
+    setProfileForm({ title: '', title_en: '', desc: '', desc_en: '', sort_order: profiles.length + 1 });
+    setStepForm({ num: '', title: '', title_en: '', desc: '', desc_en: '', sort_order: steps.length + 1 });
     setActiveModal('create');
   };
 
@@ -486,6 +574,40 @@ export default function App() {
         tiktok: item.tiktok || '',
         instagram: item.instagram || '',
         sort_order: item.sort_order || 0
+      });
+    } else if (activeTab === 'kurikulum_courses') {
+      setCourseForm({
+        semester: item.semester,
+        name: item.name,
+        name_en: item.name_en || '',
+        credits: item.credits,
+        sort_order: item.sort_order
+      });
+    } else if (activeTab === 'kurikulum_plos') {
+      setPloForm({
+        code: item.code,
+        type: item.type,
+        type_en: item.type_en || '',
+        text: item.text,
+        text_en: item.text_en || '',
+        sort_order: item.sort_order
+      });
+    } else if (activeTab === 'kurikulum_profiles') {
+      setProfileForm({
+        title: item.title,
+        title_en: item.title_en || '',
+        desc: item.desc,
+        desc_en: item.desc_en || '',
+        sort_order: item.sort_order
+      });
+    } else if (activeTab === 'tugas_akhir_steps') {
+      setStepForm({
+        num: item.num,
+        title: item.title,
+        title_en: item.title_en || '',
+        desc: item.desc,
+        desc_en: item.desc_en || '',
+        sort_order: item.sort_order
       });
     }
     setActiveModal('edit');
@@ -681,6 +803,58 @@ export default function App() {
             />
           )}
 
+          {/* COURSES VIEW */}
+          {activeTab === 'kurikulum_courses' && (
+            <CoursesTab
+              courses={courses}
+              searchQuery={searchQuery}
+              setSearchQuery={setSearchQuery}
+              isLoadingData={isLoadingData}
+              openCreateModal={openCreateModal}
+              openEditModal={openEditModal}
+              openDeleteModal={openDeleteModal}
+            />
+          )}
+
+          {/* PLOS VIEW */}
+          {activeTab === 'kurikulum_plos' && (
+            <PlosTab
+              plos={plos}
+              searchQuery={searchQuery}
+              setSearchQuery={setSearchQuery}
+              isLoadingData={isLoadingData}
+              openCreateModal={openCreateModal}
+              openEditModal={openEditModal}
+              openDeleteModal={openDeleteModal}
+            />
+          )}
+
+          {/* PROFILES VIEW */}
+          {activeTab === 'kurikulum_profiles' && (
+            <ProfilesTab
+              profiles={profiles}
+              searchQuery={searchQuery}
+              setSearchQuery={setSearchQuery}
+              isLoadingData={isLoadingData}
+              openCreateModal={openCreateModal}
+              openEditModal={openEditModal}
+              openDeleteModal={openDeleteModal}
+            />
+          )}
+
+          {/* TA STEPS VIEW */}
+          {activeTab === 'tugas_akhir_steps' && (
+            <TaStepsTab
+              steps={steps}
+              searchQuery={searchQuery}
+              setSearchQuery={setSearchQuery}
+              isLoadingData={isLoadingData}
+              openCreateModal={openCreateModal}
+              openEditModal={openEditModal}
+              openDeleteModal={openDeleteModal}
+            />
+          )}
+
           {/* SETTINGS VIEW */}
           {activeTab === 'settings' && (
             <SettingsTab
@@ -723,6 +897,14 @@ export default function App() {
           setPortfolioForm={setPortfolioForm}
           dosenForm={dosenForm}
           setDosenForm={setDosenForm}
+          courseForm={courseForm}
+          setCourseForm={setCourseForm}
+          ploForm={ploForm}
+          setPloForm={setPloForm}
+          profileForm={profileForm}
+          setProfileForm={setProfileForm}
+          stepForm={stepForm}
+          setStepForm={setStepForm}
         />
       )}
 
