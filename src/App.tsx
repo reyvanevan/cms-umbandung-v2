@@ -1073,6 +1073,18 @@ export default function App() {
           setProfileForm={setProfileForm}
           stepForm={stepForm}
           setStepForm={setStepForm}
+          prestasiForm={prestasiForm}
+          setPrestasiForm={setPrestasiForm}
+          publikasiForm={publikasiForm}
+          setPublikasiForm={setPublikasiForm}
+          kegiatanDosenForm={kegiatanDosenForm}
+          setKegiatanDosenForm={setKegiatanDosenForm}
+          kegiatanMahasiswaForm={kegiatanMahasiswaForm}
+          setKegiatanMahasiswaForm={setKegiatanMahasiswaForm}
+          alumniForm={alumniForm}
+          setAlumniForm={setAlumniForm}
+          statistikMabaForm={statistikMabaForm}
+          setStatistikMabaForm={setStatistikMabaForm}
         />
       )}
 

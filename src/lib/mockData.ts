@@ -212,8 +212,8 @@ export interface DbStatistikMaba {
 const initialDosen: DbDosen[] = [
   {
     id: 'dosen-1',
-    name: 'Hanif Alamudin Manshur, S.Gz., M.Si.',
-    img_src: 'https://images.unsplash.com/photo-1560250097-0b93528c311a?q=80&w=300&auto=format&fit=crop',
+    name: 'Dra. Saftiyaningsih Ken Atik, M.Ds.',
+    img_src: 'https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?q=80&w=300&auto=format&fit=crop',
     scopus: '-',
     sinta: '6704890',
     scholar: '#',
@@ -226,8 +226,8 @@ const initialDosen: DbDosen[] = [
   },
   {
     id: 'dosen-2',
-    name: 'Vritta Amroini Wahyudi, S.Si., M.Si.',
-    img_src: 'https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?q=80&w=300&auto=format&fit=crop',
+    name: 'Dr. Komarudin Kudiya, S.IP., M.Ds.',
+    img_src: 'https://images.unsplash.com/photo-1560250097-0b93528c311a?q=80&w=300&auto=format&fit=crop',
     scopus: '-',
     sinta: '6640055',
     scholar: '#',
@@ -240,9 +240,9 @@ const initialDosen: DbDosen[] = [
   },
   {
     id: 'dosen-3',
-    name: 'Prof. Dr. Ir. Noor Harini, M.S.',
+    name: 'Ghaida Nasya Putri, S.Ds., M.Ds.',
     img_src: 'https://images.unsplash.com/photo-1580894732444-8fecef2271ff?q=80&w=300&auto=format&fit=crop',
-    scopus: '57203912449',
+    scopus: '-',
     sinta: '6042313',
     scholar: '#',
     facebook: '#',
@@ -258,36 +258,36 @@ const initialDosen: DbDosen[] = [
 const initialNews: DbNews[] = [
   {
     id: '1',
-    title: 'Workshop Cloud Computing & DevOps untuk Komunitas Lokal',
-    title_en: 'Cloud Computing & DevOps Workshop for Local Community',
+    title: 'Workshop Pewarnaan Alami dan Ecoprint untuk Pengrajin Lokal',
+    title_en: 'Natural Dye and Ecoprint Workshop for Local Artisans',
     category: 'Pengabdian Masyarakat',
     category_en: 'Community Service',
-    snippet: 'Dosen dan mahasiswa Teknik Informatika UMB menyelenggarakan workshop pemanfaatan layanan cloud open-source untuk digitalisasi UMKM lokal.',
-    snippet_en: 'UMB IT lecturers and students host a workshop on open-source cloud services utilization for local MSMEs digitization.',
+    snippet: 'Dosen dan mahasiswa Kriya Tekstil dan Fashion UMB menyelenggarakan workshop pemanfaatan zat warna alam lokal untuk meningkatkan nilai jual produk UMKM.',
+    snippet_en: 'UMB Textile & Fashion lecturers and students host a workshop on natural dyes utilization to increase local MSME product value.',
     date: '02 Jun 2026',
     img_src: 'https://images.unsplash.com/photo-1517694712202-14dd9538aa97?q=80&w=600&auto=format&fit=crop',
     created_at: new Date(Date.now() - 5 * 24 * 60 * 60 * 1000).toISOString()
   },
   {
     id: '2',
-    title: 'Tim Mahasiswa Informatika UMB Raih Juara I Hackathon Nasional',
-    title_en: 'UMB IT Student Team Wins 1st Place in National Hackathon',
+    title: 'Tim Mahasiswa KTF UMB Raih Juara I Fashion Design Competition Nasional',
+    title_en: 'UMB KTF Student Team Wins 1st Place in National Fashion Design Competition',
     category: 'Prestasi Mahasiswa',
     category_en: 'Student Achievement',
-    snippet: 'Mengusung arsitektur serverless modern dengan sistem antrian pintar, karya mahasiswa angkatan 2024 berhasil memukau dewan juri.',
-    snippet_en: 'Using modern serverless architecture with a smart queuing system, the project by class of 2024 students wowed the jury.',
+    snippet: 'Mengusung tema Zero Waste Fashion dengan teknik tenun struktur modern, karya mahasiswa angkatan 2024 berhasil memukau dewan juri.',
+    snippet_en: 'With a Zero Waste Fashion theme using modern structural weaving, the project by class of 2024 students wowed the jury.',
     date: '28 Mei 2026',
     img_src: 'https://images.unsplash.com/photo-1504384308090-c894fdcc538d?q=80&w=600&auto=format&fit=crop',
     created_at: new Date(Date.now() - 15 * 24 * 60 * 60 * 1000).toISOString()
   },
   {
     id: '3',
-    title: 'Kolaborasi Riset Cybersecurity Bersama Asosiasi IT Indonesia',
-    title_en: 'Cybersecurity Research Collaboration with Indonesian IT Association',
+    title: 'Kolaborasi Riset Serat Alami Bersama Asosiasi Pertekstilan Indonesia',
+    title_en: 'Natural Fiber Research Collaboration with Indonesian Textile Association',
     category: 'Kolaborasi Riset',
     category_en: 'Research Collaboration',
-    snippet: 'Program studi resmi menandatangani kerjasama pengembangan standardisasi keamanan informasi dan sertifikasi kompetensi jaringan.',
-    snippet_en: 'The study program officially signed a partnership for information security standardization development and network competency certification.',
+    snippet: 'Program studi resmi menandatangani kerjasama riset pengembangan serat pelepah pisang untuk aplikasi tekstil fashion berkelanjutan.',
+    snippet_en: 'The study program officially signed a research partnership for banana fiber development in sustainable fashion textiles.',
     date: '15 Mei 2026',
     img_src: 'https://images.unsplash.com/photo-1563986768609-322da13575f3?q=80&w=600&auto=format&fit=crop',
     created_at: new Date(Date.now() - 25 * 24 * 60 * 60 * 1000).toISOString()
@@ -299,8 +299,8 @@ const initialEvents: DbEvent[] = [
     id: '1',
     date_day: '18',
     date_month: 'JUN',
-    title: 'INFOTEC 2026: Capstone Project Showcase & IT Career Expo',
-    title_en: 'INFOTEC 2026: Capstone Project Showcase & IT Career Expo',
+    title: 'TUMPAL 2026: Capstone Exhibition & Fashion Show UMB',
+    title_en: 'TUMPAL 2026: Capstone Exhibition & Fashion Show UMB',
     location: 'Aula Utama KH. Ahmad Dahlan, UMB Bandung',
     location_en: 'KH. Ahmad Dahlan Main Hall, UMB Bandung',
     created_at: new Date(Date.now() + 10 * 24 * 60 * 60 * 1000).toISOString()
@@ -309,18 +309,18 @@ const initialEvents: DbEvent[] = [
     id: '2',
     date_day: '25',
     date_month: 'JUN',
-    title: 'Coding Workshop: Building Web Apps with React & Supabase',
-    title_en: 'Coding Workshop: Building Web Apps with React & Supabase',
-    location: 'Lab Komputasi Gedung UMB',
-    location_en: 'UMB Building Computing Lab',
+    title: 'Workshop Batik & Shibori: Teknik Manipulasi Kain Kontemporer',
+    title_en: 'Batik & Shibori Workshop: Contemporary Fabric Manipulation Techniques',
+    location: 'Studio Kriya & Desain Gedung UMB',
+    location_en: 'UMB Building Craft & Design Studio',
     created_at: new Date(Date.now() + 25 * 24 * 60 * 60 * 1000).toISOString()
   },
   {
     id: '3',
     date_day: '05',
     date_month: 'JUL',
-    title: 'Kuliah Umum: Tren Kecerdasan Buatan di Era Komputasi Awan',
-    title_en: 'Public Lecture: Artificial Intelligence Trends in the Cloud Computing Era',
+    title: 'Kuliah Umum: Tren Sustainable Fashion & Green Lifestyle di Era Global',
+    title_en: 'Public Lecture: Sustainable Fashion & Green Lifestyle Trends in Global Era',
     location: 'Auditorium Utama UMB Bandung',
     location_en: 'UMB Bandung Main Auditorium',
     created_at: new Date(Date.now() + 35 * 24 * 60 * 60 * 1000).toISOString()
@@ -330,101 +330,74 @@ const initialEvents: DbEvent[] = [
 const initialTestimonials: DbTestimonial[] = [
   {
     id: '1',
-    testimonial: 'Materi kurikulum yang berfokus pada software engineering dan arsitektur modern sangat relevan dengan kebutuhan industri teknologi saat ini.',
-    testimonial_en: 'Curriculum material focusing on software engineering and modern architecture is highly relevant to current tech industry needs.',
-    by: 'Andini Kusuma, S.Kom (Software Engineer at Tokopedia)',
-    by_en: 'Andini Kusuma, S.Kom (Software Engineer at Tokopedia)',
+    testimonial: 'Materi kurikulum yang berfokus pada surface & structure design serta entrepreneurship sangat relevan dengan industri fashion saat ini.',
+    testimonial_en: 'Curriculum material focusing on surface & structure design and entrepreneurship is highly relevant to current fashion industry needs.',
+    by: 'Andini Kusuma, S.Sn. (Fashion Designer at Cottonink)',
+    by_en: 'Andini Kusuma, S.Sn. (Fashion Designer at Cottonink)',
     img_src: 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?q=80&w=200&auto=format&fit=crop',
     created_at: new Date(Date.now() - 60 * 24 * 60 * 60 * 1000).toISOString()
   },
   {
     id: '2',
-    testimonial: 'Program magang laboratorium memberikan saya kesempatan berjejaring langsung dengan praktisi cloud dan devops nasional sejak awal perkuliahan.',
-    testimonial_en: 'The lab internship program gave me the opportunity to network directly with national cloud and devops practitioners since the beginning of college.',
-    by: 'Rian Hidayat, S.Kom (DevOps Engineer at GoTo)',
-    by_en: 'Rian Hidayat, S.Kom (DevOps Engineer at GoTo)',
+    testimonial: 'Magang di studio desainer terkemuka memberikan saya kesempatan berjejaring langsung dengan praktisi mode nasional sejak kuliah.',
+    testimonial_en: 'Interning at leading designer studios gave me the opportunity to network directly with national fashion practitioners since college.',
+    by: 'Rian Hidayat, S.Sn. (Creative Director at Batik Komar)',
+    by_en: 'Rian Hidayat, S.Sn. (Creative Director at Batik Komar)',
     img_src: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=200&auto=format&fit=crop',
     created_at: new Date(Date.now() - 50 * 24 * 60 * 60 * 1000).toISOString()
   },
   {
     id: '3',
-    testimonial: 'Informatika UMB benar-benar mengasah kemampuan berpikir logis dan pemecahan masalah kompleks menggunakan teknologi kecerdasan buatan.',
-    testimonial_en: 'Informatics UMB really sharpens logical thinking and complex problem solving skills using artificial intelligence technology.',
-    by: 'Melati Indah, S.Kom (AI Researcher at Bukalapak)',
-    by_en: 'Melati Indah, S.Kom (AI Researcher at Bukalapak)',
+    testimonial: 'Kriya Tekstil UMB benar-benar mengasah kemampuan berpikir kreatif dan kepekaan estetika terhadap serat-serat alami Nusantara.',
+    testimonial_en: 'Textile Craft UMB really sharpens creative thinking skills and aesthetic sensitivity towards Nusantara natural fibers.',
+    by: 'Melati Indah, S.Sn. (Textile Artist & Founder of KainSerat)',
+    by_en: 'Melati Indah, S.Sn. (Textile Artist & Founder of KainSerat)',
     img_src: 'https://images.unsplash.com/photo-1438761681033-6461ffad8d80?q=80&w=200&auto=format&fit=crop',
     created_at: new Date(Date.now() - 40 * 24 * 60 * 60 * 1000).toISOString()
-  },
-  {
-    id: '4',
-    testimonial: 'Suasana lab yang kolaboratif membuat saya terbiasa melakukan eksperimen sistem dan coding tanpa takut gagal.',
-    testimonial_en: 'The collaborative lab atmosphere makes me accustomed to conducting system experiments and coding without fear of failure.',
-    by: 'Fauzan Adhi, S.Kom (Cybersecurity Analyst at Cyber Security Agency)',
-    by_en: 'Fauzan Adhi, S.Kom (Cybersecurity Analyst at Cyber Security Agency)',
-    img_src: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?q=80&w=200&auto=format&fit=crop',
-    created_at: new Date(Date.now() - 30 * 24 * 60 * 60 * 1000).toISOString()
-  },
-  {
-    id: '5',
-    testimonial: 'Pembekalan portofolio proyek berkala selama perkuliahan sangat mempermudah saya ketika melamar kerja di perusahaan multinasional.',
-    testimonial_en: 'Regular project portfolio preparation during college made it very easy for me when applying for jobs at multinational companies.',
-    by: 'Sarah Amalia, S.Kom (Technical Product Manager at Shopee)',
-    by_en: 'Sarah Amalia, S.Kom (Technical Product Manager at Shopee)',
-    img_src: 'https://images.unsplash.com/photo-1544005313-94ddf0286df2?q=80&w=200&auto=format&fit=crop',
-    created_at: new Date(Date.now() - 20 * 24 * 60 * 60 * 1000).toISOString()
-  },
-  {
-    id: '6',
-    testimonial: 'Berkat bimbingan intensif dosen-dosen praktisi industri, saya bisa merilis proyek akhir saya di ajang kompetisi IT nasional.',
-    testimonial_en: 'Thanks to the intensive guidance of industry practitioner lecturers, I was able to release my final project in a national IT competition.',
-    by: 'Yusuf Maulana, S.Kom (Data Scientist at Telkom Indonesia)',
-    by_en: 'Yusuf Maulana, S.Kom (Data Scientist at Telkom Indonesia)',
-    img_src: 'https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?q=80&w=200&auto=format&fit=crop',
-    created_at: new Date(Date.now() - 10 * 24 * 60 * 60 * 1000).toISOString()
   }
 ];
 
 const initialPartners: DbPartner[] = [
-  { id: '1', name: 'Asosiasi Telekomunikasi Indonesia', created_at: new Date().toISOString() },
-  { id: '2', name: 'PT Indonesia Digital Teknologi', created_at: new Date().toISOString() },
-  { id: '3', name: 'Google Developer Groups Bandung', created_at: new Date().toISOString() },
-  { id: '4', name: 'Kementerian Komunikasi & Informatika', created_at: new Date().toISOString() },
-  { id: '5', name: 'Ikatan Alumni Teknik Informatika (IKATI)', created_at: new Date().toISOString() },
-  { id: '6', name: 'PT GoTo Gojek Tokopedia Tbk', created_at: new Date().toISOString() }
+  { id: '1', name: 'Asosiasi Pertekstilan Indonesia (API)', created_at: new Date().toISOString() },
+  { id: '2', name: 'PT Kahatex', created_at: new Date().toISOString() },
+  { id: '3', name: 'Rumah Batik Komar', created_at: new Date().toISOString() },
+  { id: '4', name: 'Ikatan Perancang Mode Indonesia (IPMI)', created_at: new Date().toISOString() },
+  { id: '5', name: 'ASEPHI (Handicraft Association)', created_at: new Date().toISOString() },
+  { id: '6', name: 'Ikatan Alumni Kriya Tekstil dan Fashion (IKA-KTF)', created_at: new Date().toISOString() }
 ];
 
 const initialLandingStats: DbLandingStat[] = [
-  { id: '1', number: '98%', label: 'Keterserapan Lulusan di Industri', label_en: 'Graduate Employment Rate in Industry', sort_order: 1 },
-  { id: '2', number: '20+', label: 'Mitra Industri & Tech Company', label_en: 'Industry Partners & Tech Companies', sort_order: 2 },
-  { id: '3', number: '150+', label: 'Project Apps Mahasiswa Terpublikasi', label_en: 'Published Student Project Apps', sort_order: 3 },
-  { id: '4', number: '8', label: 'Laboratorium Komputasi & Riset', label_en: 'Computing & Research Laboratories', sort_order: 4 }
+  { id: '1', number: '95%', label: 'Keterserapan Lulusan di Industri Kreatif', label_en: 'Graduate Employment Rate in Creative Industry', sort_order: 1 },
+  { id: '2', number: '30+', label: 'Mitra Industri Tekstil & Fashion', label_en: 'Textile & Fashion Industry Partners', sort_order: 2 },
+  { id: '3', number: '200+', label: 'Karya Desain Mahasiswa Terpublikasi', label_en: 'Published Student Design Works', sort_order: 3 },
+  { id: '4', number: '6', label: 'Studio Kriya, Batik, & Desain Mode', label_en: 'Craft, Batik, & Fashion Design Studios', sort_order: 4 }
 ];
 
 const initialLandingPartners: DbLandingPartner[] = [
-  { id: '1', name: 'PT GoTo Gojek Tokopedia Tbk', sort_order: 1 },
-  { id: '2', name: 'Google Developer Groups Bandung', sort_order: 2 },
-  { id: '3', name: 'Asosiasi Telekomunikasi Indonesia', sort_order: 3 },
-  { id: '4', name: 'PT Indonesia Digital Teknologi', sort_order: 4 },
-  { id: '5', name: 'Kementerian Komunikasi & Informatika', sort_order: 5 },
-  { id: '6', name: 'Ikatan Alumni Teknik Informatika (IKATI)', sort_order: 6 }
+  { id: '1', name: 'Rumah Batik Komar', sort_order: 1 },
+  { id: '2', name: 'PT Kahatex', sort_order: 2 },
+  { id: '3', name: 'Asosiasi Pertekstilan Indonesia (API)', sort_order: 3 },
+  { id: '4', name: 'Ikatan Perancang Mode Indonesia (IPMI)', sort_order: 4 },
+  { id: '5', name: 'ASEPHI (Handicraft Association)', sort_order: 5 },
+  { id: '6', name: 'Ikatan Alumni Kriya Tekstil dan Fashion (IKA-KTF)', sort_order: 6 }
 ];
 
 const initialLandingPortfolioItems: DbLandingPortfolioItem[] = [
   {
     id: '1',
-    image: 'https://images.unsplash.com/photo-1555066931-4365d14bab8c?q=80&w=600&auto=format&fit=crop',
-    title: 'Smart Campus Mobile & Analytics App',
-    medium: 'React Native & Node.js',
+    image: '/assets/portfolio-organic-gown.jpg',
+    title: 'Organic Ecoprint Evening Gown',
+    medium: 'Cotton & Silk Ecoprint',
     technique: 'Developer: Naila Putri',
-    year: 'Juara I // Hackathon Nasional',
+    year: 'Juara I // Fashion Show Nasional',
     gridClass: 'col-span-2 row-span-2',
     sort_order: 1
   },
   {
     id: '2',
-    image: 'https://images.unsplash.com/photo-1518770660439-4636190af475?q=80&w=600&auto=format&fit=crop',
-    title: 'IoT Automated Greenhouse Controller',
-    medium: 'Raspberry Pi & Python',
+    image: '/assets/portfolio-songket.jpg',
+    title: 'Songket-Inspired Contemporary Jacket',
+    medium: 'Handwoven Songket & Linen',
     technique: 'Developer: Daniel Wijaya',
     year: 'Karya Terbaik // Exhibition ITB',
     gridClass: 'col-span-1 row-span-1',
@@ -432,9 +405,9 @@ const initialLandingPortfolioItems: DbLandingPortfolioItem[] = [
   },
   {
     id: '3',
-    image: 'https://images.unsplash.com/photo-1563986768609-322da13575f3?q=80&w=600&auto=format&fit=crop',
-    title: 'Decentralized Academic Credentials',
-    medium: 'Solidity & Ethereum',
+    image: '/assets/portfolio-ikat-jacket.jpg',
+    title: 'Ikat-Weave Modern Trench Coat',
+    medium: 'Handwoven Ikat & Cotton',
     technique: 'Developer: Arya Dinata',
     year: 'Proyek Riset // Kementerian Dikti',
     gridClass: 'col-span-1 row-span-2',
@@ -442,9 +415,9 @@ const initialLandingPortfolioItems: DbLandingPortfolioItem[] = [
   },
   {
     id: '4',
-    image: 'https://images.unsplash.com/photo-1576091160550-2173dba999ef?q=80&w=600&auto=format&fit=crop',
-    title: 'AI Lung Cancer Detection Model',
-    medium: 'Python & PyTorch',
+    image: '/assets/portfolio-batik.jpg',
+    title: 'Batik Lasem Eco-Friendly Kimono',
+    medium: 'Hand-drawn Batik & Tencel',
     technique: 'Developer: Ryu Hansen',
     year: 'Karya Inovatif // Global Health',
     gridClass: 'col-span-1 row-span-1',
@@ -452,9 +425,9 @@ const initialLandingPortfolioItems: DbLandingPortfolioItem[] = [
   },
   {
     id: '5',
-    image: 'https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?q=80&w=600&auto=format&fit=crop',
-    title: 'AR Campus Navigation System',
-    medium: 'Unity & C#',
+    image: '/assets/portfolio-ready-to-wear.jpg',
+    title: 'Ready-to-Wear Streetwear Collection',
+    medium: 'Digital Print & Organic Cotton',
     technique: 'Developer: Farah Amalia',
     year: 'Finalis // Indonesian Young Inventor',
     gridClass: 'col-span-2 row-span-1',
@@ -465,26 +438,26 @@ const initialLandingPortfolioItems: DbLandingPortfolioItem[] = [
 export const initialSiteContent: DbSiteContent[] = [
   {
     key: 'hero_title',
-    value: 'Teknik Informatika UMB Bandung',
-    value_en: 'Informatics Engineering UMB Bandung',
+    value: 'Kriya Tekstil dan Fashion UMB',
+    value_en: 'Textile and Fashion Design UMB',
     updated_at: new Date().toISOString()
   },
   {
     key: 'hero_subtitle',
-    value: 'Membentuk Software Engineer dan Praktisi Cloud Modern Berbasis Nilai Islam & Inovasi Teknologi.',
-    value_en: 'Forming Modern Software Engineers and Cloud Practitioners based on Islamic Values & Tech Innovation.',
+    value: 'Mencetak Creativepreneur dan Desainer Kriya Kontemporer Berbasis Nilai Islam & Kearifan Lokal.',
+    value_en: 'Creating Creativepreneurs and Contemporary Craft Designers based on Islamic Values & Local Indigenous.',
     updated_at: new Date().toISOString()
   },
   {
     key: 'kaprodi_welcome',
-    value: 'Selamat datang di portal resmi Program Studi S1 Teknik Informatika Universitas Muhammadiyah Bandung. Kami berkomitmen untuk mencetak pemimpin teknologi dan rekayasawan perangkat lunak masa depan yang menguasai komputasi modern, sistem pemrograman, dan kecerdasan buatan.',
-    value_en: 'Welcome to the official portal of the S1 Program in Informatics Engineering at Universitas Muhammadiyah Bandung. We are committed to shaping future technology leaders and software engineers who master modern computing, programming systems, and artificial intelligence.',
+    value: 'Selamat datang di portal resmi Program Studi S1 Kriya Tekstil dan Fashion Universitas Muhammadiyah Bandung. Kami berkomitmen untuk menghasilkan desainer, kriya, dan wirausahawan kreatif masa depan yang menguasai teknik tekstil, desain mode, dan seni kriya kontemporer.',
+    value_en: 'Welcome to the official portal of the S1 Program in Textile and Fashion Design at Universitas Muhammadiyah Bandung. We are committed to shaping future designers, crafters, and creative entrepreneurs who master textile techniques, fashion design, and contemporary craft arts.',
     updated_at: new Date().toISOString()
   },
   {
     key: 'kaprodi_welcome_p2',
-    value: 'Fokus pengembangan kami terletak pada integrasi kemajuan ilmu komputer dengan kebutuhan praktis industri, menciptakan solusi dan sistem digital yang berdaya saing global serta berdampak sosial.',
-    value_en: 'Our development focus lies in integrating computer science advancements with practical industry needs, creating digital solutions and systems that are globally competitive and socially impactful.',
+    value: 'Fokus pengembangan kami terletak pada integrasi seni tekstil modern dengan nilai tradisi budaya Nusantara sebagai fondasi inovasi, menciptakan desainer yang peka secara estetis, sosial, dan lingkungan.',
+    value_en: 'Our development focus lies in integrating modern textile arts with Nusantara cultural traditions as an innovation foundation, creating designers who are aesthetically, socially, and environmentally sensitive.',
     updated_at: new Date().toISOString()
   },
   {
@@ -507,14 +480,14 @@ export const initialSiteContent: DbSiteContent[] = [
   },
   {
     key: 'kaprodi_name',
-    value: 'M. Yusuf Efendi, S.T., M.T.',
-    value_en: 'M. Yusuf Efendi, S.T., M.T.',
+    value: 'Dra. Saftiyaningsih Ken Atik, M.Ds.',
+    value_en: 'Dra. Saftiyaningsih Ken Atik, M.Ds.',
     updated_at: new Date().toISOString()
   },
   {
     key: 'kaprodi_title',
-    value: 'Ketua Program Studi Teknik Informatika',
-    value_en: 'Head of Informatics Engineering Department',
+    value: 'Ketua Program Studi Kriya Tekstil dan Fashion',
+    value_en: 'Head of Textile and Fashion Design Department',
     updated_at: new Date().toISOString()
   },
   {
@@ -525,32 +498,32 @@ export const initialSiteContent: DbSiteContent[] = [
   },
   {
     key: 'philosophy_body',
-    value: 'Kami percaya bahwa pemrograman bukan hanya tentang mengetik baris kode, melainkan tentang membangun solusi komputasi yang efisien, etis, dan memberikan dampak nyata bagi masyarakat.',
-    value_en: 'We believe programming is not just about writing lines of code, but about building efficient, ethical computing solutions that deliver real impact to society.',
+    value: 'Kami percaya bahwa kriya tekstil dan fashion bukan hanya tentang estetika visual, melainkan tentang mengekspresikan nilai budaya, inovasi material yang ramah lingkungan, serta memberikan dampak nyata bagi industri kreatif.',
+    value_en: 'We believe that textile craft and fashion are not just about visual aesthetics, but about expressing cultural values, sustainable material innovation, and delivering real impact to the creative industry.',
     updated_at: new Date().toISOString()
   },
   {
     key: 'visi_misi_vision',
-    value: 'Menjadi program studi rekayasa perangkat lunak yang unggul di tingkat nasional, berdaya saing global, terintegrasi dengan nilai-nilai Keislaman serta inovasi teknologi digital pada tahun 2030.',
-    value_en: 'To become a leading, globally-recognized center of software engineering education and research that integrates Islamic values and digital technological innovations by 2030.',
+    value: 'Menjadi program studi kriya tekstil dan fashion yang unggul dan inovatif dalam pengembangan seni kriya dan desain mode berbasis kearifan lokal Nusantara serta berdaya saing global pada tahun 2030.',
+    value_en: 'To become a leading and innovative textile craft and fashion study program in developing craft arts and fashion design based on Nusantara local wisdom with global competitiveness by 2030.',
     updated_at: new Date().toISOString()
   },
   {
     key: 'visi_misi_missions',
-    value: 'Menyelenggarakan pendidikan rekayasa perangkat lunak berkualitas tinggi yang selaras dengan standar komputasi global dan kebutuhan dinamis industri teknologi.\nMelaksanakan riset inovatif dan kolaboratif di bidang sistem awan, kecerdasan buatan, dan keamanan siber dengan publikasi akademis yang berdampak.\nMengimplementasikan program pengabdian masyarakat berbasis transformasi digital untuk memberdayakan UMKM lokal dan sektor sosial kemasyarakatan.\nMengintegrasikan etika Keislaman, integritas profesional, dan prinsip moral dalam pembelajaran akademik serta pembinaan karakter.',
-    value_en: 'Deliver a high-quality software engineering curriculum that aligns with global computing standards and dynamic tech industry demands.\nConduct innovative, collaborative research in cloud systems, artificial intelligence, and cybersecurity with meaningful academic publications.\nImplement digital transformation initiatives and community service programs to support local MSMEs and community sectors.\nIntegrate Islamic ethics, professional integrity, and moral principles into academic learning and character development.',
+    value: 'Menyelenggarakan pendidikan kriya tekstil dan fashion yang berkualitas tinggi dengan mengintegrasikan nilai-nilai Islam dan technopreneurship kreatif.\nMelaksanakan penelitian dan pengabdian masyarakat di bidang kriya dan fashion yang berorientasi pada eksplorasi budaya lokal dan sustainable design.\nMengembangkan kemitraan strategis dengan industri kreatif, galeri seni, dan perancang busana untuk memfasilitasi magang dan karier mahasiswa.',
+    value_en: 'Deliver high-quality textile craft and fashion education integrating Islamic values and creative technopreneurship.\nConduct research and community service in craft and fashion oriented towards local cultural exploration and sustainable design.\nDevelop strategic partnerships with creative industries, art galleries, and fashion designers to facilitate student internships and careers.',
     updated_at: new Date().toISOString()
   },
   {
     key: 'visi_misi_goals',
-    value: 'Kompetensi Profesional Global\nOutput Riset yang Inovatif\nEkosistem Digital Berkelanjutan\nKarakter Islami & Kepemimpinan',
-    value_en: 'Global Professional Competency\nInnovative Research Output\nSustainable Digital Ecosystems\nIslamic Character & Leadership',
+    value: 'Desain Kriya & Mode Kreatif\nEksplorasi Budaya Nusantara\nSustainable & Eco-Fashion\nIslamic Character & Creativepreneurship',
+    value_en: 'Creative Craft & Fashion Design\nNusantara Cultural Exploration\nSustainable & Eco-Fashion\nIslamic Character & Creativepreneurship',
     updated_at: new Date().toISOString()
   },
   {
     key: 'gov_sec_name',
-    value: 'Vritta Amroini Wahyudi, S.Si., M.Si.',
-    value_en: 'Vritta Amroini Wahyudi, S.Si., M.Si.',
+    value: 'Dewi Werdayani, S.Pd., M.Pd.',
+    value_en: 'Dewi Werdayani, S.Pd., M.Pd.',
     updated_at: new Date().toISOString()
   },
   {
@@ -561,8 +534,8 @@ export const initialSiteContent: DbSiteContent[] = [
   },
   {
     key: 'gov_sec_email',
-    value: 'vritta.aw@umbandung.ac.id',
-    value_en: 'vritta.aw@umbandung.ac.id',
+    value: 'dewi.w@umbandung.ac.id',
+    value_en: 'dewi.w@umbandung.ac.id',
     updated_at: new Date().toISOString()
   },
   {
@@ -573,20 +546,20 @@ export const initialSiteContent: DbSiteContent[] = [
   },
   {
     key: 'gov_lab_name',
-    value: 'Hanif Alamudin Manshur, S.Gz., M.Si.',
-    value_en: 'Hanif Alamudin Manshur, S.Gz., M.Si.',
+    value: 'Ghaida Nasya Putri, S.Ds., M.Ds.',
+    value_en: 'Ghaida Nasya Putri, S.Ds., M.Ds.',
     updated_at: new Date().toISOString()
   },
   {
     key: 'gov_lab_role',
-    value: 'Kepala Laboratorium Komputasi',
-    value_en: 'Head of Computing Laboratories',
+    value: 'Kepala Laboratorium Kriya & Desain',
+    value_en: 'Head of Craft & Design Laboratories',
     updated_at: new Date().toISOString()
   },
   {
     key: 'gov_lab_email',
-    value: 'hanif.am@umbandung.ac.id',
-    value_en: 'hanif.am@umbandung.ac.id',
+    value: 'ghaida.np@umbandung.ac.id',
+    value_en: 'ghaida.np@umbandung.ac.id',
     updated_at: new Date().toISOString()
   },
   {
@@ -597,59 +570,59 @@ export const initialSiteContent: DbSiteContent[] = [
   },
   {
     key: 'kurikulum_description',
-    value: 'Pelajari kurikulum adaptif kami yang disusun berdasarkan standar komputasi internasional (ACM/IEEE), sertifikasi profesi industri, serta skema Merdeka Belajar Kampus Merdeka (MBKM).',
-    value_en: 'Explore our modern, adaptive curriculum structured around international computing standards (ACM/IEEE), industry certifications, and MBKM learning path designs.',
+    value: 'Pelajari kurikulum adaptif kami yang dirancang untuk membekali mahasiswa dengan keahlian surface design (batik, ecoprint, shibori), structure design (tenun, anyam, rajut), serta manajemen bisnis fashion.',
+    value_en: 'Explore our adaptive curriculum designed to equip students with expertise in surface design (batik, ecoprint, shibori), structure design (weaving, knitting), and fashion business management.',
     updated_at: new Date().toISOString()
   },
   {
     key: 'kurikulum_internship_desc',
-    value: 'Mahasiswa kami difasilitasi untuk mengkonversikan pengalaman kerja lapangan / magang industri riil hingga 20 SKS akademik di bawah skema MBKM Kemendikbud, bermitra dengan startup dan BUMN teknologi terkemuka.',
-    value_en: 'Our students are eligible to convert real-world industrial experiences into up to 20 academic credits under the Kemendikbud MBKM schema, collaborating with global and national technology enterprises.',
+    value: 'Mahasiswa difasilitasi untuk magang industri atau di studio desainer terkemuka di bawah skema MBKM hingga 20 SKS.',
+    value_en: 'Students are facilitated to intern in creative industries or leading designer studios under the MBKM scheme for up to 20 credits.',
     updated_at: new Date().toISOString()
   },
   {
     key: 'tugas_akhir_description',
-    value: 'Akses panduan akademik, persyaratan kelayakan, alur pengajuan proposal, serta berkas unduhan template untuk menyelesaikan Tugas Akhir (Skripsi) Anda.',
-    value_en: 'Access guidelines, academic prerequisites, research workflows, and download templates required to successfully complete your capstone final project.',
+    value: 'Akses panduan akademik, persyaratan kelayakan, alur pengajuan proposal karya kriya dan busana, serta template Tugas Akhir (Skripsi/Karya Mandiri).',
+    value_en: 'Access academic guidelines, prerequisites, project proposals, and templates required to complete your final project (Thesis/Creative Work).',
     updated_at: new Date().toISOString()
   },
   {
     key: 'tugas_akhir_prereq_desc',
-    value: 'Telah menempuh dan lulus minimal 110 SKS mata kuliah akademik, tidak memiliki nilai D/E untuk core courses, IPK Kumulatif minimal 2.00, serta menyertakan Seminar Proposal di KRS berjalan.',
-    value_en: 'Successfully completed a minimum of 110 academic credits (SKS), no D or E grades for core courses, minimum GPA of 2.00, and enrolled in Thesis Proposal Seminar in the current KRS.',
+    value: 'Telah menempuh minimal 110 SKS, tidak memiliki nilai D/E untuk mata kuliah inti kriya, IPK Kumulatif minimal 2.00, serta mengajukan outline konsep karya.',
+    value_en: 'Successfully completed a minimum of 110 academic credits (SKS), no D/E grades for core craft courses, minimum GPA of 2.00, and submitted a creative design outline.',
     updated_at: new Date().toISOString()
   },
   {
     key: 'kerjasama_description',
-    value: 'Membuka peluang kolaborasi global guna mendukung Tri Dharma Perguruan Tinggi, magang industri mahasiswa, riset bersama, serta penyerapan karir lulusan.',
-    value_en: 'Exploring global collaborations to support the Tri Dharma of Higher Education, student internships, joint research programs, and professional career transitions.',
+    value: 'Membuka peluang kolaborasi industri kreatif guna mendukung magang mahasiswa, pameran bersama, serta penyerapan karir lulusan.',
+    value_en: 'Exploring collaborations with creative industries to support student internships, joint exhibitions, and professional career transitions.',
     updated_at: new Date().toISOString()
   }
 ];
 
 const initialKurikulumCourses: DbKurikulumCourse[] = [
-  { id: 'course-1', semester: 'I', name: 'Pengantar Teknologi Pangan', name_en: 'Introduction to Food Technology', credits: 2, sort_order: 1, created_at: new Date().toISOString() },
-  { id: 'course-2', semester: 'I', name: 'Kimia Dasar', name_en: 'General Chemistry', credits: 3, sort_order: 2, created_at: new Date().toISOString() },
-  { id: 'course-3', semester: 'I', name: 'Biologi Umum', name_en: 'General Biology', credits: 3, sort_order: 3, created_at: new Date().toISOString() },
-  { id: 'course-4', semester: 'II', name: 'Kimia Organik', name_en: 'Organic Chemistry', credits: 3, sort_order: 4, created_at: new Date().toISOString() },
-  { id: 'course-5', semester: 'II', name: 'Mikrobiologi Umum', name_en: 'General Microbiology', credits: 3, sort_order: 5, created_at: new Date().toISOString() },
-  { id: 'course-6', semester: 'II', name: 'Matematika Pangan', name_en: 'Food Mathematics', credits: 2, sort_order: 6, created_at: new Date().toISOString() },
-  { id: 'course-7', semester: 'III', name: 'Kimia Pangan', name_en: 'Food Chemistry', credits: 3, sort_order: 7, created_at: new Date().toISOString() },
-  { id: 'course-8', semester: 'III', name: 'Mikrobiologi Pangan', name_en: 'Food Microbiology', credits: 3, sort_order: 8, created_at: new Date().toISOString() },
-  { id: 'course-9', semester: 'III', name: 'Biokimia Pangan', name_en: 'Food Biochemistry', credits: 3, sort_order: 9, created_at: new Date().toISOString() },
-  { id: 'course-10', semester: 'IV', name: 'Analisis Pangan', name_en: 'Food Analysis', credits: 3, sort_order: 10, created_at: new Date().toISOString() },
-  { id: 'course-11', semester: 'IV', name: 'Satuan Operasi Industri Pangan', name_en: 'Unit Operations in Food Industry', credits: 3, sort_order: 11, created_at: new Date().toISOString() },
-  { id: 'course-12', semester: 'IV', name: 'Bahan Tambahan Pangan', name_en: 'Food Additives', credits: 2, sort_order: 12, created_at: new Date().toISOString() },
-  { id: 'course-13', semester: 'V', name: 'Teknologi Pengolahan Pangan', name_en: 'Food Processing Technology', credits: 4, sort_order: 13, created_at: new Date().toISOString() },
-  { id: 'course-14', semester: 'V', name: 'Sensoris Pangan', name_en: 'Food Sensory Evaluation', credits: 3, sort_order: 14, created_at: new Date().toISOString() },
-  { id: 'course-15', semester: 'V', name: 'Peraturan & Undang-Undang Pangan', name_en: 'Food Regulations & Laws', credits: 2, sort_order: 15, created_at: new Date().toISOString() },
-  { id: 'course-16', semester: 'VI', name: 'Sistem Jaminan Produk Halal', name_en: 'Halal Product Assurance System', credits: 3, sort_order: 16, created_at: new Date().toISOString() },
-  { id: 'course-17', semester: 'VI', name: 'Manajemen Mutu & Keamanan Pangan', name_en: 'Food Quality & Safety Management', credits: 3, sort_order: 17, created_at: new Date().toISOString() },
-  { id: 'course-18', semester: 'VI', name: 'Desain & Inovasi Produk Pangan', name_en: 'Food Product Design & Innovation', credits: 3, sort_order: 18, created_at: new Date().toISOString() },
-  { id: 'course-19', semester: 'VII', name: 'Metodologi Penelitian Pangan', name_en: 'Food Research Methodology', credits: 2, sort_order: 19, created_at: new Date().toISOString() },
+  { id: 'course-1', semester: 'I', name: 'Pengantar Seni Kriya & Desain', name_en: 'Introduction to Craft & Design', credits: 3, sort_order: 1, created_at: new Date().toISOString() },
+  { id: 'course-2', semester: 'I', name: 'Nirmana 2D', name_en: '2D Design Principles (Nirmana)', credits: 3, sort_order: 2, created_at: new Date().toISOString() },
+  { id: 'course-3', semester: 'I', name: 'Menggambar Rupa', name_en: 'Figure Drawing', credits: 3, sort_order: 3, created_at: new Date().toISOString() },
+  { id: 'course-4', semester: 'II', name: 'Nirmana 3D', name_en: '3D Design Principles (Nirmana)', credits: 3, sort_order: 4, created_at: new Date().toISOString() },
+  { id: 'course-5', semester: 'II', name: 'Sejarah Tekstil & Mode', name_en: 'History of Textiles & Fashion', credits: 3, sort_order: 5, created_at: new Date().toISOString() },
+  { id: 'course-6', semester: 'II', name: 'Pengetahuan Serat & Tekstil', name_en: 'Fiber & Textile Science', credits: 2, sort_order: 6, created_at: new Date().toISOString() },
+  { id: 'course-7', semester: 'III', name: 'Desain Permukaan (Batik & Shibori)', name_en: 'Surface Design (Batik & Shibori)', credits: 3, sort_order: 7, created_at: new Date().toISOString() },
+  { id: 'course-8', semester: 'III', name: 'Desain Struktur (Tenun & Anyam)', name_en: 'Structure Design (Weaving & Basketry)', credits: 3, sort_order: 8, created_at: new Date().toISOString() },
+  { id: 'course-9', semester: 'III', name: 'Ilustrasi Fashion', name_en: 'Fashion Illustration', credits: 3, sort_order: 9, created_at: new Date().toISOString() },
+  { id: 'course-10', semester: 'IV', name: 'Pola & Konstruksi Busana', name_en: 'Pattern Drafting & Garment Construction', credits: 3, sort_order: 10, created_at: new Date().toISOString() },
+  { id: 'course-11', semester: 'IV', name: 'Teknik Pewarnaan Alami', name_en: 'Natural Dyeing Techniques', credits: 3, sort_order: 11, created_at: new Date().toISOString() },
+  { id: 'course-12', semester: 'IV', name: 'Tekstil Kontemporer', name_en: 'Contemporary Textiles', credits: 2, sort_order: 12, created_at: new Date().toISOString() },
+  { id: 'course-13', semester: 'V', name: 'Desain Mode (Ready-to-Wear)', name_en: 'Fashion Design (Ready-to-Wear)', credits: 4, sort_order: 13, created_at: new Date().toISOString() },
+  { id: 'course-14', semester: 'V', name: 'Trend Forecasting & Fashion Styling', name_en: 'Trend Forecasting & Fashion Styling', credits: 3, sort_order: 14, created_at: new Date().toISOString() },
+  { id: 'course-15', semester: 'V', name: 'Fotografi Produk & Mode', name_en: 'Product & Fashion Photography', credits: 2, sort_order: 15, created_at: new Date().toISOString() },
+  { id: 'course-16', semester: 'VI', name: 'Sustainable Fashion & Circular Craft', name_en: 'Sustainable Fashion & Circular Craft', credits: 3, sort_order: 16, created_at: new Date().toISOString() },
+  { id: 'course-17', semester: 'VI', name: 'Creativepreneurship & Portofolio', name_en: 'Creativepreneurship & Portfolio', credits: 3, sort_order: 17, created_at: new Date().toISOString() },
+  { id: 'course-18', semester: 'VI', name: 'Eksperimen Material Tekstil', name_en: 'Textile Material Experimentation', credits: 3, sort_order: 18, created_at: new Date().toISOString() },
+  { id: 'course-19', semester: 'VII', name: 'Metodologi Penelitian Seni & Desain', name_en: 'Art & Design Research Methodology', credits: 2, sort_order: 19, created_at: new Date().toISOString() },
   { id: 'course-20', semester: 'VII', name: 'Seminar Proposal Tugas Akhir', name_en: 'Final Project Proposal Seminar', credits: 1, sort_order: 20, created_at: new Date().toISOString() },
-  { id: 'course-21', semester: 'VII', name: 'Magang Industri Pangan', name_en: 'Food Industry Internship', credits: 4, sort_order: 21, created_at: new Date().toISOString() },
-  { id: 'course-22', semester: 'VIII', name: 'Tugas Akhir / Skripsi', name_en: 'Final Project / Undergraduate Thesis', credits: 6, sort_order: 22, created_at: new Date().toISOString() }
+  { id: 'course-21', semester: 'VII', name: 'Magang Industri Kreatif / Fashion Studio', name_en: 'Creative Industry / Fashion Studio Internship', credits: 4, sort_order: 21, created_at: new Date().toISOString() },
+  { id: 'course-22', semester: 'VIII', name: 'Tugas Akhir / Karya Mandiri & Skripsi', name_en: 'Final Capstone Project / Thesis', credits: 6, sort_order: 22, created_at: new Date().toISOString() }
 ];
 
 const initialKurikulumPlos: DbKurikulumPlo[] = [
@@ -658,38 +631,38 @@ const initialKurikulumPlos: DbKurikulumPlo[] = [
     code: 'CPL-01',
     type: 'Sikap & Nilai Keislaman',
     type_en: 'Islamic Attitude & Values',
-    text: 'Mampu menginternalisasikan nilai-nilai Islam, etika profesi pangan, dan prinsip kehalalan dalam kehidupan bermasyarakat dan dunia industri.',
-    text_en: 'Able to internalize Islamic values, food professional ethics, and halal principles in community life and the industrial world.',
+    text: 'Mampu menginternalisasikan nilai-nilai Islam, etika profesi desain, dan prinsip keberlanjutan dalam kehidupan bermasyarakat dan dunia industri kreatif.',
+    text_en: 'Able to internalize Islamic values, design professional ethics, and sustainability principles in community life and the creative industry.',
     sort_order: 1,
     created_at: new Date().toISOString()
   },
   {
     id: 'plo-2',
     code: 'CPL-02',
-    type: 'Penguasaan Pengetahuan Sains Pangan',
-    type_en: 'Food Science Knowledge Mastery',
-    text: 'Menguasai konsep sains pangan, kimia pangan, mikrobiologi pangan, analisis pangan, gizi, dan rekayasa proses pengolahan pangan secara mendalam.',
-    text_en: 'Mastering food science concepts, food chemistry, food microbiology, food analysis, nutrition, and food processing engineering deeply.',
+    type: 'Penguasaan Pengetahuan Kriya & Mode',
+    type_en: 'Craft & Fashion Knowledge Mastery',
+    text: 'Menguasai konsep sejarah kriya, teori warna, trend forecasting, material serat, serta teknik konstruksi tekstil secara mendalam.',
+    text_en: 'Mastering craft history concepts, color theory, trend forecasting, fiber materials, and textile construction techniques deeply.',
     sort_order: 2,
     created_at: new Date().toISOString()
   },
   {
     id: 'plo-3',
     code: 'CPL-03',
-    type: 'Keterampilan Kerja Khusus',
-    type_en: 'Specific Work Skills',
-    text: 'Mampu mengaplikasikan ilmu teknologi pangan dalam merancang produk pangan halal, aman, bermutu, dan mengelola sistem penjaminan mutu (HACCP & Sertifikasi Halal).',
-    text_en: 'Able to apply food technology science to design halal, safe, and quality food products, and manage quality assurance systems (HACCP & Halal Certification).',
+    type: 'Keterampilan Kerja Khusus Desain',
+    type_en: 'Specific Design Work Skills',
+    text: 'Mampu merancang karya kriya tekstil (surface dan structure) serta koleksi busana yang inovatif berbasis kearifan lokal dan ramah lingkungan.',
+    text_en: 'Able to design textile craft works (surface and structure) and innovative fashion collections based on local wisdom and eco-friendly principles.',
     sort_order: 3,
     created_at: new Date().toISOString()
   },
   {
     id: 'plo-4',
     code: 'CPL-04',
-    type: 'Technopreneurship & Inovasi',
-    type_en: 'Technopreneurship & Innovation',
-    text: 'Mampu mengidentifikasi peluang bisnis pangan berbasis pangan lokal Nusantara dengan pendekatan technopreneurship sirkular berkelanjutan.',
-    text_en: 'Able to identify food business opportunities based on local Nusantara food with a sustainable circular technopreneurship approach.',
+    type: 'Creativepreneurship & Inovasi',
+    type_en: 'Creativepreneurship & Innovation',
+    text: 'Mampu mengidentifikasi peluang pasar dan membangun bisnis kreatif mandiri (brand fashion/kriya) berbasis technopreneurship budaya.',
+    text_en: 'Able to identify market opportunities and build independent creative businesses (fashion/craft brand) based on cultural technopreneurship.',
     sort_order: 4,
     created_at: new Date().toISOString()
   }
@@ -698,37 +671,37 @@ const initialKurikulumPlos: DbKurikulumPlo[] = [
 const initialKurikulumProfiles: DbKurikulumProfile[] = [
   {
     id: 'prof-1',
-    title: 'QA/QC & Food Safety Specialist',
-    title_en: 'QA/QC & Food Safety Specialist',
-    desc: 'Profesional yang mampu menjamin mutu, keamanan, dan kehalalan produk pangan dari bahan baku hingga produk jadi di industri makanan dan minuman.',
-    desc_en: 'Professionals capable of ensuring the quality, safety, and halal integrity of food products from raw materials to finished products in the food and beverage industry.',
+    title: 'Fashion / Textile Designer',
+    title_en: 'Fashion / Textile Designer',
+    desc: 'Profesional yang merancang motif tekstil atau koleksi busana siap pakai untuk industri fashion nasional dan global.',
+    desc_en: 'Professionals who design textile motifs or ready-to-wear fashion collections for the national and global fashion industry.',
     sort_order: 1,
     created_at: new Date().toISOString()
   },
   {
     id: 'prof-2',
-    title: 'R&D & Product Development Specialist',
-    title_en: 'R&D & Product Development Specialist',
-    desc: 'Inovator yang mampu merancang formulasi baru, diversifikasi pangan lokal Nusantara, serta rekayasa kemasan pangan bernilai gizi tinggi.',
-    desc_en: 'Innovators capable of designing new formulations, diversifying local Nusantara food, and engineering high-nutrition food packaging.',
+    title: 'Contemporary Craft Artist / Maker',
+    title_en: 'Contemporary Craft Artist / Maker',
+    desc: 'Seniman kriya independen yang menciptakan karya seni serat, instalasi tekstil, serta produk kerajinan tangan bernilai seni tinggi.',
+    desc_en: 'Independent craft artists who create fiber art, textile installations, and high-value handmade craft products.',
     sort_order: 2,
     created_at: new Date().toISOString()
   },
   {
     id: 'prof-3',
-    title: 'Halal Food Auditor / Consultant',
-    title_en: 'Halal Food Auditor / Consultant',
-    desc: 'Ahli bersertifikasi yang mendampingi industri pangan dan UMKM dalam mengaudit, menyusun dokumen Sistem Jaminan Produk Halal (SJPH).',
-    desc_en: 'Certified experts assisting the food industry and MSMEs in auditing and compiling Halal Product Assurance System documents.',
+    title: 'Fashion Stylist & Visual Merchandiser',
+    title_en: 'Fashion Stylist & Visual Merchandiser',
+    desc: 'Ahli yang menyusun konsep visual untuk photoshoot, pameran produk di butik, dan pengarah gaya mode media.',
+    desc_en: 'Experts who curate visual concepts for photo shoots, boutique product exhibitions, and media fashion styling.',
     sort_order: 3,
     created_at: new Date().toISOString()
   },
   {
     id: 'prof-4',
-    title: 'Food Technopreneur',
-    title_en: 'Food Technopreneur',
-    desc: 'Wirausahawan mandiri yang mengembangkan bisnis pengolahan pangan lokal yang inovatif dengan mengedepankan aspek halal dan keberlanjutan.',
-    desc_en: 'Independent entrepreneurs developing innovative local food processing businesses prioritizing halal and sustainability aspects.',
+    title: 'Creativepreneur (Craft & Fashion)',
+    title_en: 'Creativepreneur (Craft & Fashion)',
+    desc: 'Wirausahawan mandiri yang mendirikan brand fashion ramah lingkungan atau bisnis kriya berbasis pemberdayaan komunitas lokal.',
+    desc_en: 'Independent entrepreneurs who establish eco-friendly fashion brands or craft businesses based on local community empowerment.',
     sort_order: 4,
     created_at: new Date().toISOString()
   }
@@ -738,50 +711,50 @@ const initialTaSteps: DbTaStep[] = [
   {
     id: 'step-1',
     num: '01',
-    title: 'Pengajuan Judul & Proposal',
-    title_en: 'Title & Proposal Submission',
-    desc: 'Mahasiswa mengajukan draf rencana penelitian beserta calon dosen pembimbing ke prodi untuk dievaluasi kesesuaian topiknya.',
-    desc_en: 'Students submit research plan drafts along with prospective advisors to the department for topic suitability evaluation.',
+    title: 'Pengajuan Konsep Karya & Proposal',
+    title_en: 'Concept & Proposal Submission',
+    desc: 'Mahasiswa mengajukan draf rencana karya kriya/busana beserta outline konsep visual untuk dievaluasi oleh prodi.',
+    desc_en: 'Students submit craft/fashion research drafts along with a visual concept outline to the department for evaluation.',
     sort_order: 1,
     created_at: new Date().toISOString()
   },
   {
     id: 'step-2',
     num: '02',
-    title: 'Seminar Proposal',
-    title_en: 'Proposal Seminar',
-    desc: 'Pemaparan rencana penelitian di hadapan dosen penguji untuk mendapat masukan metodologi ilmiah dan kelayakan riset.',
-    desc_en: 'Presentation of research plans before examiners to receive scientific methodology feedback and research feasibility validation.',
+    title: 'Seminar Proposal Desain',
+    title_en: 'Design Proposal Seminar',
+    desc: 'Pemaparan rencana desain, moodboard, sketsa awal, dan pemilihan material di hadapan dosen penguji.',
+    desc_en: 'Presentation of design plans, moodboard, initial sketches, and material selection before examiners.',
     sort_order: 2,
     created_at: new Date().toISOString()
   },
   {
     id: 'step-3',
     num: '03',
-    title: 'Penelitian Laboratorium & Analisis',
-    title_en: 'Lab Research & Analysis',
-    desc: 'Pelaksanaan eksperimen, analisis laboratorium (fisik, kimia, mikrobiologi, atau organoleptik) sesuai metodologi proposal.',
-    desc_en: 'Conducting experiments and laboratory analyses (physical, chemical, microbiological, or organoleptic) per proposal methodology.',
+    title: 'Pengerjaan Studio & Eksperimen',
+    title_en: 'Studio Work & Experimentation',
+    desc: 'Proses pembuatan karya (weaving, dyeing, sewing) dan eksperimen material di studio kriya.',
+    desc_en: 'Fabrication process (weaving, dyeing, sewing) and material experimentation in the craft studio.',
     sort_order: 3,
     created_at: new Date().toISOString()
   },
   {
     id: 'step-4',
     num: '04',
-    title: 'Sidang Tugas Akhir',
-    title_en: 'Undergraduate Thesis Defense',
-    desc: 'Ujian lisan komprehensif untuk mempertahankan hasil penelitian, analisis data, dan kesimpulan di hadapan dewan penguji.',
-    desc_en: 'Comprehensive oral exam to defend research results, data analysis, and conclusions before the board of examiners.',
+    title: 'Sidang Karya & Pameran',
+    title_en: 'Undergraduate Thesis & Exhibition Defense',
+    desc: 'Pertanggungjawaban hasil karya, konsep teoritis, dan display pameran di hadapan dewan penguji.',
+    desc_en: 'Defending the completed work, theoretical concept, and exhibition display before the board of examiners.',
     sort_order: 4,
     created_at: new Date().toISOString()
   },
   {
     id: 'step-5',
     num: '05',
-    title: 'Revisi & Pengumpulan Berkas',
-    title_en: 'Revision & Submission',
-    desc: 'Penyempurnaan draf naskah skripsi berdasarkan masukan penguji serta pengunggahan manuskrip ke repositori institusi.',
-    desc_en: 'Perfecting the thesis draft per examiners\' feedback and uploading the final manuscript to the institutional repository.',
+    title: 'Revisi & Pengarsipan Portofolio',
+    title_en: 'Revision & Portfolio Archiving',
+    desc: 'Penyempurnaan laporan tertulis dan dokumentasi karya foto resolusi tinggi untuk portofolio digital lulusan.',
+    desc_en: 'Perfecting the written report and high-resolution work documentation for the graduate\'s digital portfolio.',
     sort_order: 5,
     created_at: new Date().toISOString()
   }
@@ -789,37 +762,38 @@ const initialTaSteps: DbTaStep[] = [
 
 // Initialize localStorage if empty
 const initialPrestasi: DbPrestasi[] = [
-  { id: 'prestasi-1', type: 'prodi', title: 'Akreditasi BAN-PT Baik Sekali', title_en: "BAN-PT 'Baik Sekali' Accreditation", year: '2024', desc: 'Predikat akreditasi Baik Sekali atas standar laboratorium dan kurikulum.', desc_en: "Achieved 'Baik Sekali' standard for lab facilities and curriculum.", host: null, host_en: null, competitor: null, image_url: 'https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?q=80&w=600', sort_order: 1, created_at: new Date().toISOString() },
-  { id: 'prestasi-2', type: 'mahasiswa', title: 'Juara I Kompetisi Inovasi Pangan Nasional', title_en: '1st Place National Food Innovation Competition', year: '2024', desc: 'Mengembangkan biskuit fungsional berbasis hanjeli dan kacang merah.', desc_en: 'Developed functional biscuit from local Hanjeli seeds and red kidney beans.', host: 'Kementerian Pertanian', host_en: 'Ministry of Agriculture', competitor: 'Aditya Pratama & Tim', image_url: 'https://images.unsplash.com/photo-1509440159596-0249088772ff?q=80&w=600', sort_order: 2, created_at: new Date().toISOString() }
+  { id: 'prestasi-1', type: 'prodi', title: 'Akreditasi BAN-PT Baik', title_en: "BAN-PT 'Baik' Accreditation", year: '2024', desc: 'Predikat akreditasi Baik atas standar mutu pengajaran dan kurikulum kreatif.', desc_en: "Achieved 'Baik' standard for teaching quality and creative curriculum.", host: null, host_en: null, competitor: null, image_url: 'https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?q=80&w=600', sort_order: 1, created_at: new Date().toISOString() },
+  { id: 'prestasi-2', type: 'mahasiswa', title: 'Juara I Fashion Show Reka Rupa Nusantara', title_en: '1st Place Reka Rupa Nusantara Fashion Show', year: '2024', desc: 'Mengembangkan gaun malam eco-printing ramah lingkungan.', desc_en: 'Developed eco-printing evening gown made from sustainable materials.', host: 'Kementerian Pariwisata & Ekonomi Kreatif', host_en: 'Ministry of Tourism & Creative Economy', competitor: 'Naila Putri & Tim', image_url: 'https://images.unsplash.com/photo-1509440159596-0249088772ff?q=80&w=600', sort_order: 2, created_at: new Date().toISOString() }
 ];
 
 const initialPublikasiDosen: DbPublikasiDosen[] = [
-  { id: 'pub-1', title: 'Optimasi Pengeringan Tepung Mocaf Berbasis Energi Surya', title_en: 'Optimizing Solar-Assisted Drying of Mocaf Flour', author: 'Dr. Khairiah, S.P., M.T.', journal: 'Jurnal Teknologi Pangan Nusantara, Vol. 12 No. 2', journal_en: 'Journal of Food Technology Nusantara, Vol. 12 No. 2', year: '2025', category: 'JURNAL NASIONAL', category_en: 'NATIONAL JOURNAL', link: 'https://sinta.kemdiktisaintek.go.id/', sort_order: 1, created_at: new Date().toISOString() },
-  { id: 'pub-2', title: 'Deteksi Cepat E. coli pada Bahan Pangan Menggunakan Sensor Elektrokimia', title_en: 'Rapid Detection of E. coli in Fresh Produce Using Electrochemical Sensors', author: 'Dr. Saepul Adnan, S.Si., M.Si.', journal: 'Seminar Nasional Inovasi Pangan Halal (SNIPH)', journal_en: 'National Seminar on Halal Food Innovation (SNIPH)', year: '2024', category: 'PROSIDING SEMINAR', category_en: 'SEMINAR PROCEEDINGS', link: 'https://sinta.kemdiktisaintek.go.id/', sort_order: 2, created_at: new Date().toISOString() }
+  { id: 'pub-1', title: 'Eksplorasi Motif Batik Garutan Menggunakan Zat Pewarna Alam', title_en: 'Exploring Garut Batik Motifs Using Natural Colorants', author: 'Dra. Saftiyaningsih Ken Atik, M.Ds.', journal: 'TUMPAL: Jurnal Kriya Tekstil & Fashion, Vol. 2 No. 1', journal_en: 'TUMPAL: Journal of Textile Craft & Fashion, Vol. 2 No. 1', year: '2025', category: 'JURNAL NASIONAL', category_en: 'NATIONAL JOURNAL', link: 'https://sinta.kemdiktisaintek.go.id/', sort_order: 1, created_at: new Date().toISOString() },
+  { id: 'pub-2', title: 'Penerapan Teknik Eco-Print Daun Jati pada Serat Selulosa', title_en: 'Application of Teak Leaf Eco-Print Technique on Cellulosic Fibers', author: 'Ghaida Nasya Putri, S.Ds., M.Ds.', journal: 'Seminar Nasional Desain Nusantara (SNDN)', journal_en: 'National Seminar on Nusantara Design (SNDN)', year: '2024', category: 'PROSIDING SEMINAR', category_en: 'SEMINAR PROCEEDINGS', link: 'https://sinta.kemdiktisaintek.go.id/', sort_order: 2, created_at: new Date().toISOString() }
 ];
 
 const initialKegiatanDosen: DbKegiatanDosen[] = [
-  { id: 'kd-1', title: 'Konferensi Internasional Pangan Halal & Biorefinery 2025', title_en: 'International Conference on Halal Food & Biorefinery 2025', date_text: '12 Maret 2025', date_text_en: 'March 12, 2025', location: 'Kuala Lumpur, Malaysia', desc: 'Presentasi riset edible coating berbasis kitosan pada simposium sains pangan global.', desc_en: 'Presented research on chitosan-based edible coatings at a global food science symposium.', image_url: '/assets/kegiatan-d1.png', sort_order: 1, created_at: new Date().toISOString() },
-  { id: 'kd-2', title: 'Workshop HACCP & Sertifikasi Halal UMKM Pangan', title_en: 'HACCP & Halal Certification Training for Food MSMEs', date_text: '18 Oktober 2024', date_text_en: 'October 18, 2024', location: 'Soreang, Bandung', desc: 'PKM pelatihan teknis higienitas dan analisis titik kritis untuk UMKM pangan lokal.', desc_en: 'Public service training on hygiene standardization for local food MSMEs.', image_url: '/assets/kegiatan-d2.png', sort_order: 2, created_at: new Date().toISOString() }
+  { id: 'kd-1', title: 'Konferensi Seni Kriya dan Serat Internasional 2025', title_en: 'International Craft and Fiber Art Conference 2025', date_text: '12 Maret 2025', date_text_en: 'March 12, 2025', location: 'Kuala Lumpur, Malaysia', desc: 'Presentasi riset tentang rekayasa struktur tenun tradisional untuk pakaian kontemporer.', desc_en: 'Presented research on traditional weaving structure engineering for contemporary wear.', image_url: '/assets/kegiatan-d1.png', sort_order: 1, created_at: new Date().toISOString() },
+  { id: 'kd-2', title: 'Pelatihan Teknik Batik dan Ecoprint bagi UMKM Kreatif', title_en: 'Batik & Ecoprint Technique Training for Creative MSMEs', date_text: '18 Oktober 2024', date_text_en: 'October 18, 2024', location: 'Soreang, Bandung', desc: 'PKM pelatihan teknis eksplorasi motif permukaan kain untuk pengrajin batik lokal.', desc_en: 'Public service training on fabric surface motif exploration for local batik artisans.', image_url: '/assets/kegiatan-d2.png', sort_order: 2, created_at: new Date().toISOString() }
 ];
 
 const initialKegiatanMahasiswa: DbKegiatanMahasiswa[] = [
-  { id: 'km-1', title: 'FOODTECH 2026: Capstone Product & Halal Food Expo', title_en: 'FOODTECH 2026: Capstone Product & Halal Food Expo', date_text: '24-28 Februari 2026', date_text_en: 'February 24-28, 2026', location: 'Gedung Rektorat UMB, Bandung', desc: 'Pameran karya kelulusan proyek akhir mahasiswa menampilkan inovasi produk pangan baru.', desc_en: 'Graduation project exhibition showcasing food product innovations.', image_url: '/assets/kegiatan-m1.png', sort_order: 1, created_at: new Date().toISOString() },
-  { id: 'km-2', title: 'HIMATEPA Food Safety Camp: Edukasi Sanitasi UMKM Pangan', title_en: 'HIMATEPA Food Safety Camp: Hygiene Training for MSMEs', date_text: '14 November 2025', date_text_en: 'November 14, 2025', location: 'Kampus UMB, Bandung', desc: 'Program reguler HIMATEPA memberikan penyuluhan sanitasi higiene bagi UMKM pangan lokal.', desc_en: 'HIMATEPA community service providing food safety education for local MSMEs.', image_url: '/assets/kegiatan-m2.png', sort_order: 2, created_at: new Date().toISOString() }
+  { id: 'km-1', title: 'TUMPAL EXPO 2026: Capstone Exhibition & Fashion Show', title_en: 'TUMPAL EXPO 2026: Capstone Exhibition & Fashion Show', date_text: '24-28 Februari 2026', date_text_en: 'February 24-28, 2026', location: 'Gedung Rektorat UMB, Bandung', desc: 'Pameran kelulusan karya mandiri mahasiswa menampilkan koleksi busana dan kriya tekstil.', desc_en: 'Graduation portfolio exhibition showcasing student fashion collections and textile crafts.', image_url: '/assets/kegiatan-m1.png', sort_order: 1, created_at: new Date().toISOString() },
+  { id: 'km-2', title: 'KTF Fashion Camp: Workshop Daur Ulang Tekstil Kreatif', title_en: 'KTF Fashion Camp: Creative Textile Upcycling Workshop', date_text: '14 November 2025', date_text_en: 'November 14, 2025', location: 'Kampus UMB, Bandung', desc: 'Program kerja kemahasiswaan memberikan penyuluhan pengolahan limbah kain menjadi produk kriya.', desc_en: 'Student body program organizing training to upcycle textile waste into craft products.', image_url: '/assets/kegiatan-m2.png', sort_order: 2, created_at: new Date().toISOString() }
 ];
 
 const initialAlumni: DbAlumni[] = [
-  { id: 'alumni-1', name: 'Amelia Rahma, S.TP.', class_of: 'Angkatan 2019', class_of_en: 'Class of 2019', role: 'Lead R&D Specialist', company: 'PT Garudafood Putra Putri Jaya Tbk', quote: 'Di sini saya diajarkan kimia pangan, evaluasi sensoris, dan desain pabrik pangan secara mendalam.', quote_en: 'Here I was taught food chemistry, sensory evaluation, and factory design in depth.', image_url: '/assets/alumni-1.png', sort_order: 1, created_at: new Date().toISOString() },
-  { id: 'alumni-2', name: 'Risa Fitria, S.TP.', class_of: 'Angkatan 2019', class_of_en: 'Class of 2019', role: 'QA/QC & Halal Auditor', company: 'PT Indofood Sukses Makmur Tbk', quote: 'Integrasi HACCP dan jaminan halal di mata kuliah memberikan keunggulan kompetitif di industri multinasional.', quote_en: 'Integrating HACCP and Halal assurance into the curriculum gave me a strong edge internationally.', image_url: '/assets/alumni-2.png', sort_order: 2, created_at: new Date().toISOString() }
+  { id: 'alumni-1', name: 'Amelia Rahma, S.Sn.', class_of: 'Angkatan 2019', class_of_en: 'Class of 2019', role: 'Senior Fashion Designer', company: 'PT Danar Hadi', quote: 'Di sini saya diajarkan surface & structure design serta trend forecasting secara mendalam.', quote_en: 'Here I was taught surface & structure design and trend forecasting in depth.', image_url: '/assets/alumni-1.png', sort_order: 1, created_at: new Date().toISOString() },
+  { id: 'alumni-2', name: 'Risa Fitria, S.Sn.', class_of: 'Angkatan 2019', class_of_en: 'Class of 2019', role: 'Creative Director', company: 'Batik Komar', quote: 'Integrasi kearifan lokal Nusantara dengan bisnis kreatif memberikan bekal kuat di industri fashion.', quote_en: 'Integrating Nusantara local wisdom with creative business gave me a strong edge in the fashion industry.', image_url: '/assets/alumni-2.png', sort_order: 2, created_at: new Date().toISOString() }
 ];
 
 const initialStatistikMaba: DbStatistikMaba[] = [
-  { id: 'stat-1', year: '2021', count: 42, sort_order: 1, created_at: new Date().toISOString() },
-  { id: 'stat-2', year: '2022', count: 45, sort_order: 2, created_at: new Date().toISOString() },
-  { id: 'stat-3', year: '2023', count: 50, sort_order: 3, created_at: new Date().toISOString() },
-  { id: 'stat-4', year: '2024', count: 55, sort_order: 4, created_at: new Date().toISOString() },
-  { id: 'stat-5', year: '2025', count: 58, sort_order: 5, created_at: new Date().toISOString() }
+  { id: 'stat-1', year: '2021', count: 32, sort_order: 1, created_at: new Date().toISOString() },
+  { id: 'stat-2', year: '2022', count: 38, sort_order: 2, created_at: new Date().toISOString() },
+  { id: 'stat-3', year: '2023', count: 45, sort_order: 3, created_at: new Date().toISOString() },
+  { id: 'stat-4', year: '2024', count: 48, sort_order: 4, created_at: new Date().toISOString() },
+  { id: 'stat-5', year: '2025', count: 52, sort_order: 5, created_at: new Date().toISOString() }
 ];
+
 
 function initStorage() {
 
