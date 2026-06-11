@@ -17,7 +17,10 @@ import {
   ChevronDown,
   ChevronRight,
   ExternalLink,
-  Building2
+  Building2,
+  Trophy,
+  Activity,
+  BarChart3
 } from 'lucide-react';
 import { type TabType } from '../App';
 
@@ -54,15 +57,16 @@ export default function Sidebar({
 
   // Which groups are open — default: open the one containing current activeTab
   const getInitialOpen = () => {
-    if (['news', 'events', 'testimonials'].includes(activeTab)) return { konten: true, halaman: false, akademik: false };
-    if (['kurikulum_courses', 'kurikulum_plos', 'kurikulum_profiles', 'tugas_akhir_steps'].includes(activeTab)) return { konten: false, halaman: false, akademik: true };
-    if (['landing_stats', 'landing_portfolio', 'site_content', 'partners', 'dosen'].includes(activeTab)) return { konten: false, halaman: true, akademik: false };
-    return { konten: false, halaman: false, akademik: false };
+    if (['news', 'events', 'testimonials'].includes(activeTab)) return { konten: true, halaman: false, akademik: false, kegiatan: false };
+    if (['kurikulum_courses', 'kurikulum_plos', 'kurikulum_profiles', 'tugas_akhir_steps'].includes(activeTab)) return { konten: false, halaman: false, akademik: true, kegiatan: false };
+    if (['landing_stats', 'landing_portfolio', 'site_content', 'partners', 'dosen', 'alumni', 'statistik_maba'].includes(activeTab)) return { konten: false, halaman: true, akademik: false, kegiatan: false };
+    if (['prestasi', 'publikasi_dosen', 'kegiatan_dosen', 'kegiatan_mahasiswa'].includes(activeTab)) return { konten: false, halaman: false, akademik: false, kegiatan: true };
+    return { konten: false, halaman: false, akademik: false, kegiatan: false };
   };
 
   const [open, setOpen] = useState(getInitialOpen);
 
-  const toggleGroup = (group: 'konten' | 'halaman' | 'akademik') => {
+  const toggleGroup = (group: 'konten' | 'halaman' | 'akademik' | 'kegiatan') => {
     setOpen(prev => ({ ...prev, [group]: !prev[group] }));
   };
 
@@ -89,11 +93,24 @@ export default function Sidebar({
       ],
     },
     {
+      id: 'kegiatan',
+      label: 'Prestasi & Kegiatan',
+      icon: <Trophy className="w-4 h-4" />,
+      items: [
+        { tab: 'prestasi', label: 'Prestasi', icon: <Trophy className="w-3.5 h-3.5" /> },
+        { tab: 'publikasi_dosen', label: 'Publikasi Dosen', icon: <BookOpen className="w-3.5 h-3.5" /> },
+        { tab: 'kegiatan_dosen', label: 'Kegiatan Dosen', icon: <Activity className="w-3.5 h-3.5" /> },
+        { tab: 'kegiatan_mahasiswa', label: 'Kegiatan Mahasiswa', icon: <Activity className="w-3.5 h-3.5" /> },
+      ],
+    },
+    {
       id: 'halaman',
       label: 'Halaman & Konten',
       icon: <FileText className="w-4 h-4" />,
       items: [
         { tab: 'dosen', label: 'Dosen & Staff', icon: <Users className="w-3.5 h-3.5" /> },
+        { tab: 'alumni', label: 'Alumni', icon: <GraduationCap className="w-3.5 h-3.5" /> },
+        { tab: 'statistik_maba', label: 'Statistik Maba', icon: <BarChart3 className="w-3.5 h-3.5" /> },
         { tab: 'partners', label: 'Mitra Industri', icon: <Building2 className="w-3.5 h-3.5" /> },
         { tab: 'landing_stats', label: 'Statistik Ribbon', icon: <TrendingUp className="w-3.5 h-3.5" /> },
         { tab: 'landing_portfolio', label: 'Galeri Portfolio', icon: <Image className="w-3.5 h-3.5" /> },
@@ -103,10 +120,11 @@ export default function Sidebar({
   ];
 
   // Map tab → which group it lives in, so we auto-open on click
-  const tabToGroup: Record<string, 'konten' | 'halaman' | 'akademik'> = {
+  const tabToGroup: Record<string, 'konten' | 'halaman' | 'akademik' | 'kegiatan'> = {
     news: 'konten', events: 'konten', testimonials: 'konten',
     kurikulum_courses: 'akademik', kurikulum_plos: 'akademik', kurikulum_profiles: 'akademik', tugas_akhir_steps: 'akademik',
-    dosen: 'halaman', partners: 'halaman', landing_stats: 'halaman', landing_portfolio: 'halaman', site_content: 'halaman',
+    prestasi: 'kegiatan', publikasi_dosen: 'kegiatan', kegiatan_dosen: 'kegiatan', kegiatan_mahasiswa: 'kegiatan',
+    dosen: 'halaman', alumni: 'halaman', statistik_maba: 'halaman', partners: 'halaman', landing_stats: 'halaman', landing_portfolio: 'halaman', site_content: 'halaman',
   };
 
   const handleNavClick = (tab: TabType) => {

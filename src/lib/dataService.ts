@@ -1,5 +1,6 @@
 import { getSupabaseClient } from './supabase';
-import { mockDb, initialSiteContent, type DbNews, type DbEvent, type DbTestimonial, type DbPartner, type DbSiteContent, type DbLandingStat, type DbLandingPartner, type DbLandingPortfolioItem, type DbDosen, type DbKurikulumCourse, type DbKurikulumPlo, type DbKurikulumProfile, type DbTaStep } from './mockData';
+import { mockDb, initialSiteContent, type DbNews, type DbEvent, type DbTestimonial, type DbPartner, type DbSiteContent, type DbLandingStat, type DbLandingPartner, type DbLandingPortfolioItem, type DbDosen, type DbKurikulumCourse, type DbKurikulumPlo, type DbKurikulumProfile, type DbTaStep, type DbPrestasi, type DbPublikasiDosen, type DbKegiatanDosen, type DbKegiatanMahasiswa, type DbAlumni, type DbStatistikMaba } from './mockData';
+
 
 export type ConnectionMode = 'supabase' | 'mock';
 
@@ -989,5 +990,180 @@ export const dataService = {
     if (error) {
       throw new Error(`Supabase error: ${error.message}`);
     }
+  },
+
+  // --- PRESTASI ---
+  getPrestasi: async (): Promise<DbPrestasi[]> => {
+    const supabase = getSupabaseClient();
+    if (!supabase) return mockDb.getAll<DbPrestasi>('prestasi').sort((a, b) => a.sort_order - b.sort_order);
+    const { data, error } = await supabase.from('prestasi').select('*').order('sort_order');
+    if (error) { console.warn('getPrestasi fallback:', error.message); return mockDb.getAll<DbPrestasi>('prestasi').sort((a, b) => a.sort_order - b.sort_order); }
+    return data || [];
+  },
+  createPrestasi: async (row: Omit<DbPrestasi, 'id' | 'created_at'>): Promise<DbPrestasi> => {
+    const supabase = getSupabaseClient();
+    if (!supabase) return mockDb.insert<DbPrestasi>('prestasi', row);
+    const { data, error } = await supabase.from('prestasi').insert([row]).select().single();
+    if (error) throw new Error(`Supabase error: ${error.message}`);
+    return data;
+  },
+  updatePrestasi: async (id: string, updates: Partial<DbPrestasi>): Promise<DbPrestasi> => {
+    const supabase = getSupabaseClient();
+    if (!supabase) { const u = mockDb.update<DbPrestasi>('prestasi', id, updates); if (!u) throw new Error('Not found'); return u; }
+    const { data, error } = await supabase.from('prestasi').update(updates).eq('id', id).select().single();
+    if (error) throw new Error(`Supabase error: ${error.message}`);
+    return data;
+  },
+  deletePrestasi: async (id: string): Promise<void> => {
+    const supabase = getSupabaseClient();
+    if (!supabase) { mockDb.delete('prestasi', id); return; }
+    const { error } = await supabase.from('prestasi').delete().eq('id', id);
+    if (error) throw new Error(`Supabase error: ${error.message}`);
+  },
+
+  // --- PUBLIKASI DOSEN ---
+  getPublikasiDosen: async (): Promise<DbPublikasiDosen[]> => {
+    const supabase = getSupabaseClient();
+    if (!supabase) return mockDb.getAll<DbPublikasiDosen>('publikasi_dosen').sort((a, b) => a.sort_order - b.sort_order);
+    const { data, error } = await supabase.from('publikasi_dosen').select('*').order('sort_order');
+    if (error) { console.warn('getPublikasiDosen fallback:', error.message); return mockDb.getAll<DbPublikasiDosen>('publikasi_dosen').sort((a, b) => a.sort_order - b.sort_order); }
+    return data || [];
+  },
+  createPublikasiDosen: async (row: Omit<DbPublikasiDosen, 'id' | 'created_at'>): Promise<DbPublikasiDosen> => {
+    const supabase = getSupabaseClient();
+    if (!supabase) return mockDb.insert<DbPublikasiDosen>('publikasi_dosen', row);
+    const { data, error } = await supabase.from('publikasi_dosen').insert([row]).select().single();
+    if (error) throw new Error(`Supabase error: ${error.message}`);
+    return data;
+  },
+  updatePublikasiDosen: async (id: string, updates: Partial<DbPublikasiDosen>): Promise<DbPublikasiDosen> => {
+    const supabase = getSupabaseClient();
+    if (!supabase) { const u = mockDb.update<DbPublikasiDosen>('publikasi_dosen', id, updates); if (!u) throw new Error('Not found'); return u; }
+    const { data, error } = await supabase.from('publikasi_dosen').update(updates).eq('id', id).select().single();
+    if (error) throw new Error(`Supabase error: ${error.message}`);
+    return data;
+  },
+  deletePublikasiDosen: async (id: string): Promise<void> => {
+    const supabase = getSupabaseClient();
+    if (!supabase) { mockDb.delete('publikasi_dosen', id); return; }
+    const { error } = await supabase.from('publikasi_dosen').delete().eq('id', id);
+    if (error) throw new Error(`Supabase error: ${error.message}`);
+  },
+
+  // --- KEGIATAN DOSEN ---
+  getKegiatanDosen: async (): Promise<DbKegiatanDosen[]> => {
+    const supabase = getSupabaseClient();
+    if (!supabase) return mockDb.getAll<DbKegiatanDosen>('kegiatan_dosen').sort((a, b) => a.sort_order - b.sort_order);
+    const { data, error } = await supabase.from('kegiatan_dosen').select('*').order('sort_order');
+    if (error) { console.warn('getKegiatanDosen fallback:', error.message); return mockDb.getAll<DbKegiatanDosen>('kegiatan_dosen').sort((a, b) => a.sort_order - b.sort_order); }
+    return data || [];
+  },
+  createKegiatanDosen: async (row: Omit<DbKegiatanDosen, 'id' | 'created_at'>): Promise<DbKegiatanDosen> => {
+    const supabase = getSupabaseClient();
+    if (!supabase) return mockDb.insert<DbKegiatanDosen>('kegiatan_dosen', row);
+    const { data, error } = await supabase.from('kegiatan_dosen').insert([row]).select().single();
+    if (error) throw new Error(`Supabase error: ${error.message}`);
+    return data;
+  },
+  updateKegiatanDosen: async (id: string, updates: Partial<DbKegiatanDosen>): Promise<DbKegiatanDosen> => {
+    const supabase = getSupabaseClient();
+    if (!supabase) { const u = mockDb.update<DbKegiatanDosen>('kegiatan_dosen', id, updates); if (!u) throw new Error('Not found'); return u; }
+    const { data, error } = await supabase.from('kegiatan_dosen').update(updates).eq('id', id).select().single();
+    if (error) throw new Error(`Supabase error: ${error.message}`);
+    return data;
+  },
+  deleteKegiatanDosen: async (id: string): Promise<void> => {
+    const supabase = getSupabaseClient();
+    if (!supabase) { mockDb.delete('kegiatan_dosen', id); return; }
+    const { error } = await supabase.from('kegiatan_dosen').delete().eq('id', id);
+    if (error) throw new Error(`Supabase error: ${error.message}`);
+  },
+
+  // --- KEGIATAN MAHASISWA ---
+  getKegiatanMahasiswa: async (): Promise<DbKegiatanMahasiswa[]> => {
+    const supabase = getSupabaseClient();
+    if (!supabase) return mockDb.getAll<DbKegiatanMahasiswa>('kegiatan_mahasiswa').sort((a, b) => a.sort_order - b.sort_order);
+    const { data, error } = await supabase.from('kegiatan_mahasiswa').select('*').order('sort_order');
+    if (error) { console.warn('getKegiatanMahasiswa fallback:', error.message); return mockDb.getAll<DbKegiatanMahasiswa>('kegiatan_mahasiswa').sort((a, b) => a.sort_order - b.sort_order); }
+    return data || [];
+  },
+  createKegiatanMahasiswa: async (row: Omit<DbKegiatanMahasiswa, 'id' | 'created_at'>): Promise<DbKegiatanMahasiswa> => {
+    const supabase = getSupabaseClient();
+    if (!supabase) return mockDb.insert<DbKegiatanMahasiswa>('kegiatan_mahasiswa', row);
+    const { data, error } = await supabase.from('kegiatan_mahasiswa').insert([row]).select().single();
+    if (error) throw new Error(`Supabase error: ${error.message}`);
+    return data;
+  },
+  updateKegiatanMahasiswa: async (id: string, updates: Partial<DbKegiatanMahasiswa>): Promise<DbKegiatanMahasiswa> => {
+    const supabase = getSupabaseClient();
+    if (!supabase) { const u = mockDb.update<DbKegiatanMahasiswa>('kegiatan_mahasiswa', id, updates); if (!u) throw new Error('Not found'); return u; }
+    const { data, error } = await supabase.from('kegiatan_mahasiswa').update(updates).eq('id', id).select().single();
+    if (error) throw new Error(`Supabase error: ${error.message}`);
+    return data;
+  },
+  deleteKegiatanMahasiswa: async (id: string): Promise<void> => {
+    const supabase = getSupabaseClient();
+    if (!supabase) { mockDb.delete('kegiatan_mahasiswa', id); return; }
+    const { error } = await supabase.from('kegiatan_mahasiswa').delete().eq('id', id);
+    if (error) throw new Error(`Supabase error: ${error.message}`);
+  },
+
+  // --- ALUMNI ---
+  getAlumni: async (): Promise<DbAlumni[]> => {
+    const supabase = getSupabaseClient();
+    if (!supabase) return mockDb.getAll<DbAlumni>('alumni').sort((a, b) => a.sort_order - b.sort_order);
+    const { data, error } = await supabase.from('alumni').select('*').order('sort_order');
+    if (error) { console.warn('getAlumni fallback:', error.message); return mockDb.getAll<DbAlumni>('alumni').sort((a, b) => a.sort_order - b.sort_order); }
+    return data || [];
+  },
+  createAlumni: async (row: Omit<DbAlumni, 'id' | 'created_at'>): Promise<DbAlumni> => {
+    const supabase = getSupabaseClient();
+    if (!supabase) return mockDb.insert<DbAlumni>('alumni', row);
+    const { data, error } = await supabase.from('alumni').insert([row]).select().single();
+    if (error) throw new Error(`Supabase error: ${error.message}`);
+    return data;
+  },
+  updateAlumni: async (id: string, updates: Partial<DbAlumni>): Promise<DbAlumni> => {
+    const supabase = getSupabaseClient();
+    if (!supabase) { const u = mockDb.update<DbAlumni>('alumni', id, updates); if (!u) throw new Error('Not found'); return u; }
+    const { data, error } = await supabase.from('alumni').update(updates).eq('id', id).select().single();
+    if (error) throw new Error(`Supabase error: ${error.message}`);
+    return data;
+  },
+  deleteAlumni: async (id: string): Promise<void> => {
+    const supabase = getSupabaseClient();
+    if (!supabase) { mockDb.delete('alumni', id); return; }
+    const { error } = await supabase.from('alumni').delete().eq('id', id);
+    if (error) throw new Error(`Supabase error: ${error.message}`);
+  },
+
+  // --- STATISTIK MABA ---
+  getStatistikMaba: async (): Promise<DbStatistikMaba[]> => {
+    const supabase = getSupabaseClient();
+    if (!supabase) return mockDb.getAll<DbStatistikMaba>('statistik_maba').sort((a, b) => a.sort_order - b.sort_order);
+    const { data, error } = await supabase.from('statistik_maba').select('*').order('sort_order');
+    if (error) { console.warn('getStatistikMaba fallback:', error.message); return mockDb.getAll<DbStatistikMaba>('statistik_maba').sort((a, b) => a.sort_order - b.sort_order); }
+    return data || [];
+  },
+  createStatistikMaba: async (row: Omit<DbStatistikMaba, 'id' | 'created_at'>): Promise<DbStatistikMaba> => {
+    const supabase = getSupabaseClient();
+    if (!supabase) return mockDb.insert<DbStatistikMaba>('statistik_maba', row);
+    const { data, error } = await supabase.from('statistik_maba').insert([row]).select().single();
+    if (error) throw new Error(`Supabase error: ${error.message}`);
+    return data;
+  },
+  updateStatistikMaba: async (id: string, updates: Partial<DbStatistikMaba>): Promise<DbStatistikMaba> => {
+    const supabase = getSupabaseClient();
+    if (!supabase) { const u = mockDb.update<DbStatistikMaba>('statistik_maba', id, updates); if (!u) throw new Error('Not found'); return u; }
+    const { data, error } = await supabase.from('statistik_maba').update(updates).eq('id', id).select().single();
+    if (error) throw new Error(`Supabase error: ${error.message}`);
+    return data;
+  },
+  deleteStatistikMaba: async (id: string): Promise<void> => {
+    const supabase = getSupabaseClient();
+    if (!supabase) { mockDb.delete('statistik_maba', id); return; }
+    const { error } = await supabase.from('statistik_maba').delete().eq('id', id);
+    if (error) throw new Error(`Supabase error: ${error.message}`);
   }
 };
+

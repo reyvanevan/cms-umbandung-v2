@@ -38,6 +38,12 @@ import CoursesTab from './components/Tabs/CoursesTab';
 import PlosTab from './components/Tabs/PlosTab';
 import ProfilesTab from './components/Tabs/ProfilesTab';
 import TaStepsTab from './components/Tabs/TaStepsTab';
+import PrestasiTab from './components/Tabs/PrestasiTab';
+import PublikasiDosenTab from './components/Tabs/PublikasiDosenTab';
+import KegiatanDosenTab from './components/Tabs/KegiatanDosenTab';
+import KegiatanMahasiswaTab from './components/Tabs/KegiatanMahasiswaTab';
+import AlumniTab from './components/Tabs/AlumniTab';
+import StatistikMabaTab from './components/Tabs/StatistikMabaTab';
 
 export interface Toast {
   id: string;
@@ -59,7 +65,13 @@ export type TabType =
   | 'kurikulum_courses'
   | 'kurikulum_plos'
   | 'kurikulum_profiles'
-  | 'tugas_akhir_steps';
+  | 'tugas_akhir_steps'
+  | 'prestasi'
+  | 'publikasi_dosen'
+  | 'kegiatan_dosen'
+  | 'kegiatan_mahasiswa'
+  | 'alumni'
+  | 'statistik_maba';
 
 export default function App() {
   // --- Auth State ---
@@ -89,6 +101,12 @@ export default function App() {
   const [plos, setPlos] = useState<DbKurikulumPlo[]>([]);
   const [profiles, setProfiles] = useState<DbKurikulumProfile[]>([]);
   const [steps, setSteps] = useState<DbTaStep[]>([]);
+  const [prestasiList, setPrestasiList] = useState<any[]>([]);
+  const [publikasiList, setPublikasiList] = useState<any[]>([]);
+  const [kegiatanDosenList, setKegiatanDosenList] = useState<any[]>([]);
+  const [kegiatanMahasiswaList, setKegiatanMahasiswaList] = useState<any[]>([]);
+  const [alumniList, setAlumniList] = useState<any[]>([]);
+  const [statistikMabaList, setStatistikMabaList] = useState<any[]>([]);
 
   const [isLoadingData, setIsLoadingData] = useState<boolean>(false);
 
@@ -143,6 +161,25 @@ export default function App() {
 
   const [stepForm, setStepForm] = useState<Omit<DbTaStep, 'id' | 'created_at'>>({
     num: '', title: '', title_en: '', desc: '', desc_en: '', sort_order: 0
+  });
+
+  const [prestasiForm, setPrestasiForm] = useState<any>({
+    type: 'prodi', title: '', title_en: '', year: '', desc: '', desc_en: '', host: '', host_en: '', competitor: '', image_url: '', sort_order: 0
+  });
+  const [publikasiForm, setPublikasiForm] = useState<any>({
+    title: '', title_en: '', author: '', journal: '', journal_en: '', year: '', category: '', category_en: '', link: '', sort_order: 0
+  });
+  const [kegiatanDosenForm, setKegiatanDosenForm] = useState<any>({
+    title: '', title_en: '', date_text: '', date_text_en: '', location: '', desc: '', desc_en: '', image_url: '', sort_order: 0
+  });
+  const [kegiatanMahasiswaForm, setKegiatanMahasiswaForm] = useState<any>({
+    title: '', title_en: '', date_text: '', date_text_en: '', location: '', desc: '', desc_en: '', image_url: '', sort_order: 0
+  });
+  const [alumniForm, setAlumniForm] = useState<any>({
+    name: '', class_of: '', class_of_en: '', role: '', company: '', quote: '', quote_en: '', image_url: '', sort_order: 0
+  });
+  const [statistikMabaForm, setStatistikMabaForm] = useState<any>({
+    year: '', count: 0, sort_order: 0
   });
 
   // --- Toast Trigger Helper ---
@@ -243,6 +280,18 @@ export default function App() {
         setProfiles(await dataService.getKurikulumProfiles());
       } else if (activeTab === 'tugas_akhir_steps') {
         setSteps(await dataService.getTaSteps());
+      } else if (activeTab === 'prestasi') {
+        setPrestasiList(await dataService.getPrestasi());
+      } else if (activeTab === 'publikasi_dosen') {
+        setPublikasiList(await dataService.getPublikasiDosen());
+      } else if (activeTab === 'kegiatan_dosen') {
+        setKegiatanDosenList(await dataService.getKegiatanDosen());
+      } else if (activeTab === 'kegiatan_mahasiswa') {
+        setKegiatanMahasiswaList(await dataService.getKegiatanMahasiswa());
+      } else if (activeTab === 'alumni') {
+        setAlumniList(await dataService.getAlumni());
+      } else if (activeTab === 'statistik_maba') {
+        setStatistikMabaList(await dataService.getStatistikMaba());
       }
     } catch (err: any) {
       console.error(err);
@@ -341,6 +390,12 @@ export default function App() {
     localStorage.removeItem('mock_kurikulum_plos');
     localStorage.removeItem('mock_kurikulum_profiles');
     localStorage.removeItem('mock_tugas_akhir_steps');
+    localStorage.removeItem('mock_prestasi');
+    localStorage.removeItem('mock_publikasi_dosen');
+    localStorage.removeItem('mock_kegiatan_dosen');
+    localStorage.removeItem('mock_kegiatan_mahasiswa');
+    localStorage.removeItem('mock_alumni');
+    localStorage.removeItem('mock_statistik_maba');
     triggerToast('Mock database reset to defaults!', 'success');
     fetchCollectionData();
   };
@@ -430,13 +485,26 @@ export default function App() {
           triggerToast('Profil lulusan berhasil diperbarui!');
         }
       } else if (activeTab === 'tugas_akhir_steps') {
-        if (activeModal === 'create') {
-          await dataService.createTaStep(stepForm);
-          triggerToast('Tahapan Tugas Akhir berhasil ditambahkan!');
-        } else if (activeModal === 'edit' && editingId) {
-          await dataService.updateTaStep(editingId, stepForm);
-          triggerToast('Tahapan Tugas Akhir berhasil diperbarui!');
-        }
+        if (activeModal === 'create') { await dataService.createTaStep(stepForm); triggerToast('Tahapan Tugas Akhir berhasil ditambahkan!'); }
+        else if (activeModal === 'edit' && editingId) { await dataService.updateTaStep(editingId, stepForm); triggerToast('Tahapan Tugas Akhir berhasil diperbarui!'); }
+      } else if (activeTab === 'prestasi') {
+        if (activeModal === 'create') { await dataService.createPrestasi(prestasiForm); triggerToast('Prestasi berhasil ditambahkan!'); }
+        else if (activeModal === 'edit' && editingId) { await dataService.updatePrestasi(editingId, prestasiForm); triggerToast('Prestasi berhasil diperbarui!'); }
+      } else if (activeTab === 'publikasi_dosen') {
+        if (activeModal === 'create') { await dataService.createPublikasiDosen(publikasiForm); triggerToast('Publikasi berhasil ditambahkan!'); }
+        else if (activeModal === 'edit' && editingId) { await dataService.updatePublikasiDosen(editingId, publikasiForm); triggerToast('Publikasi berhasil diperbarui!'); }
+      } else if (activeTab === 'kegiatan_dosen') {
+        if (activeModal === 'create') { await dataService.createKegiatanDosen(kegiatanDosenForm); triggerToast('Kegiatan dosen berhasil ditambahkan!'); }
+        else if (activeModal === 'edit' && editingId) { await dataService.updateKegiatanDosen(editingId, kegiatanDosenForm); triggerToast('Kegiatan dosen berhasil diperbarui!'); }
+      } else if (activeTab === 'kegiatan_mahasiswa') {
+        if (activeModal === 'create') { await dataService.createKegiatanMahasiswa(kegiatanMahasiswaForm); triggerToast('Kegiatan mahasiswa berhasil ditambahkan!'); }
+        else if (activeModal === 'edit' && editingId) { await dataService.updateKegiatanMahasiswa(editingId, kegiatanMahasiswaForm); triggerToast('Kegiatan mahasiswa berhasil diperbarui!'); }
+      } else if (activeTab === 'alumni') {
+        if (activeModal === 'create') { await dataService.createAlumni(alumniForm); triggerToast('Alumni berhasil ditambahkan!'); }
+        else if (activeModal === 'edit' && editingId) { await dataService.updateAlumni(editingId, alumniForm); triggerToast('Alumni berhasil diperbarui!'); }
+      } else if (activeTab === 'statistik_maba') {
+        if (activeModal === 'create') { await dataService.createStatistikMaba(statistikMabaForm); triggerToast('Data statistik berhasil ditambahkan!'); }
+        else if (activeModal === 'edit' && editingId) { await dataService.updateStatistikMaba(editingId, statistikMabaForm); triggerToast('Data statistik berhasil diperbarui!'); }
       }
 
       setActiveModal(null);
@@ -472,6 +540,18 @@ export default function App() {
         await dataService.deleteKurikulumProfile(deletingId);
       } else if (activeTab === 'tugas_akhir_steps') {
         await dataService.deleteTaStep(deletingId);
+      } else if (activeTab === 'prestasi') {
+        await dataService.deletePrestasi(deletingId);
+      } else if (activeTab === 'publikasi_dosen') {
+        await dataService.deletePublikasiDosen(deletingId);
+      } else if (activeTab === 'kegiatan_dosen') {
+        await dataService.deleteKegiatanDosen(deletingId);
+      } else if (activeTab === 'kegiatan_mahasiswa') {
+        await dataService.deleteKegiatanMahasiswa(deletingId);
+      } else if (activeTab === 'alumni') {
+        await dataService.deleteAlumni(deletingId);
+      } else if (activeTab === 'statistik_maba') {
+        await dataService.deleteStatistikMaba(deletingId);
       }
 
       triggerToast('Item berhasil dihapus!', 'success');
@@ -508,6 +588,12 @@ export default function App() {
     setPloForm({ code: '', type: '', type_en: '', text: '', text_en: '', sort_order: plos.length + 1 });
     setProfileForm({ title: '', title_en: '', desc: '', desc_en: '', sort_order: profiles.length + 1 });
     setStepForm({ num: '', title: '', title_en: '', desc: '', desc_en: '', sort_order: steps.length + 1 });
+    setPrestasiForm({ type: 'prodi', title: '', title_en: '', year: '', desc: '', desc_en: '', host: '', host_en: '', competitor: '', image_url: '', sort_order: prestasiList.length + 1 });
+    setPublikasiForm({ title: '', title_en: '', author: '', journal: '', journal_en: '', year: '', category: '', category_en: '', link: '', sort_order: publikasiList.length + 1 });
+    setKegiatanDosenForm({ title: '', title_en: '', date_text: '', date_text_en: '', location: '', desc: '', desc_en: '', image_url: '', sort_order: kegiatanDosenList.length + 1 });
+    setKegiatanMahasiswaForm({ title: '', title_en: '', date_text: '', date_text_en: '', location: '', desc: '', desc_en: '', image_url: '', sort_order: kegiatanMahasiswaList.length + 1 });
+    setAlumniForm({ name: '', class_of: '', class_of_en: '', role: '', company: '', quote: '', quote_en: '', image_url: '', sort_order: alumniList.length + 1 });
+    setStatistikMabaForm({ year: '', count: 0, sort_order: statistikMabaList.length + 1 });
     setActiveModal('create');
   };
 
@@ -601,14 +687,19 @@ export default function App() {
         sort_order: item.sort_order
       });
     } else if (activeTab === 'tugas_akhir_steps') {
-      setStepForm({
-        num: item.num,
-        title: item.title,
-        title_en: item.title_en || '',
-        desc: item.desc,
-        desc_en: item.desc_en || '',
-        sort_order: item.sort_order
-      });
+      setStepForm({ num: item.num, title: item.title, title_en: item.title_en || '', desc: item.desc, desc_en: item.desc_en || '', sort_order: item.sort_order });
+    } else if (activeTab === 'prestasi') {
+      setPrestasiForm({ type: item.type, title: item.title, title_en: item.title_en || '', year: item.year, desc: item.desc, desc_en: item.desc_en || '', host: item.host || '', host_en: item.host_en || '', competitor: item.competitor || '', image_url: item.image_url || '', sort_order: item.sort_order });
+    } else if (activeTab === 'publikasi_dosen') {
+      setPublikasiForm({ title: item.title, title_en: item.title_en || '', author: item.author, journal: item.journal, journal_en: item.journal_en || '', year: item.year, category: item.category, category_en: item.category_en || '', link: item.link || '', sort_order: item.sort_order });
+    } else if (activeTab === 'kegiatan_dosen') {
+      setKegiatanDosenForm({ title: item.title, title_en: item.title_en || '', date_text: item.date_text, date_text_en: item.date_text_en || '', location: item.location, desc: item.desc, desc_en: item.desc_en || '', image_url: item.image_url || '', sort_order: item.sort_order });
+    } else if (activeTab === 'kegiatan_mahasiswa') {
+      setKegiatanMahasiswaForm({ title: item.title, title_en: item.title_en || '', date_text: item.date_text, date_text_en: item.date_text_en || '', location: item.location, desc: item.desc, desc_en: item.desc_en || '', image_url: item.image_url || '', sort_order: item.sort_order });
+    } else if (activeTab === 'alumni') {
+      setAlumniForm({ name: item.name, class_of: item.class_of, class_of_en: item.class_of_en || '', role: item.role, company: item.company, quote: item.quote, quote_en: item.quote_en || '', image_url: item.image_url || '', sort_order: item.sort_order });
+    } else if (activeTab === 'statistik_maba') {
+      setStatistikMabaForm({ year: item.year, count: item.count, sort_order: item.sort_order });
     }
     setActiveModal('edit');
   };
@@ -855,6 +946,82 @@ export default function App() {
             />
           )}
 
+          {/* PRESTASI VIEW */}
+          {activeTab === 'prestasi' && (
+            <PrestasiTab
+              prestasiList={prestasiList}
+              searchQuery={searchQuery}
+              setSearchQuery={setSearchQuery}
+              isLoadingData={isLoadingData}
+              openCreateModal={openCreateModal}
+              openEditModal={openEditModal}
+              openDeleteModal={openDeleteModal}
+            />
+          )}
+
+          {/* PUBLIKASI DOSEN VIEW */}
+          {activeTab === 'publikasi_dosen' && (
+            <PublikasiDosenTab
+              publikasiList={publikasiList}
+              searchQuery={searchQuery}
+              setSearchQuery={setSearchQuery}
+              isLoadingData={isLoadingData}
+              openCreateModal={openCreateModal}
+              openEditModal={openEditModal}
+              openDeleteModal={openDeleteModal}
+            />
+          )}
+
+          {/* KEGIATAN DOSEN VIEW */}
+          {activeTab === 'kegiatan_dosen' && (
+            <KegiatanDosenTab
+              kegiatanList={kegiatanDosenList}
+              searchQuery={searchQuery}
+              setSearchQuery={setSearchQuery}
+              isLoadingData={isLoadingData}
+              openCreateModal={openCreateModal}
+              openEditModal={openEditModal}
+              openDeleteModal={openDeleteModal}
+            />
+          )}
+
+          {/* KEGIATAN MAHASISWA VIEW */}
+          {activeTab === 'kegiatan_mahasiswa' && (
+            <KegiatanMahasiswaTab
+              kegiatanList={kegiatanMahasiswaList}
+              searchQuery={searchQuery}
+              setSearchQuery={setSearchQuery}
+              isLoadingData={isLoadingData}
+              openCreateModal={openCreateModal}
+              openEditModal={openEditModal}
+              openDeleteModal={openDeleteModal}
+            />
+          )}
+
+          {/* ALUMNI VIEW */}
+          {activeTab === 'alumni' && (
+            <AlumniTab
+              alumniList={alumniList}
+              searchQuery={searchQuery}
+              setSearchQuery={setSearchQuery}
+              isLoadingData={isLoadingData}
+              openCreateModal={openCreateModal}
+              openEditModal={openEditModal}
+              openDeleteModal={openDeleteModal}
+            />
+          )}
+
+          {/* STATISTIK MABA VIEW */}
+          {activeTab === 'statistik_maba' && (
+            <StatistikMabaTab
+              statistikList={statistikMabaList}
+              isLoadingData={isLoadingData}
+              openCreateModal={openCreateModal}
+              openEditModal={openEditModal}
+              openDeleteModal={openDeleteModal}
+            />
+          )}
+
           {/* SETTINGS VIEW */}
           {activeTab === 'settings' && (
             <SettingsTab
@@ -869,6 +1036,7 @@ export default function App() {
               triggerToast={triggerToast}
             />
           )}
+
         </main>
       </div>
 

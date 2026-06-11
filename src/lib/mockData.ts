@@ -127,6 +127,88 @@ export interface DbTaStep {
   created_at: string;
 }
 
+export interface DbPrestasi {
+  id: string;
+  type: 'prodi' | 'mahasiswa';
+  title: string;
+  title_en: string | null;
+  year: string;
+  desc: string;
+  desc_en: string | null;
+  host: string | null;
+  host_en: string | null;
+  competitor: string | null;
+  image_url: string | null;
+  sort_order: number;
+  created_at: string;
+}
+
+export interface DbPublikasiDosen {
+  id: string;
+  title: string;
+  title_en: string | null;
+  author: string;
+  journal: string;
+  journal_en: string | null;
+  year: string;
+  category: string;
+  category_en: string | null;
+  link: string | null;
+  sort_order: number;
+  created_at: string;
+}
+
+export interface DbKegiatanDosen {
+  id: string;
+  title: string;
+  title_en: string | null;
+  date_text: string;
+  date_text_en: string | null;
+  location: string;
+  desc: string;
+  desc_en: string | null;
+  image_url: string | null;
+  sort_order: number;
+  created_at: string;
+}
+
+export interface DbKegiatanMahasiswa {
+  id: string;
+  title: string;
+  title_en: string | null;
+  date_text: string;
+  date_text_en: string | null;
+  location: string;
+  desc: string;
+  desc_en: string | null;
+  image_url: string | null;
+  sort_order: number;
+  created_at: string;
+}
+
+export interface DbAlumni {
+  id: string;
+  name: string;
+  class_of: string;
+  class_of_en: string | null;
+  role: string;
+  company: string;
+  quote: string;
+  quote_en: string | null;
+  image_url: string | null;
+  sort_order: number;
+  created_at: string;
+}
+
+export interface DbStatistikMaba {
+  id: string;
+  year: string;
+  count: number;
+  sort_order: number;
+  created_at: string;
+}
+
+
 const initialDosen: DbDosen[] = [
   {
     id: 'dosen-1',
@@ -706,7 +788,41 @@ const initialTaSteps: DbTaStep[] = [
 ];
 
 // Initialize localStorage if empty
+const initialPrestasi: DbPrestasi[] = [
+  { id: 'prestasi-1', type: 'prodi', title: 'Akreditasi BAN-PT Baik Sekali', title_en: "BAN-PT 'Baik Sekali' Accreditation", year: '2024', desc: 'Predikat akreditasi Baik Sekali atas standar laboratorium dan kurikulum.', desc_en: "Achieved 'Baik Sekali' standard for lab facilities and curriculum.", host: null, host_en: null, competitor: null, image_url: 'https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?q=80&w=600', sort_order: 1, created_at: new Date().toISOString() },
+  { id: 'prestasi-2', type: 'mahasiswa', title: 'Juara I Kompetisi Inovasi Pangan Nasional', title_en: '1st Place National Food Innovation Competition', year: '2024', desc: 'Mengembangkan biskuit fungsional berbasis hanjeli dan kacang merah.', desc_en: 'Developed functional biscuit from local Hanjeli seeds and red kidney beans.', host: 'Kementerian Pertanian', host_en: 'Ministry of Agriculture', competitor: 'Aditya Pratama & Tim', image_url: 'https://images.unsplash.com/photo-1509440159596-0249088772ff?q=80&w=600', sort_order: 2, created_at: new Date().toISOString() }
+];
+
+const initialPublikasiDosen: DbPublikasiDosen[] = [
+  { id: 'pub-1', title: 'Optimasi Pengeringan Tepung Mocaf Berbasis Energi Surya', title_en: 'Optimizing Solar-Assisted Drying of Mocaf Flour', author: 'Dr. Khairiah, S.P., M.T.', journal: 'Jurnal Teknologi Pangan Nusantara, Vol. 12 No. 2', journal_en: 'Journal of Food Technology Nusantara, Vol. 12 No. 2', year: '2025', category: 'JURNAL NASIONAL', category_en: 'NATIONAL JOURNAL', link: 'https://sinta.kemdiktisaintek.go.id/', sort_order: 1, created_at: new Date().toISOString() },
+  { id: 'pub-2', title: 'Deteksi Cepat E. coli pada Bahan Pangan Menggunakan Sensor Elektrokimia', title_en: 'Rapid Detection of E. coli in Fresh Produce Using Electrochemical Sensors', author: 'Dr. Saepul Adnan, S.Si., M.Si.', journal: 'Seminar Nasional Inovasi Pangan Halal (SNIPH)', journal_en: 'National Seminar on Halal Food Innovation (SNIPH)', year: '2024', category: 'PROSIDING SEMINAR', category_en: 'SEMINAR PROCEEDINGS', link: 'https://sinta.kemdiktisaintek.go.id/', sort_order: 2, created_at: new Date().toISOString() }
+];
+
+const initialKegiatanDosen: DbKegiatanDosen[] = [
+  { id: 'kd-1', title: 'Konferensi Internasional Pangan Halal & Biorefinery 2025', title_en: 'International Conference on Halal Food & Biorefinery 2025', date_text: '12 Maret 2025', date_text_en: 'March 12, 2025', location: 'Kuala Lumpur, Malaysia', desc: 'Presentasi riset edible coating berbasis kitosan pada simposium sains pangan global.', desc_en: 'Presented research on chitosan-based edible coatings at a global food science symposium.', image_url: '/assets/kegiatan-d1.png', sort_order: 1, created_at: new Date().toISOString() },
+  { id: 'kd-2', title: 'Workshop HACCP & Sertifikasi Halal UMKM Pangan', title_en: 'HACCP & Halal Certification Training for Food MSMEs', date_text: '18 Oktober 2024', date_text_en: 'October 18, 2024', location: 'Soreang, Bandung', desc: 'PKM pelatihan teknis higienitas dan analisis titik kritis untuk UMKM pangan lokal.', desc_en: 'Public service training on hygiene standardization for local food MSMEs.', image_url: '/assets/kegiatan-d2.png', sort_order: 2, created_at: new Date().toISOString() }
+];
+
+const initialKegiatanMahasiswa: DbKegiatanMahasiswa[] = [
+  { id: 'km-1', title: 'FOODTECH 2026: Capstone Product & Halal Food Expo', title_en: 'FOODTECH 2026: Capstone Product & Halal Food Expo', date_text: '24-28 Februari 2026', date_text_en: 'February 24-28, 2026', location: 'Gedung Rektorat UMB, Bandung', desc: 'Pameran karya kelulusan proyek akhir mahasiswa menampilkan inovasi produk pangan baru.', desc_en: 'Graduation project exhibition showcasing food product innovations.', image_url: '/assets/kegiatan-m1.png', sort_order: 1, created_at: new Date().toISOString() },
+  { id: 'km-2', title: 'HIMATEPA Food Safety Camp: Edukasi Sanitasi UMKM Pangan', title_en: 'HIMATEPA Food Safety Camp: Hygiene Training for MSMEs', date_text: '14 November 2025', date_text_en: 'November 14, 2025', location: 'Kampus UMB, Bandung', desc: 'Program reguler HIMATEPA memberikan penyuluhan sanitasi higiene bagi UMKM pangan lokal.', desc_en: 'HIMATEPA community service providing food safety education for local MSMEs.', image_url: '/assets/kegiatan-m2.png', sort_order: 2, created_at: new Date().toISOString() }
+];
+
+const initialAlumni: DbAlumni[] = [
+  { id: 'alumni-1', name: 'Amelia Rahma, S.TP.', class_of: 'Angkatan 2019', class_of_en: 'Class of 2019', role: 'Lead R&D Specialist', company: 'PT Garudafood Putra Putri Jaya Tbk', quote: 'Di sini saya diajarkan kimia pangan, evaluasi sensoris, dan desain pabrik pangan secara mendalam.', quote_en: 'Here I was taught food chemistry, sensory evaluation, and factory design in depth.', image_url: '/assets/alumni-1.png', sort_order: 1, created_at: new Date().toISOString() },
+  { id: 'alumni-2', name: 'Risa Fitria, S.TP.', class_of: 'Angkatan 2019', class_of_en: 'Class of 2019', role: 'QA/QC & Halal Auditor', company: 'PT Indofood Sukses Makmur Tbk', quote: 'Integrasi HACCP dan jaminan halal di mata kuliah memberikan keunggulan kompetitif di industri multinasional.', quote_en: 'Integrating HACCP and Halal assurance into the curriculum gave me a strong edge internationally.', image_url: '/assets/alumni-2.png', sort_order: 2, created_at: new Date().toISOString() }
+];
+
+const initialStatistikMaba: DbStatistikMaba[] = [
+  { id: 'stat-1', year: '2021', count: 42, sort_order: 1, created_at: new Date().toISOString() },
+  { id: 'stat-2', year: '2022', count: 45, sort_order: 2, created_at: new Date().toISOString() },
+  { id: 'stat-3', year: '2023', count: 50, sort_order: 3, created_at: new Date().toISOString() },
+  { id: 'stat-4', year: '2024', count: 55, sort_order: 4, created_at: new Date().toISOString() },
+  { id: 'stat-5', year: '2025', count: 58, sort_order: 5, created_at: new Date().toISOString() }
+];
+
 function initStorage() {
+
   if (!localStorage.getItem('mock_news')) {
     localStorage.setItem('mock_news', JSON.stringify(initialNews));
   }
@@ -745,6 +861,24 @@ function initStorage() {
   }
   if (!localStorage.getItem('mock_tugas_akhir_steps')) {
     localStorage.setItem('mock_tugas_akhir_steps', JSON.stringify(initialTaSteps));
+  }
+  if (!localStorage.getItem('mock_prestasi')) {
+    localStorage.setItem('mock_prestasi', JSON.stringify(initialPrestasi));
+  }
+  if (!localStorage.getItem('mock_publikasi_dosen')) {
+    localStorage.setItem('mock_publikasi_dosen', JSON.stringify(initialPublikasiDosen));
+  }
+  if (!localStorage.getItem('mock_kegiatan_dosen')) {
+    localStorage.setItem('mock_kegiatan_dosen', JSON.stringify(initialKegiatanDosen));
+  }
+  if (!localStorage.getItem('mock_kegiatan_mahasiswa')) {
+    localStorage.setItem('mock_kegiatan_mahasiswa', JSON.stringify(initialKegiatanMahasiswa));
+  }
+  if (!localStorage.getItem('mock_alumni')) {
+    localStorage.setItem('mock_alumni', JSON.stringify(initialAlumni));
+  }
+  if (!localStorage.getItem('mock_statistik_maba')) {
+    localStorage.setItem('mock_statistik_maba', JSON.stringify(initialStatistikMaba));
   }
 }
 

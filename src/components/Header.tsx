@@ -26,6 +26,12 @@ const TAB_LABELS: Record<TabType, string> = {
   kurikulum_plos: 'CPL / PLO',
   kurikulum_profiles: 'Profil Lulusan',
   tugas_akhir_steps: 'Tahapan Tugas Akhir',
+  prestasi: 'Prestasi',
+  publikasi_dosen: 'Publikasi Dosen',
+  kegiatan_dosen: 'Kegiatan Dosen',
+  kegiatan_mahasiswa: 'Kegiatan Mahasiswa',
+  alumni: 'Alumni',
+  statistik_maba: 'Statistik Maba',
 };
 
 const TAB_GROUPS: Partial<Record<TabType, string>> = {
@@ -36,7 +42,13 @@ const TAB_GROUPS: Partial<Record<TabType, string>> = {
   kurikulum_plos: 'Akademik',
   kurikulum_profiles: 'Akademik',
   tugas_akhir_steps: 'Akademik',
+  prestasi: 'Prestasi & Kegiatan',
+  publikasi_dosen: 'Prestasi & Kegiatan',
+  kegiatan_dosen: 'Prestasi & Kegiatan',
+  kegiatan_mahasiswa: 'Prestasi & Kegiatan',
   dosen: 'Halaman & Konten',
+  alumni: 'Halaman & Konten',
+  statistik_maba: 'Halaman & Konten',
   partners: 'Halaman & Konten',
   landing_stats: 'Halaman & Konten',
   landing_portfolio: 'Halaman & Konten',
