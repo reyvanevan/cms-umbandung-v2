@@ -97,7 +97,7 @@ export default function CoursesTab({
                 <tr key={item.id} className="hover:bg-gray-50/50 transition">
                   <td className="p-4 font-bold text-gray-950">
                     <span className="px-2.5 py-1 bg-slate-100 text-slate-700 rounded-lg text-xs">
-                      Smt {item.semester}
+                      {item.semester === 'Pilihan' ? 'Pilihan' : `Smt ${item.semester}`}
                     </span>
                   </td>
                   <td className="p-4">
