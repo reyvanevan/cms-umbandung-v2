@@ -71,7 +71,7 @@ export default function DashboardTab({
               <Image className="w-3.5 h-3.5" />
               <span>Karya Portofolio</span>
             </div>
-            <p className="text-[11px] text-gray-400">Arsip karya kriya & pameran mahasiswa</p>
+            <p className="text-[11px] text-gray-400">Arsip produk pangan & riset mahasiswa</p>
           </div>
         </div>
 
