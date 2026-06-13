@@ -243,6 +243,30 @@ export const SITE_CONTENT_LABELS: Record<string, LabelConfig> = {
   footer_social_univ: {
     label: 'Footer: Tautan Website Universitas',
     desc: 'Link lengkap ke website utama universitas.'
+  },
+  info_singkat_degree_title: {
+    label: 'Info Singkat: Gelar Singkat (e.g. S.T.P.)',
+    desc: 'Singkatan gelar akademik lulusan (contoh: S.T.P. atau S.Sn.).'
+  },
+  info_singkat_degree_name: {
+    label: 'Info Singkat: Nama Gelar Lengkap',
+    desc: 'Nama lengkap gelar akademik beserta jenjangnya (contoh: Sarjana Teknologi Pangan (S1)).'
+  },
+  info_singkat_sks_title: {
+    label: 'Info Singkat: Jumlah SKS',
+    desc: 'Jumlah total SKS kelulusan (contoh: 144 SKS).'
+  },
+  info_singkat_sks_desc: {
+    label: 'Info Singkat: Deskripsi SKS',
+    desc: 'Keterangan pembagian SKS (contoh: SKS Perkuliahan dan Praktikum).'
+  },
+  info_singkat_duration_title: {
+    label: 'Info Singkat: Masa Studi',
+    desc: 'Lama studi standar (contoh: 4 Tahun).'
+  },
+  info_singkat_duration_desc: {
+    label: 'Info Singkat: Deskripsi Masa Studi',
+    desc: 'Keterangan semester akademik (contoh: 8 Semester Perkuliahan Akademik).'
   }
 };
 

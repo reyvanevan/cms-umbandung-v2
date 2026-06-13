@@ -676,6 +676,42 @@ export const initialSiteContent: DbSiteContent[] = [
     value: 'Membuka peluang kolaborasi industri kreatif guna mendukung magang mahasiswa, pameran bersama, serta penyerapan karir lulusan.',
     value_en: 'Exploring collaborations with creative industries to support student internships, joint exhibitions, and professional career transitions.',
     updated_at: new Date().toISOString()
+  },
+  {
+    key: 'info_singkat_degree_title',
+    value: 'S.T.P.',
+    value_en: 'S.T.P.',
+    updated_at: new Date().toISOString()
+  },
+  {
+    key: 'info_singkat_degree_name',
+    value: 'Sarjana Teknologi Pangan (S1)',
+    value_en: 'Sarjana Teknologi Pangan (S1)',
+    updated_at: new Date().toISOString()
+  },
+  {
+    key: 'info_singkat_sks_title',
+    value: '144 SKS',
+    value_en: '144 SKS',
+    updated_at: new Date().toISOString()
+  },
+  {
+    key: 'info_singkat_sks_desc',
+    value: 'SKS Perkuliahan dan Praktikum',
+    value_en: 'SKS Perkuliahan dan Praktikum',
+    updated_at: new Date().toISOString()
+  },
+  {
+    key: 'info_singkat_duration_title',
+    value: '4 Tahun',
+    value_en: '4 Years',
+    updated_at: new Date().toISOString()
+  },
+  {
+    key: 'info_singkat_duration_desc',
+    value: '8 Semester Perkuliahan Akademik',
+    value_en: '8 Academic Semesters (Fast track available)',
+    updated_at: new Date().toISOString()
   }
 ];
 

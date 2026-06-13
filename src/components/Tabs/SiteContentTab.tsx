@@ -101,6 +101,23 @@ export default function SiteContentTab({
     setSavingKeys((prev) => ({ ...prev, [key]: true }));
     try {
       await onUpdateContent(key, vals.id, vals.en || null);
+
+      // Automatically save relations (like photoKey or emailKey) if they exist
+      const rel = KEY_RELATIONS[key];
+      if (rel) {
+        const promises: Promise<any>[] = [];
+        if (rel.photoKey && editValues[rel.photoKey]) {
+          const photoVals = editValues[rel.photoKey];
+          promises.push(onUpdateContent(rel.photoKey, photoVals.id, photoVals.en || null));
+        }
+        if (rel.emailKey && editValues[rel.emailKey]) {
+          const emailVals = editValues[rel.emailKey];
+          promises.push(onUpdateContent(rel.emailKey, emailVals.id, emailVals.en || null));
+        }
+        if (promises.length > 0) {
+          await Promise.all(promises);
+        }
+      }
     } finally {
       setSavingKeys((prev) => ({ ...prev, [key]: false }));
     }
@@ -108,7 +125,7 @@ export default function SiteContentTab({
 
   // Helper to categorize content key
   const getCategoryForKey = (key: string) => {
-    if (key.startsWith('hero_') || key.startsWith('kaprodi_') || key.startsWith('philosophy_') || key.startsWith('logo_') || key.startsWith('sambutan_') || key.startsWith('footer_')) {
+    if (key.startsWith('hero_') || key.startsWith('kaprodi_') || key.startsWith('philosophy_') || key.startsWith('logo_') || key.startsWith('sambutan_') || key.startsWith('footer_') || key.startsWith('info_singkat_')) {
       return 'beranda';
     }
     if (key.startsWith('visi_misi_')) return 'visi_misi';
@@ -124,6 +141,7 @@ export default function SiteContentTab({
     if (key.startsWith('kaprodi_')) return 'Sambutan Kepala Program Studi';
     if (key.startsWith('philosophy_')) return 'Filosofi Pembelajaran';
     if (key.startsWith('footer_')) return 'Informasi Kontak & Sosial Media (Footer)';
+    if (key.startsWith('info_singkat_')) return 'Informasi Singkat Landing Page';
     if (key.startsWith('gov_sec_')) return 'Sekretaris Program Studi';
     if (key.startsWith('gov_lab_')) return 'Kepala Laboratorium Komputasi';
     if (key.startsWith('gov_upm_')) return 'Unit Penjaminan Mutu (UPM)';
@@ -380,7 +398,7 @@ export default function SiteContentTab({
                                       ))}
                                     </select>
                                     <p className="text-[10px] text-slate-400">
-                                      Memilih dosen akan otomatis memperbarui nama dan foto pimpinan di form ini. Pastikan untuk menekan tombol <b>Simpan</b> pada masing-masing field yang berubah.
+                                      Memilih dosen akan otomatis memperbarui nama dan foto. Menekan tombol <b>Simpan</b> pada nama juga akan menyimpan fotonya secara otomatis.
                                     </p>
                                   </div>
                                 )}
