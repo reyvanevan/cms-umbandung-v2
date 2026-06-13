@@ -57,28 +57,42 @@ export default function Sidebar({
 
   // Which groups are open — default: open the one containing current activeTab
   const getInitialOpen = () => {
-    if (['news', 'events', 'testimonials'].includes(activeTab)) return { konten: true, halaman: false, akademik: false, kegiatan: false };
-    if (['kurikulum_courses', 'kurikulum_plos', 'kurikulum_profiles', 'tugas_akhir_steps'].includes(activeTab)) return { konten: false, halaman: false, akademik: true, kegiatan: false };
-    if (['landing_stats', 'landing_portfolio', 'site_content', 'partners', 'dosen', 'alumni', 'statistik_maba'].includes(activeTab)) return { konten: false, halaman: true, akademik: false, kegiatan: false };
-    if (['prestasi', 'publikasi_dosen', 'kegiatan_dosen', 'kegiatan_mahasiswa'].includes(activeTab)) return { konten: false, halaman: false, akademik: false, kegiatan: true };
-    return { konten: false, halaman: false, akademik: false, kegiatan: false };
+    return {
+      beranda: ['dashboard', 'landing_portfolio', 'landing_stats', 'site_content'].includes(activeTab),
+      tentang_kami: ['dosen', 'partners'].includes(activeTab),
+      akademik: ['kurikulum_courses', 'kurikulum_plos', 'kurikulum_profiles', 'publikasi_dosen', 'tugas_akhir_steps'].includes(activeTab),
+      statistik: ['statistik_maba'].includes(activeTab),
+      mahasiswa_alumni: ['prestasi', 'testimonials', 'alumni'].includes(activeTab),
+      galeri_kegiatan: ['news', 'events', 'kegiatan_dosen', 'kegiatan_mahasiswa'].includes(activeTab),
+      pengaturan: ['settings'].includes(activeTab),
+    };
   };
 
   const [open, setOpen] = useState(getInitialOpen);
 
-  const toggleGroup = (group: 'konten' | 'halaman' | 'akademik' | 'kegiatan') => {
+  const toggleGroup = (group: keyof ReturnType<typeof getInitialOpen>) => {
     setOpen(prev => ({ ...prev, [group]: !prev[group] }));
   };
 
   const navGroups: NavGroup[] = [
     {
-      id: 'konten',
-      label: 'Konten Umum',
-      icon: <Newspaper className="w-4 h-4" />,
+      id: 'beranda',
+      label: 'Beranda / Landing',
+      icon: <LayoutGrid className="w-4 h-4" />,
       items: [
-        { tab: 'news', label: 'Berita & Artikel', icon: <Newspaper className="w-3.5 h-3.5" /> },
-        { tab: 'events', label: 'Agenda & Kegiatan', icon: <Calendar className="w-3.5 h-3.5" /> },
-        { tab: 'testimonials', label: 'Testimoni Alumni', icon: <MessageSquare className="w-3.5 h-3.5" /> },
+        { tab: 'dashboard', label: 'Dashboard Utama', icon: <LayoutDashboard className="w-3.5 h-3.5" /> },
+        { tab: 'landing_portfolio', label: 'Galeri Portfolio', icon: <Image className="w-3.5 h-3.5" /> },
+        { tab: 'landing_stats', label: 'Statistik Ribbon', icon: <TrendingUp className="w-3.5 h-3.5" /> },
+        { tab: 'site_content', label: 'Pengaturan Teks Beranda', icon: <FileText className="w-3.5 h-3.5" /> },
+      ],
+    },
+    {
+      id: 'tentang_kami',
+      label: 'Tentang Kami',
+      icon: <Building2 className="w-4 h-4" />,
+      items: [
+        { tab: 'dosen', label: 'Dosen & Staff (SDM)', icon: <Users className="w-3.5 h-3.5" /> },
+        { tab: 'partners', label: 'Kemitraan Industri', icon: <Building2 className="w-3.5 h-3.5" /> },
       ],
     },
     {
@@ -86,45 +100,74 @@ export default function Sidebar({
       label: 'Akademik',
       icon: <GraduationCap className="w-4 h-4" />,
       items: [
-        { tab: 'kurikulum_courses', label: 'Mata Kuliah', icon: <BookOpen className="w-3.5 h-3.5" /> },
+        { tab: 'kurikulum_courses', label: 'Editor Mata Kuliah (Kurikulum)', icon: <BookOpen className="w-3.5 h-3.5" /> },
         { tab: 'kurikulum_plos', label: 'CPL / PLO', icon: <Award className="w-3.5 h-3.5" /> },
         { tab: 'kurikulum_profiles', label: 'Profil Lulusan', icon: <Users className="w-3.5 h-3.5" /> },
+        { tab: 'publikasi_dosen', label: 'Publikasi Dosen', icon: <BookOpen className="w-3.5 h-3.5" /> },
         { tab: 'tugas_akhir_steps', label: 'Tahapan Tugas Akhir', icon: <GraduationCap className="w-3.5 h-3.5" /> },
       ],
     },
     {
-      id: 'kegiatan',
-      label: 'Prestasi & Kegiatan',
-      icon: <Trophy className="w-4 h-4" />,
+      id: 'statistik',
+      label: 'Statistik',
+      icon: <BarChart3 className="w-4 h-4" />,
       items: [
-        { tab: 'prestasi', label: 'Prestasi', icon: <Trophy className="w-3.5 h-3.5" /> },
-        { tab: 'publikasi_dosen', label: 'Publikasi Dosen', icon: <BookOpen className="w-3.5 h-3.5" /> },
+        { tab: 'statistik_maba', label: 'Statistik Mahasiswa Baru (Maba)', icon: <BarChart3 className="w-3.5 h-3.5" /> },
+      ],
+    },
+    {
+      id: 'mahasiswa_alumni',
+      label: 'Mahasiswa & Alumni',
+      icon: <Users className="w-4 h-4" />,
+      items: [
+        { tab: 'prestasi', label: 'Prestasi Mahasiswa', icon: <Trophy className="w-3.5 h-3.5" /> },
+        { tab: 'testimonials', label: 'Testimoni Alumni', icon: <MessageSquare className="w-3.5 h-3.5" /> },
+        { tab: 'alumni', label: 'Direktori Alumni', icon: <GraduationCap className="w-3.5 h-3.5" /> },
+      ],
+    },
+    {
+      id: 'galeri_kegiatan',
+      label: 'Galeri Kegiatan',
+      icon: <Newspaper className="w-4 h-4" />,
+      items: [
+        { tab: 'news', label: 'Berita & Artikel', icon: <Newspaper className="w-3.5 h-3.5" /> },
+        { tab: 'events', label: 'Agenda Kegiatan', icon: <Calendar className="w-3.5 h-3.5" /> },
         { tab: 'kegiatan_dosen', label: 'Kegiatan Dosen', icon: <Activity className="w-3.5 h-3.5" /> },
         { tab: 'kegiatan_mahasiswa', label: 'Kegiatan Mahasiswa', icon: <Activity className="w-3.5 h-3.5" /> },
       ],
     },
     {
-      id: 'halaman',
-      label: 'Halaman & Konten',
-      icon: <FileText className="w-4 h-4" />,
+      id: 'pengaturan',
+      label: 'Pengaturan',
+      icon: <Settings className="w-4 h-4" />,
       items: [
-        { tab: 'dosen', label: 'Dosen & Staff', icon: <Users className="w-3.5 h-3.5" /> },
-        { tab: 'alumni', label: 'Alumni', icon: <GraduationCap className="w-3.5 h-3.5" /> },
-        { tab: 'statistik_maba', label: 'Statistik Maba', icon: <BarChart3 className="w-3.5 h-3.5" /> },
-        { tab: 'partners', label: 'Mitra Industri', icon: <Building2 className="w-3.5 h-3.5" /> },
-        { tab: 'landing_stats', label: 'Statistik Ribbon', icon: <TrendingUp className="w-3.5 h-3.5" /> },
-        { tab: 'landing_portfolio', label: 'Galeri Portfolio', icon: <Image className="w-3.5 h-3.5" /> },
-        { tab: 'site_content', label: 'Konten Teks', icon: <FileText className="w-3.5 h-3.5" /> },
+        { tab: 'settings', label: 'Setup Database & Akun', icon: <Settings className="w-3.5 h-3.5" /> },
       ],
     },
   ];
 
   // Map tab → which group it lives in, so we auto-open on click
-  const tabToGroup: Record<string, 'konten' | 'halaman' | 'akademik' | 'kegiatan'> = {
-    news: 'konten', events: 'konten', testimonials: 'konten',
-    kurikulum_courses: 'akademik', kurikulum_plos: 'akademik', kurikulum_profiles: 'akademik', tugas_akhir_steps: 'akademik',
-    prestasi: 'kegiatan', publikasi_dosen: 'kegiatan', kegiatan_dosen: 'kegiatan', kegiatan_mahasiswa: 'kegiatan',
-    dosen: 'halaman', alumni: 'halaman', statistik_maba: 'halaman', partners: 'halaman', landing_stats: 'halaman', landing_portfolio: 'halaman', site_content: 'halaman',
+  const tabToGroup: Record<string, keyof ReturnType<typeof getInitialOpen>> = {
+    dashboard: 'beranda',
+    landing_portfolio: 'beranda',
+    landing_stats: 'beranda',
+    site_content: 'beranda',
+    dosen: 'tentang_kami',
+    partners: 'tentang_kami',
+    kurikulum_courses: 'akademik',
+    kurikulum_plos: 'akademik',
+    kurikulum_profiles: 'akademik',
+    publikasi_dosen: 'akademik',
+    tugas_akhir_steps: 'akademik',
+    statistik_maba: 'statistik',
+    prestasi: 'mahasiswa_alumni',
+    testimonials: 'mahasiswa_alumni',
+    alumni: 'mahasiswa_alumni',
+    news: 'galeri_kegiatan',
+    events: 'galeri_kegiatan',
+    kegiatan_dosen: 'galeri_kegiatan',
+    kegiatan_mahasiswa: 'galeri_kegiatan',
+    settings: 'pengaturan',
   };
 
   const handleNavClick = (tab: TabType) => {
@@ -148,40 +191,16 @@ export default function Sidebar({
 
       {/* Navigation */}
       <nav className="flex-1 overflow-y-auto px-3 py-4 space-y-1">
-        {/* Dashboard */}
-        <button
-          onClick={() => setActiveTab('dashboard')}
-          className="w-full flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium transition-all text-left"
-          style={{
-            background: activeTab === 'dashboard' ? 'rgba(59,130,246,0.18)' : 'transparent',
-            color: activeTab === 'dashboard' ? '#93C5FD' : 'rgba(255,255,255,0.55)',
-          }}
-          onMouseEnter={e => {
-            if (activeTab !== 'dashboard') (e.currentTarget as HTMLButtonElement).style.background = 'rgba(255,255,255,0.05)';
-          }}
-          onMouseLeave={e => {
-            if (activeTab !== 'dashboard') (e.currentTarget as HTMLButtonElement).style.background = 'transparent';
-          }}
-        >
-          <LayoutDashboard className="w-4 h-4 flex-shrink-0" style={{ color: activeTab === 'dashboard' ? '#60A5FA' : 'rgba(255,255,255,0.3)' }} />
-          <span>Dashboard</span>
-        </button>
-
-        {/* Divider */}
-        <div className="pt-2 pb-1">
-          <div className="border-t" style={{ borderColor: 'rgba(255,255,255,0.06)' }} />
-        </div>
-
         {/* Collapsible Groups */}
         {navGroups.map(group => {
-          const isGroupOpen = open[group.id as 'konten' | 'halaman' | 'akademik'];
+          const isGroupOpen = open[group.id as keyof ReturnType<typeof getInitialOpen>];
           const hasActiveChild = group.items.some(item => item.tab === activeTab);
 
           return (
             <div key={group.id}>
               {/* Group Header */}
               <button
-                onClick={() => toggleGroup(group.id as 'konten' | 'halaman' | 'akademik')}
+                onClick={() => toggleGroup(group.id as keyof ReturnType<typeof getInitialOpen>)}
                 className="w-full flex items-center justify-between px-3 py-2.5 rounded-lg text-sm font-medium transition-all text-left"
                 style={{
                   background: hasActiveChild ? 'rgba(59,130,246,0.10)' : 'transparent',
@@ -251,25 +270,6 @@ export default function Sidebar({
         <div className="pt-2 pb-1">
           <div className="border-t" style={{ borderColor: 'rgba(255,255,255,0.06)' }} />
         </div>
-
-        {/* Settings */}
-        <button
-          onClick={() => setActiveTab('settings')}
-          className="w-full flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium transition-all text-left"
-          style={{
-            background: activeTab === 'settings' ? 'rgba(59,130,246,0.18)' : 'transparent',
-            color: activeTab === 'settings' ? '#93C5FD' : 'rgba(255,255,255,0.55)',
-          }}
-          onMouseEnter={e => {
-            if (activeTab !== 'settings') (e.currentTarget as HTMLButtonElement).style.background = 'rgba(255,255,255,0.05)';
-          }}
-          onMouseLeave={e => {
-            if (activeTab !== 'settings') (e.currentTarget as HTMLButtonElement).style.background = 'transparent';
-          }}
-        >
-          <Settings className="w-4 h-4 flex-shrink-0" style={{ color: activeTab === 'settings' ? '#60A5FA' : 'rgba(255,255,255,0.3)' }} />
-          <span>Database & Setup</span>
-        </button>
 
         {/* Preview Portal Link */}
         <a
