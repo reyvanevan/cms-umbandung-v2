@@ -156,7 +156,7 @@ export default function SiteContentTab({
   const CATEGORIES = [
     { id: 'beranda', name: 'Beranda / Landing', icon: Home, desc: 'Pengaturan slide utama, sambutan, dan filosofi.' },
     { id: 'visi_misi', name: 'Visi & Misi', icon: FileText, desc: 'Rumusan tujuan akademik, visi, dan misi.' },
-    { id: 'tata_kelola', name: 'Tata Kelola', icon: Users, desc: 'Kontak dan foto pimpinan (Sekretaris & Kalab).' },
+    { id: 'tata_kelola', name: 'Tata Kelola', icon: Users, desc: 'Kontak dan foto pimpinan (Sekretaris & UPM).' },
     { id: 'kurikulum', name: 'Kurikulum', icon: GraduationCap, desc: 'Pengantar sebaran SKS dan program magang.' },
     { id: 'tugas_akhir', name: 'Tugas Akhir', icon: BookOpen, desc: 'Persyaratan dan timeline skripsi mahasiswa.' },
     { id: 'kerjasama', name: 'Kerjasama', icon: Award, desc: 'Kalimat pembuka daftar mitra industri.' }
@@ -164,6 +164,11 @@ export default function SiteContentTab({
 
   // Filter content by search query & category
   const filteredContent = siteContent.filter((item) => {
+    // Exclude obsolete Kepala Laboratorium keys
+    if (item.key.startsWith('gov_lab_')) {
+      return false;
+    }
+
     const keyCategory = getCategoryForKey(item.key);
     
     // If searching, show match regardless of category (helps find things quickly)
