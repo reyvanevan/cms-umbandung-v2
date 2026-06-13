@@ -272,6 +272,14 @@ export default function SiteContentTab({
                       const vals = editValues[item.key] || { id: '', en: '' };
                       const isSaving = savingKeys[item.key] || false;
 
+                      // Check if this is a linked photo field
+                      const parentRelation = Object.entries(KEY_RELATIONS).find(
+                        ([_, rel]) => rel.photoKey === item.key
+                      );
+                      const parentKey = parentRelation ? parentRelation[0] : null;
+                      const parentVal = parentKey ? (editValues[parentKey]?.id || '') : '';
+                      const linkedDosen = parentVal ? dosenList.find(d => d.name === parentVal) : null;
+
                       return (
                         <div key={item.key} className="p-6 bg-white border border-slate-200/70 rounded-2xl flex flex-col gap-6 shadow-xs hover:border-slate-300 transition-colors">
                           
@@ -309,52 +317,68 @@ export default function SiteContentTab({
                           <div className="w-full">
                             {item.key.includes('photo') || item.key.includes('image') || item.key.includes('_url') ? (
                               <div className="space-y-4">
-                                <div className="flex flex-col md:flex-row gap-4 items-center bg-slate-50/50 p-4 border border-slate-150 rounded-xl">
-                                  {vals.id && (
-                                    vals.id.toLowerCase().endsWith('.mp4') ||
-                                    vals.id.toLowerCase().endsWith('.webm') ||
-                                    vals.id.toLowerCase().endsWith('.ogg') ||
-                                    vals.id.startsWith('data:video/') ? (
-                                      <video src={vals.id} className="w-24 h-24 object-cover rounded-xl border border-slate-200 shrink-0 bg-white shadow-xs" controls muted />
-                                    ) : (
-                                      <img src={vals.id} className="w-24 h-24 object-cover rounded-xl border border-slate-200 shrink-0 bg-white shadow-xs" alt="Preview" />
-                                    )
-                                  )}
-                                  <div className="flex-1 w-full space-y-3">
-                                    <div className="space-y-1">
-                                      <span className="flex items-center gap-1 text-[11px] font-bold text-slate-600">
-                                        <Upload className="w-3.5 h-3.5" />
-                                        <span>Unggah File Baru</span>
-                                      </span>
-                                      <input
-                                        type="file"
-                                        accept="image/*,video/*"
-                                        onChange={(e) => {
-                                          const file = e.target.files?.[0];
-                                          if (file) handleFileUpload(item.key, file);
-                                        }}
-                                        className="w-full text-xs text-slate-500 file:mr-4 file:py-1.5 file:px-3 file:rounded-lg file:border-0 file:text-[11px] file:font-semibold file:bg-slate-900 file:text-white hover:file:bg-slate-800 file:cursor-pointer"
-                                        disabled={uploadingKeys[item.key]}
-                                      />
-                                    </div>
-                                    <div className="space-y-1">
-                                      <span className="flex items-center gap-1 text-[11px] font-bold text-slate-600">
-                                        <LinkIcon className="w-3.5 h-3.5" />
-                                        <span>Atau Alamat URL Media</span>
-                                      </span>
-                                      <input
-                                        type="text"
-                                        placeholder="Masukkan url gambar/video, misal: /assets/nama-file.png"
-                                        className="w-full px-3 py-2 bg-white border border-slate-200 rounded-lg text-xs focus:outline-none focus:ring-2 focus:ring-slate-900/10 focus:border-slate-400 transition"
-                                        value={vals.id}
-                                        onChange={(e) => {
-                                          handleInputChange(item.key, 'id', e.target.value);
-                                          handleInputChange(item.key, 'en', e.target.value);
-                                        }}
-                                      />
+                                {linkedDosen ? (
+                                  <div className="flex flex-col md:flex-row gap-4 items-center bg-indigo-50/50 p-4 border border-indigo-150 rounded-xl">
+                                    {vals.id && (
+                                      <img src={vals.id} className="w-24 h-24 object-cover rounded-xl border border-indigo-200 shrink-0 bg-white shadow-xs" alt="Preview" />
+                                    )}
+                                    <div className="flex-1 w-full">
+                                      <p className="text-xs font-bold text-indigo-900 mb-1">
+                                        Foto Terhubung Otomatis
+                                      </p>
+                                      <p className="text-[11px] text-indigo-700 leading-relaxed">
+                                        Foto ini diambil otomatis dari profil dosen <b>{linkedDosen.name}</b>. Untuk mengubah foto ini, silakan edit foto di tab <b>Dosen</b> atau pilih nama non-dosen pada input nama di atas.
+                                      </p>
                                     </div>
                                   </div>
-                                </div>
+                                ) : (
+                                  <div className="flex flex-col md:flex-row gap-4 items-center bg-slate-50/50 p-4 border border-slate-150 rounded-xl">
+                                    {vals.id && (
+                                      vals.id.toLowerCase().endsWith('.mp4') ||
+                                      vals.id.toLowerCase().endsWith('.webm') ||
+                                      vals.id.toLowerCase().endsWith('.ogg') ||
+                                      vals.id.startsWith('data:video/') ? (
+                                        <video src={vals.id} className="w-24 h-24 object-cover rounded-xl border border-slate-200 shrink-0 bg-white shadow-xs" controls muted />
+                                      ) : (
+                                        <img src={vals.id} className="w-24 h-24 object-cover rounded-xl border border-slate-200 shrink-0 bg-white shadow-xs" alt="Preview" />
+                                      )
+                                    )}
+                                    <div className="flex-1 w-full space-y-3">
+                                      <div className="space-y-1">
+                                        <span className="flex items-center gap-1 text-[11px] font-bold text-slate-600">
+                                          <Upload className="w-3.5 h-3.5" />
+                                          <span>Unggah File Baru</span>
+                                        </span>
+                                        <input
+                                          type="file"
+                                          accept="image/*,video/*"
+                                          onChange={(e) => {
+                                            const file = e.target.files?.[0];
+                                            if (file) handleFileUpload(item.key, file);
+                                          }}
+                                          className="w-full text-xs text-slate-500 file:mr-4 file:py-1.5 file:px-3 file:rounded-lg file:border-0 file:text-[11px] file:font-semibold file:bg-slate-900 file:text-white hover:file:bg-slate-800 file:cursor-pointer"
+                                          disabled={uploadingKeys[item.key]}
+                                        />
+                                      </div>
+                                      <div className="space-y-1">
+                                        <span className="flex items-center gap-1 text-[11px] font-bold text-slate-600">
+                                          <LinkIcon className="w-3.5 h-3.5" />
+                                          <span>Atau Alamat URL Media</span>
+                                        </span>
+                                        <input
+                                          type="text"
+                                          placeholder="Masukkan url gambar/video, misal: /assets/nama-file.png"
+                                          className="w-full px-3 py-2 bg-white border border-slate-200 rounded-lg text-xs focus:outline-none focus:ring-2 focus:ring-slate-900/10 focus:border-slate-400 transition"
+                                          value={vals.id}
+                                          onChange={(e) => {
+                                            handleInputChange(item.key, 'id', e.target.value);
+                                            handleInputChange(item.key, 'en', e.target.value);
+                                          }}
+                                        />
+                                      </div>
+                                    </div>
+                                  </div>
+                                )}
                                 {uploadingKeys[item.key] && (
                                   <p className="text-[10px] text-indigo-600 animate-pulse font-medium">Sedang mengunggah file...</p>
                                 )}
