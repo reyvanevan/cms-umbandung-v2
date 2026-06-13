@@ -741,7 +741,7 @@ export default function CrudModal({
                   className="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-slate-900/10 focus:border-slate-400 focus:bg-white transition"
                   value={courseForm.name}
                   onChange={(e) => setCourseForm({ ...courseForm, name: e.target.value })}
-                  placeholder="Contoh: Pengantar Seni & Desain"
+                  placeholder="Contoh: Pengantar Teknologi Pangan"
                   required
                 />
               </div>
@@ -753,7 +753,7 @@ export default function CrudModal({
                   className="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-slate-900/10 focus:border-slate-400 focus:bg-white transition"
                   value={courseForm.name_en || ''}
                   onChange={(e) => setCourseForm({ ...courseForm, name_en: e.target.value })}
-                  placeholder="Contoh: Introduction to Art & Design"
+                  placeholder="Contoh: Introduction to Food Technology"
                 />
               </div>
 
@@ -1001,122 +1001,124 @@ export default function CrudModal({
             <>
               <div className="grid grid-cols-2 gap-4">
                 <div className="space-y-1">
-                  <label className="text-xs font-bold text-slate-700">Kategori Prestasi</label>
+                  <label className="text-xs font-bold text-slate-700">Tingkat / Kategori Prestasi</label>
                   <select
                     className="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-slate-900/10 focus:border-slate-400 focus:bg-white transition"
                     value={prestasiForm.type}
                     onChange={(e) => setPrestasiForm({ ...prestasiForm, type: e.target.value as any })}
                     required
                   >
-                    <option value="prodi">Program Studi</option>
+                    <option value="prodi">Prodi</option>
                     <option value="mahasiswa">Mahasiswa</option>
                   </select>
                 </div>
                 <div className="space-y-1">
-                  <label className="text-xs font-bold text-slate-700">Tahun Prestasi</label>
+                  <label className="text-xs font-bold text-slate-700">Tahun</label>
                   <input
                     type="text"
                     className="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-slate-900/10 focus:border-slate-400 focus:bg-white transition"
                     value={prestasiForm.year}
                     onChange={(e) => setPrestasiForm({ ...prestasiForm, year: e.target.value })}
-                    placeholder="Contoh: 2026"
+                    placeholder="Contoh: 2024"
+                    required
+                  />
+                </div>
+              </div>
+
+              <div className="grid grid-cols-2 gap-4">
+                <div className="space-y-1">
+                  <label className="text-xs font-bold text-slate-700">Judul Prestasi (ID)</label>
+                  <input
+                    type="text"
+                    className="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-slate-900/10 focus:border-slate-400 focus:bg-white transition"
+                    value={prestasiForm.title}
+                    onChange={(e) => setPrestasiForm({ ...prestasiForm, title: e.target.value })}
+                    placeholder="Contoh: Juara 1 Lomba Nasional"
+                    required
+                  />
+                </div>
+                <div className="space-y-1">
+                  <label className="text-xs font-bold text-slate-700">Judul Prestasi (EN)</label>
+                  <input
+                    type="text"
+                    className="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-slate-900/10 focus:border-slate-400 focus:bg-white transition"
+                    value={prestasiForm.title_en || ''}
+                    onChange={(e) => setPrestasiForm({ ...prestasiForm, title_en: e.target.value })}
+                    placeholder="Contoh: 1st Place National Competition"
+                  />
+                </div>
+              </div>
+
+              <div className="grid grid-cols-2 gap-4">
+                <div className="space-y-1">
+                  <label className="text-xs font-bold text-slate-700">Penyelenggara / Host (ID)</label>
+                  <input
+                    type="text"
+                    className="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-slate-900/10 focus:border-slate-400 focus:bg-white transition"
+                    value={prestasiForm.host || ''}
+                    onChange={(e) => setPrestasiForm({ ...prestasiForm, host: e.target.value })}
+                    placeholder="Contoh: Kemendikbudristek"
+                  />
+                </div>
+                <div className="space-y-1">
+                  <label className="text-xs font-bold text-slate-700">Penyelenggara / Host (EN)</label>
+                  <input
+                    type="text"
+                    className="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-slate-900/10 focus:border-slate-400 focus:bg-white transition"
+                    value={prestasiForm.host_en || ''}
+                    onChange={(e) => setPrestasiForm({ ...prestasiForm, host_en: e.target.value })}
+                    placeholder="Contoh: Ministry of Education"
+                  />
+                </div>
+              </div>
+
+              <div className="grid grid-cols-2 gap-4">
+                <div className="space-y-1">
+                  <label className="text-xs font-bold text-slate-700">Peserta / Peraih (contoh: Tim Himatika)</label>
+                  <input
+                    type="text"
+                    className="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-slate-900/10 focus:border-slate-400 focus:bg-white transition"
+                    value={prestasiForm.competitor || ''}
+                    onChange={(e) => setPrestasiForm({ ...prestasiForm, competitor: e.target.value })}
+                  />
+                </div>
+                <div className="space-y-1">
+                  <label className="text-xs font-bold text-slate-700">No. Urut (Sort Order)</label>
+                  <input
+                    type="number"
+                    className="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-slate-900/10 focus:border-slate-400 focus:bg-white transition"
+                    value={prestasiForm.sort_order}
+                    onChange={(e) => setPrestasiForm({ ...prestasiForm, sort_order: parseInt(e.target.value) || 0 })}
                     required
                   />
                 </div>
               </div>
 
               <div className="space-y-1">
-                <label className="text-xs font-bold text-slate-700">Judul Prestasi (ID)</label>
-                <input
-                  type="text"
-                  className="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-slate-900/10 focus:border-slate-400 focus:bg-white transition"
-                  value={prestasiForm.title}
-                  onChange={(e) => setPrestasiForm({ ...prestasiForm, title: e.target.value })}
-                  placeholder="Contoh: Juara 1 Hackathon Nasional"
-                  required
-                />
-              </div>
-
-              <div className="space-y-1">
-                <label className="text-xs font-bold text-slate-700">Judul Prestasi (EN)</label>
-                <input
-                  type="text"
-                  className="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-slate-900/10 focus:border-slate-400 focus:bg-white transition"
-                  value={prestasiForm.title_en || ''}
-                  onChange={(e) => setPrestasiForm({ ...prestasiForm, title_en: e.target.value })}
-                  placeholder="Contoh: 1st Winner of National Hackathon"
-                />
-              </div>
-
-              <div className="space-y-1">
-                <label className="text-xs font-bold text-slate-700">Penyelenggara / Host (ID)</label>
-                <input
-                  type="text"
-                  className="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-slate-900/10 focus:border-slate-400 focus:bg-white transition"
-                  value={prestasiForm.host || ''}
-                  onChange={(e) => setPrestasiForm({ ...prestasiForm, host: e.target.value })}
-                  placeholder="Contoh: Kementerian Riset dan Teknologi"
-                />
-              </div>
-
-              <div className="space-y-1">
-                <label className="text-xs font-bold text-slate-700">Penyelenggara / Host (EN)</label>
-                <input
-                  type="text"
-                  className="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-slate-900/10 focus:border-slate-400 focus:bg-white transition"
-                  value={prestasiForm.host_en || ''}
-                  onChange={(e) => setPrestasiForm({ ...prestasiForm, host_en: e.target.value })}
-                  placeholder="Contoh: Ministry of Research and Technology"
-                />
-              </div>
-
-              <div className="space-y-1">
-                <label className="text-xs font-bold text-slate-700">Pemenang / Kompetitor (Mahasiswa)</label>
-                <input
-                  type="text"
-                  className="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-slate-900/10 focus:border-slate-400 focus:bg-white transition"
-                  value={prestasiForm.competitor || ''}
-                  onChange={(e) => setPrestasiForm({ ...prestasiForm, competitor: e.target.value })}
-                  placeholder="Contoh: Andi & Tim"
-                />
-              </div>
-
-              <div className="space-y-1">
-                <label className="text-xs font-bold text-slate-700">Deskripsi (ID)</label>
+                <label className="text-xs font-bold text-slate-700">Deskripsi Prestasi (ID)</label>
                 <textarea
                   rows={3}
                   className="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-slate-900/10 focus:border-slate-400 focus:bg-white transition resize-none"
                   value={prestasiForm.desc}
                   onChange={(e) => setPrestasiForm({ ...prestasiForm, desc: e.target.value })}
-                  placeholder="Masukkan deskripsi detail prestasi..."
+                  placeholder="Deskripsikan detail pencapaian..."
                   required
                 />
               </div>
 
               <div className="space-y-1">
-                <label className="text-xs font-bold text-slate-700">Deskripsi (EN)</label>
+                <label className="text-xs font-bold text-slate-700">Deskripsi Prestasi (EN)</label>
                 <textarea
                   rows={3}
                   className="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-slate-900/10 focus:border-slate-400 focus:bg-white transition resize-none"
                   value={prestasiForm.desc_en || ''}
                   onChange={(e) => setPrestasiForm({ ...prestasiForm, desc_en: e.target.value })}
-                  placeholder="Enter detailed description in English..."
+                  placeholder="Detail achievement in English..."
                 />
               </div>
 
               <div className="space-y-1">
-                <label className="text-xs font-bold text-slate-700">Urutan Tampilan</label>
-                <input
-                  type="number"
-                  className="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-slate-900/10 focus:border-slate-400 focus:bg-white transition"
-                  value={prestasiForm.sort_order}
-                  onChange={(e) => setPrestasiForm({ ...prestasiForm, sort_order: parseInt(e.target.value) || 0 })}
-                  required
-                />
-              </div>
-
-              <div className="space-y-1">
-                <label className="text-xs font-bold text-slate-700 block">Foto Prestasi</label>
+                <label className="text-xs font-bold text-slate-700 block">Foto Sertifikat / Kegiatan</label>
                 <div className="flex flex-col sm:flex-row gap-3 items-center">
                   {prestasiForm.image_url && (
                     <img src={prestasiForm.image_url} className="w-14 h-14 object-cover rounded-xl border border-slate-200 shrink-0 bg-slate-50" alt="Preview" />
@@ -1147,75 +1149,77 @@ export default function CrudModal({
           {/* PUBLIKASI DOSEN FORM */}
           {activeTab === 'publikasi_dosen' && publikasiForm && setPublikasiForm && (
             <>
-              <div className="space-y-1">
-                <label className="text-xs font-bold text-slate-700 font-semibold">Judul Publikasi (ID)</label>
-                <input
-                  type="text"
-                  className="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-slate-900/10 focus:border-slate-400 focus:bg-white transition"
-                  value={publikasiForm.title}
-                  onChange={(e) => setPublikasiForm({ ...publikasiForm, title: e.target.value })}
-                  placeholder="Contoh: Optimasi Sistem IoT"
-                  required
-                />
-              </div>
-
-              <div className="space-y-1">
-                <label className="text-xs font-bold text-slate-700 font-semibold">Judul Publikasi (EN)</label>
-                <input
-                  type="text"
-                  className="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-slate-900/10 focus:border-slate-400 focus:bg-white transition"
-                  value={publikasiForm.title_en || ''}
-                  onChange={(e) => setPublikasiForm({ ...publikasiForm, title_en: e.target.value })}
-                  placeholder="Contoh: IoT System Optimization"
-                />
+              <div className="grid grid-cols-2 gap-4">
+                <div className="space-y-1">
+                  <label className="text-xs font-bold text-slate-700">Judul Jurnal / Artikel (ID)</label>
+                  <input
+                    type="text"
+                    className="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-slate-900/10 focus:border-slate-400 focus:bg-white transition"
+                    value={publikasiForm.title}
+                    onChange={(e) => setPublikasiForm({ ...publikasiForm, title: e.target.value })}
+                    placeholder="Judul publikasi..."
+                    required
+                  />
+                </div>
+                <div className="space-y-1">
+                  <label className="text-xs font-bold text-slate-700">Judul Jurnal / Artikel (EN)</label>
+                  <input
+                    type="text"
+                    className="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-slate-900/10 focus:border-slate-400 focus:bg-white transition"
+                    value={publikasiForm.title_en || ''}
+                    onChange={(e) => setPublikasiForm({ ...publikasiForm, title_en: e.target.value })}
+                    placeholder="Publication title in English..."
+                  />
+                </div>
               </div>
 
               <div className="grid grid-cols-2 gap-4">
                 <div className="space-y-1">
-                  <label className="text-xs font-bold text-slate-700">Penulis / Author</label>
+                  <label className="text-xs font-bold text-slate-700">Penulis (Author)</label>
                   <input
                     type="text"
                     className="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-slate-900/10 focus:border-slate-400 focus:bg-white transition"
                     value={publikasiForm.author}
                     onChange={(e) => setPublikasiForm({ ...publikasiForm, author: e.target.value })}
-                    placeholder="Contoh: Dr. Ir. H. Ahmad"
+                    placeholder="Contoh: Hanif Alamudin, dkk."
                     required
                   />
                 </div>
                 <div className="space-y-1">
-                  <label className="text-xs font-bold text-slate-700">Tahun Terbit</label>
+                  <label className="text-xs font-bold text-slate-700">Tahun Publikasi</label>
                   <input
                     type="text"
                     className="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-slate-900/10 focus:border-slate-400 focus:bg-white transition"
                     value={publikasiForm.year}
                     onChange={(e) => setPublikasiForm({ ...publikasiForm, year: e.target.value })}
-                    placeholder="Contoh: 2025"
+                    placeholder="Contoh: 2023"
                     required
                   />
                 </div>
               </div>
 
-              <div className="space-y-1">
-                <label className="text-xs font-bold text-slate-700">Jurnal / Prosiding (ID)</label>
-                <input
-                  type="text"
-                  className="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-slate-900/10 focus:border-slate-400 focus:bg-white transition"
-                  value={publikasiForm.journal}
-                  onChange={(e) => setPublikasiForm({ ...publikasiForm, journal: e.target.value })}
-                  placeholder="Contoh: Jurnal Teknik Informatika UMB"
-                  required
-                />
-              </div>
-
-              <div className="space-y-1">
-                <label className="text-xs font-bold text-slate-700">Jurnal / Prosiding (EN)</label>
-                <input
-                  type="text"
-                  className="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-slate-900/10 focus:border-slate-400 focus:bg-white transition"
-                  value={publikasiForm.journal_en || ''}
-                  onChange={(e) => setPublikasiForm({ ...publikasiForm, journal_en: e.target.value })}
-                  placeholder="Contoh: UMB Journal of Informatics"
-                />
+              <div className="grid grid-cols-2 gap-4">
+                <div className="space-y-1">
+                  <label className="text-xs font-bold text-slate-700">Nama Jurnal / Seminar (ID)</label>
+                  <input
+                    type="text"
+                    className="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-slate-900/10 focus:border-slate-400 focus:bg-white transition"
+                    value={publikasiForm.journal}
+                    onChange={(e) => setPublikasiForm({ ...publikasiForm, journal: e.target.value })}
+                    placeholder="Contoh: Jurnal Pangan Indonesia"
+                    required
+                  />
+                </div>
+                <div className="space-y-1">
+                  <label className="text-xs font-bold text-slate-700">Nama Jurnal / Seminar (EN)</label>
+                  <input
+                    type="text"
+                    className="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-slate-900/10 focus:border-slate-400 focus:bg-white transition"
+                    value={publikasiForm.journal_en || ''}
+                    onChange={(e) => setPublikasiForm({ ...publikasiForm, journal_en: e.target.value })}
+                    placeholder="Contoh: Indonesian Food Journal"
+                  />
+                </div>
               </div>
 
               <div className="grid grid-cols-2 gap-4">
@@ -1226,7 +1230,7 @@ export default function CrudModal({
                     className="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-slate-900/10 focus:border-slate-400 focus:bg-white transition"
                     value={publikasiForm.category}
                     onChange={(e) => setPublikasiForm({ ...publikasiForm, category: e.target.value })}
-                    placeholder="Contoh: JURNAL NASIONAL"
+                    placeholder="Contoh: Jurnal Internasional Bereputasi"
                     required
                   />
                 </div>
@@ -1237,7 +1241,7 @@ export default function CrudModal({
                     className="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-slate-900/10 focus:border-slate-400 focus:bg-white transition"
                     value={publikasiForm.category_en || ''}
                     onChange={(e) => setPublikasiForm({ ...publikasiForm, category_en: e.target.value })}
-                    placeholder="Contoh: NATIONAL JOURNAL"
+                    placeholder="Contoh: Reputable International Journal"
                   />
                 </div>
               </div>
@@ -1250,7 +1254,7 @@ export default function CrudModal({
                     className="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-slate-900/10 focus:border-slate-400 focus:bg-white transition"
                     value={publikasiForm.link || ''}
                     onChange={(e) => setPublikasiForm({ ...publikasiForm, link: e.target.value })}
-                    placeholder="Contoh: https://example.com/journal"
+                    placeholder="Contoh: https://sciencedirect.com/..."
                   />
                 </div>
                 <div className="space-y-1">
@@ -1270,27 +1274,28 @@ export default function CrudModal({
           {/* KEGIATAN DOSEN FORM */}
           {activeTab === 'kegiatan_dosen' && kegiatanDosenForm && setKegiatanDosenForm && (
             <>
-              <div className="space-y-1">
-                <label className="text-xs font-bold text-slate-700">Judul Kegiatan (ID)</label>
-                <input
-                  type="text"
-                  className="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-slate-900/10 focus:border-slate-400 focus:bg-white transition"
-                  value={kegiatanDosenForm.title}
-                  onChange={(e) => setKegiatanDosenForm({ ...kegiatanDosenForm, title: e.target.value })}
-                  placeholder="Contoh: Workshop Penulisan Jurnal Ilmiah"
-                  required
-                />
-              </div>
-
-              <div className="space-y-1">
-                <label className="text-xs font-bold text-slate-700">Judul Kegiatan (EN)</label>
-                <input
-                  type="text"
-                  className="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-slate-900/10 focus:border-slate-400 focus:bg-white transition"
-                  value={kegiatanDosenForm.title_en || ''}
-                  onChange={(e) => setKegiatanDosenForm({ ...kegiatanDosenForm, title_en: e.target.value })}
-                  placeholder="Contoh: Scientific Journal Writing Workshop"
-                />
+              <div className="grid grid-cols-2 gap-4">
+                <div className="space-y-1">
+                  <label className="text-xs font-bold text-slate-700">Nama Kegiatan (ID)</label>
+                  <input
+                    type="text"
+                    className="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-slate-900/10 focus:border-slate-400 focus:bg-white transition"
+                    value={kegiatanDosenForm.title}
+                    onChange={(e) => setKegiatanDosenForm({ ...kegiatanDosenForm, title: e.target.value })}
+                    placeholder="Nama kegiatan..."
+                    required
+                  />
+                </div>
+                <div className="space-y-1">
+                  <label className="text-xs font-bold text-slate-700">Nama Kegiatan (EN)</label>
+                  <input
+                    type="text"
+                    className="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-slate-900/10 focus:border-slate-400 focus:bg-white transition"
+                    value={kegiatanDosenForm.title_en || ''}
+                    onChange={(e) => setKegiatanDosenForm({ ...kegiatanDosenForm, title_en: e.target.value })}
+                    placeholder="Activity name in English..."
+                  />
+                </div>
               </div>
 
               <div className="grid grid-cols-2 gap-4">
@@ -1301,7 +1306,7 @@ export default function CrudModal({
                     className="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-slate-900/10 focus:border-slate-400 focus:bg-white transition"
                     value={kegiatanDosenForm.date_text}
                     onChange={(e) => setKegiatanDosenForm({ ...kegiatanDosenForm, date_text: e.target.value })}
-                    placeholder="Contoh: 15 Maret 2026"
+                    placeholder="Contoh: 12-15 Nov 2024"
                     required
                   />
                 </div>
@@ -1312,20 +1317,20 @@ export default function CrudModal({
                     className="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-slate-900/10 focus:border-slate-400 focus:bg-white transition"
                     value={kegiatanDosenForm.date_text_en || ''}
                     onChange={(e) => setKegiatanDosenForm({ ...kegiatanDosenForm, date_text_en: e.target.value })}
-                    placeholder="Contoh: March 15, 2026"
+                    placeholder="Contoh: Nov 12-15, 2024"
                   />
                 </div>
               </div>
 
               <div className="grid grid-cols-2 gap-4">
                 <div className="space-y-1">
-                  <label className="text-xs font-bold text-slate-700">Lokasi</label>
+                  <label className="text-xs font-bold text-slate-700">Lokasi / Tempat</label>
                   <input
                     type="text"
                     className="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-slate-900/10 focus:border-slate-400 focus:bg-white transition"
                     value={kegiatanDosenForm.location}
                     onChange={(e) => setKegiatanDosenForm({ ...kegiatanDosenForm, location: e.target.value })}
-                    placeholder="Contoh: Kampus UMB Bandung"
+                    placeholder="Contoh: Aula UM Bandung"
                     required
                   />
                 </div>
@@ -1348,7 +1353,7 @@ export default function CrudModal({
                   className="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-slate-900/10 focus:border-slate-400 focus:bg-white transition resize-none"
                   value={kegiatanDosenForm.desc}
                   onChange={(e) => setKegiatanDosenForm({ ...kegiatanDosenForm, desc: e.target.value })}
-                  placeholder="Masukkan penjelasan kegiatan dosen..."
+                  placeholder="Detail deskripsi kegiatan..."
                   required
                 />
               </div>
@@ -1360,7 +1365,7 @@ export default function CrudModal({
                   className="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-slate-900/10 focus:border-slate-400 focus:bg-white transition resize-none"
                   value={kegiatanDosenForm.desc_en || ''}
                   onChange={(e) => setKegiatanDosenForm({ ...kegiatanDosenForm, desc_en: e.target.value })}
-                  placeholder="Enter event description in English..."
+                  placeholder="Description in English..."
                 />
               </div>
 
@@ -1396,27 +1401,28 @@ export default function CrudModal({
           {/* KEGIATAN MAHASISWA FORM */}
           {activeTab === 'kegiatan_mahasiswa' && kegiatanMahasiswaForm && setKegiatanMahasiswaForm && (
             <>
-              <div className="space-y-1">
-                <label className="text-xs font-bold text-slate-700">Judul Kegiatan (ID)</label>
-                <input
-                  type="text"
-                  className="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-slate-900/10 focus:border-slate-400 focus:bg-white transition"
-                  value={kegiatanMahasiswaForm.title}
-                  onChange={(e) => setKegiatanMahasiswaForm({ ...kegiatanMahasiswaForm, title: e.target.value })}
-                  placeholder="Contoh: Latihan Dasar Kepemimpinan"
-                  required
-                />
-              </div>
-
-              <div className="space-y-1">
-                <label className="text-xs font-bold text-slate-700">Judul Kegiatan (EN)</label>
-                <input
-                  type="text"
-                  className="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-slate-900/10 focus:border-slate-400 focus:bg-white transition"
-                  value={kegiatanMahasiswaForm.title_en || ''}
-                  onChange={(e) => setKegiatanMahasiswaForm({ ...kegiatanMahasiswaForm, title_en: e.target.value })}
-                  placeholder="Contoh: Student Leadership Training"
-                />
+              <div className="grid grid-cols-2 gap-4">
+                <div className="space-y-1">
+                  <label className="text-xs font-bold text-slate-700">Nama Kegiatan (ID)</label>
+                  <input
+                    type="text"
+                    className="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-slate-900/10 focus:border-slate-400 focus:bg-white transition"
+                    value={kegiatanMahasiswaForm.title}
+                    onChange={(e) => setKegiatanMahasiswaForm({ ...kegiatanMahasiswaForm, title: e.target.value })}
+                    placeholder="Nama kegiatan..."
+                    required
+                  />
+                </div>
+                <div className="space-y-1">
+                  <label className="text-xs font-bold text-slate-700">Nama Kegiatan (EN)</label>
+                  <input
+                    type="text"
+                    className="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-slate-900/10 focus:border-slate-400 focus:bg-white transition"
+                    value={kegiatanMahasiswaForm.title_en || ''}
+                    onChange={(e) => setKegiatanMahasiswaForm({ ...kegiatanMahasiswaForm, title_en: e.target.value })}
+                    placeholder="Activity name in English..."
+                  />
+                </div>
               </div>
 
               <div className="grid grid-cols-2 gap-4">
@@ -1427,7 +1433,7 @@ export default function CrudModal({
                     className="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-slate-900/10 focus:border-slate-400 focus:bg-white transition"
                     value={kegiatanMahasiswaForm.date_text}
                     onChange={(e) => setKegiatanMahasiswaForm({ ...kegiatanMahasiswaForm, date_text: e.target.value })}
-                    placeholder="Contoh: 12 April 2026"
+                    placeholder="Contoh: 12-15 Nov 2024"
                     required
                   />
                 </div>
@@ -1438,20 +1444,20 @@ export default function CrudModal({
                     className="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-slate-900/10 focus:border-slate-400 focus:bg-white transition"
                     value={kegiatanMahasiswaForm.date_text_en || ''}
                     onChange={(e) => setKegiatanMahasiswaForm({ ...kegiatanMahasiswaForm, date_text_en: e.target.value })}
-                    placeholder="Contoh: April 12, 2026"
+                    placeholder="Contoh: Nov 12-15, 2024"
                   />
                 </div>
               </div>
 
               <div className="grid grid-cols-2 gap-4">
                 <div className="space-y-1">
-                  <label className="text-xs font-bold text-slate-700">Lokasi</label>
+                  <label className="text-xs font-bold text-slate-700">Lokasi / Tempat</label>
                   <input
                     type="text"
                     className="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-slate-900/10 focus:border-slate-400 focus:bg-white transition"
                     value={kegiatanMahasiswaForm.location}
                     onChange={(e) => setKegiatanMahasiswaForm({ ...kegiatanMahasiswaForm, location: e.target.value })}
-                    placeholder="Contoh: Lembang, Bandung"
+                    placeholder="Contoh: Aula UM Bandung"
                     required
                   />
                 </div>
@@ -1474,7 +1480,7 @@ export default function CrudModal({
                   className="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-slate-900/10 focus:border-slate-400 focus:bg-white transition resize-none"
                   value={kegiatanMahasiswaForm.desc}
                   onChange={(e) => setKegiatanMahasiswaForm({ ...kegiatanMahasiswaForm, desc: e.target.value })}
-                  placeholder="Masukkan penjelasan kegiatan mahasiswa..."
+                  placeholder="Detail deskripsi kegiatan..."
                   required
                 />
               </div>
@@ -1486,7 +1492,7 @@ export default function CrudModal({
                   className="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-slate-900/10 focus:border-slate-400 focus:bg-white transition resize-none"
                   value={kegiatanMahasiswaForm.desc_en || ''}
                   onChange={(e) => setKegiatanMahasiswaForm({ ...kegiatanMahasiswaForm, desc_en: e.target.value })}
-                  placeholder="Enter event description in English..."
+                  placeholder="Description in English..."
                 />
               </div>
 
@@ -1524,62 +1530,13 @@ export default function CrudModal({
             <>
               <div className="grid grid-cols-2 gap-4">
                 <div className="space-y-1">
-                  <label className="text-xs font-bold text-slate-700">Nama Lengkap</label>
+                  <label className="text-xs font-bold text-slate-700">Nama Alumni</label>
                   <input
                     type="text"
                     className="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-slate-900/10 focus:border-slate-400 focus:bg-white transition"
                     value={alumniForm.name}
                     onChange={(e) => setAlumniForm({ ...alumniForm, name: e.target.value })}
-                    placeholder="Contoh: Sarah Azhari"
-                    required
-                  />
-                </div>
-                <div className="space-y-1">
-                  <label className="text-xs font-bold text-slate-700">Angkatan / Lulusan (ID)</label>
-                  <input
-                    type="text"
-                    className="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-slate-900/10 focus:border-slate-400 focus:bg-white transition"
-                    value={alumniForm.class_of}
-                    onChange={(e) => setAlumniForm({ ...alumniForm, class_of: e.target.value })}
-                    placeholder="Contoh: Lulusan 2024"
-                    required
-                  />
-                </div>
-              </div>
-
-              <div className="grid grid-cols-2 gap-4">
-                <div className="space-y-1">
-                  <label className="text-xs font-bold text-slate-700">Angkatan / Lulusan (EN)</label>
-                  <input
-                    type="text"
-                    className="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-slate-900/10 focus:border-slate-400 focus:bg-white transition"
-                    value={alumniForm.class_of_en || ''}
-                    onChange={(e) => setAlumniForm({ ...alumniForm, class_of_en: e.target.value })}
-                    placeholder="Contoh: Class of 2024"
-                  />
-                </div>
-                <div className="space-y-1">
-                  <label className="text-xs font-bold text-slate-700">Pekerjaan / Peran</label>
-                  <input
-                    type="text"
-                    className="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-slate-900/10 focus:border-slate-400 focus:bg-white transition"
-                    value={alumniForm.role}
-                    onChange={(e) => setAlumniForm({ ...alumniForm, role: e.target.value })}
-                    placeholder="Contoh: UI/UX Designer"
-                    required
-                  />
-                </div>
-              </div>
-
-              <div className="grid grid-cols-2 gap-4">
-                <div className="space-y-1">
-                  <label className="text-xs font-bold text-slate-700">Tempat Kerja / Perusahaan</label>
-                  <input
-                    type="text"
-                    className="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-slate-900/10 focus:border-slate-400 focus:bg-white transition"
-                    value={alumniForm.company}
-                    onChange={(e) => setAlumniForm({ ...alumniForm, company: e.target.value })}
-                    placeholder="Contoh: Google"
+                    placeholder="Nama lengkap..."
                     required
                   />
                 </div>
@@ -1595,6 +1552,55 @@ export default function CrudModal({
                 </div>
               </div>
 
+              <div className="grid grid-cols-2 gap-4">
+                <div className="space-y-1">
+                  <label className="text-xs font-bold text-slate-700">Angkatan / Tahun Lulus (ID)</label>
+                  <input
+                    type="text"
+                    className="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-slate-900/10 focus:border-slate-400 focus:bg-white transition"
+                    value={alumniForm.class_of}
+                    onChange={(e) => setAlumniForm({ ...alumniForm, class_of: e.target.value })}
+                    placeholder="Contoh: Angkatan 2018"
+                    required
+                  />
+                </div>
+                <div className="space-y-1">
+                  <label className="text-xs font-bold text-slate-700">Angkatan / Tahun Lulus (EN)</label>
+                  <input
+                    type="text"
+                    className="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-slate-900/10 focus:border-slate-400 focus:bg-white transition"
+                    value={alumniForm.class_of_en || ''}
+                    onChange={(e) => setAlumniForm({ ...alumniForm, class_of_en: e.target.value })}
+                    placeholder="Contoh: Class of 2018"
+                  />
+                </div>
+              </div>
+
+              <div className="grid grid-cols-2 gap-4">
+                <div className="space-y-1">
+                  <label className="text-xs font-bold text-slate-700">Pekerjaan / Peran (Role)</label>
+                  <input
+                    type="text"
+                    className="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-slate-900/10 focus:border-slate-400 focus:bg-white transition"
+                    value={alumniForm.role}
+                    onChange={(e) => setAlumniForm({ ...alumniForm, role: e.target.value })}
+                    placeholder="Contoh: Quality Control Specialist"
+                    required
+                  />
+                </div>
+                <div className="space-y-1">
+                  <label className="text-xs font-bold text-slate-700">Nama Perusahaan / Institusi</label>
+                  <input
+                    type="text"
+                    className="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-slate-900/10 focus:border-slate-400 focus:bg-white transition"
+                    value={alumniForm.company}
+                    onChange={(e) => setAlumniForm({ ...alumniForm, company: e.target.value })}
+                    placeholder="Contoh: PT Indofood CBP"
+                    required
+                  />
+                </div>
+              </div>
+
               <div className="space-y-1">
                 <label className="text-xs font-bold text-slate-700">Kutipan / Testimoni (ID)</label>
                 <textarea
@@ -1602,7 +1608,7 @@ export default function CrudModal({
                   className="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-slate-900/10 focus:border-slate-400 focus:bg-white transition resize-none"
                   value={alumniForm.quote}
                   onChange={(e) => setAlumniForm({ ...alumniForm, quote: e.target.value })}
-                  placeholder="Masukkan kutipan / kisah sukses alumni..."
+                  placeholder="Kutipan pengalaman alumni..."
                   required
                 />
               </div>
@@ -1614,12 +1620,12 @@ export default function CrudModal({
                   className="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-slate-900/10 focus:border-slate-400 focus:bg-white transition resize-none"
                   value={alumniForm.quote_en || ''}
                   onChange={(e) => setAlumniForm({ ...alumniForm, quote_en: e.target.value })}
-                  placeholder="Enter quote in English..."
+                  placeholder="Alumni testimonial in English..."
                 />
               </div>
 
               <div className="space-y-1">
-                <label className="text-xs font-bold text-slate-700 block">Foto Alumni</label>
+                <label className="text-xs font-bold text-slate-700 block">Foto Profil Alumni</label>
                 <div className="flex flex-col sm:flex-row gap-3 items-center">
                   {alumniForm.image_url && (
                     <img src={alumniForm.image_url} className="w-14 h-14 object-cover rounded-xl border border-slate-200 shrink-0 bg-slate-50" alt="Preview" />
@@ -1650,7 +1656,7 @@ export default function CrudModal({
           {/* STATISTIK MABA FORM */}
           {activeTab === 'statistik_maba' && statistikMabaForm && setStatistikMabaForm && (
             <>
-              <div className="grid grid-cols-3 gap-4">
+              <div className="grid grid-cols-2 gap-4">
                 <div className="space-y-1">
                   <label className="text-xs font-bold text-slate-700">Tahun Akademik</label>
                   <input
@@ -1658,7 +1664,7 @@ export default function CrudModal({
                     className="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-slate-900/10 focus:border-slate-400 focus:bg-white transition"
                     value={statistikMabaForm.year}
                     onChange={(e) => setStatistikMabaForm({ ...statistikMabaForm, year: e.target.value })}
-                    placeholder="Contoh: 2025/2026"
+                    placeholder="Contoh: 2024/2025"
                     required
                   />
                 </div>
@@ -1673,21 +1679,21 @@ export default function CrudModal({
                     required
                   />
                 </div>
-                <div className="space-y-1">
-                  <label className="text-xs font-bold text-slate-700">No. Urut (Sort Order)</label>
-                  <input
-                    type="number"
-                    className="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-slate-900/10 focus:border-slate-400 focus:bg-white transition"
-                    value={statistikMabaForm.sort_order}
-                    onChange={(e) => setStatistikMabaForm({ ...statistikMabaForm, sort_order: parseInt(e.target.value) || 0 })}
-                    required
-                  />
-                </div>
+              </div>
+
+              <div className="space-y-1">
+                <label className="text-xs font-bold text-slate-700">No. Urut (Sort Order)</label>
+                <input
+                  type="number"
+                  className="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-slate-900/10 focus:border-slate-400 focus:bg-white transition"
+                  value={statistikMabaForm.sort_order}
+                  onChange={(e) => setStatistikMabaForm({ ...statistikMabaForm, sort_order: parseInt(e.target.value) || 0 })}
+                  required
+                />
               </div>
             </>
           )}
 
-          {/* Modal Actions */}
           <div className="pt-6 border-t border-gray-100 flex justify-end gap-3">
             <button
               type="button"
