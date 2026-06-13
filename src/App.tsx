@@ -898,6 +898,7 @@ export default function App() {
               connectionMode={connectionMode}
               onUpdateContent={handleUpdateSiteContent}
               category="beranda"
+              dosenList={dosenList}
             />
           )}
 
@@ -909,6 +910,7 @@ export default function App() {
               connectionMode={connectionMode}
               onUpdateContent={handleUpdateSiteContent}
               category="visi_misi"
+              dosenList={dosenList}
             />
           )}
 
@@ -920,6 +922,7 @@ export default function App() {
               connectionMode={connectionMode}
               onUpdateContent={handleUpdateSiteContent}
               category="tata_kelola"
+              dosenList={dosenList}
             />
           )}
 

@@ -92,6 +92,22 @@ export const SITE_CONTENT_LABELS: Record<string, LabelConfig> = {
     label: 'Foto Kepala Lab Komputasi',
     desc: 'Foto profil resmi Kepala Laboratorium Komputasi.'
   },
+  gov_upm_name: {
+    label: 'Nama Unit Penjaminan Mutu (UPM)',
+    desc: 'Nama lengkap beserta gelar akademik Penanggung Jawab Unit Penjaminan Mutu.'
+  },
+  gov_upm_role: {
+    label: 'Jabatan Unit Penjaminan Mutu (UPM)',
+    desc: 'Nama jabatan resmi UPM.'
+  },
+  gov_upm_email: {
+    label: 'E-mail Unit Penjaminan Mutu (UPM)',
+    desc: 'Alamat e-mail aktif UPM.'
+  },
+  gov_upm_photo: {
+    label: 'Foto Unit Penjaminan Mutu (UPM)',
+    desc: 'Foto profil resmi Penanggung Jawab UPM.'
+  },
   kurikulum_description: {
     label: 'Deskripsi Kurikulum & CPL',
     desc: 'Penjelasan umum mengenai visi kurikulum, sertifikasi, dan integrasi standar internasional.'

@@ -1,8 +1,15 @@
 import React, { useState } from 'react';
 import { Save, Search, RefreshCw, Upload, Link as LinkIcon, Home, FileText, Users, GraduationCap, BookOpen, Award } from 'lucide-react';
-import { type DbSiteContent } from '../../lib/mockData';
+import { type DbSiteContent, type DbDosen } from '../../lib/mockData';
 import { handleImageUpload } from '../../lib/supabase';
 import { getHumanLabel, getHelpText } from '../../lib/cmsLabels';
+
+const KEY_RELATIONS: Record<string, { photoKey: string; emailKey?: string }> = {
+  kaprodi_name: { photoKey: 'kaprodi_photo_url' },
+  gov_sec_name: { photoKey: 'gov_sec_photo', emailKey: 'gov_sec_email' },
+  gov_lab_name: { photoKey: 'gov_lab_photo', emailKey: 'gov_lab_email' },
+  gov_upm_name: { photoKey: 'gov_upm_photo', emailKey: 'gov_upm_email' }
+};
 
 interface SiteContentTabProps {
   siteContent: DbSiteContent[];
@@ -11,6 +18,7 @@ interface SiteContentTabProps {
   onUpdateContent: (key: string, value: string, valueEn: string | null) => Promise<void>;
   category?: 'beranda' | 'visi_misi' | 'tata_kelola' | 'kurikulum' | 'tugas_akhir' | 'kerjasama';
   hideHeader?: boolean;
+  dosenList?: DbDosen[];
 }
 
 export default function SiteContentTab({
@@ -19,7 +27,8 @@ export default function SiteContentTab({
   connectionMode,
   onUpdateContent,
   category,
-  hideHeader = false
+  hideHeader = false,
+  dosenList = []
 }: SiteContentTabProps) {
   const [searchQuery, setSearchQuery] = useState('');
   const [activeCategory, setActiveCategory] = useState<'beranda' | 'visi_misi' | 'tata_kelola' | 'kurikulum' | 'tugas_akhir' | 'kerjasama'>(category || 'beranda');
@@ -116,6 +125,7 @@ export default function SiteContentTab({
     if (key.startsWith('philosophy_')) return 'Filosofi Pembelajaran';
     if (key.startsWith('gov_sec_')) return 'Sekretaris Program Studi';
     if (key.startsWith('gov_lab_')) return 'Kepala Laboratorium Komputasi';
+    if (key.startsWith('gov_upm_')) return 'Unit Penjaminan Mutu (UPM)';
     if (key.startsWith('visi_misi_')) return 'Visi & Misi Akademik';
     if (key.startsWith('kurikulum_')) return 'Panduan Kurikulum & MBKM';
     if (key.startsWith('tugas_akhir_')) return 'Persyaratan & Timeline Tugas Akhir';
@@ -336,32 +346,71 @@ export default function SiteContentTab({
                                 )}
                               </div>
                             ) : (
-                              <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 w-full">
-                                {/* Indonesian Input */}
-                                <div className="space-y-2">
-                                  <div className="flex items-center gap-2">
-                                    <span className="text-[10px] font-bold px-2 py-0.5 bg-slate-100 rounded text-slate-600 border border-slate-200/50">ID</span>
-                                    <span className="text-xs font-semibold text-slate-600">Bahasa Indonesia</span>
+                              <div className="space-y-4 w-full">
+                                {KEY_RELATIONS[item.key] && dosenList.length > 0 && (
+                                  <div className="p-4 bg-slate-50 border border-slate-200 rounded-xl space-y-2">
+                                    <label className="text-xs font-bold text-slate-700 block">Hubungkan dengan Data Dosen:</label>
+                                    <select
+                                      className="w-full px-3 py-2 bg-white border border-slate-200 rounded-lg text-xs focus:outline-none focus:ring-2 focus:ring-slate-900/10 focus:border-slate-400 transition cursor-pointer"
+                                      value={dosenList.some(d => d.name === vals.id) ? dosenList.find(d => d.name === vals.id)?.name : ''}
+                                      onChange={(e) => {
+                                        const val = e.target.value;
+                                        if (val) {
+                                          const selectedDosen = dosenList.find(d => d.name === val);
+                                          if (selectedDosen) {
+                                            // 1. Update name
+                                            handleInputChange(item.key, 'id', selectedDosen.name);
+                                            handleInputChange(item.key, 'en', selectedDosen.name);
+                                            // 2. Update photo if relation exists
+                                            const rel = KEY_RELATIONS[item.key];
+                                            if (rel && selectedDosen.img_src) {
+                                              handleInputChange(rel.photoKey, 'id', selectedDosen.img_src);
+                                              handleInputChange(rel.photoKey, 'en', selectedDosen.img_src);
+                                            }
+                                          }
+                                        }
+                                      }}
+                                    >
+                                      <option value="">-- Ketik Manual / Non-Dosen --</option>
+                                      {dosenList.map((dosen) => (
+                                        <option key={dosen.id} value={dosen.name}>
+                                          {dosen.name}
+                                        </option>
+                                      ))}
+                                    </select>
+                                    <p className="text-[10px] text-slate-400">
+                                      Memilih dosen akan otomatis memperbarui nama dan foto pimpinan di form ini. Pastikan untuk menekan tombol <b>Simpan</b> pada masing-masing field yang berubah.
+                                    </p>
                                   </div>
-                                  <textarea
-                                    className="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-xl text-xs focus:outline-none focus:ring-2 focus:ring-slate-900/10 focus:border-slate-450 focus:bg-white transition min-h-[90px] leading-relaxed"
-                                    value={vals.id}
-                                    onChange={(e) => handleInputChange(item.key, 'id', e.target.value)}
-                                  />
-                                </div>
+                                )}
 
-                                {/* English Input */}
-                                <div className="space-y-2">
-                                  <div className="flex items-center gap-2">
-                                    <span className="text-[10px] font-bold px-2 py-0.5 bg-indigo-50 rounded text-indigo-600 border border-indigo-100/50">EN</span>
-                                    <span className="text-xs font-semibold text-slate-600">English Translation</span>
+                                <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 w-full">
+                                  {/* Indonesian Input */}
+                                  <div className="space-y-2">
+                                    <div className="flex items-center gap-2">
+                                      <span className="text-[10px] font-bold px-2 py-0.5 bg-slate-100 rounded text-slate-600 border border-slate-200/50">ID</span>
+                                      <span className="text-xs font-semibold text-slate-600">Bahasa Indonesia</span>
+                                    </div>
+                                    <textarea
+                                      className="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-xl text-xs focus:outline-none focus:ring-2 focus:ring-slate-900/10 focus:border-slate-450 focus:bg-white transition min-h-[90px] leading-relaxed"
+                                      value={vals.id}
+                                      onChange={(e) => handleInputChange(item.key, 'id', e.target.value)}
+                                    />
                                   </div>
-                                  <textarea
-                                    className="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-xl text-xs focus:outline-none focus:ring-2 focus:ring-slate-900/10 focus:border-slate-450 focus:bg-white transition min-h-[90px] leading-relaxed"
-                                    value={vals.en}
-                                    onChange={(e) => handleInputChange(item.key, 'en', e.target.value)}
-                                    placeholder="Biarkan kosong untuk menggunakan teks bahasa Indonesia"
-                                  />
+
+                                  {/* English Input */}
+                                  <div className="space-y-2">
+                                    <div className="flex items-center gap-2">
+                                      <span className="text-[10px] font-bold px-2 py-0.5 bg-indigo-50 rounded text-indigo-600 border border-indigo-100/50">EN</span>
+                                      <span className="text-xs font-semibold text-slate-600">English Translation</span>
+                                    </div>
+                                    <textarea
+                                      className="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-xl text-xs focus:outline-none focus:ring-2 focus:ring-slate-900/10 focus:border-slate-450 focus:bg-white transition min-h-[90px] leading-relaxed"
+                                      value={vals.en}
+                                      onChange={(e) => handleInputChange(item.key, 'en', e.target.value)}
+                                      placeholder="Biarkan kosong untuk menggunakan teks bahasa Indonesia"
+                                    />
+                                  </div>
                                 </div>
                               </div>
                             )}

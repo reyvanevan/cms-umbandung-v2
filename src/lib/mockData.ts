@@ -570,6 +570,30 @@ export const initialSiteContent: DbSiteContent[] = [
     updated_at: new Date().toISOString()
   },
   {
+    key: 'gov_upm_name',
+    value: 'Indra Hidayat, S.Ds., M.Sn.',
+    value_en: 'Indra Hidayat, S.Ds., M.Sn.',
+    updated_at: new Date().toISOString()
+  },
+  {
+    key: 'gov_upm_role',
+    value: 'Unit Penjaminan Mutu',
+    value_en: 'Quality Assurance Unit',
+    updated_at: new Date().toISOString()
+  },
+  {
+    key: 'gov_upm_email',
+    value: 'indra.h@umbandung.ac.id',
+    value_en: 'indra.h@umbandung.ac.id',
+    updated_at: new Date().toISOString()
+  },
+  {
+    key: 'gov_upm_photo',
+    value: 'https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?q=80&w=300&auto=format&fit=crop',
+    value_en: 'https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?q=80&w=300&auto=format&fit=crop',
+    updated_at: new Date().toISOString()
+  },
+  {
     key: 'kurikulum_description',
     value: 'Pelajari kurikulum adaptif kami yang dirancang untuk membekali mahasiswa dengan keahlian surface design (batik, ecoprint, shibori), structure design (tenun, anyam, rajut), serta manajemen bisnis fashion.',
     value_en: 'Explore our adaptive curriculum designed to equip students with expertise in surface design (batik, ecoprint, shibori), structure design (weaving, knitting), and fashion business management.',
