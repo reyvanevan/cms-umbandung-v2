@@ -438,6 +438,60 @@ const initialLandingPortfolioItems: DbLandingPortfolioItem[] = [
 
 export const initialSiteContent: DbSiteContent[] = [
   {
+    key: 'footer_email',
+    value: 'kriya@umbandung.ac.id',
+    value_en: 'kriya@umbandung.ac.id',
+    updated_at: new Date().toISOString()
+  },
+  {
+    key: 'footer_phone',
+    value: '+62 812-3456-7890',
+    value_en: '+62 812-3456-7890',
+    updated_at: new Date().toISOString()
+  },
+  {
+    key: 'footer_address',
+    value: 'Gedung K.H. Ahmad Dahlan, Lantai 4, Jl. Soekarno-Hatta No. 752, Bandung 40286',
+    value_en: 'K.H. Ahmad Dahlan Building, 4th Floor, Jl. Soekarno-Hatta No. 752, Bandung 40286',
+    updated_at: new Date().toISOString()
+  },
+  {
+    key: 'footer_work_hours',
+    value: 'Senin - Jumat | 08:00 - 16:00 WIB',
+    value_en: 'Monday - Friday | 08:00 - 16:00 WIB',
+    updated_at: new Date().toISOString()
+  },
+  {
+    key: 'footer_social_instagram',
+    value: 'https://instagram.com/kriya.umbandung',
+    value_en: 'https://instagram.com/kriya.umbandung',
+    updated_at: new Date().toISOString()
+  },
+  {
+    key: 'footer_social_youtube',
+    value: 'https://youtube.com/@kriya.umbandung',
+    value_en: 'https://youtube.com/@kriya.umbandung',
+    updated_at: new Date().toISOString()
+  },
+  {
+    key: 'footer_social_whatsapp',
+    value: '',
+    value_en: '',
+    updated_at: new Date().toISOString()
+  },
+  {
+    key: 'footer_social_linkedin',
+    value: '',
+    value_en: '',
+    updated_at: new Date().toISOString()
+  },
+  {
+    key: 'footer_social_univ',
+    value: 'https://umbandung.ac.id',
+    value_en: 'https://umbandung.ac.id',
+    updated_at: new Date().toISOString()
+  },
+  {
     key: 'hero_title',
     value: 'Kriya Tekstil dan Fashion UMB',
     value_en: 'Textile and Fashion Design UMB',

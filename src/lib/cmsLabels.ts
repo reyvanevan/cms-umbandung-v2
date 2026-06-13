@@ -207,6 +207,42 @@ export const SITE_CONTENT_LABELS: Record<string, LabelConfig> = {
   kerjasama_description: {
     label: 'Deskripsi Kerjasama & Kemitraan',
     desc: 'Kalimat pembuka / pengantar pada halaman direktori kerjasama industri.'
+  },
+  footer_email: {
+    label: 'Footer: E-mail Program Studi',
+    desc: 'Alamat e-mail resmi program studi yang tampil di bagian footer.'
+  },
+  footer_phone: {
+    label: 'Footer: Nomor Telepon / HP',
+    desc: 'Nomor kontak telepon atau WhatsApp helpdesk yang tampil di bagian footer.'
+  },
+  footer_address: {
+    label: 'Footer: Alamat Kantor / Kampus',
+    desc: 'Alamat fisik kantor program studi atau lokasi kampus yang tampil di bagian footer.'
+  },
+  footer_work_hours: {
+    label: 'Footer: Jam Operasional',
+    desc: 'Jam operasional pelayanan program studi (contoh: Senin - Jumat | 08:00 - 16:00 WIB).'
+  },
+  footer_social_instagram: {
+    label: 'Footer: Tautan Instagram',
+    desc: 'Link lengkap ke profil Instagram prodi (contoh: https://instagram.com/nama_akun). Kosongkan atau isi # untuk menyembunyikan.'
+  },
+  footer_social_youtube: {
+    label: 'Footer: Tautan YouTube',
+    desc: 'Link lengkap ke channel YouTube prodi. Kosongkan atau isi # untuk menyembunyikan.'
+  },
+  footer_social_whatsapp: {
+    label: 'Footer: Tautan Grup/Chat WhatsApp',
+    desc: 'Link lengkap ke chat WhatsApp atau grup WhatsApp prodi. Kosongkan atau isi # untuk menyembunyikan.'
+  },
+  footer_social_linkedin: {
+    label: 'Footer: Tautan LinkedIn',
+    desc: 'Link lengkap ke profil LinkedIn prodi. Kosongkan atau isi # untuk menyembunyikan.'
+  },
+  footer_social_univ: {
+    label: 'Footer: Tautan Website Universitas',
+    desc: 'Link lengkap ke website utama universitas.'
   }
 };
 
