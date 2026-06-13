@@ -576,6 +576,12 @@ export const initialSiteContent: DbSiteContent[] = [
     updated_at: new Date().toISOString()
   },
   {
+    key: 'visi_misi_strategies',
+    value: 'Penguatan kelembagaan Program Studi Teknologi Pangan Universitas Muhammadiyah Bandung yang berkarakter Islami.\nPeningkatan kualitas dan kuantitas penelitian serta pengabdian kepada masyarakat yang berfokus pada rekayasa teknologi pangan lokal dan halal.\nMeningkatnya kompetensi lulusan Program Studi Teknologi Pangan sebagai teknopreneur, praktisi, auditor, dan regulator pangan.\nPemantapan sarana dan prasarana laboratorium yang mendukung pembelajaran dan inovasi teknologi pangan.\nPembukaan jaringan kerja sama strategis dengan berbagai pihak.',
+    value_en: 'Institutional strengthening of the Food Technology Study Program at Universitas Muhammadiyah Bandung with Islamic character.\nEnhancing the quality and quantity of research and community services focusing on local and halal food technology engineering.\nImproving graduates\' competencies as food technopreneurs, practitioners, auditors, and regulators.\nConsolidation of laboratory infrastructure and facilities supporting food technology learning and innovation.\nLaunching strategic collaboration networks with various stakeholders.',
+    updated_at: new Date().toISOString()
+  },
+  {
     key: 'gov_sec_name',
     value: 'Dewi Werdayani, S.Pd., M.Pd.',
     value_en: 'Dewi Werdayani, S.Pd., M.Pd.',
