@@ -9,16 +9,26 @@ interface SiteContentTabProps {
   isLoadingData: boolean;
   connectionMode: 'supabase' | 'mock';
   onUpdateContent: (key: string, value: string, valueEn: string | null) => Promise<void>;
+  category?: 'beranda' | 'visi_misi' | 'tata_kelola' | 'kurikulum' | 'tugas_akhir' | 'kerjasama';
+  hideHeader?: boolean;
 }
 
 export default function SiteContentTab({
   siteContent,
   isLoadingData,
   connectionMode,
-  onUpdateContent
+  onUpdateContent,
+  category,
+  hideHeader = false
 }: SiteContentTabProps) {
   const [searchQuery, setSearchQuery] = useState('');
-  const [activeCategory, setActiveCategory] = useState<'beranda' | 'visi_misi' | 'tata_kelola' | 'kurikulum' | 'tugas_akhir' | 'kerjasama'>('beranda');
+  const [activeCategory, setActiveCategory] = useState<'beranda' | 'visi_misi' | 'tata_kelola' | 'kurikulum' | 'tugas_akhir' | 'kerjasama'>(category || 'beranda');
+
+  React.useEffect(() => {
+    if (category) {
+      setActiveCategory(category);
+    }
+  }, [category]);
   const [editValues, setEditValues] = useState<{ [key: string]: { id: string; en: string } }>({});
   const [savingKeys, setSavingKeys] = useState<{ [key: string]: boolean }>({});
   const [uploadingKeys, setUploadingKeys] = useState<{ [key: string]: boolean }>({});
@@ -150,27 +160,29 @@ export default function SiteContentTab({
   return (
     <div className="space-y-6">
       {/* Header Controls */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 bg-white border border-slate-200/80 rounded-2xl p-6 shadow-xs">
-        <div>
-          <h2 className="text-lg font-bold text-slate-900 tracking-tight">Editor Konten Halaman</h2>
-          <p className="text-xs text-slate-500 mt-1">Perbarui teks, gambar, dan media bilingual pada website utama Anda tanpa mengubah kode.</p>
-        </div>
+      {!hideHeader && (
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 bg-white border border-slate-200/80 rounded-2xl p-6 shadow-xs">
+          <div>
+            <h2 className="text-lg font-bold text-slate-900 tracking-tight">Editor Konten Halaman</h2>
+            <p className="text-xs text-slate-500 mt-1">Perbarui teks, gambar, dan media bilingual pada website utama Anda tanpa mengubah kode.</p>
+          </div>
 
-        {/* Search */}
-        <div className="relative w-full sm:max-w-xs">
-          <Search className="absolute left-3 top-2.5 w-4 h-4 text-slate-400" />
-          <input
-            type="text"
-            placeholder="Cari kata kunci atau nama label..."
-            className="w-full pl-9 pr-4 py-2 bg-slate-50 border border-slate-200 rounded-xl text-xs focus:outline-none focus:ring-2 focus:ring-slate-900/10 focus:border-slate-400 focus:bg-white transition"
-            value={searchQuery}
-            onChange={(e) => setSearchQuery(e.target.value)}
-          />
+          {/* Search */}
+          <div className="relative w-full sm:max-w-xs">
+            <Search className="absolute left-3 top-2.5 w-4 h-4 text-slate-400" />
+            <input
+              type="text"
+              placeholder="Cari kata kunci atau nama label..."
+              className="w-full pl-9 pr-4 py-2 bg-slate-50 border border-slate-200 rounded-xl text-xs focus:outline-none focus:ring-2 focus:ring-slate-900/10 focus:border-slate-400 focus:bg-white transition"
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+            />
+          </div>
         </div>
-      </div>
+      )}
 
-      {/* Sub-tabs Category Selector (only visible when not searching) */}
-      {!searchQuery && (
+      {/* Sub-tabs Category Selector (only visible when not searching and no parent category restriction is passed) */}
+      {!category && !searchQuery && (
         <div className="bg-white border border-slate-200/80 rounded-2xl p-4 shadow-xs">
           <p className="text-[10px] font-bold text-slate-400 uppercase tracking-widest mb-3 px-1">Pilih Halaman Yang Ingin Diedit</p>
           <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-2">

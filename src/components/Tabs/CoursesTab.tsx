@@ -1,5 +1,6 @@
 import { Plus, Search, Edit2, Trash2, RefreshCw } from 'lucide-react';
-import { type DbKurikulumCourse } from '../../lib/mockData';
+import { type DbKurikulumCourse, type DbSiteContent } from '../../lib/mockData';
+import SiteContentTab from './SiteContentTab';
 
 interface CoursesTabProps {
   courses: DbKurikulumCourse[];
@@ -9,6 +10,9 @@ interface CoursesTabProps {
   openCreateModal: () => void;
   openEditModal: (item: DbKurikulumCourse) => void;
   openDeleteModal: (id: string) => void;
+  siteContent: DbSiteContent[];
+  connectionMode: 'supabase' | 'mock';
+  onUpdateContent: (key: string, value: string, valueEn: string | null) => Promise<void>;
 }
 
 export default function CoursesTab({
@@ -18,7 +22,10 @@ export default function CoursesTab({
   isLoadingData,
   openCreateModal,
   openEditModal,
-  openDeleteModal
+  openDeleteModal,
+  siteContent,
+  connectionMode,
+  onUpdateContent
 }: CoursesTabProps) {
   const filteredCourses = courses.filter((item) => {
     if (!searchQuery) return true;
@@ -31,7 +38,18 @@ export default function CoursesTab({
   });
 
   return (
-    <div className="bg-white border border-gray-100 rounded-3xl p-6 shadow-sm space-y-6 select-none glass-card">
+    <div className="space-y-6">
+      {/* General Description Editor */}
+      <SiteContentTab
+        siteContent={siteContent}
+        isLoadingData={isLoadingData}
+        connectionMode={connectionMode}
+        onUpdateContent={onUpdateContent}
+        category="kurikulum"
+        hideHeader={true}
+      />
+
+      <div className="bg-white border border-gray-100 rounded-3xl p-6 shadow-sm space-y-6 select-none glass-card">
       {/* Header controls */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         {/* Search */}
@@ -126,5 +144,6 @@ export default function CoursesTab({
         </div>
       )}
     </div>
+  </div>
   );
 }

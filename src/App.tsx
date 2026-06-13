@@ -71,7 +71,9 @@ export type TabType =
   | 'kegiatan_dosen'
   | 'kegiatan_mahasiswa'
   | 'alumni'
-  | 'statistik_maba';
+  | 'statistik_maba'
+  | 'visi_misi'
+  | 'tata_kelola';
 
 export default function App() {
   // --- Auth State ---
@@ -843,6 +845,9 @@ export default function App() {
               openCreateModal={openCreateModal}
               openEditModal={openEditModal}
               openDeleteModal={openDeleteModal}
+              siteContent={siteContents}
+              connectionMode={connectionMode}
+              onUpdateContent={handleUpdateSiteContent}
             />
           )}
 
@@ -892,6 +897,29 @@ export default function App() {
               isLoadingData={isLoadingData}
               connectionMode={connectionMode}
               onUpdateContent={handleUpdateSiteContent}
+              category="beranda"
+            />
+          )}
+
+          {/* VISI & MISI VIEW */}
+          {activeTab === 'visi_misi' && (
+            <SiteContentTab
+              siteContent={siteContents}
+              isLoadingData={isLoadingData}
+              connectionMode={connectionMode}
+              onUpdateContent={handleUpdateSiteContent}
+              category="visi_misi"
+            />
+          )}
+
+          {/* TATA KELOLA VIEW */}
+          {activeTab === 'tata_kelola' && (
+            <SiteContentTab
+              siteContent={siteContents}
+              isLoadingData={isLoadingData}
+              connectionMode={connectionMode}
+              onUpdateContent={handleUpdateSiteContent}
+              category="tata_kelola"
             />
           )}
 
@@ -905,6 +933,9 @@ export default function App() {
               openCreateModal={openCreateModal}
               openEditModal={openEditModal}
               openDeleteModal={openDeleteModal}
+              siteContent={siteContents}
+              connectionMode={connectionMode}
+              onUpdateContent={handleUpdateSiteContent}
             />
           )}
 
@@ -944,6 +975,9 @@ export default function App() {
               openCreateModal={openCreateModal}
               openEditModal={openEditModal}
               openDeleteModal={openDeleteModal}
+              siteContent={siteContents}
+              connectionMode={connectionMode}
+              onUpdateContent={handleUpdateSiteContent}
             />
           )}
 

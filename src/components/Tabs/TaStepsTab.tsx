@@ -1,5 +1,6 @@
 import { Plus, Search, Edit2, Trash2, RefreshCw } from 'lucide-react';
-import { type DbTaStep } from '../../lib/mockData';
+import { type DbTaStep, type DbSiteContent } from '../../lib/mockData';
+import SiteContentTab from './SiteContentTab';
 
 interface TaStepsTabProps {
   steps: DbTaStep[];
@@ -9,6 +10,9 @@ interface TaStepsTabProps {
   openCreateModal: () => void;
   openEditModal: (item: DbTaStep) => void;
   openDeleteModal: (id: string) => void;
+  siteContent: DbSiteContent[];
+  connectionMode: 'supabase' | 'mock';
+  onUpdateContent: (key: string, value: string, valueEn: string | null) => Promise<void>;
 }
 
 export default function TaStepsTab({
@@ -18,7 +22,10 @@ export default function TaStepsTab({
   isLoadingData,
   openCreateModal,
   openEditModal,
-  openDeleteModal
+  openDeleteModal,
+  siteContent,
+  connectionMode,
+  onUpdateContent
 }: TaStepsTabProps) {
   const filteredSteps = steps.filter((item) => {
     if (!searchQuery) return true;
@@ -33,7 +40,18 @@ export default function TaStepsTab({
   });
 
   return (
-    <div className="bg-white border border-gray-100 rounded-3xl p-6 shadow-sm space-y-6 select-none glass-card">
+    <div className="space-y-6">
+      {/* General Description Editor */}
+      <SiteContentTab
+        siteContent={siteContent}
+        isLoadingData={isLoadingData}
+        connectionMode={connectionMode}
+        onUpdateContent={onUpdateContent}
+        category="tugas_akhir"
+        hideHeader={true}
+      />
+
+      <div className="bg-white border border-gray-100 rounded-3xl p-6 shadow-sm space-y-6 select-none glass-card">
       {/* Header controls */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         {/* Search */}
@@ -131,5 +149,6 @@ export default function TaStepsTab({
         </div>
       )}
     </div>
+  </div>
   );
 }

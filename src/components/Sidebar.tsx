@@ -59,7 +59,7 @@ export default function Sidebar({
   const getInitialOpen = () => {
     return {
       beranda: ['dashboard', 'landing_portfolio', 'landing_stats', 'site_content'].includes(activeTab),
-      tentang_kami: ['dosen', 'partners'].includes(activeTab),
+      tentang_kami: ['dosen', 'partners', 'visi_misi', 'tata_kelola'].includes(activeTab),
       akademik: ['kurikulum_courses', 'kurikulum_plos', 'kurikulum_profiles', 'publikasi_dosen', 'tugas_akhir_steps'].includes(activeTab),
       statistik: ['statistik_maba'].includes(activeTab),
       mahasiswa_alumni: ['prestasi', 'testimonials', 'alumni'].includes(activeTab),
@@ -91,6 +91,8 @@ export default function Sidebar({
       label: 'Tentang Kami',
       icon: <Building2 className="w-4 h-4" />,
       items: [
+        { tab: 'visi_misi', label: 'Visi & Misi', icon: <FileText className="w-3.5 h-3.5" /> },
+        { tab: 'tata_kelola', label: 'Tata Kelola & Pimpinan', icon: <Users className="w-3.5 h-3.5" /> },
         { tab: 'dosen', label: 'Dosen & Staff (SDM)', icon: <Users className="w-3.5 h-3.5" /> },
         { tab: 'partners', label: 'Kemitraan Industri', icon: <Building2 className="w-3.5 h-3.5" /> },
       ],
@@ -152,6 +154,8 @@ export default function Sidebar({
     landing_portfolio: 'beranda',
     landing_stats: 'beranda',
     site_content: 'beranda',
+    visi_misi: 'tentang_kami',
+    tata_kelola: 'tentang_kami',
     dosen: 'tentang_kami',
     partners: 'tentang_kami',
     kurikulum_courses: 'akademik',

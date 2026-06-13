@@ -1,5 +1,6 @@
 import { Plus, Search, Edit2, Trash2, RefreshCw } from 'lucide-react';
-import { type DbPartner } from '../../lib/mockData';
+import { type DbPartner, type DbSiteContent } from '../../lib/mockData';
+import SiteContentTab from './SiteContentTab';
 
 interface PartnersTabProps {
   partners: DbPartner[];
@@ -9,6 +10,9 @@ interface PartnersTabProps {
   openCreateModal: () => void;
   openEditModal: (item: DbPartner) => void;
   openDeleteModal: (id: string) => void;
+  siteContent: DbSiteContent[];
+  connectionMode: 'supabase' | 'mock';
+  onUpdateContent: (key: string, value: string, valueEn: string | null) => Promise<void>;
 }
 
 export default function PartnersTab({
@@ -18,7 +22,10 @@ export default function PartnersTab({
   isLoadingData,
   openCreateModal,
   openEditModal,
-  openDeleteModal
+  openDeleteModal,
+  siteContent,
+  connectionMode,
+  onUpdateContent
 }: PartnersTabProps) {
   const filteredPartners = partners.filter((item) => {
     if (!searchQuery) return true;
@@ -27,7 +34,18 @@ export default function PartnersTab({
   });
 
   return (
-    <div className="bg-white border border-gray-100 rounded-3xl p-6 shadow-sm space-y-6 select-none glass-card">
+    <div className="space-y-6">
+      {/* General Description Editor */}
+      <SiteContentTab
+        siteContent={siteContent}
+        isLoadingData={isLoadingData}
+        connectionMode={connectionMode}
+        onUpdateContent={onUpdateContent}
+        category="kerjasama"
+        hideHeader={true}
+      />
+
+      <div className="bg-white border border-gray-100 rounded-3xl p-6 shadow-sm space-y-6 select-none glass-card">
       {/* Header controls */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         {/* Search */}
@@ -105,5 +123,6 @@ export default function PartnersTab({
         </div>
       )}
     </div>
+  </div>
   );
 }
