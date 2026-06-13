@@ -100,6 +100,86 @@ export const SITE_CONTENT_LABELS: Record<string, LabelConfig> = {
     label: 'Deskripsi Magang MBKM',
     desc: 'Penjelasan tata cara konversi kredit dan kemitraan magang industri.'
   },
+  kurikulum_peo_title: {
+    label: 'Judul PEO (Educational Objectives)',
+    desc: 'Judul atau istilah untuk PEO.'
+  },
+  kurikulum_peo_desc: {
+    label: 'Deskripsi PEO (Educational Objectives)',
+    desc: 'Deskripsi kompetensi lulusan dalam jangka panjang (PEO).'
+  },
+  kurikulum_plo_title: {
+    label: 'Judul PLO (Learning Outcomes)',
+    desc: 'Judul atau istilah untuk PLO.'
+  },
+  kurikulum_plo_desc: {
+    label: 'Deskripsi PLO (Learning Outcomes)',
+    desc: 'Deskripsi kompetensi kelulusan mahasiswa saat lulus (PLO).'
+  },
+  kurikulum_facility_1_name: {
+    label: 'Fasilitas 1: Nama Laboratorium/Studio',
+    desc: 'Nama laboratorium/studio pertama program studi.'
+  },
+  kurikulum_facility_1_desc: {
+    label: 'Fasilitas 1: Deskripsi Laboratorium/Studio',
+    desc: 'Deskripsi kegunaan atau alat-alat di laboratorium/studio pertama.'
+  },
+  kurikulum_facility_2_name: {
+    label: 'Fasilitas 2: Nama Laboratorium/Studio',
+    desc: 'Nama laboratorium/studio kedua program studi.'
+  },
+  kurikulum_facility_2_desc: {
+    label: 'Fasilitas 2: Deskripsi Laboratorium/Studio',
+    desc: 'Deskripsi kegunaan atau alat-alat di laboratorium/studio kedua.'
+  },
+  kurikulum_facility_3_name: {
+    label: 'Fasilitas 3: Nama Laboratorium/Studio',
+    desc: 'Nama laboratorium/studio ketiga program studi.'
+  },
+  kurikulum_facility_3_desc: {
+    label: 'Fasilitas 3: Deskripsi Laboratorium/Studio',
+    desc: 'Deskripsi kegunaan atau alat-alat di laboratorium/studio ketiga.'
+  },
+  kurikulum_facility_4_name: {
+    label: 'Fasilitas 4: Nama Laboratorium/Studio',
+    desc: 'Nama laboratorium/studio keempat program studi.'
+  },
+  kurikulum_facility_4_desc: {
+    label: 'Fasilitas 4: Deskripsi Laboratorium/Studio',
+    desc: 'Deskripsi kegunaan atau alat-alat di laboratorium/studio keempat.'
+  },
+  kurikulum_semester_1_2_title: {
+    label: 'Kurikulum: Semester 1-2 Title',
+    desc: 'Judul tahapan pembelajaran semester 1-2.'
+  },
+  kurikulum_semester_1_2_desc: {
+    label: 'Kurikulum: Semester 1-2 Desc',
+    desc: 'Penjelasan umum / daftar mata kuliah utama di semester 1-2.'
+  },
+  kurikulum_semester_3_4_title: {
+    label: 'Kurikulum: Semester 3-4 Title',
+    desc: 'Judul tahapan pembelajaran semester 3-4.'
+  },
+  kurikulum_semester_3_4_desc: {
+    label: 'Kurikulum: Semester 3-4 Desc',
+    desc: 'Penjelasan umum / daftar mata kuliah utama di semester 3-4.'
+  },
+  kurikulum_semester_5_6_title: {
+    label: 'Kurikulum: Semester 5-6 Title',
+    desc: 'Judul tahapan pembelajaran semester 5-6.'
+  },
+  kurikulum_semester_5_6_desc: {
+    label: 'Kurikulum: Semester 5-6 Desc',
+    desc: 'Penjelasan umum / daftar mata kuliah utama di semester 5-6.'
+  },
+  kurikulum_semester_7_8_title: {
+    label: 'Kurikulum: Semester 7-8 Title',
+    desc: 'Judul tahapan pembelajaran semester 7-8.'
+  },
+  kurikulum_semester_7_8_desc: {
+    label: 'Kurikulum: Semester 7-8 Desc',
+    desc: 'Penjelasan umum / daftar mata kuliah utama di semester 7-8.'
+  },
   tugas_akhir_description: {
     label: 'Deskripsi Portal Tugas Akhir',
     desc: 'Kalimat pembuka / pengantar pada portal Tugas Akhir.'
