@@ -504,6 +504,12 @@ export const initialSiteContent: DbSiteContent[] = [
     updated_at: new Date().toISOString()
   },
   {
+    key: 'hero_video_url',
+    value: 'https://www.youtube.com/watch?v=12ER7lJyZOc&feature=youtu.be',
+    value_en: 'https://www.youtube.com/watch?v=12ER7lJyZOc&feature=youtu.be',
+    updated_at: new Date().toISOString()
+  },
+  {
     key: 'kaprodi_welcome',
     value: 'Selamat datang di portal resmi Program Studi S1 Teknologi Pangan Universitas Muhammadiyah Bandung. Kami berkomitmen untuk menghasilkan lulusan yang unggul, profesional, dan berjiwa wirausaha di bidang teknologi pengolahan pangan, keamanan pangan, serta jaminan produk halal.',
     value_en: 'Welcome to the official portal of the S1 Program in Food Technology at Universitas Muhammadiyah Bandung. We are committed to shaping graduates who are excellent, professional, and entrepreneurial in food processing technology, food safety, and halal product assurance.',
