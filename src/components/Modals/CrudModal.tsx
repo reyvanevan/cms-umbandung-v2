@@ -758,6 +758,17 @@ export default function CrudModal({
               </div>
 
               <div className="space-y-1">
+                <label className="text-xs font-bold text-slate-700">Link File RPS (Google Drive / Direct Link)</label>
+                <input
+                  type="text"
+                  className="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-slate-900/10 focus:border-slate-400 focus:bg-white transition"
+                  value={courseForm.rps_url || ''}
+                  onChange={(e) => setCourseForm({ ...courseForm, rps_url: e.target.value })}
+                  placeholder="Masukkan link unduhan langsung atau link sharing Google Drive..."
+                />
+              </div>
+
+              <div className="space-y-1">
                 <label className="text-xs font-bold text-slate-700">No. Urut (Sort Order)</label>
                 <input
                   type="number"

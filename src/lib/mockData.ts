@@ -92,6 +92,7 @@ export interface DbKurikulumCourse {
   name_en: string | null;
   credits: number;
   sort_order: number;
+  rps_url?: string | null;
   created_at: string;
 }
 

@@ -148,7 +148,7 @@ export default function App() {
   });
 
   const [courseForm, setCourseForm] = useState<Omit<DbKurikulumCourse, 'id' | 'created_at'>>({
-    semester: 'I', name: '', name_en: '', credits: 2, sort_order: 0
+    semester: 'I', name: '', name_en: '', credits: 2, sort_order: 0, rps_url: ''
   });
 
   const [ploForm, setPloForm] = useState<Omit<DbKurikulumPlo, 'id' | 'created_at'>>({
@@ -584,7 +584,7 @@ export default function App() {
     setStatForm({ number: '', label: '', label_en: '', sort_order: landingStats.length + 1 });
     setPortfolioForm({ image: '', title: '', medium: '', technique: '', year: '', gridClass: 'col-span-1', sort_order: landingPortfolioItems.length + 1 });
     setDosenForm({ name: '', img_src: '', scopus: '', sinta: '', scholar: '', facebook: '', twitter: '', tiktok: '', instagram: '', sort_order: dosenList.length + 1 });
-    setCourseForm({ semester: 'I', name: '', name_en: '', credits: 2, sort_order: courses.length + 1 });
+    setCourseForm({ semester: 'I', name: '', name_en: '', credits: 2, sort_order: courses.length + 1, rps_url: '' });
     setPloForm({ code: '', type: '', type_en: '', text: '', text_en: '', sort_order: plos.length + 1 });
     setProfileForm({ title: '', title_en: '', desc: '', desc_en: '', sort_order: profiles.length + 1 });
     setStepForm({ num: '', title: '', title_en: '', desc: '', desc_en: '', sort_order: steps.length + 1 });
@@ -667,7 +667,8 @@ export default function App() {
         name: item.name,
         name_en: item.name_en || '',
         credits: item.credits,
-        sort_order: item.sort_order
+        sort_order: item.sort_order,
+        rps_url: item.rps_url || ''
       });
     } else if (activeTab === 'kurikulum_plos') {
       setPloForm({
