@@ -636,6 +636,126 @@ export const initialSiteContent: DbSiteContent[] = [
     updated_at: new Date().toISOString()
   },
   {
+    key: 'kurikulum_peo_title',
+    value: 'Program Educational Objectives (PEO)',
+    value_en: 'Program Educational Objectives (PEO)',
+    updated_at: new Date().toISOString()
+  },
+  {
+    key: 'kurikulum_peo_desc',
+    value: 'Menghasilkan sarjana Teknologi Pangan yang memiliki kompetensi unggul dalam pengolahan, pengawasan mutu, dan pengembangan produk pangan berbasis sumber daya lokal dengan semangat kewirausahaan.',
+    value_en: 'To produce graduates of Food Technology program who possess high competency in food processing, quality control, and food product development based on local resources with entrepreneurial spirit.',
+    updated_at: new Date().toISOString()
+  },
+  {
+    key: 'kurikulum_plo_title',
+    value: 'Program Learning Outcomes (PLO)',
+    value_en: 'Program Learning Outcomes (PLO)',
+    updated_at: new Date().toISOString()
+  },
+  {
+    key: 'kurikulum_plo_desc',
+    value: 'Lulusan mampu menerapkan prinsip sains dan teknologi pangan untuk memecahkan masalah dalam sistem pangan secara berkelanjutan serta mengelola proses produksi pangan yang aman dan halal.',
+    value_en: 'Graduates are capable of applying food science and technology principles to solve problems in food systems sustainably and managing safe and halal food production processes.',
+    updated_at: new Date().toISOString()
+  },
+  {
+    key: 'kurikulum_facility_1_name',
+    value: 'Lab Kimia & Biokimia Pangan',
+    value_en: 'Food Chemistry & Biochemistry Lab',
+    updated_at: new Date().toISOString()
+  },
+  {
+    key: 'kurikulum_facility_1_desc',
+    value: 'Fasilitas pengujian kandungan kimia, analisis gizi, dan karakteristik biokimia bahan pangan.',
+    value_en: 'Facilities for chemical content testing, nutritional analysis, and biochemical characterization of food ingredients.',
+    updated_at: new Date().toISOString()
+  },
+  {
+    key: 'kurikulum_facility_2_name',
+    value: 'Lab Mikrobiologi & Keamanan Pangan',
+    value_en: 'Food Microbiology & Safety Lab',
+    updated_at: new Date().toISOString()
+  },
+  {
+    key: 'kurikulum_facility_2_desc',
+    value: 'Laboratorium untuk analisis cemaran mikroba, fermentasi makanan, serta pengujian keamanan pangan.',
+    value_en: 'Laboratory for microbial contamination analysis, food fermentation, and food safety testing.',
+    updated_at: new Date().toISOString()
+  },
+  {
+    key: 'kurikulum_facility_3_name',
+    value: 'Lab Sensoris & Pengembangan Produk',
+    value_en: 'Sensory & Product Development Lab',
+    updated_at: new Date().toISOString()
+  },
+  {
+    key: 'kurikulum_facility_3_desc',
+    value: 'Ruang uji organoleptik dengan bilik sensoris terstandar untuk pengujian rasa, aroma, warna, dan tekstur.',
+    value_en: 'Organoleptic test room with standardized sensory booths for testing taste, aroma, color, and texture.',
+    updated_at: new Date().toISOString()
+  },
+  {
+    key: 'kurikulum_facility_4_name',
+    value: 'Pilot Plant Pengolahan Pangan',
+    value_en: 'Food Processing Pilot Plant',
+    updated_at: new Date().toISOString()
+  },
+  {
+    key: 'kurikulum_facility_4_desc',
+    value: 'Fasilitas pengolahan pangan semi-industri dilengkapi dengan alat pasteurisasi, pengeringan, dan pengemasan.',
+    value_en: 'Semi-industrial food processing facility equipped with pasteurization, drying, and packaging tools.',
+    updated_at: new Date().toISOString()
+  },
+  {
+    key: 'kurikulum_semester_1_2_title',
+    value: 'Semester 1-2: Sains Dasar Pangan',
+    value_en: 'Semesters 1-2: Basic Food Science',
+    updated_at: new Date().toISOString()
+  },
+  {
+    key: 'kurikulum_semester_1_2_desc',
+    value: 'Pengantar Teknologi Pangan, Kimia Dasar, Biologi Sel, Fisika Dasar, Matematika, dan Mikrobiologi Dasar.',
+    value_en: 'Introduction to Food Technology, General Chemistry, Cell Biology, General Physics, and Basic Microbiology.',
+    updated_at: new Date().toISOString()
+  },
+  {
+    key: 'kurikulum_semester_3_4_title',
+    value: 'Semester 3-4: Kimia & Analisis Pangan',
+    value_en: 'Semesters 3-4: Chemistry & Analysis',
+    updated_at: new Date().toISOString()
+  },
+  {
+    key: 'kurikulum_semester_3_4_desc',
+    value: 'Kimia Pangan, Mikrobiologi Pangan, Analisis Pangan, Satuan Operasi Industri Pangan, dan Biokimia Pangan.',
+    value_en: 'Food Chemistry, Food Microbiology, Food Analysis, Unit Operations, and Food Biochemistry.',
+    updated_at: new Date().toISOString()
+  },
+  {
+    key: 'kurikulum_semester_5_6_title',
+    value: 'Semester 5-6: Pengolahan & Pengemasan',
+    value_en: 'Semesters 5-6: Processing & Packaging',
+    updated_at: new Date().toISOString()
+  },
+  {
+    key: 'kurikulum_semester_5_6_desc',
+    value: 'Teknologi Pengolahan Pangan, Keamanan & Sanitasi Pangan, Evaluasi Sensoris, Pengemasan Pangan, dan Magang Industri.',
+    value_en: 'Food Processing Technology, Food Safety & Sanitation, Sensory Evaluation, and Industrial Internship Programs.',
+    updated_at: new Date().toISOString()
+  },
+  {
+    key: 'kurikulum_semester_7_8_title',
+    value: 'Semester 7-8: Penjaminan Mutu & Capstone',
+    value_en: 'Semesters 7-8: Quality & Capstone',
+    updated_at: new Date().toISOString()
+  },
+  {
+    key: 'kurikulum_semester_7_8_desc',
+    value: 'Jaminan Mutu Pangan, Perancangan Pabrik Pangan, Kewirausahaan Pangan, Seminar, dan Sidang Tugas Akhir.',
+    value_en: 'Food Quality Assurance, Food Plant Design, Food Entrepreneurship, Seminar, and Thesis Defense.',
+    updated_at: new Date().toISOString()
+  },
+  {
     key: 'tugas_akhir_description',
     value: 'Akses panduan akademik, persyaratan kelayakan, alur pengajuan proposal penelitian pangan, serta template Tugas Akhir (Skripsi/Karya Mandiri).',
     value_en: 'Access academic guidelines, prerequisites, research proposals, and templates required to complete your final project (Thesis/Research).',
