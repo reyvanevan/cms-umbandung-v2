@@ -265,9 +265,19 @@ export default function App() {
       } else if (activeTab === 'testimonials') {
         setTestimonials(await dataService.getTestimonials());
       } else if (activeTab === 'partners') {
-        setPartners(await dataService.getPartners());
-      } else if (activeTab === 'site_content') {
-        setSiteContents(await dataService.getSiteContent());
+        const [partList, contentList] = await Promise.all([
+          dataService.getPartners(),
+          dataService.getSiteContent()
+        ]);
+        setPartners(partList);
+        setSiteContents(contentList);
+      } else if (activeTab === 'site_content' || activeTab === 'visi_misi' || activeTab === 'tata_kelola') {
+        const [contentList, dList] = await Promise.all([
+          dataService.getSiteContent(),
+          dataService.getDosen()
+        ]);
+        setSiteContents(contentList);
+        setDosenList(dList);
       } else if (activeTab === 'landing_stats') {
         setLandingStats(await dataService.getLandingStats());
       } else if (activeTab === 'landing_portfolio') {
@@ -275,13 +285,23 @@ export default function App() {
       } else if (activeTab === 'dosen') {
         setDosenList(await dataService.getDosen());
       } else if (activeTab === 'kurikulum_courses') {
-        setCourses(await dataService.getKurikulumCourses());
+        const [courseList, contentList] = await Promise.all([
+          dataService.getKurikulumCourses(),
+          dataService.getSiteContent()
+        ]);
+        setCourses(courseList);
+        setSiteContents(contentList);
       } else if (activeTab === 'kurikulum_plos') {
         setPlos(await dataService.getKurikulumPlos());
       } else if (activeTab === 'kurikulum_profiles') {
         setProfiles(await dataService.getKurikulumProfiles());
       } else if (activeTab === 'tugas_akhir_steps') {
-        setSteps(await dataService.getTaSteps());
+        const [stepList, contentList] = await Promise.all([
+          dataService.getTaSteps(),
+          dataService.getSiteContent()
+        ]);
+        setSteps(stepList);
+        setSiteContents(contentList);
       } else if (activeTab === 'prestasi') {
         setPrestasiList(await dataService.getPrestasi());
       } else if (activeTab === 'publikasi_dosen') {
