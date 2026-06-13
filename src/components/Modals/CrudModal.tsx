@@ -718,6 +718,7 @@ export default function CrudModal({
                     <option value="VI">Semester VI</option>
                     <option value="VII">Semester VII</option>
                     <option value="VIII">Semester VIII</option>
+                    <option value="Pilihan">Mata Kuliah Pilihan</option>
                   </select>
                 </div>
                 <div className="space-y-1">
