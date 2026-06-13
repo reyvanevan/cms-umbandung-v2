@@ -105,13 +105,16 @@ export default function SiteContentTab({
       const rel = KEY_RELATIONS[key];
       if (rel) {
         const promises: Promise<any>[] = [];
-        if (rel.photoKey && editValues[rel.photoKey]) {
-          const photoVals = editValues[rel.photoKey];
-          promises.push(onUpdateContent(rel.photoKey, photoVals.id, photoVals.en || null));
+        const linkedDosen = dosenList.find(d => d.name === vals.id);
+
+        if (rel.photoKey) {
+          const photoVals = editValues[rel.photoKey] || { id: '', en: '' };
+          const photoVal = (linkedDosen && linkedDosen.img_src) ? linkedDosen.img_src : photoVals.id;
+          promises.push(onUpdateContent(rel.photoKey, photoVal, photoVal || null));
         }
-        if (rel.emailKey && editValues[rel.emailKey]) {
-          const emailVals = editValues[rel.emailKey];
-          promises.push(onUpdateContent(rel.emailKey, emailVals.id, emailVals.en || null));
+        if (rel.emailKey) {
+          const emailVals = editValues[rel.emailKey] || { id: '', en: '' };
+          promises.push(onUpdateContent(rel.emailKey, emailVals.id, emailVals.id || null));
         }
         if (promises.length > 0) {
           await Promise.all(promises);
@@ -319,8 +322,8 @@ export default function SiteContentTab({
                               <div className="space-y-4">
                                 {linkedDosen ? (
                                   <div className="flex flex-col md:flex-row gap-4 items-center bg-indigo-50/50 p-4 border border-indigo-150 rounded-xl">
-                                    {vals.id && (
-                                      <img src={vals.id} className="w-24 h-24 object-cover rounded-xl border border-indigo-200 shrink-0 bg-white shadow-xs" alt="Preview" />
+                                    {(linkedDosen.img_src || vals.id) && (
+                                      <img src={linkedDosen.img_src || vals.id} className="w-24 h-24 object-cover rounded-xl border border-indigo-200 shrink-0 bg-white shadow-xs" alt="Preview" />
                                     )}
                                     <div className="flex-1 w-full">
                                       <p className="text-xs font-bold text-indigo-900 mb-1">
