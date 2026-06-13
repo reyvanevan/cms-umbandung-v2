@@ -7,7 +7,6 @@ import { getHumanLabel, getHelpText } from '../../lib/cmsLabels';
 const KEY_RELATIONS: Record<string, { photoKey: string; emailKey?: string }> = {
   kaprodi_name: { photoKey: 'kaprodi_photo_url' },
   gov_sec_name: { photoKey: 'gov_sec_photo', emailKey: 'gov_sec_email' },
-  gov_lab_name: { photoKey: 'gov_lab_photo', emailKey: 'gov_lab_email' },
   gov_upm_name: { photoKey: 'gov_upm_photo', emailKey: 'gov_upm_email' }
 };
 
@@ -143,7 +142,6 @@ export default function SiteContentTab({
     if (key.startsWith('footer_')) return 'Informasi Kontak & Sosial Media (Footer)';
     if (key.startsWith('info_singkat_')) return 'Informasi Singkat Landing Page';
     if (key.startsWith('gov_sec_')) return 'Sekretaris Program Studi';
-    if (key.startsWith('gov_lab_')) return 'Kepala Laboratorium Komputasi';
     if (key.startsWith('gov_upm_')) return 'Unit Penjaminan Mutu (UPM)';
     if (key.startsWith('visi_misi_')) return 'Visi & Misi Akademik';
     if (key.startsWith('kurikulum_')) return 'Panduan Kurikulum & MBKM';

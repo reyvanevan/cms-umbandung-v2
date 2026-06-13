@@ -76,22 +76,6 @@ export const SITE_CONTENT_LABELS: Record<string, LabelConfig> = {
     label: 'Foto Sekretaris Program Studi',
     desc: 'Foto profil resmi Sekretaris Prodi.'
   },
-  gov_lab_name: {
-    label: 'Nama Kepala Lab Komputasi',
-    desc: 'Nama lengkap beserta gelar akademik Kepala Laboratorium.'
-  },
-  gov_lab_role: {
-    label: 'Jabatan Kepala Lab Komputasi',
-    desc: 'Nama jabatan resmi untuk Kepala Lab.'
-  },
-  gov_lab_email: {
-    label: 'E-mail Kepala Lab Komputasi',
-    desc: 'Alamat e-mail aktif Kepala Lab Komputasi.'
-  },
-  gov_lab_photo: {
-    label: 'Foto Kepala Lab Komputasi',
-    desc: 'Foto profil resmi Kepala Laboratorium Komputasi.'
-  },
   gov_upm_name: {
     label: 'Nama Unit Penjaminan Mutu (UPM)',
     desc: 'Nama lengkap beserta gelar akademik Penanggung Jawab Unit Penjaminan Mutu.'

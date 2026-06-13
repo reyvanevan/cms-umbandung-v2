@@ -600,30 +600,6 @@ export const initialSiteContent: DbSiteContent[] = [
     updated_at: new Date().toISOString()
   },
   {
-    key: 'gov_lab_name',
-    value: 'Ghaida Nasya Putri, S.Ds., M.Ds.',
-    value_en: 'Ghaida Nasya Putri, S.Ds., M.Ds.',
-    updated_at: new Date().toISOString()
-  },
-  {
-    key: 'gov_lab_role',
-    value: 'Kepala Laboratorium Kriya & Desain',
-    value_en: 'Head of Craft & Design Laboratories',
-    updated_at: new Date().toISOString()
-  },
-  {
-    key: 'gov_lab_email',
-    value: 'ghaida.np@umbandung.ac.id',
-    value_en: 'ghaida.np@umbandung.ac.id',
-    updated_at: new Date().toISOString()
-  },
-  {
-    key: 'gov_lab_photo',
-    value: 'https://images.unsplash.com/photo-1560250097-0b93528c311a?q=80&w=300&auto=format&fit=crop',
-    value_en: 'https://images.unsplash.com/photo-1560250097-0b93528c311a?q=80&w=300&auto=format&fit=crop',
-    updated_at: new Date().toISOString()
-  },
-  {
     key: 'gov_upm_name',
     value: 'Indra Hidayat, S.Ds., M.Sn.',
     value_en: 'Indra Hidayat, S.Ds., M.Sn.',
