@@ -64,6 +64,10 @@ export const SITE_CONTENT_LABELS: Record<string, LabelConfig> = {
     label: 'Isi Filosofi Pembelajaran',
     desc: 'Penjelasan lengkap atau narasi dari filosofi pembelajaran program studi.'
   },
+  philosophy_img_url: {
+    label: 'Gambar Filosofi Pembelajaran (URL)',
+    desc: 'Tautan atau nama file gambar ilustrasi di samping kutipan filosofi pembelajaran.'
+  },
   visi_misi_vision: {
     label: 'Visi Program Studi',
     desc: 'Rumusan Visi utama Program Studi Teknik Informatika.'
