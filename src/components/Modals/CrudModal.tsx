@@ -588,6 +588,31 @@ export default function CrudModal({
                   />
                 </div>
                 <div className="space-y-1">
+                  <label className="text-xs font-bold text-slate-700">Kategori</label>
+                  <select
+                    className="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-slate-900/10 focus:border-slate-400 focus:bg-white transition"
+                    value={dosenForm.category || 'dosen'}
+                    onChange={(e) => setDosenForm({ ...dosenForm, category: e.target.value as any })}
+                    required
+                  >
+                    <option value="dosen">Dosen / Tenaga Pengajar</option>
+                    <option value="karyawan_laboran">Karyawan & Laboran</option>
+                  </select>
+                </div>
+              </div>
+
+              <div className="grid grid-cols-3 gap-4">
+                <div className="space-y-1 col-span-2">
+                  <label className="text-xs font-bold text-slate-700">Peran / Jabatan (Bahasa Indonesia)</label>
+                  <input
+                    type="text"
+                    placeholder="contoh: Dosen Lektor / Laboran Kimia / Tendik Administrasi"
+                    className="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-slate-900/10 focus:border-slate-400 focus:bg-white transition"
+                    value={dosenForm.role || ''}
+                    onChange={(e) => setDosenForm({ ...dosenForm, role: e.target.value })}
+                  />
+                </div>
+                <div className="space-y-1">
                   <label className="text-xs font-bold text-slate-700">Urutan Tampilan</label>
                   <input
                     type="number"
@@ -598,35 +623,50 @@ export default function CrudModal({
                   />
                 </div>
               </div>
-              <div className="grid grid-cols-3 gap-4">
-                <div className="space-y-1">
-                  <label className="text-xs font-bold text-slate-700">ID Scopus</label>
-                  <input
-                    type="text"
-                    className="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-slate-900/10 focus:border-slate-400 focus:bg-white transition"
-                    value={dosenForm.scopus || ''}
-                    onChange={(e) => setDosenForm({ ...dosenForm, scopus: e.target.value })}
-                  />
-                </div>
-                <div className="space-y-1">
-                  <label className="text-xs font-bold text-slate-700">ID Sinta</label>
-                  <input
-                    type="text"
-                    className="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-slate-900/10 focus:border-slate-400 focus:bg-white transition"
-                    value={dosenForm.sinta || ''}
-                    onChange={(e) => setDosenForm({ ...dosenForm, sinta: e.target.value })}
-                  />
-                </div>
-                <div className="space-y-1">
-                  <label className="text-xs font-bold text-slate-700">ID Scholar</label>
-                  <input
-                    type="text"
-                    className="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-slate-900/10 focus:border-slate-400 focus:bg-white transition"
-                    value={dosenForm.scholar || ''}
-                    onChange={(e) => setDosenForm({ ...dosenForm, scholar: e.target.value })}
-                  />
-                </div>
+
+              <div className="space-y-1">
+                <label className="text-xs font-bold text-slate-700">Peran / Jabatan (English)</label>
+                <input
+                  type="text"
+                  placeholder="e.g. Lecturer / Chemistry Lab Technician / Administrative Staff"
+                  className="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-slate-900/10 focus:border-slate-400 focus:bg-white transition"
+                  value={dosenForm.role_en || ''}
+                  onChange={(e) => setDosenForm({ ...dosenForm, role_en: e.target.value })}
+                />
               </div>
+
+              {dosenForm.category === 'dosen' && (
+                <div className="grid grid-cols-3 gap-4 border border-dashed border-slate-200 rounded-2xl p-4 bg-slate-50/50">
+                  <div className="space-y-1">
+                    <label className="text-xs font-bold text-slate-700">ID Scopus</label>
+                    <input
+                      type="text"
+                      className="w-full px-4 py-2.5 bg-white border border-slate-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-slate-900/10 focus:border-slate-400 transition"
+                      value={dosenForm.scopus || ''}
+                      onChange={(e) => setDosenForm({ ...dosenForm, scopus: e.target.value })}
+                    />
+                  </div>
+                  <div className="space-y-1">
+                    <label className="text-xs font-bold text-slate-700">ID Sinta</label>
+                    <input
+                      type="text"
+                      className="w-full px-4 py-2.5 bg-white border border-slate-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-slate-900/10 focus:border-slate-400 transition"
+                      value={dosenForm.sinta || ''}
+                      onChange={(e) => setDosenForm({ ...dosenForm, sinta: e.target.value })}
+                    />
+                  </div>
+                  <div className="space-y-1">
+                    <label className="text-xs font-bold text-slate-700">ID Scholar</label>
+                    <input
+                      type="text"
+                      className="w-full px-4 py-2.5 bg-white border border-slate-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-slate-900/10 focus:border-slate-400 transition"
+                      value={dosenForm.scholar || ''}
+                      onChange={(e) => setDosenForm({ ...dosenForm, scholar: e.target.value })}
+                    />
+                  </div>
+                </div>
+              )}
+
               <div className="grid grid-cols-2 gap-4">
                 <div className="space-y-1">
                   <label className="text-xs font-bold text-slate-700">Facebook URL</label>
@@ -668,7 +708,7 @@ export default function CrudModal({
                 </div>
               </div>
               <div className="space-y-1">
-                <label className="text-xs font-bold text-slate-700 block">Foto Dosen</label>
+                <label className="text-xs font-bold text-slate-700 block">Foto Profil</label>
                 <div className="flex flex-col sm:flex-row gap-3 items-center">
                   {dosenForm.img_src && (
                     <img src={dosenForm.img_src} className="w-14 h-14 object-cover rounded-xl border border-slate-200 shrink-0 bg-slate-50" alt="Preview" />
@@ -691,7 +731,6 @@ export default function CrudModal({
                     />
                   </div>
                 </div>
-                {isUploading && <p className="text-[10px] text-slate-500 animate-pulse">Mengunggah gambar...</p>}
                 {isUploading && <p className="text-[10px] text-slate-500 animate-pulse">Mengunggah gambar...</p>}
                 {uploadError && <p className="text-[10px] text-red-500 font-semibold">{uploadError}</p>}
               </div>

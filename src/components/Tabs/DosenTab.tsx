@@ -48,7 +48,7 @@ export default function DosenTab({
           className="px-4 py-2 bg-black hover:bg-gray-900 text-white rounded-xl text-xs font-semibold flex items-center justify-center gap-1.5 shadow-md shadow-gray-200/50 transition cursor-pointer self-start sm:self-auto"
         >
           <Plus className="w-4 h-4" />
-          <span>Tambah Dosen</span>
+          <span>Tambah Dosen & Staff</span>
         </button>
       </div>
 
@@ -56,7 +56,7 @@ export default function DosenTab({
       {isLoadingData ? (
         <div className="py-20 flex flex-col items-center justify-center gap-3 text-gray-400">
           <RefreshCw className="w-8 h-8 animate-spin text-black" />
-          <p className="text-sm">Memuat data dosen...</p>
+          <p className="text-sm">Memuat data dosen & staff...</p>
         </div>
       ) : (
         <div className="overflow-x-auto border border-gray-100 rounded-2xl">
@@ -65,6 +65,8 @@ export default function DosenTab({
               <tr className="bg-gray-50 border-b border-gray-100 text-gray-500 font-semibold text-xs uppercase tracking-wider">
                 <th className="p-4" style={{ width: '80px' }}>Foto</th>
                 <th className="p-4">Nama Lengkap & Gelar</th>
+                <th className="p-4">Kategori</th>
+                <th className="p-4">Peran / Jabatan</th>
                 <th className="p-4">Scopus</th>
                 <th className="p-4">Sinta</th>
                 <th className="p-4">Scholar</th>
@@ -85,14 +87,24 @@ export default function DosenTab({
                   <td className="p-4 font-semibold text-gray-950 text-sm">
                     {item.name}
                   </td>
-                  <td className="p-4 text-xs font-mono text-gray-500">
-                    {item.scopus || '-'}
+                  <td className="p-4">
+                    <span className={`inline-flex items-center px-2 py-0.5 rounded-full text-xs font-semibold ${
+                      item.category === 'dosen' ? 'bg-blue-50 text-blue-700' : 'bg-amber-50 text-amber-700'
+                    }`}>
+                      {item.category === 'dosen' ? 'Dosen' : 'Karyawan / Laboran'}
+                    </span>
+                  </td>
+                  <td className="p-4 text-xs font-medium text-gray-600">
+                    {item.role || '-'}
                   </td>
                   <td className="p-4 text-xs font-mono text-gray-500">
-                    {item.sinta || '-'}
+                    {item.category === 'dosen' ? (item.scopus || '-') : '-'}
+                  </td>
+                  <td className="p-4 text-xs font-mono text-gray-500">
+                    {item.category === 'dosen' ? (item.sinta || '-') : '-'}
                   </td>
                   <td className="p-4 text-xs font-mono text-gray-500 truncate max-w-[120px]">
-                    {item.scholar || '-'}
+                    {item.category === 'dosen' ? (item.scholar || '-') : '-'}
                   </td>
                   <td className="p-4 text-xs font-semibold text-gray-900">
                     {item.sort_order}
@@ -102,14 +114,14 @@ export default function DosenTab({
                       <button
                         onClick={() => openEditModal(item)}
                         className="p-1.5 hover:bg-gray-100 rounded-lg text-gray-500 hover:text-gray-950 transition cursor-pointer"
-                        title="Edit Dosen"
+                        title="Edit Dosen/Staff"
                       >
                         <Edit2 className="w-4 h-4" />
                       </button>
                       <button
                         onClick={() => openDeleteModal(item.id)}
                         className="p-1.5 hover:bg-red-50 rounded-lg text-gray-400 hover:text-red-600 transition cursor-pointer"
-                        title="Hapus Dosen"
+                        title="Hapus Dosen/Staff"
                       >
                         <Trash2 className="w-4 h-4" />
                       </button>
@@ -119,8 +131,8 @@ export default function DosenTab({
               ))}
               {filteredDosen.length === 0 && (
                 <tr>
-                  <td colSpan={7} className="p-8 text-center text-gray-400 text-sm">
-                    Tidak ada data dosen ditemukan.
+                  <td colSpan={9} className="p-8 text-center text-gray-400 text-sm">
+                    Tidak ada data dosen & staff ditemukan.
                   </td>
                 </tr>
               )}

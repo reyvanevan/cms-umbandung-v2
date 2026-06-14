@@ -81,6 +81,9 @@ export interface DbDosen {
   twitter: string | null;
   tiktok: string | null;
   instagram: string | null;
+  category: 'dosen' | 'karyawan_laboran';
+  role: string | null;
+  role_en: string | null;
   sort_order: number;
   created_at: string;
 }
@@ -222,6 +225,9 @@ const initialDosen: DbDosen[] = [
     twitter: '#',
     tiktok: '#',
     instagram: '#',
+    category: 'dosen',
+    role: 'Dosen Utama',
+    role_en: 'Senior Lecturer',
     sort_order: 1,
     created_at: new Date().toISOString()
   },
@@ -236,6 +242,9 @@ const initialDosen: DbDosen[] = [
     twitter: '#',
     tiktok: '#',
     instagram: '#',
+    category: 'dosen',
+    role: 'Dosen Utama',
+    role_en: 'Senior Lecturer',
     sort_order: 2,
     created_at: new Date().toISOString()
   },
@@ -250,7 +259,27 @@ const initialDosen: DbDosen[] = [
     twitter: '#',
     tiktok: '#',
     instagram: '#',
+    category: 'dosen',
+    role: 'Dosen Lektor',
+    role_en: 'Lecturer',
     sort_order: 3,
+    created_at: new Date().toISOString()
+  },
+  {
+    id: 'staff-1',
+    name: 'Asep Setiawan, A.Md.',
+    img_src: 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?q=80&w=300&auto=format&fit=crop',
+    scopus: '-',
+    sinta: '-',
+    scholar: '-',
+    facebook: '#',
+    twitter: '#',
+    tiktok: '#',
+    instagram: '#',
+    category: 'karyawan_laboran',
+    role: 'Laboran Teknologi Pangan',
+    role_en: 'Food Technology Lab Assistant',
+    sort_order: 4,
     created_at: new Date().toISOString()
   }
 ];
