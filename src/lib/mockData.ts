@@ -84,6 +84,8 @@ export interface DbDosen {
   category: 'dosen' | 'karyawan_laboran';
   role: string | null;
   role_en: string | null;
+  expertise: string | null;
+  expertise_en: string | null;
   sort_order: number;
   created_at: string;
 }
@@ -228,6 +230,8 @@ const initialDosen: DbDosen[] = [
     category: 'dosen',
     role: 'Dosen Utama',
     role_en: 'Senior Lecturer',
+    expertise: 'Analisis Sensori & Pengolahan Pangan',
+    expertise_en: 'Sensory Analysis & Food Processing',
     sort_order: 1,
     created_at: new Date().toISOString()
   },
@@ -245,6 +249,8 @@ const initialDosen: DbDosen[] = [
     category: 'dosen',
     role: 'Dosen Utama',
     role_en: 'Senior Lecturer',
+    expertise: 'Mikrobiologi Pangan & Bioteknologi',
+    expertise_en: 'Food Microbiology & Biotechnology',
     sort_order: 2,
     created_at: new Date().toISOString()
   },
@@ -262,6 +268,8 @@ const initialDosen: DbDosen[] = [
     category: 'dosen',
     role: 'Dosen Lektor',
     role_en: 'Lecturer',
+    expertise: 'Keamanan Pangan & Sanitasi Industri',
+    expertise_en: 'Food Safety & Industrial Sanitation',
     sort_order: 3,
     created_at: new Date().toISOString()
   },
@@ -279,6 +287,8 @@ const initialDosen: DbDosen[] = [
     category: 'karyawan_laboran',
     role: 'Laboran Teknologi Pangan',
     role_en: 'Food Technology Lab Assistant',
+    expertise: null,
+    expertise_en: null,
     sort_order: 4,
     created_at: new Date().toISOString()
   }

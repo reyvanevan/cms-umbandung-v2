@@ -146,7 +146,7 @@ export default function App() {
   });
 
   const [dosenForm, setDosenForm] = useState<Omit<DbDosen, 'id' | 'created_at'>>({
-    name: '', img_src: '', scopus: '', sinta: '', scholar: '', facebook: '', twitter: '', tiktok: '', instagram: '', category: 'dosen', role: '', role_en: '', sort_order: 0
+    name: '', img_src: '', scopus: '', sinta: '', scholar: '', facebook: '', twitter: '', tiktok: '', instagram: '', category: 'dosen', role: '', role_en: '', expertise: '', expertise_en: '', sort_order: 0
   });
 
   const [courseForm, setCourseForm] = useState<Omit<DbKurikulumCourse, 'id' | 'created_at'>>({
@@ -605,7 +605,7 @@ export default function App() {
     setPartnerForm({ name: '' });
     setStatForm({ number: '', label: '', label_en: '', sort_order: landingStats.length + 1 });
     setPortfolioForm({ image: '', title: '', medium: '', technique: '', year: '', gridClass: 'col-span-1', sort_order: landingPortfolioItems.length + 1 });
-    setDosenForm({ name: '', img_src: '', scopus: '', sinta: '', scholar: '', facebook: '', twitter: '', tiktok: '', instagram: '', category: 'dosen', role: '', role_en: '', sort_order: dosenList.length + 1 });
+    setDosenForm({ name: '', img_src: '', scopus: '', sinta: '', scholar: '', facebook: '', twitter: '', tiktok: '', instagram: '', category: 'dosen', role: '', role_en: '', expertise: '', expertise_en: '', sort_order: dosenList.length + 1 });
     setCourseForm({ semester: 'I', name: '', name_en: '', credits: 2, sort_order: courses.length + 1, rps_url: '' });
     setPloForm({ code: '', type: '', type_en: '', text: '', text_en: '', sort_order: plos.length + 1 });
     setProfileForm({ title: '', title_en: '', desc: '', desc_en: '', sort_order: profiles.length + 1 });
@@ -684,6 +684,8 @@ export default function App() {
         category: item.category || 'dosen',
         role: item.role || '',
         role_en: item.role_en || '',
+        expertise: item.expertise || '',
+        expertise_en: item.expertise_en || '',
         sort_order: item.sort_order || 0
       });
     } else if (activeTab === 'kurikulum_courses') {
