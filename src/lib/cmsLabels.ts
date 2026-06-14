@@ -28,6 +28,22 @@ export const SITE_CONTENT_LABELS: Record<string, LabelConfig> = {
     label: 'Logo Program Studi',
     desc: 'Logo resmi Program Studi (jika ada, kosongkan untuk menggunakan logo default).'
   },
+  logo_prodi_height: {
+    label: 'Tinggi Logo Program Studi (px)',
+    desc: 'Tinggi logo dalam satuan piksel (default: 48, rentang: 24 - 80).'
+  },
+  logo_prodi_padding: {
+    label: 'Jarak Dalam Logo (Padding px)',
+    desc: 'Jarak aman di sekeliling logo agar tidak terlalu mepet (default: 0, rentang: 0 - 24).'
+  },
+  logo_prodi_radius: {
+    label: 'Kelengkungan Sudut Logo (Radius px)',
+    desc: 'Kelengkungan sudut logo untuk logo berbentuk kotak/badge (default: 0, rentang: 0 - 40).'
+  },
+  logo_prodi_object_fit: {
+    label: 'Kesesuaian Tampilan Logo (Object Fit)',
+    desc: 'Metode penyesuaian gambar logo (contain = utuh proporsional, cover = penuhi area, fill = rentang penuh).'
+  },
   hero_bg_url: {
     label: 'Gambar Latar Spanduk Utama',
     desc: 'Gambar latar belakang spanduk utama website (hero section).'

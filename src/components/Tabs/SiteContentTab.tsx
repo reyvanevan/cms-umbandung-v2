@@ -120,6 +120,16 @@ export default function SiteContentTab({
           await Promise.all(promises);
         }
       }
+
+      // If saving logo_prodi_url, save the style keys too
+      if (key === 'logo_prodi_url') {
+        const extraKeys = ['logo_prodi_height', 'logo_prodi_padding', 'logo_prodi_radius', 'logo_prodi_object_fit'];
+        const logoPromises = extraKeys.map(k => {
+          const kVal = editValues[k];
+          return kVal ? onUpdateContent(k, kVal.id, kVal.id || null) : Promise.resolve();
+        });
+        await Promise.all(logoPromises);
+      }
     } finally {
       setSavingKeys((prev) => ({ ...prev, [key]: false }));
     }
@@ -164,6 +174,11 @@ export default function SiteContentTab({
 
   // Filter content by search query & category
   const filteredContent = siteContent.filter((item) => {
+    // Exclude logo tuning keys from main list (they will be rendered inside logo_prodi_url card)
+    if (['logo_prodi_height', 'logo_prodi_padding', 'logo_prodi_radius', 'logo_prodi_object_fit'].includes(item.key)) {
+      return false;
+    }
+
     // Exclude obsolete Kepala Laboratorium keys
     if (item.key.startsWith('gov_lab_')) {
       return false;
@@ -348,7 +363,20 @@ export default function SiteContentTab({
                                       vals.id.startsWith('data:video/') ? (
                                         <video src={vals.id} className="w-24 h-24 object-cover rounded-xl border border-slate-200 shrink-0 bg-white shadow-xs" controls muted />
                                       ) : (
-                                        <img src={vals.id} className="w-24 h-24 object-cover rounded-xl border border-slate-200 shrink-0 bg-white shadow-xs" alt="Preview" />
+                                        <img 
+                                          src={vals.id} 
+                                          className="w-24 h-24 rounded-xl border border-slate-200 shrink-0 bg-white shadow-xs" 
+                                          style={item.key === 'logo_prodi_url' ? {
+                                            height: `${editValues['logo_prodi_height']?.id || '48'}px`,
+                                            width: 'auto',
+                                            padding: `${editValues['logo_prodi_padding']?.id || '0'}px`,
+                                            borderRadius: `${editValues['logo_prodi_radius']?.id || '0'}px`,
+                                            objectFit: (editValues['logo_prodi_object_fit']?.id || 'contain') as any,
+                                          } : {
+                                            objectFit: 'cover'
+                                          }}
+                                          alt="Preview" 
+                                        />
                                       )
                                     )}
                                     <div className="flex-1 w-full space-y-3">
@@ -385,6 +413,97 @@ export default function SiteContentTab({
                                         />
                                       </div>
                                     </div>
+                                  </div>
+                                )}
+
+                                {item.key === 'logo_prodi_url' && (
+                                  <div className="mt-6 p-5 border border-slate-200/80 rounded-2xl bg-slate-50/50 space-y-5">
+                                    <div className="border-b border-slate-100 pb-2">
+                                      <h5 className="text-xs font-bold text-slate-800 uppercase tracking-wider flex items-center gap-1.5">
+                                        <span className="w-1.5 h-3 bg-indigo-500 rounded-full" />
+                                        <span>Style Tuner (Pengaturan Tampilan Logo)</span>
+                                      </h5>
+                                      <p className="text-[10px] text-slate-400 mt-0.5">Sesuaikan tampilan logo agar presisi di header website utama secara real-time.</p>
+                                    </div>
+                                    
+                                    <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
+                                      {/* Height Slider */}
+                                      <div className="space-y-1.5">
+                                        <div className="flex justify-between text-[11px] font-bold text-slate-600">
+                                          <span>Tinggi Logo (Height)</span>
+                                          <span className="text-indigo-600 bg-indigo-50 px-1.5 py-0.5 rounded text-[10px]">{editValues['logo_prodi_height']?.id || '48'}px</span>
+                                        </div>
+                                        <input
+                                          type="range"
+                                          min="24"
+                                          max="80"
+                                          value={editValues['logo_prodi_height']?.id || '48'}
+                                          onChange={(e) => {
+                                            handleInputChange('logo_prodi_height', 'id', e.target.value);
+                                            handleInputChange('logo_prodi_height', 'en', e.target.value);
+                                          }}
+                                          className="w-full h-1.5 bg-slate-200 rounded-lg appearance-none cursor-pointer accent-slate-900"
+                                        />
+                                      </div>
+
+                                      {/* Padding Slider */}
+                                      <div className="space-y-1.5">
+                                        <div className="flex justify-between text-[11px] font-bold text-slate-600">
+                                          <span>Jarak Dalam (Padding)</span>
+                                          <span className="text-indigo-600 bg-indigo-50 px-1.5 py-0.5 rounded text-[10px]">{editValues['logo_prodi_padding']?.id || '0'}px</span>
+                                        </div>
+                                        <input
+                                          type="range"
+                                          min="0"
+                                          max="24"
+                                          value={editValues['logo_prodi_padding']?.id || '0'}
+                                          onChange={(e) => {
+                                            handleInputChange('logo_prodi_padding', 'id', e.target.value);
+                                            handleInputChange('logo_prodi_padding', 'en', e.target.value);
+                                          }}
+                                          className="w-full h-1.5 bg-slate-200 rounded-lg appearance-none cursor-pointer accent-slate-900"
+                                        />
+                                      </div>
+
+                                      {/* Border Radius Slider */}
+                                      <div className="space-y-1.5">
+                                        <div className="flex justify-between text-[11px] font-bold text-slate-600">
+                                          <span>Kelengkungan Sudut (Radius)</span>
+                                          <span className="text-indigo-600 bg-indigo-50 px-1.5 py-0.5 rounded text-[10px]">{editValues['logo_prodi_radius']?.id || '0'}px</span>
+                                        </div>
+                                        <input
+                                          type="range"
+                                          min="0"
+                                          max="40"
+                                          value={editValues['logo_prodi_radius']?.id || '0'}
+                                          onChange={(e) => {
+                                            handleInputChange('logo_prodi_radius', 'id', e.target.value);
+                                            handleInputChange('logo_prodi_radius', 'en', e.target.value);
+                                          }}
+                                          className="w-full h-1.5 bg-slate-200 rounded-lg appearance-none cursor-pointer accent-slate-900"
+                                        />
+                                      </div>
+
+                                      {/* Object Fit Dropdown */}
+                                      <div className="space-y-1.5">
+                                        <span className="text-[11px] font-bold text-slate-600 block">Kesesuaian Tampilan (Object Fit)</span>
+                                        <select
+                                          value={editValues['logo_prodi_object_fit']?.id || 'contain'}
+                                          onChange={(e) => {
+                                            handleInputChange('logo_prodi_object_fit', 'id', e.target.value);
+                                            handleInputChange('logo_prodi_object_fit', 'en', e.target.value);
+                                          }}
+                                          className="w-full px-3 py-1.5 bg-white border border-slate-200 rounded-lg text-xs focus:outline-none focus:ring-2 focus:ring-slate-900/10 focus:border-slate-400 transition cursor-pointer"
+                                        >
+                                          <option value="contain">Contain (Utuh Proporsional)</option>
+                                          <option value="cover">Cover (Penuhi Area)</option>
+                                          <option value="fill">Fill (Rentangkan Penuh)</option>
+                                        </select>
+                                      </div>
+                                    </div>
+                                    <p className="text-[10px] text-indigo-500 italic mt-2">
+                                      * Perubahan pada tuner di atas akan langsung tersimpan ketika Anda menekan tombol <b>Simpan</b> di atas.
+                                    </p>
                                   </div>
                                 )}
                                 {uploadingKeys[item.key] && (

@@ -573,6 +573,30 @@ export const initialSiteContent: DbSiteContent[] = [
     updated_at: new Date().toISOString()
   },
   {
+    key: 'logo_prodi_height',
+    value: '48',
+    value_en: '48',
+    updated_at: new Date().toISOString()
+  },
+  {
+    key: 'logo_prodi_padding',
+    value: '0',
+    value_en: '0',
+    updated_at: new Date().toISOString()
+  },
+  {
+    key: 'logo_prodi_radius',
+    value: '0',
+    value_en: '0',
+    updated_at: new Date().toISOString()
+  },
+  {
+    key: 'logo_prodi_object_fit',
+    value: 'contain',
+    value_en: 'contain',
+    updated_at: new Date().toISOString()
+  },
+  {
     key: 'hero_bg_url',
     value: '/assets/hero-mono-stigma.png',
     value_en: '/assets/hero-mono-stigma.png',
