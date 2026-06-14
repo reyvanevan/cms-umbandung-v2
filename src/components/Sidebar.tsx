@@ -58,7 +58,7 @@ export default function Sidebar({
   // Which groups are open — default: open the one containing current activeTab
   const getInitialOpen = () => {
     return {
-      beranda: ['dashboard', 'landing_portfolio', 'landing_stats', 'site_content'].includes(activeTab),
+      beranda: ['landing_portfolio', 'landing_stats', 'site_content'].includes(activeTab),
       tentang_kami: ['dosen', 'partners', 'visi_misi', 'tata_kelola'].includes(activeTab),
       akademik: ['kurikulum_courses', 'kurikulum_plos', 'kurikulum_profiles', 'publikasi_dosen', 'tugas_akhir_steps'].includes(activeTab),
       statistik: ['statistik_maba'].includes(activeTab),
@@ -80,7 +80,6 @@ export default function Sidebar({
       label: 'Beranda / Landing',
       icon: <LayoutGrid className="w-4 h-4" />,
       items: [
-        { tab: 'dashboard', label: 'Dashboard Utama', icon: <LayoutDashboard className="w-3.5 h-3.5" /> },
         { tab: 'landing_portfolio', label: 'Galeri Portfolio', icon: <Image className="w-3.5 h-3.5" /> },
         { tab: 'landing_stats', label: 'Statistik Ribbon', icon: <TrendingUp className="w-3.5 h-3.5" /> },
         { tab: 'site_content', label: 'Pengaturan Teks Beranda', icon: <FileText className="w-3.5 h-3.5" /> },
@@ -150,7 +149,6 @@ export default function Sidebar({
 
   // Map tab → which group it lives in, so we auto-open on click
   const tabToGroup: Record<string, keyof ReturnType<typeof getInitialOpen>> = {
-    dashboard: 'beranda',
     landing_portfolio: 'beranda',
     landing_stats: 'beranda',
     site_content: 'beranda',
@@ -195,6 +193,34 @@ export default function Sidebar({
 
       {/* Navigation */}
       <nav className="flex-1 overflow-y-auto px-3 py-4 space-y-1">
+        {/* Standalone Dashboard Item */}
+        <button
+          onClick={() => setActiveTab('dashboard')}
+          className="w-full flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium transition-all text-left mb-1"
+          style={{
+            background: activeTab === 'dashboard' ? 'rgba(59,130,246,0.15)' : 'transparent',
+            color: activeTab === 'dashboard' ? '#93C5FD' : 'rgba(255,255,255,0.55)',
+          }}
+          onMouseEnter={e => {
+            if (activeTab !== 'dashboard') (e.currentTarget as HTMLButtonElement).style.background = 'rgba(255,255,255,0.05)';
+            if (activeTab !== 'dashboard') (e.currentTarget as HTMLButtonElement).style.color = 'rgba(255,255,255,0.75)';
+          }}
+          onMouseLeave={e => {
+            if (activeTab !== 'dashboard') (e.currentTarget as HTMLButtonElement).style.background = 'transparent';
+            if (activeTab !== 'dashboard') (e.currentTarget as HTMLButtonElement).style.color = 'rgba(255,255,255,0.55)';
+          }}
+        >
+          <span style={{ color: activeTab === 'dashboard' ? '#60A5FA' : 'rgba(255,255,255,0.3)' }}>
+            <LayoutDashboard className="w-4 h-4" />
+          </span>
+          <span>Dashboard Utama</span>
+        </button>
+
+        {/* Divider */}
+        <div className="pb-2">
+          <div className="border-t" style={{ borderColor: 'rgba(255,255,255,0.06)' }} />
+        </div>
+
         {/* Collapsible Groups */}
         {navGroups.map(group => {
           const isGroupOpen = open[group.id as keyof ReturnType<typeof getInitialOpen>];
