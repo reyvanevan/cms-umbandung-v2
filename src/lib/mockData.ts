@@ -508,6 +508,12 @@ const initialLandingPortfolioItems: DbLandingPortfolioItem[] = [
 
 export const initialSiteContent: DbSiteContent[] = [
   {
+    key: 'footer_desc',
+    value: 'Portal Akademik Program Studi S1 Teknologi Pangan, Universitas Muhammadiyah Bandung. Kami mencetak lulusan berkarakter Islami, kompeten di bidang pengolahan pangan, keamanan pangan, dan technopreneurship halal yang siap berkontribusi di tingkat nasional maupun global.',
+    value_en: 'Academic Portal of the S1 Food Technology Study Program, Universitas Muhammadiyah Bandung. We produce graduates with Islamic character, competent in food processing, food safety, and halal technopreneurship ready to contribute nationally and globally.',
+    updated_at: new Date().toISOString()
+  },
+  {
     key: 'footer_email',
     value: 'tpangan@umbandung.ac.id',
     value_en: 'tpangan@umbandung.ac.id',

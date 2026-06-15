@@ -216,6 +216,10 @@ export const SITE_CONTENT_LABELS: Record<string, LabelConfig> = {
     label: 'Deskripsi Kerjasama & Kemitraan',
     desc: 'Kalimat pembuka / pengantar pada halaman direktori kerjasama industri.'
   },
+  footer_desc: {
+    label: 'Footer: Deskripsi Singkat Program Studi',
+    desc: 'Deskripsi singkat program studi yang tampil di sebelah logo di bagian footer.'
+  },
   footer_email: {
     label: 'Footer: E-mail Program Studi',
     desc: 'Alamat e-mail resmi program studi yang tampil di bagian footer.'
