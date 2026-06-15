@@ -452,15 +452,38 @@ export default function CrudModal({
                 </select>
               </div>
               <div className="space-y-1">
-                <label className="text-xs font-bold text-slate-700 mb-1 block">URL Logo Mitra (Opsional)</label>
-                <input
-                  type="text"
-                  placeholder="https://example.com/logo.svg"
-                  className="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-slate-900/10 focus:border-slate-400 focus:bg-white transition"
-                  value={partnerForm.logo_url || ''}
-                  onChange={(e) => setPartnerForm({ ...partnerForm, logo_url: e.target.value })}
-                />
-                <p className="text-[10px] text-slate-500">Kosongkan jika mitra tidak memiliki logo untuk menampilkan nama teks.</p>
+                <label className="text-xs font-bold text-slate-700 block">Logo Mitra (Opsional)</label>
+                <div className="flex flex-col sm:flex-row gap-3 items-center">
+                  {partnerForm.logo_url && (
+                    <img 
+                      src={partnerForm.logo_url} 
+                      className="w-14 h-14 object-contain rounded-xl border border-slate-200 shrink-0 bg-slate-50 p-1" 
+                      alt="Preview" 
+                      onError={(e) => {
+                        (e.target as HTMLElement).style.display = 'none';
+                      }}
+                    />
+                  )}
+                  <div className="flex-1 w-full space-y-2">
+                    <input
+                      type="file"
+                      accept="image/*"
+                      onChange={(e) => handleFileChange(e, (url) => setPartnerForm({ ...partnerForm, logo_url: url }))}
+                      className="w-full text-xs text-slate-500 file:mr-4 file:py-1.5 file:px-3 file:rounded-lg file:border-0 file:text-[11px] file:font-semibold file:bg-slate-900 file:text-white hover:file:bg-slate-800 file:cursor-pointer"
+                      disabled={isUploading}
+                    />
+                    <input
+                      type="text"
+                      placeholder="Atau masukkan URL logo langsung..."
+                      className="w-full px-4 py-2 bg-slate-50 border border-slate-200 rounded-xl text-xs focus:outline-none focus:ring-2 focus:ring-slate-900/10 focus:border-slate-400 focus:bg-white transition"
+                      value={partnerForm.logo_url || ''}
+                      onChange={(e) => setPartnerForm({ ...partnerForm, logo_url: e.target.value })}
+                    />
+                  </div>
+                </div>
+                {isUploading && <p className="text-[10px] text-slate-500 animate-pulse">Mengunggah logo...</p>}
+                {uploadError && <p className="text-[10px] text-red-500 font-semibold">{uploadError}</p>}
+                <p className="text-[10px] text-slate-500 mt-1">Kosongkan jika mitra tidak memiliki logo untuk menampilkan nama teks.</p>
               </div>
             </div>
           )}

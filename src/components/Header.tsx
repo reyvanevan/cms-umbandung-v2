@@ -35,6 +35,8 @@ const TAB_LABELS: Record<TabType, string> = {
   kegiatan_dosen: 'Kegiatan Dosen',
   kegiatan_mahasiswa: 'Kegiatan Mahasiswa',
   settings: 'Setup Database & Akun',
+  kkn_content: 'Konten KKN',
+  kkn_documents: 'Dokumen KKN',
 };
 
 const TAB_GROUPS: Partial<Record<TabType, string>> = {
@@ -52,6 +54,8 @@ const TAB_GROUPS: Partial<Record<TabType, string>> = {
   kurikulum_profiles: 'Akademik',
   publikasi_dosen: 'Akademik',
   tugas_akhir_steps: 'Akademik',
+  kkn_content: 'Akademik',
+  kkn_documents: 'Akademik',
   statistik_maba: 'Statistik',
   prestasi: 'Mahasiswa & Alumni',
   testimonials: 'Mahasiswa & Alumni',
