@@ -139,7 +139,9 @@ export default function App() {
   });
 
   const [partnerForm, setPartnerForm] = useState<Omit<DbPartner, 'id' | 'created_at'>>({
-    name: ''
+    name: '',
+    category: 'industri',
+    category_en: 'industri'
   });
 
   const [statForm, setStatForm] = useState<Omit<DbLandingStat, 'id'>>({
@@ -618,7 +620,7 @@ export default function App() {
     setNewsForm({ title: '', title_en: '', category: '', category_en: '', snippet: '', snippet_en: '', date: '', img_src: '' });
     setEventForm({ date_day: '', date_month: '', title: '', title_en: '', location: '', location_en: '' });
     setTestimonialForm({ testimonial: '', testimonial_en: '', by: '', by_en: '', img_src: '' });
-    setPartnerForm({ name: '' });
+    setPartnerForm({ name: '', category: 'industri', category_en: 'industri' });
     setStatForm({ number: '', label: '', label_en: '', sort_order: landingStats.length + 1 });
     setPortfolioForm({ image: '', title: '', medium: '', technique: '', year: '', gridClass: 'col-span-1', sort_order: landingPortfolioItems.length + 1 });
     setDosenForm({ name: '', img_src: '', scopus: '', sinta: '', scholar: '', facebook: '', twitter: '', tiktok: '', instagram: '', category: 'dosen', role: '', role_en: '', expertise: '', expertise_en: '', sort_order: dosenList.length + 1 });
@@ -668,7 +670,9 @@ export default function App() {
       });
     } else if (activeTab === 'partners') {
       setPartnerForm({
-        name: item.name
+        name: item.name,
+        category: item.category || 'industri',
+        category_en: item.category_en || 'industri'
       });
     } else if (activeTab === 'landing_stats') {
       setStatForm({

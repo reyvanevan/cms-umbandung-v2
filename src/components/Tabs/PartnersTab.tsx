@@ -77,11 +77,12 @@ export default function PartnersTab({
           <p className="text-sm">Memuat data mitra...</p>
         </div>
       ) : (
-        <div className="overflow-x-auto border border-gray-100 rounded-2xl max-w-xl">
+        <div className="overflow-x-auto border border-gray-100 rounded-2xl max-w-2xl">
           <table className="w-full text-left border-collapse text-sm">
             <thead>
               <tr className="bg-gray-50 border-b border-gray-100 text-gray-500 font-semibold text-xs uppercase tracking-wider">
                 <th className="p-4">Nama Partner / Instansi</th>
+                <th className="p-4">Kategori</th>
                 <th className="p-4" style={{ width: '100px' }}>Aksi</th>
               </tr>
             </thead>
@@ -90,6 +91,21 @@ export default function PartnersTab({
                 <tr key={item.id} className="hover:bg-gray-50/50 transition">
                   <td className="p-4 font-semibold text-gray-950 text-sm">
                     {item.name}
+                  </td>
+                  <td className="p-4">
+                    <span className={`px-2.5 py-1 rounded-full text-xs font-semibold ${
+                      item.category === 'akademik' 
+                        ? 'bg-blue-50 text-blue-700 border border-blue-100' 
+                        : item.category === 'pemerintah' 
+                        ? 'bg-amber-50 text-amber-700 border border-amber-100' 
+                        : 'bg-emerald-50 text-emerald-700 border border-emerald-100'
+                    }`}>
+                      {item.category === 'akademik' 
+                        ? 'Akademik' 
+                        : item.category === 'pemerintah' 
+                        ? 'Pemerintah' 
+                        : 'Industri'}
+                    </span>
                   </td>
                   <td className="p-4">
                     <div className="flex gap-2">
@@ -113,7 +129,7 @@ export default function PartnersTab({
               ))}
               {filteredPartners.length === 0 && (
                 <tr>
-                  <td colSpan={2} className="p-8 text-center text-gray-400 text-sm">
+                  <td colSpan={3} className="p-8 text-center text-gray-400 text-sm">
                     Tidak ada mitra industri ditemukan.
                   </td>
                 </tr>
