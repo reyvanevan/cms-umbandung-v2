@@ -1,5 +1,5 @@
 import { getSupabaseClient } from './supabase';
-import { mockDb, initialSiteContent, type DbNews, type DbEvent, type DbTestimonial, type DbPartner, type DbSiteContent, type DbLandingStat, type DbLandingPartner, type DbLandingPortfolioItem, type DbDosen, type DbKurikulumCourse, type DbKurikulumPlo, type DbKurikulumProfile, type DbTaStep, type DbPrestasi, type DbPublikasiDosen, type DbKegiatanDosen, type DbKegiatanMahasiswa, type DbAlumni, type DbStatistikMaba, type DbLaboratorium } from './mockData';
+import { mockDb, initialSiteContent, type DbNews, type DbEvent, type DbTestimonial, type DbPartner, type DbSiteContent, type DbLandingStat, type DbLandingPartner, type DbLandingPortfolioItem, type DbDosen, type DbKurikulumCourse, type DbKurikulumPlo, type DbKurikulumProfile, type DbTaStep, type DbPrestasi, type DbPublikasiDosen, type DbKegiatanDosen, type DbKegiatanMahasiswa, type DbAlumni, type DbStatistikMaba, type DbLaboratorium, type DbKknDocument } from './mockData';
 
 
 
@@ -1193,6 +1193,35 @@ export const dataService = {
     const supabase = getSupabaseClient();
     if (!supabase) { mockDb.delete('statistik_maba', id); return; }
     const { error } = await supabase.from('statistik_maba').delete().eq('id', id);
+    if (error) throw new Error(`Supabase error: ${error.message}`);
+  },
+
+  // --- KKN DOCUMENTS ---
+  getKknDocuments: async (): Promise<DbKknDocument[]> => {
+    const supabase = getSupabaseClient();
+    if (!supabase) return mockDb.getAll<DbKknDocument>('kkn_documents').sort((a, b) => a.sort_order - b.sort_order);
+    const { data, error } = await supabase.from('praktik_kerja_docs').select('*').order('sort_order');
+    if (error) { console.warn('getKknDocuments fallback:', error.message); return mockDb.getAll<DbKknDocument>('kkn_documents').sort((a, b) => a.sort_order - b.sort_order); }
+    return data || [];
+  },
+  createKknDocument: async (row: Omit<DbKknDocument, 'id' | 'created_at'>): Promise<DbKknDocument> => {
+    const supabase = getSupabaseClient();
+    if (!supabase) return mockDb.insert<DbKknDocument>('kkn_documents', row);
+    const { data, error } = await supabase.from('praktik_kerja_docs').insert([row]).select().single();
+    if (error) throw new Error(`Supabase error: ${error.message}`);
+    return data;
+  },
+  updateKknDocument: async (id: string, updates: Partial<DbKknDocument>): Promise<DbKknDocument> => {
+    const supabase = getSupabaseClient();
+    if (!supabase) { const u = mockDb.update<DbKknDocument>('kkn_documents', id, updates); if (!u) throw new Error('Not found'); return u; }
+    const { data, error } = await supabase.from('praktik_kerja_docs').update(updates).eq('id', id).select().single();
+    if (error) throw new Error(`Supabase error: ${error.message}`);
+    return data;
+  },
+  deleteKknDocument: async (id: string): Promise<void> => {
+    const supabase = getSupabaseClient();
+    if (!supabase) { mockDb.delete('kkn_documents', id); return; }
+    const { error } = await supabase.from('praktik_kerja_docs').delete().eq('id', id);
     if (error) throw new Error(`Supabase error: ${error.message}`);
   }
 };

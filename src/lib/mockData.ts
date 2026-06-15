@@ -227,6 +227,16 @@ export interface DbLaboratorium {
   created_at: string;
 }
 
+export interface DbKknDocument {
+  id: string;
+  name: string;
+  name_en: string | null;
+  file_url: string;
+  sort_order: number;
+  created_at: string;
+}
+
+
 
 
 const initialDosen: DbDosen[] = [
@@ -936,6 +946,66 @@ export const initialSiteContent: DbSiteContent[] = [
     value: '8 Semester Perkuliahan Akademik',
     value_en: '8 Academic Semesters (Fast track available)',
     updated_at: new Date().toISOString()
+  },
+  {
+    key: 'kkn_title',
+    value: 'Praktik Kerja dan KKN',
+    value_en: 'Practical Work & KKN',
+    updated_at: new Date().toISOString()
+  },
+  {
+    key: 'kkn_section1_title',
+    value: 'Praktik Kerja Industri & Instansi',
+    value_en: 'Industrial & Institutional Practical Work',
+    updated_at: new Date().toISOString()
+  },
+  {
+    key: 'kkn_section1_desc',
+    value: 'Program penempatan kerja lapangan bagi mahasiswa di industri pengolahan pangan, lembaga penelitian, maupun instansi pemerintah pengawas mutu dan keamanan pangan untuk mendapatkan pengalaman kerja riil.',
+    value_en: 'Field work placement program for students in food processing industries, research institutions, or government food safety and quality control agencies to gain real work experience.',
+    updated_at: new Date().toISOString()
+  },
+  {
+    key: 'kkn_section2_title',
+    value: 'Kuliah Kerja Nyata (KKN) Tematik',
+    value_en: 'Thematic Community Engagement (KKN)',
+    updated_at: new Date().toISOString()
+  },
+  {
+    key: 'kkn_section2_desc',
+    value: 'Program pengabdian kepada masyarakat desa berbasis implementasi teknologi pangan, pendampingan sertifikasi halal UMKM, serta diversifikasi olahan hasil pertanian lokal.',
+    value_en: 'Community service program based on food technology implementation, supporting local MSMEs with halal certification, and agricultural product diversification.',
+    updated_at: new Date().toISOString()
+  },
+  {
+    key: 'kkn_section3_title',
+    value: 'Alur Prosedur & Persyaratan',
+    value_en: 'Procedure Flow & Requirements',
+    updated_at: new Date().toISOString()
+  },
+  {
+    key: 'kkn_section3_desc',
+    value: 'Mahasiswa wajib menempuh minimal 110 SKS tanpa nilai E. Pendaftaran dilakukan secara mandiri melalui persetujuan koordinator program studi, diikuti dengan penyerahan surat pengantar resmi ke instansi tujuan.',
+    value_en: 'Students must have completed at least 110 credits with no E grades. Registration is submitted independently with coordinator approval, followed by official request letter submission to target institutions.',
+    updated_at: new Date().toISOString()
+  },
+  {
+    key: 'kkn_link_mitra',
+    value: 'https://mitra.umbandung.ac.id',
+    value_en: 'https://mitra.umbandung.ac.id',
+    updated_at: new Date().toISOString()
+  },
+  {
+    key: 'kkn_link_panduan',
+    value: 'https://bit.ly/panduan-kkn-tekpang',
+    value_en: 'https://bit.ly/panduan-kkn-tekpang',
+    updated_at: new Date().toISOString()
+  },
+  {
+    key: 'kkn_link_pendaftaran',
+    value: 'https://bit.ly/daftar-seminar-kkn',
+    value_en: 'https://bit.ly/daftar-seminar-kkn',
+    updated_at: new Date().toISOString()
   }
 ];
 
@@ -1216,8 +1286,37 @@ const initialLaboratorium: DbLaboratorium[] = [
   }
 ];
 
+const initialKknDocuments: DbKknDocument[] = [
+  {
+    id: 'kkn-doc-1',
+    name: 'Formulir Pendaftaran Praktik Kerja (KP) & KKN',
+    name_en: 'Practical Work & Community Service Registration Form',
+    file_url: 'https://prodi-umbandung.supabase.co/storage/v1/object/public/prodi-assets/form-pendaftaran-kp.pdf',
+    sort_order: 1,
+    created_at: new Date().toISOString()
+  },
+  {
+    id: 'kkn-doc-2',
+    name: 'Panduan Penulisan Laporan Akhir Praktik Kerja',
+    name_en: 'Guideline for Practical Work Report Writing',
+    file_url: 'https://prodi-umbandung.supabase.co/storage/v1/object/public/prodi-assets/panduan-laporan-kp.pdf',
+    sort_order: 2,
+    created_at: new Date().toISOString()
+  },
+  {
+    id: 'kkn-doc-3',
+    name: 'Formulir Penilaian Kinerja Mahasiswa oleh Mitra',
+    name_en: 'Student Performance Evaluation Form by Partners',
+    file_url: 'https://prodi-umbandung.supabase.co/storage/v1/object/public/prodi-assets/form-penilaian-mitra.docx',
+    sort_order: 3,
+    created_at: new Date().toISOString()
+  }
+];
 
 function initStorage() {
+  if (!localStorage.getItem('mock_kkn_documents')) {
+    localStorage.setItem('mock_kkn_documents', JSON.stringify(initialKknDocuments));
+  }
 
   if (!localStorage.getItem('mock_news')) {
     localStorage.setItem('mock_news', JSON.stringify(initialNews));

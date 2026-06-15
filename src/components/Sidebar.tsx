@@ -60,7 +60,7 @@ export default function Sidebar({
     return {
       beranda: ['landing_portfolio', 'landing_stats', 'site_content'].includes(activeTab),
       tentang_kami: ['dosen', 'partners', 'visi_misi', 'tata_kelola', 'laboratorium'].includes(activeTab),
-      akademik: ['kurikulum_courses', 'kurikulum_plos', 'kurikulum_profiles', 'publikasi_dosen', 'tugas_akhir_steps'].includes(activeTab),
+      akademik: ['kurikulum_courses', 'kurikulum_plos', 'kurikulum_profiles', 'publikasi_dosen', 'tugas_akhir_steps', 'kkn_content', 'kkn_documents'].includes(activeTab),
       statistik: ['statistik_maba'].includes(activeTab),
       mahasiswa_alumni: ['prestasi', 'testimonials', 'alumni'].includes(activeTab),
       galeri_kegiatan: ['news', 'events', 'kegiatan_dosen', 'kegiatan_mahasiswa'].includes(activeTab),
@@ -107,6 +107,8 @@ export default function Sidebar({
         { tab: 'kurikulum_profiles', label: 'Profil Lulusan', icon: <Users className="w-3.5 h-3.5" /> },
         { tab: 'publikasi_dosen', label: 'Publikasi Dosen', icon: <BookOpen className="w-3.5 h-3.5" /> },
         { tab: 'tugas_akhir_steps', label: 'Tahapan Tugas Akhir', icon: <GraduationCap className="w-3.5 h-3.5" /> },
+        { tab: 'kkn_content', label: 'Teks Praktik Kerja & KKN', icon: <FileText className="w-3.5 h-3.5" /> },
+        { tab: 'kkn_documents', label: 'Dokumen Praktik Kerja & KKN', icon: <BookOpen className="w-3.5 h-3.5" /> },
       ],
     },
     {

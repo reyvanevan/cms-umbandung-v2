@@ -279,6 +279,46 @@ export const SITE_CONTENT_LABELS: Record<string, LabelConfig> = {
   info_singkat_duration_desc: {
     label: 'Info Singkat: Deskripsi Masa Studi',
     desc: 'Keterangan semester akademik (contoh: 8 Semester Perkuliahan Akademik).'
+  },
+  kkn_title: {
+    label: 'KKN: Judul Halaman',
+    desc: 'Judul besar halaman (contoh: Praktik Kerja dan KKN).'
+  },
+  kkn_section1_title: {
+    label: 'KKN: Judul Bagian 1',
+    desc: 'Judul untuk sub-seksi Praktik Kerja.'
+  },
+  kkn_section1_desc: {
+    label: 'KKN: Deskripsi Bagian 1',
+    desc: 'Penjelasan/persyaratan/detil tentang pelaksanaan Praktik Kerja Industri.'
+  },
+  kkn_section2_title: {
+    label: 'KKN: Judul Bagian 2',
+    desc: 'Judul untuk sub-seksi Kuliah Kerja Nyata.'
+  },
+  kkn_section2_desc: {
+    label: 'KKN: Deskripsi Bagian 2',
+    desc: 'Penjelasan/detil tentang program KKN Tematik.'
+  },
+  kkn_section3_title: {
+    label: 'KKN: Judul Bagian 3',
+    desc: 'Judul untuk sub-seksi Alur & Prosedur.'
+  },
+  kkn_section3_desc: {
+    label: 'KKN: Deskripsi Bagian 3',
+    desc: 'Penjelasan mengenai tata cara pendaftaran, syarat SKS, dan persetujuan.'
+  },
+  kkn_link_mitra: {
+    label: 'KKN: Tautan Daftar Mitra',
+    desc: 'URL/Link untuk direktori atau daftar mitra industri (contoh: https://mitra.umbandung.ac.id).'
+  },
+  kkn_link_panduan: {
+    label: 'KKN: Tautan Buku Panduan',
+    desc: 'URL/Link untuk mengunduh Buku Panduan Praktik Kerja & KKN.'
+  },
+  kkn_link_pendaftaran: {
+    label: 'KKN: Tautan Pendaftaran Seminar',
+    desc: 'URL/Link formulir pendaftaran ujian / seminar hasil KKN.'
   }
 };
 

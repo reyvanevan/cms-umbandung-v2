@@ -15,7 +15,7 @@ interface SiteContentTabProps {
   isLoadingData: boolean;
   connectionMode: 'supabase' | 'mock';
   onUpdateContent: (key: string, value: string, valueEn: string | null) => Promise<void>;
-  category?: 'beranda' | 'visi_misi' | 'tata_kelola' | 'kurikulum' | 'tugas_akhir' | 'kerjasama';
+  category?: 'beranda' | 'visi_misi' | 'tata_kelola' | 'kurikulum' | 'tugas_akhir' | 'kerjasama' | 'kkn';
   hideHeader?: boolean;
   dosenList?: DbDosen[];
 }
@@ -30,7 +30,7 @@ export default function SiteContentTab({
   dosenList = []
 }: SiteContentTabProps) {
   const [searchQuery, setSearchQuery] = useState('');
-  const [activeCategory, setActiveCategory] = useState<'beranda' | 'visi_misi' | 'tata_kelola' | 'kurikulum' | 'tugas_akhir' | 'kerjasama'>(category || 'beranda');
+  const [activeCategory, setActiveCategory] = useState<'beranda' | 'visi_misi' | 'tata_kelola' | 'kurikulum' | 'tugas_akhir' | 'kerjasama' | 'kkn'>(category || 'beranda');
 
   React.useEffect(() => {
     if (category) {
@@ -137,6 +137,7 @@ export default function SiteContentTab({
 
   // Helper to categorize content key
   const getCategoryForKey = (key: string) => {
+    if (key.startsWith('kkn_')) return 'kkn';
     if (key.startsWith('hero_') || key.startsWith('kaprodi_') || key.startsWith('philosophy_') || key.startsWith('logo_') || key.startsWith('sambutan_') || key.startsWith('footer_') || key.startsWith('info_singkat_')) {
       return 'beranda';
     }
@@ -149,6 +150,7 @@ export default function SiteContentTab({
   };
 
   const getSubSectionName = (key: string) => {
+    if (key.startsWith('kkn_')) return 'Praktik Kerja & KKN';
     if (key.startsWith('hero_')) return 'Spanduk & Jumbotron';
     if (key.startsWith('kaprodi_')) return 'Sambutan Kepala Program Studi';
     if (key.startsWith('philosophy_')) return 'Filosofi Pembelajaran';
@@ -169,7 +171,8 @@ export default function SiteContentTab({
     { id: 'tata_kelola', name: 'Tata Kelola', icon: Users, desc: 'Kontak dan foto pimpinan (Sekretaris & UPM).' },
     { id: 'kurikulum', name: 'Kurikulum', icon: GraduationCap, desc: 'Pengantar sebaran SKS dan program magang.' },
     { id: 'tugas_akhir', name: 'Tugas Akhir', icon: BookOpen, desc: 'Persyaratan dan timeline skripsi mahasiswa.' },
-    { id: 'kerjasama', name: 'Kerjasama', icon: Award, desc: 'Kalimat pembuka daftar mitra industri.' }
+    { id: 'kerjasama', name: 'Kerjasama', icon: Award, desc: 'Kalimat pembuka daftar mitra industri.' },
+    { id: 'kkn', name: 'Praktik Kerja & KKN', icon: BookOpen, desc: 'Pengaturan deskripsi dan tautan halaman KKN.' }
   ] as const;
 
   // Filter content by search query & category

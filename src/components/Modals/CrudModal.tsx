@@ -20,7 +20,8 @@ import {
   type DbKegiatanMahasiswa,
   type DbAlumni,
   type DbStatistikMaba,
-  type DbLaboratorium
+  type DbLaboratorium,
+  type DbKknDocument
 } from '../../lib/mockData';
 
 interface CrudModalProps {
@@ -65,6 +66,8 @@ interface CrudModalProps {
   setStatistikMabaForm?: React.Dispatch<React.SetStateAction<Omit<DbStatistikMaba, 'id' | 'created_at'>>>;
   laboratoriumForm?: Omit<DbLaboratorium, 'id' | 'created_at'>;
   setLaboratoriumForm?: React.Dispatch<React.SetStateAction<Omit<DbLaboratorium, 'id' | 'created_at'>>>;
+  kknDocumentForm?: Omit<DbKknDocument, 'id' | 'created_at'>;
+  setKknDocumentForm?: React.Dispatch<React.SetStateAction<Omit<DbKknDocument, 'id' | 'created_at'>>>;
 }
 
 export default function CrudModal({
@@ -108,7 +111,9 @@ export default function CrudModal({
   statistikMabaForm,
   setStatistikMabaForm,
   laboratoriumForm,
-  setLaboratoriumForm
+  setLaboratoriumForm,
+  kknDocumentForm,
+  setKknDocumentForm
 }: CrudModalProps) {
   const [isUploading, setIsUploading] = React.useState(false);
   const [uploadError, setUploadError] = React.useState<string | null>(null);
@@ -156,6 +161,7 @@ export default function CrudModal({
       case 'alumni': return 'Alumni';
       case 'statistik_maba': return 'Statistik Maba';
       case 'laboratorium': return 'Laboratorium';
+      case 'kkn_documents': return 'Dokumen KKN';
       default: return 'Data';
     }
   };
@@ -1817,6 +1823,65 @@ export default function CrudModal({
                     required
                   />
                 </div>
+              </div>
+            </>
+          )}
+
+          {/* KKN DOCUMENTS FORM */}
+          {activeTab === 'kkn_documents' && kknDocumentForm && setKknDocumentForm && (
+            <>
+              <div className="space-y-1">
+                <label className="text-xs font-bold text-slate-700">Nama Lampiran / Dokumen (Bahasa Indonesia)</label>
+                <input
+                  type="text"
+                  className="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-slate-900/10 focus:border-slate-400 focus:bg-white transition"
+                  value={kknDocumentForm.name}
+                  onChange={(e) => setKknDocumentForm({ ...kknDocumentForm, name: e.target.value })}
+                  required
+                />
+              </div>
+              <div className="space-y-1">
+                <label className="text-xs font-bold text-slate-700">Nama Lampiran / Dokumen (English)</label>
+                <input
+                  type="text"
+                  className="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-slate-900/10 focus:border-slate-400 focus:bg-white transition"
+                  value={kknDocumentForm.name_en || ''}
+                  onChange={(e) => setKknDocumentForm({ ...kknDocumentForm, name_en: e.target.value })}
+                />
+              </div>
+              <div className="space-y-1">
+                <label className="text-xs font-bold text-slate-700 block">Berkas Dokumen (PDF, Word, Excel, dsb.)</label>
+                <div className="flex flex-col sm:flex-row gap-3 items-center">
+                  <div className="flex-1 w-full space-y-2">
+                    <input
+                      type="file"
+                      accept=".pdf,.doc,.docx,.xls,.xlsx,.ppt,.pptx"
+                      onChange={(e) => handleFileChange(e, (url) => setKknDocumentForm({ ...kknDocumentForm, file_url: url }))}
+                      className="w-full text-xs text-slate-500 file:mr-4 file:py-1.5 file:px-3 file:rounded-lg file:border-0 file:text-[11px] file:font-semibold file:bg-slate-900 file:text-white hover:file:bg-slate-800 file:cursor-pointer"
+                      disabled={isUploading}
+                    />
+                    <input
+                      type="text"
+                      placeholder="Atau masukkan URL berkas langsung..."
+                      className="w-full px-4 py-2 bg-slate-50 border border-slate-200 rounded-xl text-xs focus:outline-none focus:ring-2 focus:ring-slate-900/10 focus:border-slate-400 focus:bg-white transition"
+                      value={kknDocumentForm.file_url || ''}
+                      onChange={(e) => setKknDocumentForm({ ...kknDocumentForm, file_url: e.target.value })}
+                      required
+                    />
+                  </div>
+                </div>
+                {isUploading && <p className="text-[10px] text-slate-500 animate-pulse">Mengunggah berkas...</p>}
+                {uploadError && <p className="text-[10px] text-red-500 font-semibold">{uploadError}</p>}
+              </div>
+              <div className="space-y-1">
+                <label className="text-xs font-bold text-slate-700">Urutan (Sort Order)</label>
+                <input
+                  type="number"
+                  className="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-slate-900/10 focus:border-slate-400 focus:bg-white transition"
+                  value={kknDocumentForm.sort_order}
+                  onChange={(e) => setKknDocumentForm({ ...kknDocumentForm, sort_order: parseInt(e.target.value) || 0 })}
+                  required
+                />
               </div>
             </>
           )}

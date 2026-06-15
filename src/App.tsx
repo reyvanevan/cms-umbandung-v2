@@ -14,7 +14,8 @@ import {
   type DbKurikulumPlo,
   type DbKurikulumProfile,
   type DbTaStep,
-  type DbLaboratorium
+  type DbLaboratorium,
+  type DbKknDocument
 } from './lib/mockData';
 
 // Import modular layouts
@@ -46,6 +47,7 @@ import KegiatanMahasiswaTab from './components/Tabs/KegiatanMahasiswaTab';
 import AlumniTab from './components/Tabs/AlumniTab';
 import StatistikMabaTab from './components/Tabs/StatistikMabaTab';
 import LaboratoriumTab from './components/Tabs/LaboratoriumTab';
+import KknDocumentsTab from './components/Tabs/KknDocumentsTab';
 
 
 export interface Toast {
@@ -77,7 +79,9 @@ export type TabType =
   | 'statistik_maba'
   | 'laboratorium'
   | 'visi_misi'
-  | 'tata_kelola';
+  | 'tata_kelola'
+  | 'kkn_content'
+  | 'kkn_documents';
 
 export default function App() {
   // --- Auth State ---
@@ -114,6 +118,7 @@ export default function App() {
   const [alumniList, setAlumniList] = useState<any[]>([]);
   const [statistikMabaList, setStatistikMabaList] = useState<any[]>([]);
   const [laboratoriumList, setLaboratoriumList] = useState<DbLaboratorium[]>([]);
+  const [kknDocuments, setKknDocuments] = useState<DbKknDocument[]>([]);
 
   const [isLoadingData, setIsLoadingData] = useState<boolean>(false);
 
@@ -192,6 +197,9 @@ export default function App() {
   });
   const [laboratoriumForm, setLaboratoriumForm] = useState<Omit<DbLaboratorium, 'id' | 'created_at'>>({
     name: '', name_en: '', desc: '', desc_en: '', image_url: '', sort_order: 0
+  });
+  const [kknDocumentForm, setKknDocumentForm] = useState<Omit<DbKknDocument, 'id' | 'created_at'>>({
+    name: '', name_en: '', file_url: '', sort_order: 0
   });
 
   // --- Toast Trigger Helper ---
@@ -281,13 +289,15 @@ export default function App() {
         ]);
         setPartners(partList);
         setSiteContents(contentList);
-      } else if (activeTab === 'site_content' || activeTab === 'visi_misi' || activeTab === 'tata_kelola') {
+      } else if (activeTab === 'site_content' || activeTab === 'visi_misi' || activeTab === 'tata_kelola' || activeTab === 'kkn_content') {
         const [contentList, dList] = await Promise.all([
           dataService.getSiteContent(),
           dataService.getDosen()
         ]);
         setSiteContents(contentList);
         setDosenList(dList);
+      } else if (activeTab === 'kkn_documents') {
+        setKknDocuments(await dataService.getKknDocuments());
       } else if (activeTab === 'landing_stats') {
         setLandingStats(await dataService.getLandingStats());
       } else if (activeTab === 'landing_portfolio') {
@@ -431,6 +441,7 @@ export default function App() {
     localStorage.removeItem('mock_alumni');
     localStorage.removeItem('mock_statistik_maba');
     localStorage.removeItem('mock_laboratorium');
+    localStorage.removeItem('mock_kkn_documents');
     triggerToast('Mock database reset to defaults!', 'success');
     fetchCollectionData();
   };
@@ -543,6 +554,9 @@ export default function App() {
       } else if (activeTab === 'laboratorium') {
         if (activeModal === 'create') { await dataService.createLaboratorium(laboratoriumForm); triggerToast('Laboratorium berhasil ditambahkan!'); }
         else if (activeModal === 'edit' && editingId) { await dataService.updateLaboratorium(editingId, laboratoriumForm); triggerToast('Laboratorium berhasil diperbarui!'); }
+      } else if (activeTab === 'kkn_documents') {
+        if (activeModal === 'create') { await dataService.createKknDocument(kknDocumentForm); triggerToast('Dokumen KKN berhasil ditambahkan!'); }
+        else if (activeModal === 'edit' && editingId) { await dataService.updateKknDocument(editingId, kknDocumentForm); triggerToast('Dokumen KKN berhasil diperbarui!'); }
       }
 
       setActiveModal(null);
@@ -592,6 +606,8 @@ export default function App() {
         await dataService.deleteStatistikMaba(deletingId);
       } else if (activeTab === 'laboratorium') {
         await dataService.deleteLaboratorium(deletingId);
+      } else if (activeTab === 'kkn_documents') {
+        await dataService.deleteKknDocument(deletingId);
       }
 
       triggerToast('Item berhasil dihapus!', 'success');
@@ -635,6 +651,7 @@ export default function App() {
     setAlumniForm({ name: '', class_of: '', class_of_en: '', role: '', company: '', quote: '', quote_en: '', image_url: '', sort_order: alumniList.length + 1 });
     setStatistikMabaForm({ year: '', count: 0, sort_order: statistikMabaList.length + 1 });
     setLaboratoriumForm({ name: '', name_en: '', desc: '', desc_en: '', image_url: '', sort_order: laboratoriumList.length + 1 });
+    setKknDocumentForm({ name: '', name_en: '', file_url: '', sort_order: kknDocuments.length + 1 });
     setActiveModal('create');
   };
 
@@ -756,6 +773,13 @@ export default function App() {
         desc: item.desc,
         desc_en: item.desc_en || '',
         image_url: item.image_url || '',
+        sort_order: item.sort_order || 0
+      });
+    } else if (activeTab === 'kkn_documents') {
+      setKknDocumentForm({
+        name: item.name,
+        name_en: item.name_en || '',
+        file_url: item.file_url || '',
         sort_order: item.sort_order || 0
       });
     }
@@ -1128,6 +1152,30 @@ export default function App() {
             />
           )}
 
+          {/* KKN CONTENT VIEW */}
+          {activeTab === 'kkn_content' && (
+            <SiteContentTab
+              siteContent={siteContents}
+              isLoadingData={isLoadingData}
+              connectionMode={connectionMode}
+              onUpdateContent={handleUpdateSiteContent}
+              category="kkn"
+            />
+          )}
+
+          {/* KKN DOCUMENTS VIEW */}
+          {activeTab === 'kkn_documents' && (
+            <KknDocumentsTab
+              documents={kknDocuments}
+              searchQuery={searchQuery}
+              setSearchQuery={setSearchQuery}
+              isLoadingData={isLoadingData}
+              openCreateModal={openCreateModal}
+              openEditModal={openEditModal}
+              openDeleteModal={openDeleteModal}
+            />
+          )}
+
           {/* SETTINGS VIEW */}
           {activeTab === 'settings' && (
             <SettingsTab
@@ -1193,6 +1241,8 @@ export default function App() {
           setStatistikMabaForm={setStatistikMabaForm}
           laboratoriumForm={laboratoriumForm}
           setLaboratoriumForm={setLaboratoriumForm}
+          kknDocumentForm={kknDocumentForm}
+          setKknDocumentForm={setKknDocumentForm}
         />
       )}
 
