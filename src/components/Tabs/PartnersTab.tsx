@@ -90,7 +90,20 @@ export default function PartnersTab({
               {filteredPartners.map((item) => (
                 <tr key={item.id} className="hover:bg-gray-50/50 transition">
                   <td className="p-4 font-semibold text-gray-950 text-sm">
-                    {item.name}
+                    <div className="flex items-center gap-3">
+                      {item.logo_url ? (
+                        <img 
+                          src={item.logo_url} 
+                          alt={item.name} 
+                          className="w-6 h-6 object-contain rounded border border-gray-100 bg-gray-50 p-0.5 flex-shrink-0" 
+                        />
+                      ) : (
+                        <div className="w-6 h-6 bg-slate-100 rounded text-[9px] font-bold text-slate-400 flex items-center justify-center flex-shrink-0" title="Hanya Teks">
+                          TXT
+                        </div>
+                      )}
+                      <span>{item.name}</span>
+                    </div>
                   </td>
                   <td className="p-4">
                     <span className={`px-2.5 py-1 rounded-full text-xs font-semibold ${

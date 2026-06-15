@@ -37,6 +37,7 @@ export interface DbPartner {
   name: string;
   category: string;
   category_en: string | null;
+  logo_url?: string | null;
   created_at: string;
 }
 
@@ -441,20 +442,27 @@ const initialTestimonials: DbTestimonial[] = [
 ];
 
 const initialPartners: DbPartner[] = [
-  { id: '1', name: 'PT Kahatex', category: 'industri', category_en: 'industri', created_at: new Date().toISOString() },
-  { id: '2', name: 'Rumah Batik Komar', category: 'industri', category_en: 'industri', created_at: new Date().toISOString() },
-  { id: '3', name: 'PT Sri Rejeki Isman (Sritex)', category: 'industri', category_en: 'industri', created_at: new Date().toISOString() },
-  { id: '4', name: 'Ikatan Perancang Mode Indonesia (IPMI)', category: 'industri', category_en: 'industri', created_at: new Date().toISOString() },
-  { id: '5', name: 'ASEPHI (Handicraft Association)', category: 'industri', category_en: 'industri', created_at: new Date().toISOString() },
-  { id: '6', name: 'Institut Teknologi Bandung (ITB) - DKV & Kriya', category: 'akademik', category_en: 'akademik', created_at: new Date().toISOString() },
-  { id: '7', name: 'Universitas Indonesia (UI) - Rumpun Seni & Desain', category: 'akademik', category_en: 'akademik', created_at: new Date().toISOString() },
-  { id: '8', name: 'Universitas Muhammadiyah Yogyakarta (UMY)', category: 'akademik', category_en: 'akademik', created_at: new Date().toISOString() },
-  { id: '9', name: 'Universitas Gadjah Mada (UGM)', category: 'akademik', category_en: 'akademik', created_at: new Date().toISOString() },
-  { id: '10', name: 'Kementerian Pendidikan, Kebudayaan, Riset, dan Teknologi', category: 'pemerintah', category_en: 'pemerintah', created_at: new Date().toISOString() },
-  { id: '11', name: 'Asosiasi Pertekstilan Indonesia (API)', category: 'pemerintah', category_en: 'pemerintah', created_at: new Date().toISOString() },
-  { id: '12', name: 'Dinas Perindustrian dan Perdagangan Provinsi Jawa Barat', category: 'pemerintah', category_en: 'pemerintah', created_at: new Date().toISOString() },
-  { id: '13', name: 'Kementerian Pariwisata dan Ekonomi Kreatif (Kemenparekraf)', category: 'pemerintah', category_en: 'pemerintah', created_at: new Date().toISOString() },
-  { id: '14', name: 'Ikatan Alumni Kriya Tekstil dan Fashion (IKA-KTF)', category: 'industri', category_en: 'industri', created_at: new Date().toISOString() }
+  { id: 'p1', name: 'Nvidia', category: 'industri', category_en: 'industri', logo_url: 'https://svgl.app/library/nvidia-wordmark-light.svg', created_at: new Date().toISOString() },
+  { id: 'p2', name: 'Supabase', category: 'industri', category_en: 'industri', logo_url: 'https://svgl.app/library/supabase_wordmark_light.svg', created_at: new Date().toISOString() },
+  { id: 'p3', name: 'OpenAI', category: 'industri', category_en: 'industri', logo_url: 'https://svgl.app/library/openai_wordmark_light.svg', created_at: new Date().toISOString() },
+  { id: 'p4', name: 'Turso', category: 'industri', category_en: 'industri', logo_url: 'https://svgl.app/library/turso-wordmark-light.svg', created_at: new Date().toISOString() },
+  { id: 'p5', name: 'GitHub', category: 'industri', category_en: 'industri', logo_url: 'https://svgl.app/library/github_wordmark_light.svg', created_at: new Date().toISOString() },
+  { id: 'p6', name: 'Claude AI', category: 'industri', category_en: 'industri', logo_url: 'https://svgl.app/library/claude-ai-wordmark-icon_light.svg', created_at: new Date().toISOString() },
+  { id: 'p7', name: 'Clerk', category: 'industri', category_en: 'industri', logo_url: 'https://svgl.app/library/clerk-wordmark-light.svg', created_at: new Date().toISOString() },
+  { id: '1', name: 'PT Kahatex', category: 'industri', category_en: 'industri', logo_url: null, created_at: new Date().toISOString() },
+  { id: '2', name: 'Rumah Batik Komar', category: 'industri', category_en: 'industri', logo_url: null, created_at: new Date().toISOString() },
+  { id: '3', name: 'PT Sri Rejeki Isman (Sritex)', category: 'industri', category_en: 'industri', logo_url: null, created_at: new Date().toISOString() },
+  { id: '4', name: 'Ikatan Perancang Mode Indonesia (IPMI)', category: 'industri', category_en: 'industri', logo_url: null, created_at: new Date().toISOString() },
+  { id: '5', name: 'ASEPHI (Handicraft Association)', category: 'industri', category_en: 'industri', logo_url: null, created_at: new Date().toISOString() },
+  { id: '6', name: 'Institut Teknologi Bandung (ITB) - DKV & Kriya', category: 'akademik', category_en: 'akademik', logo_url: null, created_at: new Date().toISOString() },
+  { id: '7', name: 'Universitas Indonesia (UI) - Rumpun Seni & Desain', category: 'akademik', category_en: 'akademik', logo_url: null, created_at: new Date().toISOString() },
+  { id: '8', name: 'Universitas Muhammadiyah Yogyakarta (UMY)', category: 'akademik', category_en: 'akademik', logo_url: null, created_at: new Date().toISOString() },
+  { id: '9', name: 'Universitas Gadjah Mada (UGM)', category: 'akademik', category_en: 'akademik', logo_url: null, created_at: new Date().toISOString() },
+  { id: '10', name: 'Kementerian Pendidikan, Kebudayaan, Riset, dan Teknologi', category: 'pemerintah', category_en: 'pemerintah', logo_url: null, created_at: new Date().toISOString() },
+  { id: '11', name: 'Asosiasi Pertekstilan Indonesia (API)', category: 'pemerintah', category_en: 'pemerintah', logo_url: null, created_at: new Date().toISOString() },
+  { id: '12', name: 'Dinas Perindustrian dan Perdagangan Provinsi Jawa Barat', category: 'pemerintah', category_en: 'pemerintah', logo_url: null, created_at: new Date().toISOString() },
+  { id: '13', name: 'Kementerian Pariwisata dan Ekonomi Kreatif (Kemenparekraf)', category: 'pemerintah', category_en: 'pemerintah', logo_url: null, created_at: new Date().toISOString() },
+  { id: '14', name: 'Ikatan Alumni Kriya Tekstil dan Fashion (IKA-KTF)', category: 'industri', category_en: 'industri', logo_url: null, created_at: new Date().toISOString() }
 ];
 
 const initialLandingStats: DbLandingStat[] = [
