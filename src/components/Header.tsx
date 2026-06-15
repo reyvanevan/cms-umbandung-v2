@@ -26,7 +26,7 @@ const TAB_LABELS: Record<TabType, string> = {
   publikasi_dosen: 'Publikasi Dosen',
   tugas_akhir_steps: 'Tahapan Tugas Akhir',
   statistik_maba: 'Statistik Mahasiswa Baru (Maba)',
-  prestasi: 'Prestasi Mahasiswa',
+  prestasi: 'Prestasi',
   testimonials: 'Testimoni Alumni',
   alumni: 'Direktori Alumni',
   news: 'Berita & Artikel',
