@@ -597,6 +597,7 @@ export default function CrudModal({
                   >
                     <option value="dosen">Dosen / Tenaga Pengajar</option>
                     <option value="karyawan_laboran">Karyawan & Laboran</option>
+                    <option value="kepala_laboratorium">Kepala Laboratorium</option>
                   </select>
                 </div>
               </div>

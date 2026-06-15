@@ -89,22 +89,63 @@ export default function DosenTab({
                   </td>
                   <td className="p-4">
                     <span className={`inline-flex items-center px-2 py-0.5 rounded-full text-xs font-semibold ${
-                      item.category === 'dosen' ? 'bg-blue-50 text-blue-700' : 'bg-amber-50 text-amber-700'
+                      item.category === 'dosen' 
+                        ? 'bg-blue-50 text-blue-700' 
+                        : item.category === 'kepala_laboratorium'
+                          ? 'bg-purple-50 text-purple-700'
+                          : 'bg-amber-50 text-amber-700'
                     }`}>
-                      {item.category === 'dosen' ? 'Dosen' : 'Karyawan / Laboran'}
+                      {item.category === 'dosen' 
+                        ? 'Dosen' 
+                        : item.category === 'kepala_laboratorium'
+                          ? 'Kepala Laboratorium'
+                          : 'Karyawan / Laboran'}
                     </span>
                   </td>
                   <td className="p-4 text-xs font-medium text-gray-600">
                     {item.role || '-'}
                   </td>
                   <td className="p-4 text-xs font-mono text-gray-500">
-                    {item.category === 'dosen' ? (item.scopus || '-') : '-'}
+                    {item.category === 'dosen' && item.scopus && item.scopus !== '-' ? (
+                      <a 
+                        href={`https://www.scopus.com/authid/detail.uri?authorId=${item.scopus}`} 
+                        target="_blank" 
+                        rel="noopener noreferrer"
+                        className="text-indigo-600 hover:text-indigo-900 hover:underline"
+                      >
+                        {item.scopus}
+                      </a>
+                    ) : (
+                      item.scopus || '-'
+                    )}
                   </td>
                   <td className="p-4 text-xs font-mono text-gray-500">
-                    {item.category === 'dosen' ? (item.sinta || '-') : '-'}
+                    {item.category === 'dosen' && item.sinta && item.sinta !== '-' ? (
+                      <a 
+                        href={`https://sinta.kemdiktisaintek.go.id/authors/profile/${item.sinta}`} 
+                        target="_blank" 
+                        rel="noopener noreferrer"
+                        className="text-indigo-600 hover:text-indigo-900 hover:underline"
+                      >
+                        {item.sinta}
+                      </a>
+                    ) : (
+                      item.sinta || '-'
+                    )}
                   </td>
                   <td className="p-4 text-xs font-mono text-gray-500 truncate max-w-[120px]">
-                    {item.category === 'dosen' ? (item.scholar || '-') : '-'}
+                    {item.category === 'dosen' && item.scholar && item.scholar !== '-' && item.scholar !== '#' ? (
+                      <a 
+                        href={`https://scholar.google.com/citations?user=${item.scholar}`} 
+                        target="_blank" 
+                        rel="noopener noreferrer"
+                        className="text-indigo-600 hover:text-indigo-900 hover:underline"
+                      >
+                        {item.scholar}
+                      </a>
+                    ) : (
+                      item.scholar || '-'
+                    )}
                   </td>
                   <td className="p-4 text-xs font-semibold text-gray-900">
                     {item.sort_order}

@@ -81,7 +81,7 @@ export interface DbDosen {
   twitter: string | null;
   tiktok: string | null;
   instagram: string | null;
-  category: 'dosen' | 'karyawan_laboran';
+  category: 'dosen' | 'karyawan_laboran' | 'kepala_laboratorium';
   role: string | null;
   role_en: string | null;
   expertise: string | null;
@@ -270,6 +270,25 @@ const initialDosen: DbDosen[] = [
     role_en: 'Lecturer',
     expertise: 'Keamanan Pangan & Sanitasi Industri',
     expertise_en: 'Food Safety & Industrial Sanitation',
+    sort_order: 3,
+    created_at: new Date().toISOString()
+  },
+  {
+    id: 'kepala-lab-1',
+    name: 'Dr. rer. nat. Hendra Wijaya',
+    img_src: 'https://images.unsplash.com/photo-1537368910025-700350fe46c7?q=80&w=300&auto=format&fit=crop',
+    scopus: '-',
+    sinta: '-',
+    scholar: '-',
+    facebook: '#',
+    twitter: '#',
+    tiktok: '#',
+    instagram: '#',
+    category: 'kepala_laboratorium',
+    role: 'Kepala Laboratorium',
+    role_en: 'Head of Laboratory',
+    expertise: null,
+    expertise_en: null,
     sort_order: 3,
     created_at: new Date().toISOString()
   },
