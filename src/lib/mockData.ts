@@ -603,6 +603,12 @@ export const initialSiteContent: DbSiteContent[] = [
     updated_at: new Date().toISOString()
   },
   {
+    key: 'hero_overlay_opacity',
+    value: '40',
+    value_en: '40',
+    updated_at: new Date().toISOString()
+  },
+  {
     key: 'kaprodi_name',
     value: 'Dr. Khairiah, S.P., M.T.',
     value_en: 'Dr. Khairiah, S.P., M.T.',

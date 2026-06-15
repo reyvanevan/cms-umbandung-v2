@@ -48,6 +48,10 @@ export const SITE_CONTENT_LABELS: Record<string, LabelConfig> = {
     label: 'Gambar Latar Spanduk Utama',
     desc: 'Gambar latar belakang spanduk utama website (hero section).'
   },
+  hero_overlay_opacity: {
+    label: 'Opasitas Overlay Hitam Spanduk Utama (%)',
+    desc: 'Tingkat kegelapan filter/overlay hitam di atas latar belakang spanduk utama (0 untuk transparan/terang, 100 untuk gelap total. Default: 40).'
+  },
   kaprodi_name: {
     label: 'Nama Ketua Program Studi',
     desc: 'Nama lengkap beserta gelar akademik Ketua Program Studi.'
