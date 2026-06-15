@@ -73,7 +73,7 @@ export const SITE_CONTENT_LABELS: Record<string, LabelConfig> = {
     desc: 'Tautan atau nama file gambar ilustrasi di samping kutipan filosofi pembelajaran.'
   },
   visi_misi_vision: {
-    label: 'Visi Program Studi',
+    label: 'Visi Keilmuan',
     desc: 'Rumusan Visi utama Program Studi Teknik Informatika.'
   },
   visi_misi_missions: {
