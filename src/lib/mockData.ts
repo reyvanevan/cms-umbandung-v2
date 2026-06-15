@@ -214,6 +214,18 @@ export interface DbStatistikMaba {
   created_at: string;
 }
 
+export interface DbLaboratorium {
+  id: string;
+  name: string;
+  name_en: string | null;
+  desc: string;
+  desc_en: string | null;
+  image_url: string;
+  sort_order: number;
+  created_at: string;
+}
+
+
 
 const initialDosen: DbDosen[] = [
   {
@@ -1105,6 +1117,89 @@ const initialStatistikMaba: DbStatistikMaba[] = [
   { id: 'stat-5', year: '2025', count: 52, sort_order: 5, created_at: new Date().toISOString() }
 ];
 
+const initialLaboratorium: DbLaboratorium[] = [
+  {
+    id: 'lab-1',
+    name: 'Lab Teknologi Pangan',
+    name_en: 'Food Technology Laboratory',
+    desc: 'Fasilitas untuk pengembangan produk pangan, penerapan teknik pengolahan modern, dan eksperimen formulasi bahan pangan baru.',
+    desc_en: 'Facilities for food product development, application of modern processing techniques, and experiments in new food formulations.',
+    image_url: 'https://images.unsplash.com/photo-1576086213369-97a306dca665?q=80&w=600&auto=format&fit=crop',
+    sort_order: 1,
+    created_at: new Date().toISOString()
+  },
+  {
+    id: 'lab-2',
+    name: 'Lab Rekayasa Proses Pengolahan Pangan',
+    name_en: 'Food Processing & Engineering Laboratory',
+    desc: 'Fasilitas pengolahan pangan semi-pilot untuk pasteurisasi, sterilisasi, evaporasi, pengeringan, ekstrusi, penggorengan hampa, dan rekayasa proses.',
+    desc_en: 'Semi-pilot food processing facilities for pasteurization, sterilization, evaporation, drying, extrusion, vacuum frying, and process engineering.',
+    image_url: 'https://images.unsplash.com/photo-1542838132-92c53300491e?q=80&w=600&auto=format&fit=crop',
+    sort_order: 2,
+    created_at: new Date().toISOString()
+  },
+  {
+    id: 'lab-3',
+    name: 'Lab Sensori',
+    name_en: 'Sensory Laboratory',
+    desc: 'Fasilitas uji organoleptik dengan bilik sensoris terstandar untuk evaluasi profil rasa, aroma, tekstur, penampilan, dan penerimaan produk pangan baru.',
+    desc_en: 'Sensory evaluation facility with standardized testing booths for profiling taste, aroma, texture, appearance, and acceptance of new food products.',
+    image_url: 'https://images.unsplash.com/photo-1530026405186-ed1ea0ac7a63?q=80&w=600&auto=format&fit=crop',
+    sort_order: 3,
+    created_at: new Date().toISOString()
+  },
+  {
+    id: 'lab-4',
+    name: 'Lab Pangan dan Gizi',
+    name_en: 'Food and Nutrition Laboratory',
+    desc: 'Fasilitas analisis nilai gizi bahan pangan, komposisi zat gizi makro dan mikro, serta evaluasi bioavailabilitas zat gizi dalam tubuh.',
+    desc_en: 'Facilities for analyzing the nutritional value of food ingredients, composition of macro and micronutrients, and evaluation of nutrient bioavailability.',
+    image_url: 'https://images.unsplash.com/photo-1581093588401-fbb62a02f120?q=80&w=600&auto=format&fit=crop',
+    sort_order: 4,
+    created_at: new Date().toISOString()
+  },
+  {
+    id: 'lab-5',
+    name: 'Lab Biokimia dan Kehalalan Pangan',
+    name_en: 'Biochemistry and Halal Food Laboratory',
+    desc: 'Fasilitas pengujian residu, komponen biokimia pangan, pengawasan mutu kritis, serta pengujian autensitas bahan untuk sertifikasi halal.',
+    desc_en: 'Facilities for testing residues, food biochemical components, critical quality control, and ingredient authenticity testing for halal certification.',
+    image_url: 'https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?q=80&w=600&auto=format&fit=crop',
+    sort_order: 5,
+    created_at: new Date().toISOString()
+  },
+  {
+    id: 'lab-6',
+    name: 'Lab Keteknikan Pangan',
+    name_en: 'Food Engineering Laboratory',
+    desc: 'Fasilitas praktikum pengukuran sifat fisik bahan pangan, transfer panas dan massa, aliran fluida, serta perancangan unit proses industri pangan.',
+    desc_en: 'Practical facilities for measuring physical properties of food, heat and mass transfer, fluid flow, and design of food industry process units.',
+    image_url: 'https://images.unsplash.com/photo-1517694712202-14dd9538aa97?q=80&w=600&auto=format&fit=crop',
+    sort_order: 6,
+    created_at: new Date().toISOString()
+  },
+  {
+    id: 'lab-7',
+    name: 'Lab Uji Produk Pangan',
+    name_en: 'Food Product Testing Laboratory',
+    desc: 'Fasilitas analisis mutu produk pangan terstandar, pengujian masa simpan (shelf-life), stabilitas produk, dan kesesuaian regulasi pangan nasional/internasional.',
+    desc_en: 'Facilities for standardized food product quality analysis, shelf-life testing, product stability, and compliance with national/international food regulations.',
+    image_url: 'https://images.unsplash.com/photo-1532187863486-abf9dbad1b69?q=80&w=600&auto=format&fit=crop',
+    sort_order: 7,
+    created_at: new Date().toISOString()
+  },
+  {
+    id: 'lab-8',
+    name: 'Lab Bakery dan Pastry',
+    name_en: 'Bakery & Pastry Laboratory',
+    desc: 'Fasilitas inkubasi pembuatan roti, kue, pastri, teknik pemanggangan modern, formulasi gluten-free, serta kewirausahaan produk bakery berbasis bahan lokal.',
+    desc_en: 'Incubation facilities for bread, cake, pastry making, modern baking techniques, gluten-free formulation, and entrepreneurship in local-ingredient based bakery products.',
+    image_url: 'https://images.unsplash.com/photo-1509440159596-0249088772ff?q=80&w=600&auto=format&fit=crop',
+    sort_order: 8,
+    created_at: new Date().toISOString()
+  }
+];
+
 
 function initStorage() {
 
@@ -1114,6 +1209,10 @@ function initStorage() {
   if (!localStorage.getItem('mock_events')) {
     localStorage.setItem('mock_events', JSON.stringify(initialEvents));
   }
+  if (!localStorage.getItem('mock_laboratorium')) {
+    localStorage.setItem('mock_laboratorium', JSON.stringify(initialLaboratorium));
+  }
+
   if (!localStorage.getItem('mock_testimonials')) {
     localStorage.setItem('mock_testimonials', JSON.stringify(initialTestimonials));
   }

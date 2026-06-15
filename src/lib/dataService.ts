@@ -1,5 +1,6 @@
 import { getSupabaseClient } from './supabase';
-import { mockDb, initialSiteContent, type DbNews, type DbEvent, type DbTestimonial, type DbPartner, type DbSiteContent, type DbLandingStat, type DbLandingPartner, type DbLandingPortfolioItem, type DbDosen, type DbKurikulumCourse, type DbKurikulumPlo, type DbKurikulumProfile, type DbTaStep, type DbPrestasi, type DbPublikasiDosen, type DbKegiatanDosen, type DbKegiatanMahasiswa, type DbAlumni, type DbStatistikMaba } from './mockData';
+import { mockDb, initialSiteContent, type DbNews, type DbEvent, type DbTestimonial, type DbPartner, type DbSiteContent, type DbLandingStat, type DbLandingPartner, type DbLandingPortfolioItem, type DbDosen, type DbKurikulumCourse, type DbKurikulumPlo, type DbKurikulumProfile, type DbTaStep, type DbPrestasi, type DbPublikasiDosen, type DbKegiatanDosen, type DbKegiatanMahasiswa, type DbAlumni, type DbStatistikMaba, type DbLaboratorium } from './mockData';
+
 
 
 export type ConnectionMode = 'supabase' | 'mock';
@@ -1018,6 +1019,35 @@ export const dataService = {
     const supabase = getSupabaseClient();
     if (!supabase) { mockDb.delete('prestasi', id); return; }
     const { error } = await supabase.from('prestasi').delete().eq('id', id);
+    if (error) throw new Error(`Supabase error: ${error.message}`);
+  },
+
+  // --- LABORATORIUM ---
+  getLaboratorium: async (): Promise<DbLaboratorium[]> => {
+    const supabase = getSupabaseClient();
+    if (!supabase) return mockDb.getAll<DbLaboratorium>('laboratorium').sort((a, b) => a.sort_order - b.sort_order);
+    const { data, error } = await supabase.from('laboratorium').select('*').order('sort_order');
+    if (error) { console.warn('getLaboratorium fallback:', error.message); return mockDb.getAll<DbLaboratorium>('laboratorium').sort((a, b) => a.sort_order - b.sort_order); }
+    return data || [];
+  },
+  createLaboratorium: async (row: Omit<DbLaboratorium, 'id' | 'created_at'>): Promise<DbLaboratorium> => {
+    const supabase = getSupabaseClient();
+    if (!supabase) return mockDb.insert<DbLaboratorium>('laboratorium', row);
+    const { data, error } = await supabase.from('laboratorium').insert([row]).select().single();
+    if (error) throw new Error(`Supabase error: ${error.message}`);
+    return data;
+  },
+  updateLaboratorium: async (id: string, updates: Partial<DbLaboratorium>): Promise<DbLaboratorium> => {
+    const supabase = getSupabaseClient();
+    if (!supabase) { const u = mockDb.update<DbLaboratorium>('laboratorium', id, updates); if (!u) throw new Error('Not found'); return u; }
+    const { data, error } = await supabase.from('laboratorium').update(updates).eq('id', id).select().single();
+    if (error) throw new Error(`Supabase error: ${error.message}`);
+    return data;
+  },
+  deleteLaboratorium: async (id: string): Promise<void> => {
+    const supabase = getSupabaseClient();
+    if (!supabase) { mockDb.delete('laboratorium', id); return; }
+    const { error } = await supabase.from('laboratorium').delete().eq('id', id);
     if (error) throw new Error(`Supabase error: ${error.message}`);
   },
 

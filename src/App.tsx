@@ -13,7 +13,8 @@ import {
   type DbKurikulumCourse,
   type DbKurikulumPlo,
   type DbKurikulumProfile,
-  type DbTaStep
+  type DbTaStep,
+  type DbLaboratorium
 } from './lib/mockData';
 
 // Import modular layouts
@@ -44,6 +45,8 @@ import KegiatanDosenTab from './components/Tabs/KegiatanDosenTab';
 import KegiatanMahasiswaTab from './components/Tabs/KegiatanMahasiswaTab';
 import AlumniTab from './components/Tabs/AlumniTab';
 import StatistikMabaTab from './components/Tabs/StatistikMabaTab';
+import LaboratoriumTab from './components/Tabs/LaboratoriumTab';
+
 
 export interface Toast {
   id: string;
@@ -72,6 +75,7 @@ export type TabType =
   | 'kegiatan_mahasiswa'
   | 'alumni'
   | 'statistik_maba'
+  | 'laboratorium'
   | 'visi_misi'
   | 'tata_kelola';
 
@@ -109,6 +113,7 @@ export default function App() {
   const [kegiatanMahasiswaList, setKegiatanMahasiswaList] = useState<any[]>([]);
   const [alumniList, setAlumniList] = useState<any[]>([]);
   const [statistikMabaList, setStatistikMabaList] = useState<any[]>([]);
+  const [laboratoriumList, setLaboratoriumList] = useState<DbLaboratorium[]>([]);
 
   const [isLoadingData, setIsLoadingData] = useState<boolean>(false);
 
@@ -182,6 +187,9 @@ export default function App() {
   });
   const [statistikMabaForm, setStatistikMabaForm] = useState<any>({
     year: '', count: 0, sort_order: 0
+  });
+  const [laboratoriumForm, setLaboratoriumForm] = useState<Omit<DbLaboratorium, 'id' | 'created_at'>>({
+    name: '', name_en: '', desc: '', desc_en: '', image_url: '', sort_order: 0
   });
 
   // --- Toast Trigger Helper ---
@@ -314,6 +322,8 @@ export default function App() {
         setAlumniList(await dataService.getAlumni());
       } else if (activeTab === 'statistik_maba') {
         setStatistikMabaList(await dataService.getStatistikMaba());
+      } else if (activeTab === 'laboratorium') {
+        setLaboratoriumList(await dataService.getLaboratorium());
       }
     } catch (err: any) {
       console.error(err);
@@ -418,6 +428,7 @@ export default function App() {
     localStorage.removeItem('mock_kegiatan_mahasiswa');
     localStorage.removeItem('mock_alumni');
     localStorage.removeItem('mock_statistik_maba');
+    localStorage.removeItem('mock_laboratorium');
     triggerToast('Mock database reset to defaults!', 'success');
     fetchCollectionData();
   };
@@ -527,6 +538,9 @@ export default function App() {
       } else if (activeTab === 'statistik_maba') {
         if (activeModal === 'create') { await dataService.createStatistikMaba(statistikMabaForm); triggerToast('Data statistik berhasil ditambahkan!'); }
         else if (activeModal === 'edit' && editingId) { await dataService.updateStatistikMaba(editingId, statistikMabaForm); triggerToast('Data statistik berhasil diperbarui!'); }
+      } else if (activeTab === 'laboratorium') {
+        if (activeModal === 'create') { await dataService.createLaboratorium(laboratoriumForm); triggerToast('Laboratorium berhasil ditambahkan!'); }
+        else if (activeModal === 'edit' && editingId) { await dataService.updateLaboratorium(editingId, laboratoriumForm); triggerToast('Laboratorium berhasil diperbarui!'); }
       }
 
       setActiveModal(null);
@@ -574,6 +588,8 @@ export default function App() {
         await dataService.deleteAlumni(deletingId);
       } else if (activeTab === 'statistik_maba') {
         await dataService.deleteStatistikMaba(deletingId);
+      } else if (activeTab === 'laboratorium') {
+        await dataService.deleteLaboratorium(deletingId);
       }
 
       triggerToast('Item berhasil dihapus!', 'success');
@@ -616,6 +632,7 @@ export default function App() {
     setKegiatanMahasiswaForm({ title: '', title_en: '', date_text: '', date_text_en: '', location: '', desc: '', desc_en: '', image_url: '', sort_order: kegiatanMahasiswaList.length + 1 });
     setAlumniForm({ name: '', class_of: '', class_of_en: '', role: '', company: '', quote: '', quote_en: '', image_url: '', sort_order: alumniList.length + 1 });
     setStatistikMabaForm({ year: '', count: 0, sort_order: statistikMabaList.length + 1 });
+    setLaboratoriumForm({ name: '', name_en: '', desc: '', desc_en: '', image_url: '', sort_order: laboratoriumList.length + 1 });
     setActiveModal('create');
   };
 
@@ -728,6 +745,15 @@ export default function App() {
       setAlumniForm({ name: item.name, class_of: item.class_of, class_of_en: item.class_of_en || '', role: item.role, company: item.company, quote: item.quote, quote_en: item.quote_en || '', image_url: item.image_url || '', sort_order: item.sort_order });
     } else if (activeTab === 'statistik_maba') {
       setStatistikMabaForm({ year: item.year, count: item.count, sort_order: item.sort_order });
+    } else if (activeTab === 'laboratorium') {
+      setLaboratoriumForm({
+        name: item.name,
+        name_en: item.name_en || '',
+        desc: item.desc,
+        desc_en: item.desc_en || '',
+        image_url: item.image_url || '',
+        sort_order: item.sort_order || 0
+      });
     }
     setActiveModal('edit');
   };
@@ -1085,6 +1111,19 @@ export default function App() {
             />
           )}
 
+          {/* LABORATORIUM VIEW */}
+          {activeTab === 'laboratorium' && (
+            <LaboratoriumTab
+              laboratoriumList={laboratoriumList}
+              searchQuery={searchQuery}
+              setSearchQuery={setSearchQuery}
+              isLoadingData={isLoadingData}
+              openCreateModal={openCreateModal}
+              openEditModal={openEditModal}
+              openDeleteModal={openDeleteModal}
+            />
+          )}
+
           {/* SETTINGS VIEW */}
           {activeTab === 'settings' && (
             <SettingsTab
@@ -1148,6 +1187,8 @@ export default function App() {
           setAlumniForm={setAlumniForm}
           statistikMabaForm={statistikMabaForm}
           setStatistikMabaForm={setStatistikMabaForm}
+          laboratoriumForm={laboratoriumForm}
+          setLaboratoriumForm={setLaboratoriumForm}
         />
       )}
 

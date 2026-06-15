@@ -19,7 +19,8 @@ import {
   type DbKegiatanDosen,
   type DbKegiatanMahasiswa,
   type DbAlumni,
-  type DbStatistikMaba
+  type DbStatistikMaba,
+  type DbLaboratorium
 } from '../../lib/mockData';
 
 interface CrudModalProps {
@@ -62,6 +63,8 @@ interface CrudModalProps {
   setAlumniForm?: React.Dispatch<React.SetStateAction<Omit<DbAlumni, 'id' | 'created_at'>>>;
   statistikMabaForm?: Omit<DbStatistikMaba, 'id' | 'created_at'>;
   setStatistikMabaForm?: React.Dispatch<React.SetStateAction<Omit<DbStatistikMaba, 'id' | 'created_at'>>>;
+  laboratoriumForm?: Omit<DbLaboratorium, 'id' | 'created_at'>;
+  setLaboratoriumForm?: React.Dispatch<React.SetStateAction<Omit<DbLaboratorium, 'id' | 'created_at'>>>;
 }
 
 export default function CrudModal({
@@ -103,7 +106,9 @@ export default function CrudModal({
   alumniForm,
   setAlumniForm,
   statistikMabaForm,
-  setStatistikMabaForm
+  setStatistikMabaForm,
+  laboratoriumForm,
+  setLaboratoriumForm
 }: CrudModalProps) {
   const [isUploading, setIsUploading] = React.useState(false);
   const [uploadError, setUploadError] = React.useState<string | null>(null);
@@ -150,6 +155,7 @@ export default function CrudModal({
       case 'kegiatan_mahasiswa': return 'Kegiatan Mahasiswa';
       case 'alumni': return 'Alumni';
       case 'statistik_maba': return 'Statistik Maba';
+      case 'laboratorium': return 'Laboratorium';
       default: return 'Data';
     }
   };
@@ -1715,6 +1721,87 @@ export default function CrudModal({
                 </div>
                 {isUploading && <p className="text-[10px] text-slate-500 animate-pulse">Mengunggah gambar...</p>}
                 {uploadError && <p className="text-[10px] text-red-500 font-semibold">{uploadError}</p>}
+              </div>
+            </>
+          )}
+
+          {/* LABORATORIUM FORM */}
+          {activeTab === 'laboratorium' && laboratoriumForm && setLaboratoriumForm && (
+            <>
+              <div className="space-y-1">
+                <label className="text-xs font-bold text-slate-700">Nama Laboratorium (Bahasa Indonesia)</label>
+                <input
+                  type="text"
+                  className="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-slate-900/10 focus:border-slate-400 focus:bg-white transition"
+                  value={laboratoriumForm.name}
+                  onChange={(e) => setLaboratoriumForm({ ...laboratoriumForm, name: e.target.value })}
+                  required
+                />
+              </div>
+              <div className="space-y-1">
+                <label className="text-xs font-bold text-slate-700">Nama Laboratorium (English)</label>
+                <input
+                  type="text"
+                  className="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-slate-900/10 focus:border-slate-400 focus:bg-white transition"
+                  value={laboratoriumForm.name_en || ''}
+                  onChange={(e) => setLaboratoriumForm({ ...laboratoriumForm, name_en: e.target.value })}
+                />
+              </div>
+              <div className="space-y-1">
+                <label className="text-xs font-bold text-slate-700">Deskripsi Laboratorium (Bahasa Indonesia)</label>
+                <textarea
+                  className="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-slate-900/10 focus:border-slate-400 focus:bg-white transition min-h-[80px]"
+                  value={laboratoriumForm.desc}
+                  onChange={(e) => setLaboratoriumForm({ ...laboratoriumForm, desc: e.target.value })}
+                  required
+                />
+              </div>
+              <div className="space-y-1">
+                <label className="text-xs font-bold text-slate-700">Deskripsi Laboratorium (English)</label>
+                <textarea
+                  className="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-slate-900/10 focus:border-slate-400 focus:bg-white transition min-h-[80px]"
+                  value={laboratoriumForm.desc_en || ''}
+                  onChange={(e) => setLaboratoriumForm({ ...laboratoriumForm, desc_en: e.target.value })}
+                />
+              </div>
+              <div className="grid grid-cols-2 gap-4">
+                <div className="space-y-1">
+                  <label className="text-xs font-bold text-slate-700 block">Foto Laboratorium</label>
+                  <div className="flex flex-col sm:flex-row gap-3 items-center">
+                    {laboratoriumForm.image_url && (
+                      <img src={laboratoriumForm.image_url} className="w-14 h-14 object-cover rounded-xl border border-slate-200 shrink-0 bg-slate-50" alt="Preview" />
+                    )}
+                    <div className="flex-1 w-full space-y-2">
+                      <input
+                        type="file"
+                        accept="image/*"
+                        onChange={(e) => handleFileChange(e, (url) => setLaboratoriumForm({ ...laboratoriumForm, image_url: url }))}
+                        className="w-full text-xs text-slate-500 file:mr-4 file:py-1.5 file:px-3 file:rounded-lg file:border-0 file:text-[11px] file:font-semibold file:bg-slate-900 file:text-white hover:file:bg-slate-800 file:cursor-pointer"
+                        disabled={isUploading}
+                      />
+                      <input
+                        type="text"
+                        placeholder="URL gambar..."
+                        className="w-full px-4 py-2 bg-slate-50 border border-slate-200 rounded-xl text-xs focus:outline-none focus:ring-2 focus:ring-slate-900/10 focus:border-slate-400 focus:bg-white transition"
+                        value={laboratoriumForm.image_url}
+                        onChange={(e) => setLaboratoriumForm({ ...laboratoriumForm, image_url: e.target.value })}
+                        required
+                      />
+                    </div>
+                  </div>
+                  {isUploading && <p className="text-[10px] text-slate-500 animate-pulse">Mengunggah gambar...</p>}
+                  {uploadError && <p className="text-[10px] text-red-500 font-semibold">{uploadError}</p>}
+                </div>
+                <div className="space-y-1">
+                  <label className="text-xs font-bold text-slate-700">Urutan (Sort Order)</label>
+                  <input
+                    type="number"
+                    className="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-slate-900/10 focus:border-slate-400 focus:bg-white transition"
+                    value={laboratoriumForm.sort_order}
+                    onChange={(e) => setLaboratoriumForm({ ...laboratoriumForm, sort_order: parseInt(e.target.value) || 0 })}
+                    required
+                  />
+                </div>
               </div>
             </>
           )}
