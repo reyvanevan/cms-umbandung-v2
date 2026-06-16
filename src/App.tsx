@@ -349,7 +349,12 @@ export default function App() {
         setLandingPortfolioItems(portList);
         setPartners(partList);
       } else if (activeTab === 'news') {
-        setNews(await dataService.getNews());
+        const [newsList, contentList] = await Promise.all([
+          dataService.getNews(),
+          dataService.getSiteContent()
+        ]);
+        setNews(newsList);
+        setSiteContents(contentList);
       } else if (activeTab === 'events') {
         setEvents(await dataService.getEvents());
       } else if (activeTab === 'testimonials') {
@@ -962,6 +967,8 @@ export default function App() {
               openCreateModal={openCreateModal}
               openEditModal={openEditModal}
               openDeleteModal={openDeleteModal}
+              siteContent={siteContents}
+              onUpdateContent={handleUpdateSiteContent}
             />
           )}
 

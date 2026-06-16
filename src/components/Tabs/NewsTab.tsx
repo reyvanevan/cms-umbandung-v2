@@ -1,5 +1,6 @@
-import { Edit2, Newspaper, Plus, RefreshCw, Search, Trash2 } from 'lucide-react';
-import { type DbNews } from '../../lib/mockData';
+import { useEffect, useState } from 'react';
+import { Edit2, Newspaper, Plus, RefreshCw, Save, Search, Settings2, Trash2 } from 'lucide-react';
+import { type DbNews, type DbSiteContent } from '../../lib/mockData';
 
 interface NewsTabProps {
   news: DbNews[];
@@ -9,14 +10,35 @@ interface NewsTabProps {
   openCreateModal: () => void;
   openEditModal: (item: DbNews) => void;
   openDeleteModal: (id: string) => void;
+  siteContent: DbSiteContent[];
+  onUpdateContent: (key: string, value: string, valueEn: string | null) => void;
 }
 
-export default function NewsTab({ news, searchQuery, setSearchQuery, isLoadingData, openCreateModal, openEditModal, openDeleteModal }: NewsTabProps) {
+function clampHomeNewsLimit(value: string | number | null | undefined) {
+  const parsed = typeof value === 'number' ? value : Number.parseInt(value || '', 10);
+  if (!Number.isFinite(parsed)) return 5;
+  return Math.min(5, Math.max(1, parsed));
+}
+
+export default function NewsTab({ news, searchQuery, setSearchQuery, isLoadingData, openCreateModal, openEditModal, openDeleteModal, siteContent, onUpdateContent }: NewsTabProps) {
+  const savedLimit = clampHomeNewsLimit(siteContent.find((item) => item.key === 'news_home_limit')?.value);
+  const [homeLimit, setHomeLimit] = useState(String(savedLimit));
+
+  useEffect(() => {
+    setHomeLimit(String(savedLimit));
+  }, [savedLimit]);
+
   const filteredNews = news.filter((item) => {
     if (!searchQuery) return true;
     const query = searchQuery.toLowerCase();
     return item.title.toLowerCase().includes(query) || (item.title_en || '').toLowerCase().includes(query) || item.category.toLowerCase().includes(query) || item.snippet.toLowerCase().includes(query);
   });
+
+  const handleSaveLimit = () => {
+    const clamped = clampHomeNewsLimit(homeLimit);
+    setHomeLimit(String(clamped));
+    onUpdateContent('news_home_limit', String(clamped), String(clamped));
+  };
 
   return (
     <div className="space-y-6 select-none">
@@ -24,6 +46,20 @@ export default function NewsTab({ news, searchQuery, setSearchQuery, isLoadingDa
         <div className="flex flex-col lg:flex-row lg:items-start justify-between gap-5">
           <div className="max-w-2xl"><div className="flex items-center gap-2 text-[10px] font-bold uppercase tracking-widest text-slate-400 mb-2"><Newspaper className="w-4 h-4" /> Home Section 08</div><h2 className="text-lg font-bold text-slate-950 tracking-tight">Berita Terkini</h2><p className="text-xs text-slate-500 mt-1 leading-relaxed">Kelola artikel yang muncul di landing page. Preview di bawah menampilkan foto, kategori, tanggal, judul, dan ringkasan seperti kartu publik.</p></div>
           <button onClick={openCreateModal} className="px-4 py-2 bg-slate-900 hover:bg-slate-800 text-white rounded-xl text-xs font-semibold flex items-center justify-center gap-1.5 shadow-sm transition cursor-pointer"><Plus className="w-4 h-4" /> Tambah Berita</button>
+        </div>
+        <div className="grid grid-cols-1 lg:grid-cols-[1fr_auto] gap-4 p-4 rounded-2xl bg-slate-50 border border-slate-200">
+          <div className="flex items-start gap-3">
+            <div className="p-2 rounded-xl bg-white border border-slate-200 text-slate-700"><Settings2 className="w-4 h-4" /></div>
+            <div>
+              <h3 className="text-sm font-bold text-slate-950">Pengaturan tampilan landing</h3>
+              <p className="text-xs text-slate-500 mt-1 leading-relaxed">Jumlah artikel pada section Berita Terkini dibatasi 1 sampai 5. Halaman arsip berita tetap menampilkan semua artikel.</p>
+            </div>
+          </div>
+          <div className="flex flex-col sm:flex-row sm:items-center gap-3">
+            <label className="text-[10px] font-bold uppercase tracking-widest text-slate-400">Maks tampil</label>
+            <input type="number" min={1} max={5} value={homeLimit} onChange={(e) => setHomeLimit(e.target.value)} onBlur={() => setHomeLimit(String(clampHomeNewsLimit(homeLimit)))} className="w-24 px-3 py-2 bg-white border border-slate-200 rounded-xl text-sm font-semibold text-slate-900 focus:outline-none focus:ring-2 focus:ring-slate-900/10" />
+            <button onClick={handleSaveLimit} className="px-4 py-2 bg-white hover:bg-slate-100 border border-slate-200 text-slate-900 rounded-xl text-xs font-semibold flex items-center justify-center gap-1.5 transition cursor-pointer"><Save className="w-4 h-4" /> Simpan</button>
+          </div>
         </div>
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pt-4 border-t border-slate-100"><div className="text-xs text-slate-500"><b className="text-slate-900">{news.length}</b> artikel tersimpan</div><div className="relative w-full sm:max-w-xs"><Search className="absolute left-3 top-2.5 w-4 h-4 text-slate-400" /><input type="text" placeholder="Cari judul/kategori..." className="w-full pl-9 pr-4 py-2 bg-slate-50 border border-slate-200 rounded-xl text-xs focus:outline-none focus:ring-2 focus:ring-slate-900/10 focus:bg-white transition" value={searchQuery} onChange={(e) => setSearchQuery(e.target.value)} /></div></div>
       </div>

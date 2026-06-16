@@ -5,6 +5,45 @@ import { mockDb, initialSiteContent, type DbNews, type DbEvent, type DbTestimoni
 
 export type ConnectionMode = 'supabase' | 'mock';
 
+const MONTH_INDEX: Record<string, number> = {
+  jan: 0, januari: 0, january: 0,
+  feb: 1, februari: 1, february: 1,
+  mar: 2, maret: 2, march: 2,
+  apr: 3, april: 3,
+  mei: 4, may: 4,
+  jun: 5, juni: 5, june: 5,
+  jul: 6, juli: 6, july: 6,
+  agu: 7, agustus: 7, aug: 7, august: 7,
+  sep: 8, september: 8,
+  okt: 9, oktober: 9, oct: 9, october: 9,
+  nov: 10, november: 10,
+  des: 11, desember: 11, dec: 11, december: 11,
+};
+
+function parseNewsDate(dateText: string | null | undefined): number {
+  if (!dateText) return 0;
+  const normalized = dateText.trim().toLowerCase().replace(/[,.-]/g, ' ');
+  const parts = normalized.split(/\s+/).filter(Boolean);
+  const day = Number(parts.find((part) => /^\d{1,2}$/.test(part)) || '');
+  const year = Number(parts.find((part) => /^\d{4}$/.test(part)) || '');
+  const monthToken = parts.find((part) => MONTH_INDEX[part] !== undefined);
+
+  if (!day || !year || !monthToken) {
+    const nativeDate = Date.parse(dateText);
+    return Number.isNaN(nativeDate) ? 0 : nativeDate;
+  }
+
+  return new Date(year, MONTH_INDEX[monthToken], day).getTime();
+}
+
+function sortNewsByDisplayDate(items: DbNews[]): DbNews[] {
+  return [...items].sort((a, b) => {
+    const parsedDiff = parseNewsDate(b.date) - parseNewsDate(a.date);
+    if (parsedDiff !== 0) return parsedDiff;
+    return new Date(b.created_at).getTime() - new Date(a.created_at).getTime();
+  });
+}
+
 export function getConnectionMode(): ConnectionMode {
   const client = getSupabaseClient();
   return client ? 'supabase' : 'mock';
@@ -15,7 +54,7 @@ export const dataService = {
   getNews: async (): Promise<DbNews[]> => {
     const supabase = getSupabaseClient();
     if (!supabase) {
-      return mockDb.getAll<DbNews>('news').sort((a, b) => new Date(b.created_at).getTime() - new Date(a.created_at).getTime());
+      return sortNewsByDisplayDate(mockDb.getAll<DbNews>('news'));
     }
     
     const { data, error } = await supabase
@@ -25,9 +64,9 @@ export const dataService = {
       
     if (error) {
       console.warn('Supabase getNews failed, falling back to mock data:', error.message);
-      return mockDb.getAll<DbNews>('news').sort((a, b) => new Date(b.created_at).getTime() - new Date(a.created_at).getTime());
+      return sortNewsByDisplayDate(mockDb.getAll<DbNews>('news'));
     }
-    return data || [];
+    return sortNewsByDisplayDate(data || []);
   },
 
   createNews: async (news: Omit<DbNews, 'id' | 'created_at'>): Promise<DbNews> => {

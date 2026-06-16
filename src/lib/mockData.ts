@@ -605,6 +605,12 @@ export const initialSiteContent: DbSiteContent[] = [
     updated_at: new Date().toISOString()
   },
   {
+    key: 'news_home_limit',
+    value: '5',
+    value_en: '5',
+    updated_at: new Date().toISOString()
+  },
+  {
     key: 'hero_title',
     value: 'Teknologi Pangan UMB',
     value_en: 'Food Technology UMB',
