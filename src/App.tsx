@@ -947,7 +947,6 @@ export default function App() {
             />
           )}
 
-          {/* MITRA VIEW */}
           {activeTab === 'partners' && (
             <PartnersTab
               partners={partners}
@@ -957,9 +956,6 @@ export default function App() {
               openCreateModal={openCreateModal}
               openEditModal={openEditModal}
               openDeleteModal={openDeleteModal}
-              siteContent={siteContents}
-              connectionMode={connectionMode}
-              onUpdateContent={handleUpdateSiteContent}
             />
           )}
 
