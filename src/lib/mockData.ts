@@ -914,9 +914,27 @@ export const initialSiteContent: DbSiteContent[] = [
     updated_at: new Date().toISOString()
   },
   {
+    key: 'kerjasama_heading',
+    value: 'Kemitraan & Sinergi Industri',
+    value_en: 'Industrial & Academic Synergy',
+    updated_at: new Date().toISOString()
+  },
+  {
     key: 'kerjasama_description',
     value: 'Membuka peluang kolaborasi industri pangan guna mendukung magang mahasiswa, riset bersama, serta penyerapan karir lulusan.',
     value_en: 'Exploring collaborations with food industries to support student internships, joint research, and professional career transitions.',
+    updated_at: new Date().toISOString()
+  },
+  {
+    key: 'kerjasama_intro_title',
+    value: 'Bangun Inovasi Masa Depan Bersama Kami',
+    value_en: 'Build Future Innovations with Us',
+    updated_at: new Date().toISOString()
+  },
+  {
+    key: 'kerjasama_intro_desc',
+    value: 'Kami menyambut hangat kedatangan mitra industri, instansi pemerintah, maupun lembaga riset untuk menjalin kesepakatan kerjasama demi kesuksesan akademik dan riset.',
+    value_en: 'We welcome industry enterprises, government offices, and research institutes to establish MoUs and secure internships for students.',
     updated_at: new Date().toISOString()
   },
   {

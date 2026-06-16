@@ -212,9 +212,21 @@ export const SITE_CONTENT_LABELS: Record<string, LabelConfig> = {
     label: 'Persyaratan Akademik Tugas Akhir',
     desc: 'Ketentuan jumlah SKS lulus, IPK minimal, dan prasyarat pendaftaran proposal skripsi.'
   },
+  kerjasama_heading: {
+    label: 'Judul Halaman Kerjasama',
+    desc: 'Judul besar di bagian atas halaman Kerjasama & Kemitraan (contoh: Kemitraan & Sinergi Industri).'
+  },
   kerjasama_description: {
-    label: 'Deskripsi Kerjasama & Kemitraan',
-    desc: 'Kalimat pembuka / pengantar pada halaman direktori kerjasama industri.'
+    label: 'Deskripsi Halaman Kerjasama',
+    desc: 'Deskripsi pengantar di bawah judul halaman Kerjasama & Kemitraan.'
+  },
+  kerjasama_intro_title: {
+    label: 'Judul Kartu Hubungi Kerjasama',
+    desc: 'Judul ajakan kolaborasi pada kartu kontak kerjasama (contoh: Bangun Inovasi Masa Depan Bersama Kami).'
+  },
+  kerjasama_intro_desc: {
+    label: 'Deskripsi Kartu Hubungi Kerjasama',
+    desc: 'Paragraf penjelasan ajakan kolaborasi pada kartu kontak kerjasama.'
   },
   footer_desc: {
     label: 'Footer: Deskripsi Singkat Program Studi',

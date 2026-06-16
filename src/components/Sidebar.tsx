@@ -63,8 +63,8 @@ export default function Sidebar({
   // Which groups are open — default: open the one containing current activeTab/subSection
   const getInitialOpen = () => {
     return {
-      beranda: ['landing_portfolio', 'landing_stats'].includes(activeTab) || (activeTab === 'site_content' && activeSubSection !== 'Panduan Kurikulum & MBKM'),
-      tentang_kami: ['dosen', 'partners', 'visi_misi', 'tata_kelola', 'laboratorium'].includes(activeTab),
+      beranda: ['landing_portfolio', 'landing_stats', 'partners'].includes(activeTab) || (activeTab === 'site_content' && activeSubSection !== 'Panduan Kurikulum & MBKM' && activeSubSection !== 'Kerjasama & Kemitraan'),
+      tentang_kami: ['dosen', 'visi_misi', 'tata_kelola', 'laboratorium'].includes(activeTab) || (activeTab === 'site_content' && activeSubSection === 'Kerjasama & Kemitraan'),
       akademik: ['kurikulum_courses', 'kurikulum_plos', 'kurikulum_profiles', 'publikasi_dosen', 'tugas_akhir_steps', 'kkn_documents'].includes(activeTab) || activeTab === 'kkn_content' || (activeTab === 'site_content' && activeSubSection === 'Panduan Kurikulum & MBKM'),
       statistik: ['statistik_maba'].includes(activeTab),
       mahasiswa_alumni: ['prestasi', 'testimonials', 'alumni'].includes(activeTab),
@@ -102,6 +102,7 @@ export default function Sidebar({
         { tab: 'site_content', subSection: 'Informasi Singkat Landing Page', label: 'Informasi Singkat Beranda', icon: <FileText className="w-3.5 h-3.5" /> },
         { tab: 'landing_portfolio', label: 'Galeri Portfolio', icon: <Image className="w-3.5 h-3.5" /> },
         { tab: 'landing_stats', label: 'Statistik Ribbon', icon: <TrendingUp className="w-3.5 h-3.5" /> },
+        { tab: 'partners', label: 'Kemitraan Industri (Logo)', icon: <Building2 className="w-3.5 h-3.5" /> },
         { tab: 'site_content', subSection: 'Informasi Kontak & Sosial Media (Footer)', label: 'Informasi Kontak & Sosial', icon: <FileText className="w-3.5 h-3.5" /> },
       ],
     },
@@ -113,7 +114,7 @@ export default function Sidebar({
         { tab: 'visi_misi', subSection: 'Visi & Misi Akademik', label: 'Visi & Misi Akademik', icon: <FileText className="w-3.5 h-3.5" /> },
         { tab: 'tata_kelola', subSection: 'Sekretaris & UPM (Tata Kelola)', label: 'Struktur Organisasi (Tata Kelola)', icon: <Users className="w-3.5 h-3.5" /> },
         { tab: 'dosen', label: 'Dosen & Staff (SDM)', icon: <Users className="w-3.5 h-3.5" /> },
-        { tab: 'partners', label: 'Kemitraan Industri', icon: <Building2 className="w-3.5 h-3.5" /> },
+        { tab: 'site_content', subSection: 'Kerjasama & Kemitraan', label: 'Kerjasama & Kemitraan (Teks)', icon: <FileText className="w-3.5 h-3.5" /> },
         { tab: 'laboratorium', label: 'Laboratorium', icon: <Building2 className="w-3.5 h-3.5" /> },
       ],
     },

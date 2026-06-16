@@ -188,7 +188,7 @@ export default function SiteContentTab({
     if (key.startsWith('visi_misi_')) return 'Visi & Misi Akademik';
     if (key.startsWith('kurikulum_')) return 'Panduan Kurikulum & MBKM';
     if (key.startsWith('tugas_akhir_')) return 'Persyaratan & Timeline Tugas Akhir';
-    if (key.startsWith('kerjasama_')) return 'Kemitraan Industri';
+    if (key.startsWith('kerjasama_')) return 'Kerjasama & Kemitraan';
     return 'General';
   };
 

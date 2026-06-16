@@ -27,6 +27,7 @@ export function getSubSectionName(key: string): string {
   if (key.startsWith('gov_sec_') || key.startsWith('gov_upm_')) return 'Sekretaris & UPM (Tata Kelola)';
   if (key.startsWith('kurikulum_guideline_')) return 'Panduan Kurikulum & MBKM';
   if (key.startsWith('kkn_')) return 'Praktik Kerja & KKN';
+  if (key.startsWith('kerjasama_')) return 'Kerjasama & Kemitraan';
   if (key.startsWith('footer_')) return 'Informasi Kontak & Sosial Media (Footer)';
   return 'Spanduk & Jumbotron';
 }
