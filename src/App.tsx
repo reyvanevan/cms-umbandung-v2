@@ -98,6 +98,7 @@ export type TabType =
   | 'tata_kelola'
   | 'kurikulum_content'
   | 'tugas_akhir_content'
+  | 'capstone_content'
   | 'kerjasama_content'
   | 'statistik_content'
   | 'alumni_content'
@@ -313,6 +314,8 @@ export default function App() {
       setActiveSubSection('Panduan Kurikulum & MBKM');
     } else if (activeTab === 'tugas_akhir_content' && activeSubSection !== 'Persyaratan & Timeline Tugas Akhir') {
       setActiveSubSection('Persyaratan & Timeline Tugas Akhir');
+    } else if (activeTab === 'capstone_content' && activeSubSection !== 'Capstone Design') {
+      setActiveSubSection('Capstone Design');
     } else if (activeTab === 'kerjasama_content' && activeSubSection !== 'Kerjasama & Kemitraan') {
       setActiveSubSection('Kerjasama & Kemitraan');
     } else if (activeTab === 'statistik_content' && activeSubSection !== 'Teks Halaman Statistik') {
@@ -366,7 +369,7 @@ export default function App() {
         ]);
         setPartners(partList);
         setSiteContents(contentList);
-      } else if (activeTab === 'site_content' || activeTab === 'visi_misi' || activeTab === 'tata_kelola' || activeTab === 'kurikulum_content' || activeTab === 'tugas_akhir_content' || activeTab === 'kerjasama_content' || activeTab === 'statistik_content' || activeTab === 'alumni_content' || activeTab === 'kegiatan_dosen_content' || activeTab === 'kegiatan_mahasiswa_content' || activeTab === 'publikasi_content' || activeTab === 'dosen_content' || activeTab === 'global_content' || activeTab === 'kkn_content') {
+      } else if (activeTab === 'site_content' || activeTab === 'visi_misi' || activeTab === 'tata_kelola' || activeTab === 'kurikulum_content' || activeTab === 'tugas_akhir_content' || activeTab === 'capstone_content' || activeTab === 'kerjasama_content' || activeTab === 'statistik_content' || activeTab === 'alumni_content' || activeTab === 'kegiatan_dosen_content' || activeTab === 'kegiatan_mahasiswa_content' || activeTab === 'publikasi_content' || activeTab === 'dosen_content' || activeTab === 'global_content' || activeTab === 'kkn_content') {
         const [contentList, dList] = await Promise.all([
           dataService.getSiteContent(),
           dataService.getDosen()
@@ -1103,6 +1106,7 @@ export default function App() {
           {([
             ['kurikulum_content', 'kurikulum'],
             ['tugas_akhir_content', 'tugas_akhir'],
+            ['capstone_content', 'capstone'],
             ['kerjasama_content', 'kerjasama'],
             ['statistik_content', 'statistik'],
             ['alumni_content', 'alumni'],

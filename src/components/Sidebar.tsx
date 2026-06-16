@@ -64,7 +64,7 @@ export default function Sidebar({
     return {
       beranda: ['laboratorium', 'landing_stats', 'news', 'events', 'prestasi', 'partners', 'testimonials'].includes(activeTab) || (activeTab === 'site_content' && activeSubSection !== 'Panduan Kurikulum & MBKM' && activeSubSection !== 'Kerjasama & Kemitraan' && activeSubSection !== 'Informasi Kontak & Sosial Media (Footer)'),
       tentang_kami: ['dosen', 'dosen_content', 'visi_misi', 'tata_kelola', 'laboratorium', 'kerjasama_content'].includes(activeTab),
-      akademik: ['kurikulum_content', 'kurikulum_courses', 'kurikulum_plos', 'kurikulum_profiles', 'publikasi_content', 'publikasi_dosen', 'tugas_akhir_content', 'tugas_akhir_steps', 'kkn_documents'].includes(activeTab) || activeTab === 'kkn_content',
+      akademik: ['kurikulum_content', 'kurikulum_courses', 'kurikulum_plos', 'kurikulum_profiles', 'capstone_content', 'publikasi_content', 'publikasi_dosen', 'tugas_akhir_content', 'tugas_akhir_steps', 'kkn_documents'].includes(activeTab) || activeTab === 'kkn_content',
       statistik: ['statistik_content', 'statistik_maba'].includes(activeTab),
       mahasiswa_alumni: ['prestasi', 'testimonials', 'alumni_content', 'alumni', 'alumni_sectors'].includes(activeTab),
       galeri_kegiatan: ['news', 'events', 'kegiatan_dosen_content', 'kegiatan_dosen', 'kegiatan_mahasiswa_content', 'kegiatan_mahasiswa'].includes(activeTab),
@@ -132,6 +132,7 @@ export default function Sidebar({
         { tab: 'kurikulum_courses', label: 'Editor Mata Kuliah (Kurikulum)', icon: <BookOpen className="w-3.5 h-3.5" /> },
         { tab: 'kurikulum_plos', label: 'Capaian Pembelajaran (CPL)', icon: <Award className="w-3.5 h-3.5" /> },
         { tab: 'kurikulum_profiles', label: 'Profil Lulusan', icon: <Users className="w-3.5 h-3.5" /> },
+        { tab: 'capstone_content', subSection: 'Capstone Design', label: 'Capstone Design', icon: <FileText className="w-3.5 h-3.5" /> },
         { tab: 'publikasi_content', subSection: 'Teks Halaman Publikasi', label: 'Teks Halaman Publikasi', icon: <FileText className="w-3.5 h-3.5" /> },
         { tab: 'publikasi_dosen', label: 'Publikasi Dosen', icon: <BookOpen className="w-3.5 h-3.5" /> },
         { tab: 'tugas_akhir_content', subSection: 'Persyaratan & Timeline Tugas Akhir', label: 'Teks & Dokumen Tugas Akhir', icon: <FileText className="w-3.5 h-3.5" /> },

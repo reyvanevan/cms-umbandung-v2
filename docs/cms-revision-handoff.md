@@ -22,6 +22,7 @@ Status after the 2026-06-16 implementation pass:
 - [x] Public Astro layouts consume the newly added CMS keys where applicable.
 - [x] Home list-based tabs (`Laboratorium`, `Statistik Ribbon`, `Berita Terkini`, `Event Terkini`, `Galeri Prestasi`, `Mitra & Kolaborasi`, `Testimoni Alumni`) now use richer landing-section-style CMS views with section summaries, search, empty states, and preview cards instead of plain tables.
 - [x] Berita now sorts by the display date field, has a CMS-managed landing display limit via `site_content.news_home_limit` with a hard cap of 5, and the public landing section includes a CTA to the full `/berita` archive page.
+- [x] Capstone Design page added to the public Academic navigation before Riset & Publikasi, with `/capstone-design` and `/en/capstone-design` routes backed by CMS-managed `site_content.capstone_*` keys.
 - [x] Dosen detail page was audited. It currently renders existing lecturer fields only (`name`, `img_src`, role, expertise, SINTA/Scopus/Scholar, social links) plus static fallback bio/highlights, so no schema expansion was added.
 - [x] `cms-prodi` build passed with `npm run build`.
 - [x] `prodi-umbandung` build passed with `npm run build`; Supabase DNS warnings were expected in the restricted environment and final exit code was `0`.

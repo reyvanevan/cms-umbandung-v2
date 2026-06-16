@@ -17,7 +17,7 @@ interface SiteContentTabProps {
   isLoadingData: boolean;
   connectionMode: 'supabase' | 'mock';
   onUpdateContent: (key: string, value: string, valueEn: string | null) => Promise<void>;
-  category?: 'beranda' | 'visi_misi' | 'tata_kelola' | 'kurikulum' | 'tugas_akhir' | 'kerjasama' | 'kkn' | 'statistik' | 'alumni' | 'kegiatan_dosen' | 'kegiatan_mahasiswa' | 'publikasi' | 'dosen' | 'global';
+  category?: 'beranda' | 'visi_misi' | 'tata_kelola' | 'kurikulum' | 'tugas_akhir' | 'capstone' | 'kerjasama' | 'kkn' | 'statistik' | 'alumni' | 'kegiatan_dosen' | 'kegiatan_mahasiswa' | 'publikasi' | 'dosen' | 'global';
   hideHeader?: boolean;
   dosenList?: DbDosen[];
   activeSubSection?: string | null;
@@ -39,7 +39,7 @@ export default function SiteContentTab({
   setFocusedKey
 }: SiteContentTabProps) {
   const [searchQuery, setSearchQuery] = useState('');
-  const [activeCategory, setActiveCategory] = useState<'beranda' | 'visi_misi' | 'tata_kelola' | 'kurikulum' | 'tugas_akhir' | 'kerjasama' | 'kkn' | 'statistik' | 'alumni' | 'kegiatan_dosen' | 'kegiatan_mahasiswa' | 'publikasi' | 'dosen' | 'global'>(category || 'beranda');
+  const [activeCategory, setActiveCategory] = useState<'beranda' | 'visi_misi' | 'tata_kelola' | 'kurikulum' | 'tugas_akhir' | 'capstone' | 'kerjasama' | 'kkn' | 'statistik' | 'alumni' | 'kegiatan_dosen' | 'kegiatan_mahasiswa' | 'publikasi' | 'dosen' | 'global'>(category || 'beranda');
 
   React.useEffect(() => {
     if (category) {
@@ -1022,7 +1022,7 @@ export default function SiteContentTab({
     desc,
     keys,
     savingKey,
-    children: <>{keys.map((key) => renderTextField(key, getHumanLabel(key), { multiline: key.endsWith('_description') || key.endsWith('_desc') || key.includes('subtitle') }))}</>
+    children: <>{keys.map((key) => renderTextField(key, getHumanLabel(key), { multiline: key.endsWith('_description') || key.endsWith('_desc') || key.includes('subtitle') || key.endsWith('_outcomes') || key.endsWith('_milestones') || key.endsWith('_deliverables') }))}</>
   });
 
   // Helper to categorize content key
@@ -1036,6 +1036,7 @@ export default function SiteContentTab({
     if (key.startsWith('gov_')) return 'tata_kelola';
     if (key.startsWith('kurikulum_')) return 'kurikulum';
     if (key.startsWith('tugas_akhir_')) return 'tugas_akhir';
+    if (key.startsWith('capstone_')) return 'capstone';
     if (key.startsWith('kerjasama_')) return 'kerjasama';
     if (key.startsWith('statistik_')) return 'statistik';
     if (key.startsWith('alumni_')) return 'alumni';
@@ -1059,6 +1060,7 @@ export default function SiteContentTab({
     if (key.startsWith('visi_misi_')) return 'Visi & Misi Akademik';
     if (key.startsWith('kurikulum_')) return 'Panduan Kurikulum & MBKM';
     if (key.startsWith('tugas_akhir_')) return 'Persyaratan & Timeline Tugas Akhir';
+    if (key.startsWith('capstone_')) return 'Capstone Design';
     if (key.startsWith('kerjasama_')) return 'Kerjasama & Kemitraan';
     if (key.startsWith('statistik_')) return 'Teks Halaman Statistik';
     if (key.startsWith('alumni_')) return 'Teks Halaman Alumni';
@@ -1075,6 +1077,7 @@ export default function SiteContentTab({
     { id: 'tata_kelola', name: 'Tata Kelola', icon: Users, desc: 'Kontak dan foto pimpinan (Sekretaris & UPM).' },
     { id: 'kurikulum', name: 'Kurikulum', icon: GraduationCap, desc: 'Pengantar sebaran SKS dan program magang.' },
     { id: 'tugas_akhir', name: 'Tugas Akhir', icon: BookOpen, desc: 'Persyaratan dan timeline skripsi mahasiswa.' },
+    { id: 'capstone', name: 'Capstone Design', icon: Award, desc: 'Konten halaman studio perancangan akhir mahasiswa.' },
     { id: 'kerjasama', name: 'Kerjasama', icon: Award, desc: 'Kalimat pembuka daftar mitra industri.' },
     { id: 'kkn', name: 'Praktik Kerja & KKN', icon: BookOpen, desc: 'Pengaturan deskripsi dan tautan halaman KKN.' },
     { id: 'statistik', name: 'Statistik', icon: Settings, desc: 'Judul, deskripsi, dan kartu statistik.' },
@@ -1240,6 +1243,10 @@ export default function SiteContentTab({
 
               if (!searchQuery && subName === 'Persyaratan & Timeline Tugas Akhir') {
                 return <div key={subName}>{renderTugasAkhirEditor()}</div>;
+              }
+
+              if (!searchQuery && subName === 'Capstone Design') {
+                return <div key={subName}>{renderSimplePageIntroEditor('Capstone Design', 'Atur heading, overview, luaran, milestone, deliverables, dan CTA panduan Capstone.', ['capstone_heading', 'capstone_description', 'capstone_overview_title', 'capstone_overview_desc', 'capstone_outcomes', 'capstone_milestones', 'capstone_deliverables', 'capstone_guide_url', 'capstone_cta_label'], 'section:capstone')}</div>;
               }
 
               if (!searchQuery && subName === 'Kerjasama & Kemitraan') {

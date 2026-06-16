@@ -244,6 +244,42 @@ export const SITE_CONTENT_LABELS: Record<string, LabelConfig> = {
     label: 'Persyaratan Akademik Tugas Akhir',
     desc: 'Ketentuan jumlah SKS lulus, IPK minimal, dan prasyarat pendaftaran proposal skripsi.'
   },
+  capstone_heading: {
+    label: 'Judul Halaman Capstone',
+    desc: 'Judul besar pada halaman Capstone Design.'
+  },
+  capstone_description: {
+    label: 'Deskripsi Halaman Capstone',
+    desc: 'Kalimat pembuka di hero halaman Capstone Design.'
+  },
+  capstone_overview_title: {
+    label: 'Judul Overview Capstone',
+    desc: 'Judul kartu ringkasan studio Capstone Design.'
+  },
+  capstone_overview_desc: {
+    label: 'Deskripsi Overview Capstone',
+    desc: 'Penjelasan utama tentang tujuan dan cakupan Capstone Design.'
+  },
+  capstone_outcomes: {
+    label: 'Luaran Capstone',
+    desc: 'Daftar luaran utama, satu item per baris.'
+  },
+  capstone_milestones: {
+    label: 'Tahapan Proyek Capstone',
+    desc: 'Format per baris: Judul tahap | Deskripsi tahap.'
+  },
+  capstone_deliverables: {
+    label: 'Deliverables Capstone',
+    desc: 'Format per baris: Nama deliverable | Deskripsi deliverable.'
+  },
+  capstone_guide_url: {
+    label: 'Link Panduan Capstone',
+    desc: 'URL dokumen panduan Capstone Design. Isi # jika belum tersedia.'
+  },
+  capstone_cta_label: {
+    label: 'Label Tombol Panduan Capstone',
+    desc: 'Teks tombol CTA untuk membuka dokumen panduan.'
+  },
   kerjasama_heading: {
     label: 'Judul Halaman Kerjasama',
     desc: 'Judul besar di bagian atas halaman Kerjasama & Kemitraan (contoh: Kemitraan & Sinergi Industri).'
