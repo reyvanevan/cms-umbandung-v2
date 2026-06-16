@@ -18,6 +18,10 @@ interface SiteContentTabProps {
   category?: 'beranda' | 'visi_misi' | 'tata_kelola' | 'kurikulum' | 'tugas_akhir' | 'kerjasama' | 'kkn';
   hideHeader?: boolean;
   dosenList?: DbDosen[];
+  activeSubSection?: string | null;
+  setActiveSubSection?: (sub: string | null) => void;
+  focusedKey?: string | null;
+  setFocusedKey?: (key: string | null) => void;
 }
 
 export default function SiteContentTab({
@@ -27,7 +31,10 @@ export default function SiteContentTab({
   onUpdateContent,
   category,
   hideHeader = false,
-  dosenList = []
+  dosenList = [],
+  activeSubSection,
+  focusedKey,
+  setFocusedKey
 }: SiteContentTabProps) {
   const [searchQuery, setSearchQuery] = useState('');
   const [activeCategory, setActiveCategory] = useState<'beranda' | 'visi_misi' | 'tata_kelola' | 'kurikulum' | 'tugas_akhir' | 'kerjasama' | 'kkn'>(category || 'beranda');
@@ -37,6 +44,7 @@ export default function SiteContentTab({
       setActiveCategory(category);
     }
   }, [category]);
+
   const [editValues, setEditValues] = useState<{ [key: string]: { id: string; en: string } }>({});
   const [savingKeys, setSavingKeys] = useState<{ [key: string]: boolean }>({});
   const [uploadingKeys, setUploadingKeys] = useState<{ [key: string]: boolean }>({});
@@ -69,6 +77,26 @@ export default function SiteContentTab({
     });
     setEditValues(initial);
   }, [siteContent]);
+
+  // Handle focusedKey auto scroll and text area focus
+  React.useEffect(() => {
+    if (focusedKey) {
+      const el = document.getElementById(`editor-card-${focusedKey}`);
+      if (el) {
+        el.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        
+        const textarea = document.getElementById(`input-id-${focusedKey}`) as HTMLTextAreaElement | null;
+        if (textarea) {
+          textarea.focus();
+        }
+
+        const timer = setTimeout(() => {
+          if (setFocusedKey) setFocusedKey(null);
+        }, 3000);
+        return () => clearTimeout(timer);
+      }
+    }
+  }, [focusedKey, setFocusedKey]);
 
   const handleInputChange = (key: string, lang: 'id' | 'en', val: string) => {
     setEditValues((prev) => {
@@ -155,9 +183,8 @@ export default function SiteContentTab({
     if (key.startsWith('kaprodi_')) return 'Sambutan Kepala Program Studi';
     if (key.startsWith('philosophy_')) return 'Filosofi Pembelajaran';
     if (key.startsWith('footer_')) return 'Informasi Kontak & Sosial Media (Footer)';
-    if (key.startsWith('info_singkat_')) return 'Informasi Singkat Landing Page';
-    if (key.startsWith('gov_sec_')) return 'Sekretaris Program Studi';
-    if (key.startsWith('gov_upm_')) return 'Unit Penjaminan Mutu (UPM)';
+    if (key.startsWith('info_singkat_') || key.startsWith('info_')) return 'Informasi Singkat Landing Page';
+    if (key.startsWith('gov_sec_') || key.startsWith('gov_upm_') || key.startsWith('gov_')) return 'Sekretaris & UPM (Tata Kelola)';
     if (key.startsWith('visi_misi_')) return 'Visi & Misi Akademik';
     if (key.startsWith('kurikulum_')) return 'Panduan Kurikulum & MBKM';
     if (key.startsWith('tugas_akhir_')) return 'Persyaratan & Timeline Tugas Akhir';
@@ -175,7 +202,7 @@ export default function SiteContentTab({
     { id: 'kkn', name: 'Praktik Kerja & KKN', icon: BookOpen, desc: 'Pengaturan deskripsi dan tautan halaman KKN.' }
   ] as const;
 
-  // Filter content by search query & category
+  // Filter content by search query, subsection, & category
   const filteredContent = siteContent.filter((item) => {
     // Exclude logo tuning keys from main list (they will be rendered inside logo_prodi_url card)
     if (['logo_prodi_height', 'logo_prodi_padding', 'logo_prodi_radius', 'logo_prodi_object_fit'].includes(item.key)) {
@@ -188,11 +215,12 @@ export default function SiteContentTab({
     }
 
     const keyCategory = getCategoryForKey(item.key);
+    const keySubSection = getSubSectionName(item.key);
     
     // If searching, show match regardless of category (helps find things quickly)
     if (searchQuery) {
       const q = searchQuery.toLowerCase();
-      const subSec = getSubSectionName(item.key).toLowerCase();
+      const subSec = keySubSection.toLowerCase();
       const humanLabel = getHumanLabel(item.key).toLowerCase();
       return (
         item.key.toLowerCase().includes(q) ||
@@ -201,6 +229,11 @@ export default function SiteContentTab({
         (item.value_en && item.value_en.toLowerCase().includes(q)) ||
         subSec.includes(q)
       );
+    }
+
+    // Filter strictly by activeSubSection if passed
+    if (activeSubSection) {
+      return keySubSection === activeSubSection;
     }
 
     // Else filter strictly by active category
@@ -235,7 +268,7 @@ export default function SiteContentTab({
       )}
 
       {/* Sub-tabs Category Selector (only visible when not searching and no parent category restriction is passed) */}
-      {!category && !searchQuery && (
+      {!category && !searchQuery && !activeSubSection && (
         <div className="bg-white border border-slate-200/80 rounded-2xl p-4 shadow-xs">
           <p className="text-[10px] font-bold text-slate-400 uppercase tracking-widest mb-3 px-1">Pilih Halaman Yang Ingin Diedit</p>
           <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-2">
@@ -306,8 +339,18 @@ export default function SiteContentTab({
                       const parentVal = parentKey ? (editValues[parentKey]?.id || '') : '';
                       const linkedDosen = parentVal ? dosenList.find(d => d.name === parentVal) : null;
 
+                      const isFocused = focusedKey === item.key;
+
                       return (
-                        <div key={item.key} className="p-6 bg-white border border-slate-200/70 rounded-2xl flex flex-col gap-6 shadow-xs hover:border-slate-300 transition-colors">
+                        <div 
+                          key={item.key} 
+                          id={`editor-card-${item.key}`}
+                          className={`p-6 bg-white border rounded-2xl flex flex-col gap-6 shadow-xs transition-all duration-500 ${
+                            isFocused
+                              ? 'ring-2 ring-indigo-500 border-indigo-400 scale-[1.01] shadow-md'
+                              : 'border-slate-200/70 hover:border-slate-300'
+                          }`}
+                        >
                           
                           {/* Item Header */}
                           <div className="flex flex-col sm:flex-row sm:items-start justify-between gap-4 pb-4 border-b border-slate-100">
@@ -406,6 +449,7 @@ export default function SiteContentTab({
                                         </span>
                                         <input
                                           type="text"
+                                          id={`input-id-${item.key}`}
                                           placeholder="Masukkan url gambar/video, misal: /assets/nama-file.png"
                                           className="w-full px-3 py-2 bg-white border border-slate-200 rounded-lg text-xs focus:outline-none focus:ring-2 focus:ring-slate-900/10 focus:border-slate-400 transition"
                                           value={vals.id}
@@ -563,6 +607,7 @@ export default function SiteContentTab({
                                       <span className="text-xs font-semibold text-slate-600">Bahasa Indonesia</span>
                                     </div>
                                     <textarea
+                                      id={`input-id-${item.key}`}
                                       className="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-xl text-xs focus:outline-none focus:ring-2 focus:ring-slate-900/10 focus:border-slate-450 focus:bg-white transition min-h-[90px] leading-relaxed"
                                       value={vals.id}
                                       onChange={(e) => handleInputChange(item.key, 'id', e.target.value)}
@@ -576,6 +621,7 @@ export default function SiteContentTab({
                                       <span className="text-xs font-semibold text-slate-600">English Translation</span>
                                     </div>
                                     <textarea
+                                      id={`input-en-${item.key}`}
                                       className="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-xl text-xs focus:outline-none focus:ring-2 focus:ring-slate-900/10 focus:border-slate-450 focus:bg-white transition min-h-[90px] leading-relaxed"
                                       value={vals.en}
                                       onChange={(e) => handleInputChange(item.key, 'en', e.target.value)}

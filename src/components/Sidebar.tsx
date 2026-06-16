@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import {
   LayoutDashboard,
   Newspaper,
@@ -29,10 +29,13 @@ interface SidebarProps {
   setActiveTab: (tab: TabType) => void;
   currentUserEmail: string | null;
   handleSignOut: () => void;
+  activeSubSection: string | null;
+  setActiveSubSection: (sub: string | null) => void;
 }
 
 interface NavItem {
   tab: TabType;
+  subSection?: string;
   label: string;
   icon: React.ReactNode;
 }
@@ -48,19 +51,21 @@ export default function Sidebar({
   activeTab,
   setActiveTab,
   currentUserEmail,
-  handleSignOut
+  handleSignOut,
+  activeSubSection,
+  setActiveSubSection
 }: SidebarProps) {
   const getAvatarUrl = () => {
     const name = currentUserEmail || 'Admin';
     return `https://ui-avatars.com/api/?name=${encodeURIComponent(name)}&background=3B82F6&color=fff&size=128`;
   };
 
-  // Which groups are open — default: open the one containing current activeTab
+  // Which groups are open — default: open the one containing current activeTab/subSection
   const getInitialOpen = () => {
     return {
-      beranda: ['landing_portfolio', 'landing_stats', 'site_content'].includes(activeTab),
+      beranda: ['landing_portfolio', 'landing_stats'].includes(activeTab) || (activeTab === 'site_content' && activeSubSection !== 'Panduan Kurikulum & MBKM'),
       tentang_kami: ['dosen', 'partners', 'visi_misi', 'tata_kelola', 'laboratorium'].includes(activeTab),
-      akademik: ['kurikulum_courses', 'kurikulum_plos', 'kurikulum_profiles', 'publikasi_dosen', 'tugas_akhir_steps', 'kkn_content', 'kkn_documents'].includes(activeTab),
+      akademik: ['kurikulum_courses', 'kurikulum_plos', 'kurikulum_profiles', 'publikasi_dosen', 'tugas_akhir_steps', 'kkn_documents'].includes(activeTab) || activeTab === 'kkn_content' || (activeTab === 'site_content' && activeSubSection === 'Panduan Kurikulum & MBKM'),
       statistik: ['statistik_maba'].includes(activeTab),
       mahasiswa_alumni: ['prestasi', 'testimonials', 'alumni'].includes(activeTab),
       galeri_kegiatan: ['news', 'events', 'kegiatan_dosen', 'kegiatan_mahasiswa'].includes(activeTab),
@@ -70,6 +75,17 @@ export default function Sidebar({
 
   const [open, setOpen] = useState(getInitialOpen);
 
+  useEffect(() => {
+    const initial = getInitialOpen();
+    setOpen(prev => {
+      const next = { ...prev };
+      Object.entries(initial).forEach(([key, val]) => {
+        if (val) next[key as keyof typeof prev] = true;
+      });
+      return next;
+    });
+  }, [activeTab, activeSubSection]);
+
   const toggleGroup = (group: keyof ReturnType<typeof getInitialOpen>) => {
     setOpen(prev => ({ ...prev, [group]: !prev[group] }));
   };
@@ -77,21 +93,25 @@ export default function Sidebar({
   const navGroups: NavGroup[] = [
     {
       id: 'beranda',
-      label: 'Beranda / Landing',
+      label: 'Halaman Beranda (Home)',
       icon: <LayoutGrid className="w-4 h-4" />,
       items: [
+        { tab: 'site_content', subSection: 'Spanduk & Jumbotron', label: 'Spanduk & Jumbotron', icon: <FileText className="w-3.5 h-3.5" /> },
+        { tab: 'site_content', subSection: 'Sambutan Kepala Program Studi', label: 'Sambutan Kaprodi', icon: <FileText className="w-3.5 h-3.5" /> },
+        { tab: 'site_content', subSection: 'Filosofi Pembelajaran', label: 'Filosofi Pembelajaran', icon: <FileText className="w-3.5 h-3.5" /> },
+        { tab: 'site_content', subSection: 'Informasi Singkat Landing Page', label: 'Informasi Singkat Beranda', icon: <FileText className="w-3.5 h-3.5" /> },
         { tab: 'landing_portfolio', label: 'Galeri Portfolio', icon: <Image className="w-3.5 h-3.5" /> },
         { tab: 'landing_stats', label: 'Statistik Ribbon', icon: <TrendingUp className="w-3.5 h-3.5" /> },
-        { tab: 'site_content', label: 'Pengaturan Teks Beranda', icon: <FileText className="w-3.5 h-3.5" /> },
+        { tab: 'site_content', subSection: 'Informasi Kontak & Sosial Media (Footer)', label: 'Informasi Kontak & Sosial', icon: <FileText className="w-3.5 h-3.5" /> },
       ],
     },
     {
       id: 'tentang_kami',
-      label: 'Tentang Kami',
+      label: 'Halaman Tentang Kami',
       icon: <Building2 className="w-4 h-4" />,
       items: [
-        { tab: 'visi_misi', label: 'Visi & Misi', icon: <FileText className="w-3.5 h-3.5" /> },
-        { tab: 'tata_kelola', label: 'Tata Kelola & Pimpinan', icon: <Users className="w-3.5 h-3.5" /> },
+        { tab: 'visi_misi', subSection: 'Visi & Misi Akademik', label: 'Visi & Misi Akademik', icon: <FileText className="w-3.5 h-3.5" /> },
+        { tab: 'tata_kelola', subSection: 'Sekretaris & UPM (Tata Kelola)', label: 'Struktur Organisasi (Tata Kelola)', icon: <Users className="w-3.5 h-3.5" /> },
         { tab: 'dosen', label: 'Dosen & Staff (SDM)', icon: <Users className="w-3.5 h-3.5" /> },
         { tab: 'partners', label: 'Kemitraan Industri', icon: <Building2 className="w-3.5 h-3.5" /> },
         { tab: 'laboratorium', label: 'Laboratorium', icon: <Building2 className="w-3.5 h-3.5" /> },
@@ -99,21 +119,22 @@ export default function Sidebar({
     },
     {
       id: 'akademik',
-      label: 'Akademik',
+      label: 'Halaman Akademik',
       icon: <GraduationCap className="w-4 h-4" />,
       items: [
+        { tab: 'site_content', subSection: 'Panduan Kurikulum & MBKM', label: 'Panduan Kurikulum & MBKM', icon: <FileText className="w-3.5 h-3.5" /> },
         { tab: 'kurikulum_courses', label: 'Editor Mata Kuliah (Kurikulum)', icon: <BookOpen className="w-3.5 h-3.5" /> },
-        { tab: 'kurikulum_plos', label: 'CPL / PLO', icon: <Award className="w-3.5 h-3.5" /> },
+        { tab: 'kurikulum_plos', label: 'Capaian Pembelajaran (CPL)', icon: <Award className="w-3.5 h-3.5" /> },
         { tab: 'kurikulum_profiles', label: 'Profil Lulusan', icon: <Users className="w-3.5 h-3.5" /> },
         { tab: 'publikasi_dosen', label: 'Publikasi Dosen', icon: <BookOpen className="w-3.5 h-3.5" /> },
         { tab: 'tugas_akhir_steps', label: 'Tahapan Tugas Akhir', icon: <GraduationCap className="w-3.5 h-3.5" /> },
-        { tab: 'kkn_content', label: 'Teks Praktik Kerja & KKN', icon: <FileText className="w-3.5 h-3.5" /> },
+        { tab: 'kkn_content', subSection: 'Praktik Kerja & KKN', label: 'Praktik Kerja & KKN (Teks)', icon: <FileText className="w-3.5 h-3.5" /> },
         { tab: 'kkn_documents', label: 'Dokumen Praktik Kerja & KKN', icon: <BookOpen className="w-3.5 h-3.5" /> },
       ],
     },
     {
       id: 'statistik',
-      label: 'Statistik',
+      label: 'Halaman Statistik',
       icon: <BarChart3 className="w-4 h-4" />,
       items: [
         { tab: 'statistik_maba', label: 'Statistik Mahasiswa Baru (Maba)', icon: <BarChart3 className="w-3.5 h-3.5" /> },
@@ -121,7 +142,7 @@ export default function Sidebar({
     },
     {
       id: 'mahasiswa_alumni',
-      label: 'Mahasiswa & Alumni',
+      label: 'Halaman Mahasiswa & Alumni',
       icon: <Users className="w-4 h-4" />,
       items: [
         { tab: 'prestasi', label: 'Prestasi Mahasiswa', icon: <Trophy className="w-3.5 h-3.5" /> },
@@ -131,7 +152,7 @@ export default function Sidebar({
     },
     {
       id: 'galeri_kegiatan',
-      label: 'Galeri Kegiatan',
+      label: 'Halaman Galeri Kegiatan',
       icon: <Newspaper className="w-4 h-4" />,
       items: [
         { tab: 'news', label: 'Berita & Artikel', icon: <Newspaper className="w-3.5 h-3.5" /> },
@@ -150,36 +171,9 @@ export default function Sidebar({
     },
   ];
 
-  // Map tab → which group it lives in, so we auto-open on click
-  const tabToGroup: Record<string, keyof ReturnType<typeof getInitialOpen>> = {
-    landing_portfolio: 'beranda',
-    landing_stats: 'beranda',
-    site_content: 'beranda',
-    visi_misi: 'tentang_kami',
-    tata_kelola: 'tentang_kami',
-    dosen: 'tentang_kami',
-    partners: 'tentang_kami',
-    laboratorium: 'tentang_kami',
-    kurikulum_courses: 'akademik',
-    kurikulum_plos: 'akademik',
-    kurikulum_profiles: 'akademik',
-    publikasi_dosen: 'akademik',
-    tugas_akhir_steps: 'akademik',
-    statistik_maba: 'statistik',
-    prestasi: 'mahasiswa_alumni',
-    testimonials: 'mahasiswa_alumni',
-    alumni: 'mahasiswa_alumni',
-    news: 'galeri_kegiatan',
-    events: 'galeri_kegiatan',
-    kegiatan_dosen: 'galeri_kegiatan',
-    kegiatan_mahasiswa: 'galeri_kegiatan',
-    settings: 'pengaturan',
-  };
-
-  const handleNavClick = (tab: TabType) => {
-    const group = tabToGroup[tab];
-    if (group) setOpen(prev => ({ ...prev, [group]: true }));
+  const handleNavClick = (tab: TabType, subSection?: string) => {
     setActiveTab(tab);
+    setActiveSubSection(subSection || null);
   };
 
   return (
@@ -199,7 +193,7 @@ export default function Sidebar({
       <nav className="flex-1 overflow-y-auto px-3 py-4 space-y-1">
         {/* Standalone Dashboard Item */}
         <button
-          onClick={() => setActiveTab('dashboard')}
+          onClick={() => handleNavClick('dashboard')}
           className="w-full flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium transition-all text-left mb-1"
           style={{
             background: activeTab === 'dashboard' ? 'rgba(59,130,246,0.15)' : 'transparent',
@@ -228,7 +222,11 @@ export default function Sidebar({
         {/* Collapsible Groups */}
         {navGroups.map(group => {
           const isGroupOpen = open[group.id as keyof ReturnType<typeof getInitialOpen>];
-          const hasActiveChild = group.items.some(item => item.tab === activeTab);
+          const hasActiveChild = group.items.some(item => {
+            if (item.tab !== activeTab) return false;
+            if (item.subSection && item.subSection !== activeSubSection) return false;
+            return true;
+          });
 
           return (
             <div key={group.id}>
@@ -265,11 +263,11 @@ export default function Sidebar({
               {isGroupOpen && (
                 <div className="ml-3 mt-0.5 mb-1 space-y-0.5 border-l pl-3" style={{ borderColor: 'rgba(255,255,255,0.08)' }}>
                   {group.items.map(item => {
-                    const isActive = activeTab === item.tab;
+                    const isActive = activeTab === item.tab && (!item.subSection || activeSubSection === item.subSection);
                     return (
                       <button
-                        key={item.tab}
-                        onClick={() => handleNavClick(item.tab)}
+                        key={`${item.tab}-${item.subSection || 'main'}`}
+                        onClick={() => handleNavClick(item.tab, item.subSection)}
                         className="w-full flex items-center gap-2.5 px-2.5 py-2 rounded-lg text-xs font-medium transition-all text-left"
                         style={{
                           background: isActive ? 'rgba(59,130,246,0.2)' : 'transparent',

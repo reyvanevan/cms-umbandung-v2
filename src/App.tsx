@@ -18,6 +18,19 @@ import {
   type DbKknDocument
 } from './lib/mockData';
 
+export function getSubSectionName(key: string): string {
+  if (key.startsWith('hero_')) return 'Spanduk & Jumbotron';
+  if (key.startsWith('kaprodi_')) return 'Sambutan Kepala Program Studi';
+  if (key.startsWith('philosophy_')) return 'Filosofi Pembelajaran';
+  if (key.startsWith('info_')) return 'Informasi Singkat Landing Page';
+  if (key.startsWith('visi_') || key.startsWith('misi_') || key.startsWith('tujuan_') || key.startsWith('sasaran_')) return 'Visi & Misi Akademik';
+  if (key.startsWith('gov_sec_') || key.startsWith('gov_upm_')) return 'Sekretaris & UPM (Tata Kelola)';
+  if (key.startsWith('kurikulum_guideline_')) return 'Panduan Kurikulum & MBKM';
+  if (key.startsWith('kkn_')) return 'Praktik Kerja & KKN';
+  if (key.startsWith('footer_')) return 'Informasi Kontak & Sosial Media (Footer)';
+  return 'Spanduk & Jumbotron';
+}
+
 // Import modular layouts
 import Auth from './components/Auth';
 import Sidebar from './components/Sidebar';
@@ -97,6 +110,9 @@ export default function App() {
   const [dbStatusMessage, setDbStatusMessage] = useState<string>('Checking database...');
   const [isStatusChecking, setIsStatusChecking] = useState<boolean>(false);
   const [toasts, setToasts] = useState<Toast[]>([]);
+  const [activeSubSection, setActiveSubSection] = useState<string | null>(null);
+  const [focusedKey, setFocusedKey] = useState<string | null>(null);
+  const [showPreview, setShowPreview] = useState<boolean>(true);
 
   // --- Database Collections ---
   const [news, setNews] = useState<DbNews[]>([]);
@@ -262,6 +278,54 @@ export default function App() {
       fetchCollectionData();
     }
   }, [isAuthenticated, activeTab]);
+
+  // Synchronize with live preview iframe
+  useEffect(() => {
+    const handleMessage = (event: MessageEvent) => {
+      if (event.data?.type === 'PREVIEW_READY') {
+        const iframe = document.getElementById('preview-iframe') as HTMLIFrameElement | null;
+        if (iframe?.contentWindow && siteContents.length > 0) {
+          iframe.contentWindow.postMessage({
+            type: 'PREVIEW_INITIALIZE',
+            payload: { siteContents }
+          }, '*');
+        }
+      } else if (event.data?.type === 'PREVIEW_CLICK') {
+        const { key } = event.data.payload;
+        if (!key) return;
+
+        // Map key prefix to get target subsection and tab
+        const subSec = getSubSectionName(key);
+        if (key.startsWith('visi_misi_')) {
+          setActiveTab('visi_misi');
+        } else if (key.startsWith('gov_sec_') || key.startsWith('gov_upm_')) {
+          setActiveTab('tata_kelola');
+        } else if (key.startsWith('kkn_')) {
+          setActiveTab('kkn_content');
+        } else {
+          setActiveTab('site_content');
+        }
+        setActiveSubSection(subSec);
+        setFocusedKey(key);
+      }
+    };
+
+    window.addEventListener('message', handleMessage);
+    return () => window.removeEventListener('message', handleMessage);
+  }, [siteContents]);
+
+  // Set default activeSubSection when tab changes
+  useEffect(() => {
+    if (activeTab === 'site_content' && !activeSubSection) {
+      setActiveSubSection('Spanduk & Jumbotron');
+    } else if (activeTab === 'visi_misi' && !activeSubSection) {
+      setActiveSubSection('Visi & Misi Akademik');
+    } else if (activeTab === 'tata_kelola' && !activeSubSection) {
+      setActiveSubSection('Sekretaris & UPM (Tata Kelola)');
+    } else if (activeTab === 'kkn_content' && !activeSubSection) {
+      setActiveSubSection('Praktik Kerja & KKN');
+    }
+  }, [activeTab, activeSubSection]);
 
   const fetchCollectionData = async () => {
     setIsLoadingData(true);
@@ -626,6 +690,15 @@ export default function App() {
       await dataService.updateSiteContent(key, value, valueEn);
       triggerToast(`Konten teks "${key}" berhasil diperbarui!`);
       fetchCollectionData();
+      
+      // Send message to live preview iframe to update dynamically
+      const iframe = document.getElementById('preview-iframe') as HTMLIFrameElement | null;
+      if (iframe?.contentWindow) {
+        iframe.contentWindow.postMessage({
+          type: 'PREVIEW_UPDATE',
+          payload: { key, value }
+        }, '*');
+      }
     } catch (err: any) {
       triggerToast(`Update failed: ${err.message}`, 'error');
     }
@@ -851,18 +924,28 @@ export default function App() {
         setActiveTab={setActiveTab}
         currentUserEmail={currentUserEmail}
         handleSignOut={handleSignOut}
+        activeSubSection={activeSubSection}
+        setActiveSubSection={setActiveSubSection}
       />
 
-      {/* Main Panel Content Area */}
-      <div className="flex-1 flex flex-col overflow-hidden h-full">
-        {/* Top Header Bar */}
-        <Header
-          activeTab={activeTab}
-          connectionMode={connectionMode}
-          dbStatusMessage={dbStatusMessage}
-          isStatusChecking={isStatusChecking}
-          checkDatabaseConnection={checkDatabaseConnection}
-        />
+      {/* Split preview frame wrapper */}
+      <div className="flex-1 flex overflow-hidden h-full">
+        <div className={`${showPreview ? 'w-1/2' : 'w-full'} flex flex-col overflow-hidden h-full border-r border-gray-100`}>
+          {/* Top Header Bar */}
+          <Header
+            activeTab={activeTab}
+            connectionMode={connectionMode}
+            dbStatusMessage={dbStatusMessage}
+            isStatusChecking={isStatusChecking}
+            checkDatabaseConnection={checkDatabaseConnection}
+          >
+            <button
+              onClick={() => setShowPreview(!showPreview)}
+              className="flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-semibold border border-gray-200 hover:bg-gray-50 transition-all text-gray-700 bg-white cursor-pointer"
+            >
+              <span>{showPreview ? '🖥️ Sembunyikan Preview' : '🖥️ Tampilkan Preview'}</span>
+            </button>
+          </Header>
 
         {/* Content Section scrollable viewport */}
         <main className="flex-1 overflow-y-auto p-8 bg-gray-50/50">
@@ -980,6 +1063,11 @@ export default function App() {
               onUpdateContent={handleUpdateSiteContent}
               category="beranda"
               dosenList={dosenList}
+              activeSubSection={activeSubSection}
+              setActiveSubSection={setActiveSubSection}
+              focusedKey={focusedKey}
+              setFocusedKey={setFocusedKey}
+              hideHeader={true}
             />
           )}
 
@@ -992,6 +1080,11 @@ export default function App() {
               onUpdateContent={handleUpdateSiteContent}
               category="visi_misi"
               dosenList={dosenList}
+              activeSubSection={activeSubSection}
+              setActiveSubSection={setActiveSubSection}
+              focusedKey={focusedKey}
+              setFocusedKey={setFocusedKey}
+              hideHeader={true}
             />
           )}
 
@@ -1004,6 +1097,11 @@ export default function App() {
               onUpdateContent={handleUpdateSiteContent}
               category="tata_kelola"
               dosenList={dosenList}
+              activeSubSection={activeSubSection}
+              setActiveSubSection={setActiveSubSection}
+              focusedKey={focusedKey}
+              setFocusedKey={setFocusedKey}
+              hideHeader={true}
             />
           )}
 
@@ -1162,6 +1260,12 @@ export default function App() {
               connectionMode={connectionMode}
               onUpdateContent={handleUpdateSiteContent}
               category="kkn"
+              dosenList={dosenList}
+              activeSubSection={activeSubSection}
+              setActiveSubSection={setActiveSubSection}
+              focusedKey={focusedKey}
+              setFocusedKey={setFocusedKey}
+              hideHeader={true}
             />
           )}
 
@@ -1195,6 +1299,31 @@ export default function App() {
 
         </main>
       </div>
+
+      {/* Right Preview Frame */}
+      {showPreview && (
+        <div className="w-1/2 h-full bg-gray-100 flex flex-col">
+          <div className="bg-white border-b px-4 py-2.5 flex items-center justify-between text-xs text-gray-500 font-medium h-[57px] shrink-0 border-gray-100">
+            <div className="flex items-center gap-2">
+              <span className="w-2 h-2 rounded-full bg-green-500 animate-pulse" />
+              <span className="font-semibold text-gray-700">Live Preview Synchronized</span>
+            </div>
+            <button
+              onClick={() => setShowPreview(false)}
+              className="hover:text-gray-700 hover:bg-gray-100 px-2.5 py-1 rounded-lg transition-all cursor-pointer font-semibold border border-gray-200 bg-white"
+            >
+              Hide
+            </button>
+          </div>
+          <iframe
+            id="preview-iframe"
+            src="http://localhost:3000/?preview=true"
+            className="w-full flex-1 border-0 bg-white"
+            title="Site Live Preview"
+          />
+        </div>
+      )}
+    </div>
 
       {/* Global CRUD Modals Layer */}
       {(activeModal === 'create' || activeModal === 'edit') && (
