@@ -170,7 +170,7 @@ export default function App() {
   });
 
   const [testimonialForm, setTestimonialForm] = useState<Omit<DbTestimonial, 'id' | 'created_at'>>({
-    testimonial: '', testimonial_en: '', by: '', by_en: '', img_src: ''
+    testimonial: '', testimonial_en: '', by: '', by_en: '', role: '', role_en: '', img_src: ''
   });
 
   const [partnerForm, setPartnerForm] = useState<Omit<DbPartner, 'id' | 'created_at'>>({
@@ -717,7 +717,7 @@ export default function App() {
     setEditingId(null);
     setNewsForm({ title: '', title_en: '', category: '', category_en: '', snippet: '', snippet_en: '', date: '', img_src: '' });
     setEventForm({ date_day: '', date_month: '', title: '', title_en: '', location: '', location_en: '' });
-    setTestimonialForm({ testimonial: '', testimonial_en: '', by: '', by_en: '', img_src: '' });
+    setTestimonialForm({ testimonial: '', testimonial_en: '', by: '', by_en: '', role: '', role_en: '', img_src: '' });
     setPartnerForm({ name: '', category: 'industri', category_en: 'industri', logo_url: '' });
     setStatForm({ number: '', label: '', label_en: '', sort_order: landingStats.length + 1 });
     setPortfolioForm({ image: '', title: '', medium: '', technique: '', year: '', gridClass: 'col-span-1', sort_order: landingPortfolioItems.length + 1 });
@@ -765,6 +765,8 @@ export default function App() {
         testimonial_en: item.testimonial_en || '',
         by: item.by,
         by_en: item.by_en || '',
+        role: item.role || '',
+        role_en: item.role_en || '',
         img_src: item.img_src
       });
     } else if (activeTab === 'partners') {

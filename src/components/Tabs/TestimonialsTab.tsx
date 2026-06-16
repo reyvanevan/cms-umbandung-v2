@@ -15,7 +15,7 @@ export default function TestimonialsTab({ testimonials, searchQuery, setSearchQu
   const filteredTestimonials = testimonials.filter((item) => {
     if (!searchQuery) return true;
     const query = searchQuery.toLowerCase();
-    return item.by.toLowerCase().includes(query) || (item.by_en || '').toLowerCase().includes(query) || item.testimonial.toLowerCase().includes(query) || (item.testimonial_en || '').toLowerCase().includes(query);
+    return item.by.toLowerCase().includes(query) || (item.by_en || '').toLowerCase().includes(query) || (item.role || '').toLowerCase().includes(query) || (item.role_en || '').toLowerCase().includes(query) || item.testimonial.toLowerCase().includes(query) || (item.testimonial_en || '').toLowerCase().includes(query);
   });
 
   return (
@@ -38,7 +38,7 @@ export default function TestimonialsTab({ testimonials, searchQuery, setSearchQu
             <div key={item.id} className="bg-white border border-slate-200 rounded-2xl p-5 shadow-sm hover:border-slate-300 transition min-h-[260px] flex flex-col justify-between">
               <div className="flex items-start justify-between gap-3"><div className="text-5xl font-serif text-slate-200 leading-none">“</div><div className="flex gap-1.5"><button onClick={() => openEditModal(item)} className="p-1.5 rounded-lg bg-slate-100 text-slate-700 hover:bg-slate-200"><Edit2 className="w-4 h-4" /></button><button onClick={() => openDeleteModal(item.id)} className="p-1.5 rounded-lg bg-red-50 text-red-600 hover:bg-red-100"><Trash2 className="w-4 h-4" /></button></div></div>
               <div className="space-y-4"><p className="text-sm text-slate-600 leading-relaxed italic line-clamp-5">{item.testimonial}</p>{item.testimonial_en && <p className="text-xs text-slate-400 leading-relaxed italic line-clamp-2">{item.testimonial_en}</p>}</div>
-              <div className="flex items-center gap-3 pt-5 mt-5 border-t border-slate-100"><img src={item.img_src} className="w-11 h-11 rounded-xl object-cover border border-slate-200 bg-slate-50" alt="" /><div className="min-w-0"><p className="text-xs font-bold text-slate-950 truncate">{item.by}</p>{item.by_en && <p className="text-[10px] text-slate-400 truncate mt-0.5">{item.by_en}</p>}</div></div>
+              <div className="flex items-center gap-3 pt-5 mt-5 border-t border-slate-100"><img src={item.img_src} className="w-11 h-11 rounded-xl object-cover border border-slate-200 bg-slate-50" alt="" /><div className="min-w-0"><p className="text-xs font-bold text-slate-950 truncate">{item.by}</p>{item.role && <p className="text-[10px] text-slate-500 truncate mt-0.5">{item.role}</p>}{item.by_en && <p className="text-[10px] text-slate-400 truncate mt-1">{item.by_en}{item.role_en ? ` · ${item.role_en}` : ''}</p>}</div></div>
             </div>
           ))}
         </div>

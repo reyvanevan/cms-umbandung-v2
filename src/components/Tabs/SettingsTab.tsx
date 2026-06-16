@@ -92,6 +92,8 @@ export default function SettingsTab({
   testimonial_en text,
   by text not null,
   by_en text,
+  role text,
+  role_en text,
   img_src text not null
 );`
     },

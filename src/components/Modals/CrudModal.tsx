@@ -376,7 +376,7 @@ export default function CrudModal({
               </div>
               <div className="grid grid-cols-2 gap-4">
                 <div className="space-y-1">
-                  <label className="text-xs font-bold text-slate-700">Nama Alumni & Jabatan (Bahasa Indonesia)</label>
+                  <label className="text-xs font-bold text-slate-700">Nama Alumni (Bahasa Indonesia)</label>
                   <input
                     type="text"
                     className="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-slate-900/10 focus:border-slate-400 focus:bg-white transition"
@@ -386,12 +386,34 @@ export default function CrudModal({
                   />
                 </div>
                 <div className="space-y-1">
-                  <label className="text-xs font-bold text-slate-700">Nama Alumni & Jabatan (English)</label>
+                  <label className="text-xs font-bold text-slate-700">Nama Alumni (English)</label>
                   <input
                     type="text"
                     className="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-slate-900/10 focus:border-slate-400 focus:bg-white transition"
                     value={testimonialForm.by_en || ''}
                     onChange={(e) => setTestimonialForm({ ...testimonialForm, by_en: e.target.value })}
+                  />
+                </div>
+              </div>
+              <div className="grid grid-cols-2 gap-4">
+                <div className="space-y-1">
+                  <label className="text-xs font-bold text-slate-700">Jabatan / Posisi (Bahasa Indonesia)</label>
+                  <input
+                    type="text"
+                    className="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-slate-900/10 focus:border-slate-400 focus:bg-white transition"
+                    value={testimonialForm.role || ''}
+                    onChange={(e) => setTestimonialForm({ ...testimonialForm, role: e.target.value })}
+                    placeholder="Contoh: Pengawas Gizi SPPG"
+                  />
+                </div>
+                <div className="space-y-1">
+                  <label className="text-xs font-bold text-slate-700">Jabatan / Posisi (English)</label>
+                  <input
+                    type="text"
+                    className="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-slate-900/10 focus:border-slate-400 focus:bg-white transition"
+                    value={testimonialForm.role_en || ''}
+                    onChange={(e) => setTestimonialForm({ ...testimonialForm, role_en: e.target.value })}
+                    placeholder="Example: Nutrition Supervisor-SPPG"
                   />
                 </div>
               </div>

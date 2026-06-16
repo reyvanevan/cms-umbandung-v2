@@ -28,6 +28,8 @@ export interface DbTestimonial {
   testimonial_en: string | null;
   by: string;
   by_en: string | null;
+  role?: string | null;
+  role_en?: string | null;
   img_src: string;
   created_at: string;
 }
@@ -425,8 +427,10 @@ const initialTestimonials: DbTestimonial[] = [
     id: '1',
     testimonial: 'Materi kurikulum yang berfokus pada processing & food safety serta entrepreneurship sangat relevan dengan industri pangan saat ini.',
     testimonial_en: 'Curriculum material focusing on processing & food safety and entrepreneurship is highly relevant to current food industry needs.',
-    by: 'Andini Kusuma, S.T.P. (Quality Assurance at Indofood)',
-    by_en: 'Andini Kusuma, S.T.P. (Quality Assurance at Indofood)',
+    by: 'Andini Kusuma, S.T.P.',
+    by_en: 'Andini Kusuma, S.T.P.',
+    role: 'Quality Assurance at Indofood',
+    role_en: 'Quality Assurance at Indofood',
     img_src: 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?q=80&w=200&auto=format&fit=crop',
     created_at: new Date(Date.now() - 60 * 24 * 60 * 60 * 1000).toISOString()
   },
@@ -434,8 +438,10 @@ const initialTestimonials: DbTestimonial[] = [
     id: '2',
     testimonial: 'Magang di pabrik pangan terkemuka memberikan saya kesempatan berjejaring langsung dengan praktisi industri nasional sejak kuliah.',
     testimonial_en: 'Interning at leading food factories gave me the opportunity to network directly with national industry practitioners since college.',
-    by: 'Rian Hidayat, S.T.P. (Production Manager at Garudafood)',
-    by_en: 'Rian Hidayat, S.T.P. (Production Manager at Garudafood)',
+    by: 'Rian Hidayat, S.T.P.',
+    by_en: 'Rian Hidayat, S.T.P.',
+    role: 'Production Manager at Garudafood',
+    role_en: 'Production Manager at Garudafood',
     img_src: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=200&auto=format&fit=crop',
     created_at: new Date(Date.now() - 50 * 24 * 60 * 60 * 1000).toISOString()
   },
@@ -443,8 +449,10 @@ const initialTestimonials: DbTestimonial[] = [
     id: '3',
     testimonial: 'Teknologi Pangan UMB benar-benar mengasah kemampuan berpikir kreatif dan kepekaan ilmiah terhadap produk-produk pangan Nusantara.',
     testimonial_en: 'Food Technology UMB really sharpens creative thinking skills and scientific sensitivity towards Nusantara food products.',
-    by: 'Melati Indah, S.T.P. (Food Innovator & Founder of HealthyFood)',
-    by_en: 'Melati Indah, S.T.P. (Food Innovator & Founder of HealthyFood)',
+    by: 'Melati Indah, S.T.P.',
+    by_en: 'Melati Indah, S.T.P.',
+    role: 'Food Innovator & Founder of HealthyFood',
+    role_en: 'Food Innovator & Founder of HealthyFood',
     img_src: 'https://images.unsplash.com/photo-1438761681033-6461ffad8d80?q=80&w=200&auto=format&fit=crop',
     created_at: new Date(Date.now() - 40 * 24 * 60 * 60 * 1000).toISOString()
   }
