@@ -211,6 +211,9 @@ export default function SiteContentTab({
         <div>
           <p className="text-xs font-bold text-slate-800">{label}</p>
           <p className="text-[10px] text-slate-400 mt-0.5">{getHelpText(key)}</p>
+          <p className="text-[10px] text-slate-400 mt-1">
+            Format teks: <code>**tebal**</code>, <code>*miring*</code>, <code>***tebal miring***</code>.
+          </p>
         </div>
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
           <label className="space-y-1.5">

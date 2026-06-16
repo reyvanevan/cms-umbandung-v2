@@ -1,28 +1,28 @@
+import { Save, X } from 'lucide-react';
 import React from 'react';
-import { X, Save } from 'lucide-react';
 import { type TabType } from '../../App';
-import { handleImageUpload } from '../../lib/supabase';
 import {
-  type DbNews,
-  type DbEvent,
-  type DbTestimonial,
-  type DbPartner,
-  type DbLandingStat,
-  type DbLandingPortfolioItem,
-  type DbDosen,
-  type DbKurikulumCourse,
-  type DbKurikulumPlo,
-  type DbKurikulumProfile,
-  type DbTaStep,
-  type DbPrestasi,
-  type DbPublikasiDosen,
-  type DbKegiatanDosen,
-  type DbKegiatanMahasiswa,
-  type DbAlumni,
-  type DbStatistikMaba,
-  type DbLaboratorium,
-  type DbKknDocument
+    type DbAlumni,
+    type DbDosen,
+    type DbEvent,
+    type DbKegiatanDosen,
+    type DbKegiatanMahasiswa,
+    type DbKknDocument,
+    type DbKurikulumCourse,
+    type DbKurikulumPlo,
+    type DbKurikulumProfile,
+    type DbLaboratorium,
+    type DbLandingPortfolioItem,
+    type DbLandingStat,
+    type DbNews,
+    type DbPartner,
+    type DbPrestasi,
+    type DbPublikasiDosen,
+    type DbStatistikMaba,
+    type DbTaStep,
+    type DbTestimonial
 } from '../../lib/mockData';
+import { handleImageUpload } from '../../lib/supabase';
 
 interface CrudModalProps {
   activeModal: 'create' | 'edit' | null;
@@ -184,6 +184,10 @@ export default function CrudModal({
 
         {/* Modal Form */}
         <form onSubmit={onSubmit} className="flex-1 overflow-y-auto p-6 space-y-5">
+          <div className="rounded-2xl border border-slate-200 bg-slate-50 px-4 py-3 text-[11px] text-slate-500">
+            Format teks website: <code className="font-semibold text-slate-700">**tebal**</code>, <code className="font-semibold text-slate-700">*miring*</code>, <code className="font-semibold text-slate-700">***tebal miring***</code>.
+          </div>
+
           {/* NEWS FIELDS */}
           {activeTab === 'news' && (
             <>
