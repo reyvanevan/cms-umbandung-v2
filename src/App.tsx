@@ -282,6 +282,7 @@ export default function App() {
   // Set default activeSubSection when tab changes
   useEffect(() => {
     const homeSubSections = [
+      'Ringkasan Landing Page',
       'Spanduk & Jumbotron',
       'Sambutan Kepala Program Studi',
       'Informasi Singkat Landing Page',
@@ -290,7 +291,7 @@ export default function App() {
     ];
 
     if (activeTab === 'site_content' && (!activeSubSection || !homeSubSections.includes(activeSubSection))) {
-      setActiveSubSection('Spanduk & Jumbotron');
+      setActiveSubSection('Ringkasan Landing Page');
     } else if (activeTab === 'visi_misi' && activeSubSection !== 'Visi & Misi Akademik') {
       setActiveSubSection('Visi & Misi Akademik');
     } else if (activeTab === 'tata_kelola' && activeSubSection !== 'Sekretaris & UPM (Tata Kelola)') {

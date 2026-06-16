@@ -373,6 +373,279 @@ export default function SiteContentTab({
     );
   };
 
+  const renderKaprodiEditor = () => {
+    const keys = ['sambutan_title', 'kaprodi_welcome', 'kaprodi_welcome_p2', 'kaprodi_name', 'kaprodi_title', 'kaprodi_photo_url'];
+    const savingKey = 'section:kaprodi';
+    const selectedDosen = dosenList.find((d) => d.name === getValue('kaprodi_name'));
+    const photoUrl = selectedDosen?.img_src || getValue('kaprodi_photo_url');
+
+    return (
+      <div className="bg-white border border-slate-200/80 rounded-2xl shadow-xs overflow-hidden">
+        <div className="grid grid-cols-1 xl:grid-cols-[minmax(0,1fr)_340px]">
+          <div className="p-6 space-y-6">
+            <div className="flex flex-col sm:flex-row sm:items-start justify-between gap-4 pb-4 border-b border-slate-100">
+              <div>
+                <h3 className="text-sm font-bold text-slate-900">Sambutan Kepala Program Studi</h3>
+                <p className="text-xs text-slate-500 mt-1 max-w-2xl">Atur judul, narasi sambutan, nama jabatan, dan foto Kaprodi yang tampil setelah hero.</p>
+              </div>
+              <button
+                onClick={() => handleSaveKeys(keys, savingKey)}
+                disabled={savingKeys[savingKey]}
+                className="px-4 py-2 bg-slate-900 hover:bg-slate-800 disabled:bg-slate-300 text-white rounded-xl text-xs font-semibold flex items-center justify-center gap-1.5 shadow-sm transition cursor-pointer shrink-0"
+              >
+                {savingKeys[savingKey] ? <RefreshCw className="w-3.5 h-3.5 animate-spin" /> : <Save className="w-3.5 h-3.5" />}
+                Simpan Sambutan
+              </button>
+            </div>
+
+            {renderTextField('sambutan_title', 'Judul section')}
+            {renderTextField('kaprodi_welcome', 'Paragraf 1', { multiline: true })}
+            {renderTextField('kaprodi_welcome_p2', 'Paragraf 2', { multiline: true })}
+
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-5">
+              <div className="space-y-3">
+                <div>
+                  <p className="text-xs font-bold text-slate-800">Nama Kaprodi</p>
+                  <p className="text-[10px] text-slate-400 mt-0.5">Pilih dari data dosen agar foto dapat tersinkron otomatis, atau isi manual.</p>
+                </div>
+                {dosenList.length > 0 && (
+                  <select
+                    className="w-full px-3 py-2 bg-white border border-slate-200 rounded-lg text-xs focus:outline-none focus:ring-2 focus:ring-slate-900/10 focus:border-slate-400 transition cursor-pointer"
+                    value={selectedDosen?.name || ''}
+                    onChange={(e) => {
+                      const selected = dosenList.find((d) => d.name === e.target.value);
+                      if (selected) {
+                        handleInputChange('kaprodi_name', 'id', selected.name);
+                        handleInputChange('kaprodi_name', 'en', selected.name);
+                        if (selected.img_src) {
+                          handleInputChange('kaprodi_photo_url', 'id', selected.img_src);
+                          handleInputChange('kaprodi_photo_url', 'en', selected.img_src);
+                        }
+                      }
+                    }}
+                  >
+                    <option value="">Ketik manual / non-dosen</option>
+                    {dosenList.map((dosen) => (
+                      <option key={dosen.id} value={dosen.name}>{dosen.name}</option>
+                    ))}
+                  </select>
+                )}
+                {renderTextField('kaprodi_name', 'Nama lengkap')}
+              </div>
+              {renderTextField('kaprodi_title', 'Jabatan')}
+            </div>
+
+            {renderMediaField('kaprodi_photo_url', 'Foto Kaprodi', 'image/*')}
+          </div>
+
+          <div className="bg-slate-50 p-5 flex flex-col gap-3 border-t xl:border-t-0 xl:border-l border-slate-200">
+            <p className="text-[10px] font-bold uppercase tracking-widest text-slate-400">Preview</p>
+            <div className="bg-white border border-slate-200 rounded-2xl overflow-hidden shadow-xs">
+              <div className="aspect-[3/4] bg-slate-100 overflow-hidden">
+                {photoUrl ? (
+                  <img src={photoUrl} className="w-full h-full object-cover" alt="Preview Kaprodi" />
+                ) : (
+                  <div className="w-full h-full flex items-center justify-center text-xs text-slate-400">Belum ada foto</div>
+                )}
+              </div>
+              <div className="p-5 space-y-3">
+                <p className="text-[10px] font-bold uppercase tracking-widest text-slate-400">Kaprodi</p>
+                <h4 className="font-serif text-2xl text-slate-950 leading-tight">{getValue('kaprodi_name') || 'Nama Kaprodi'}</h4>
+                <p className="text-xs font-medium text-slate-500">{getValue('kaprodi_title') || 'Jabatan'}</p>
+                <div className="pt-3 border-t border-slate-100">
+                  <p className="text-sm font-bold text-slate-900 line-clamp-2">{getValue('sambutan_title') || 'Judul Sambutan'}</p>
+                  <p className="text-xs text-slate-500 leading-relaxed mt-2 line-clamp-5">{getValue('kaprodi_welcome') || 'Paragraf sambutan akan tampil di sini.'}</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    );
+  };
+
+  const renderInfoSingkatEditor = () => {
+    const keys = [
+      'info_singkat_degree_title',
+      'info_singkat_degree_name',
+      'info_singkat_sks_title',
+      'info_singkat_sks_desc',
+      'info_singkat_duration_title',
+      'info_singkat_duration_desc'
+    ];
+    const savingKey = 'section:info_singkat';
+    const cards = [
+      { label: 'Gelar Lulusan', titleKey: 'info_singkat_degree_title', descKey: 'info_singkat_degree_name' },
+      { label: 'Total SKS', titleKey: 'info_singkat_sks_title', descKey: 'info_singkat_sks_desc' },
+      { label: 'Masa Studi', titleKey: 'info_singkat_duration_title', descKey: 'info_singkat_duration_desc' }
+    ];
+
+    return (
+      <div className="bg-white border border-slate-200/80 rounded-2xl shadow-xs p-6 space-y-6">
+        <div className="flex flex-col sm:flex-row sm:items-start justify-between gap-4 pb-4 border-b border-slate-100">
+          <div>
+            <h3 className="text-sm font-bold text-slate-900">Informasi Singkat Beranda</h3>
+            <p className="text-xs text-slate-500 mt-1 max-w-2xl">Kelola tiga kartu ringkas setelah sambutan: gelar lulusan, total SKS, dan masa studi.</p>
+          </div>
+          <button
+            onClick={() => handleSaveKeys(keys, savingKey)}
+            disabled={savingKeys[savingKey]}
+            className="px-4 py-2 bg-slate-900 hover:bg-slate-800 disabled:bg-slate-300 text-white rounded-xl text-xs font-semibold flex items-center justify-center gap-1.5 shadow-sm transition cursor-pointer shrink-0"
+          >
+            {savingKeys[savingKey] ? <RefreshCw className="w-3.5 h-3.5 animate-spin" /> : <Save className="w-3.5 h-3.5" />}
+            Simpan Info Singkat
+          </button>
+        </div>
+
+        <div className="grid grid-cols-1 xl:grid-cols-3 gap-5">
+          {cards.map((card, idx) => (
+            <div key={card.titleKey} className="rounded-2xl border border-slate-200 bg-slate-50/50 p-5 space-y-5">
+              <div className="flex items-center justify-between gap-3">
+                <div>
+                  <p className="text-xs font-bold text-slate-900">Kartu {idx + 1}: {card.label}</p>
+                  <p className="text-[10px] text-slate-400 mt-0.5">Tampil sebagai ringkasan cepat di Home.</p>
+                </div>
+                <div className="w-10 h-10 rounded-xl bg-slate-900 text-white flex items-center justify-center text-xs font-bold">0{idx + 1}</div>
+              </div>
+              {renderTextField(card.titleKey, 'Nilai utama')}
+              {renderTextField(card.descKey, 'Keterangan')}
+              <div className="rounded-xl bg-white border border-slate-200 p-4 shadow-xs">
+                <p className="text-[9px] font-bold uppercase tracking-widest text-slate-400">Preview</p>
+                <p className="font-serif text-3xl font-bold text-slate-950 mt-2">{getValue(card.titleKey) || 'Nilai'}</p>
+                <p className="text-xs text-slate-500 mt-1 line-clamp-2">{getValue(card.descKey) || 'Keterangan kartu'}</p>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    );
+  };
+
+  const getYoutubeId = (url: string) => {
+    const match = url.match(/^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|&v=)([^#&?]*).*/);
+    return match && match[2]?.length === 11 ? match[2] : '';
+  };
+
+  const renderVideoProfileEditor = () => {
+    const keys = ['video_profile_title', 'video_profile_desc', 'hero_video_url'];
+    const savingKey = 'section:video_profile';
+    const videoUrl = getValue('hero_video_url');
+    const videoId = getYoutubeId(videoUrl);
+
+    return (
+      <div className="bg-white border border-slate-200/80 rounded-2xl shadow-xs overflow-hidden">
+        <div className="grid grid-cols-1 xl:grid-cols-[minmax(0,1fr)_420px]">
+          <div className="p-6 space-y-6">
+            <div className="flex flex-col sm:flex-row sm:items-start justify-between gap-4 pb-4 border-b border-slate-100">
+              <div>
+                <h3 className="text-sm font-bold text-slate-900">Video Profil</h3>
+                <p className="text-xs text-slate-500 mt-1 max-w-2xl">Atur judul, narasi, dan link YouTube untuk section video profil di landing page.</p>
+              </div>
+              <button
+                onClick={() => handleSaveKeys(keys, savingKey)}
+                disabled={savingKeys[savingKey]}
+                className="px-4 py-2 bg-slate-900 hover:bg-slate-800 disabled:bg-slate-300 text-white rounded-xl text-xs font-semibold flex items-center justify-center gap-1.5 shadow-sm transition cursor-pointer shrink-0"
+              >
+                {savingKeys[savingKey] ? <RefreshCw className="w-3.5 h-3.5 animate-spin" /> : <Save className="w-3.5 h-3.5" />}
+                Simpan Video Profil
+              </button>
+            </div>
+            {renderTextField('video_profile_title', 'Judul section')}
+            {renderTextField('video_profile_desc', 'Deskripsi', { multiline: true })}
+            <div className="space-y-3">
+              <div>
+                <p className="text-xs font-bold text-slate-800">URL YouTube</p>
+                <p className="text-[10px] text-slate-400 mt-0.5">Gunakan link YouTube biasa, shortlink, atau embed URL.</p>
+              </div>
+              <input
+                id="input-id-hero_video_url"
+                className="w-full px-3 py-2 bg-white border border-slate-200 rounded-lg text-xs focus:outline-none focus:ring-2 focus:ring-slate-900/10 focus:border-slate-400 transition"
+                value={videoUrl}
+                placeholder="https://www.youtube.com/watch?v=..."
+                onChange={(e) => {
+                  handleInputChange('hero_video_url', 'id', e.target.value);
+                  handleInputChange('hero_video_url', 'en', e.target.value);
+                }}
+              />
+            </div>
+          </div>
+
+          <div className="bg-slate-950 p-5 flex flex-col gap-3">
+            <p className="text-[10px] font-bold uppercase tracking-widest text-white/50">Preview</p>
+            <div className="rounded-xl overflow-hidden border border-white/10 bg-neutral-900 aspect-video">
+              {videoId ? (
+                <iframe
+                  className="w-full h-full border-0"
+                  src={`https://www.youtube.com/embed/${videoId}`}
+                  title="Preview Video Profil"
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                  allowFullScreen
+                />
+              ) : (
+                <div className="w-full h-full flex items-center justify-center text-xs text-white/40">Masukkan URL YouTube valid</div>
+              )}
+            </div>
+            <div className="text-white space-y-2 pt-2">
+              <h4 className="font-serif text-2xl leading-tight">{getValue('video_profile_title') || 'Judul Video Profil'}</h4>
+              <p className="text-xs leading-relaxed text-white/60 line-clamp-5">{getValue('video_profile_desc') || 'Deskripsi video profil akan tampil di sini.'}</p>
+              {videoId && <p className="text-[10px] font-mono text-white/35 pt-2">YOUTUBE ID: {videoId}</p>}
+            </div>
+          </div>
+        </div>
+      </div>
+    );
+  };
+
+  const renderHomeOverview = () => {
+    const hasValue = (key: string) => Boolean((getValue(key) || '').trim());
+    const sections = [
+      { name: 'Spanduk & Jumbotron', desc: 'Judul, subjudul, background, overlay', keys: ['hero_title', 'hero_subtitle', 'hero_bg_url', 'hero_overlay_opacity'] },
+      { name: 'Sambutan Kaprodi', desc: 'Judul, 2 paragraf, nama, jabatan, foto', keys: ['sambutan_title', 'kaprodi_welcome', 'kaprodi_welcome_p2', 'kaprodi_name', 'kaprodi_title', 'kaprodi_photo_url'] },
+      { name: 'Informasi Singkat', desc: 'Gelar, SKS, masa studi', keys: ['info_singkat_degree_title', 'info_singkat_degree_name', 'info_singkat_sks_title', 'info_singkat_sks_desc', 'info_singkat_duration_title', 'info_singkat_duration_desc'] },
+      { name: 'Laboratorium', desc: 'Data dikelola di tab Laboratorium', keys: [] },
+      { name: 'Video Profil', desc: 'Judul, deskripsi, URL YouTube', keys: ['video_profile_title', 'video_profile_desc', 'hero_video_url'] },
+      { name: 'Statistik Ribbon', desc: 'Data dikelola di tab Statistik Ribbon', keys: [] },
+      { name: 'Berita Terkini', desc: 'Data dikelola di tab Berita Terkini', keys: [] },
+      { name: 'Agenda Kegiatan', desc: 'Data dikelola di tab Agenda Kegiatan', keys: [] },
+      { name: 'Galeri Prestasi', desc: 'Data dikelola di tab Galeri Prestasi', keys: [] },
+      { name: 'Quote / Editorial Slider', desc: 'Empat slide quote editorial', keys: Array.from({ length: 4 }).flatMap((_, idx) => {
+        const n = idx + 1;
+        return [`editorial_slide_${n}_title`, `editorial_slide_${n}_subtitle`, `editorial_slide_${n}_description`, `editorial_slide_${n}_accent`, `editorial_slide_${n}_image_url`];
+      }) },
+      { name: 'Mitra & Kolaborasi', desc: 'Data dikelola di tab Mitra & Kolaborasi', keys: [] },
+      { name: 'Testimoni Alumni', desc: 'Data dikelola di tab Testimoni Alumni', keys: [] }
+    ];
+
+    return (
+      <div className="bg-white border border-slate-200/80 rounded-2xl shadow-xs p-6 space-y-6">
+        <div className="pb-4 border-b border-slate-100">
+          <h3 className="text-sm font-bold text-slate-900">Ringkasan Landing Page</h3>
+          <p className="text-xs text-slate-500 mt-1 max-w-2xl">Urutan ini mengikuti section aktual di halaman Home. Section berbasis daftar punya tab khusus, sedangkan section teks punya editor terarah.</p>
+        </div>
+        <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4">
+          {sections.map((section, idx) => {
+            const filled = section.keys.length === 0 ? null : section.keys.filter(hasValue).length;
+            const complete = section.keys.length === 0 || filled === section.keys.length;
+            return (
+              <div key={section.name} className="rounded-2xl border border-slate-200 bg-slate-50/60 p-4 flex gap-4">
+                <div className={`w-9 h-9 rounded-xl flex items-center justify-center text-xs font-bold shrink-0 ${complete ? 'bg-emerald-50 text-emerald-700 border border-emerald-100' : 'bg-amber-50 text-amber-700 border border-amber-100'}`}>
+                  {String(idx + 1).padStart(2, '0')}
+                </div>
+                <div className="min-w-0">
+                  <p className="text-xs font-bold text-slate-900">{section.name}</p>
+                  <p className="text-[11px] text-slate-500 leading-relaxed mt-1">{section.desc}</p>
+                  <p className={`text-[10px] font-semibold mt-3 ${complete ? 'text-emerald-600' : 'text-amber-600'}`}>
+                    {section.keys.length === 0 ? 'Tab data terpisah' : `${filled}/${section.keys.length} field terisi`}
+                  </p>
+                </div>
+              </div>
+            );
+          })}
+        </div>
+      </div>
+    );
+  };
+
   const renderEditorialEditor = () => {
     const slideCount = 4;
     const keys = Array.from({ length: slideCount }).flatMap((_, idx) => {
@@ -489,7 +762,7 @@ export default function SiteContentTab({
     if (key.startsWith('kkn_')) return 'Praktik Kerja & KKN';
     if (key === 'hero_video_url') return 'Video Profil';
     if (key.startsWith('hero_')) return 'Spanduk & Jumbotron';
-    if (key.startsWith('kaprodi_')) return 'Sambutan Kepala Program Studi';
+    if (key.startsWith('kaprodi_') || key.startsWith('sambutan_')) return 'Sambutan Kepala Program Studi';
     if (key.startsWith('video_profile_') || key === 'hero_video_url') return 'Video Profil';
     if (key.startsWith('editorial_')) return 'Editorial Slider';
     if (key.startsWith('footer_')) return 'Informasi Kontak & Sosial Media (Footer)';
@@ -621,7 +894,9 @@ export default function SiteContentTab({
         </div>
       ) : (
         <div className="space-y-10">
-          {filteredContent.length === 0 ? (
+          {activeSubSection === 'Ringkasan Landing Page' && !searchQuery ? (
+            renderHomeOverview()
+          ) : filteredContent.length === 0 ? (
             <div className="py-16 bg-white border border-slate-200 rounded-2xl text-center space-y-2">
               <p className="text-sm font-medium text-slate-600">Tidak ada konten yang cocok</p>
               <p className="text-xs text-slate-400">Coba kata kunci pencarian lain.</p>
@@ -633,6 +908,18 @@ export default function SiteContentTab({
 
               if (!searchQuery && subName === 'Spanduk & Jumbotron') {
                 return <div key={subName}>{renderHeroEditor()}</div>;
+              }
+
+              if (!searchQuery && subName === 'Sambutan Kepala Program Studi') {
+                return <div key={subName}>{renderKaprodiEditor()}</div>;
+              }
+
+              if (!searchQuery && subName === 'Informasi Singkat Landing Page') {
+                return <div key={subName}>{renderInfoSingkatEditor()}</div>;
+              }
+
+              if (!searchQuery && subName === 'Video Profil') {
+                return <div key={subName}>{renderVideoProfileEditor()}</div>;
               }
 
               if (!searchQuery && subName === 'Editorial Slider') {

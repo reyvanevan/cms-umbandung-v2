@@ -95,6 +95,7 @@ export default function Sidebar({
       label: 'Halaman Beranda (Home)',
       icon: <LayoutGrid className="w-4 h-4" />,
       items: [
+        { tab: 'site_content', subSection: 'Ringkasan Landing Page', label: 'Ringkasan Landing Page', icon: <LayoutGrid className="w-3.5 h-3.5" /> },
         { tab: 'site_content', subSection: 'Spanduk & Jumbotron', label: 'Spanduk & Jumbotron', icon: <FileText className="w-3.5 h-3.5" /> },
         { tab: 'site_content', subSection: 'Sambutan Kepala Program Studi', label: 'Sambutan Kaprodi', icon: <FileText className="w-3.5 h-3.5" /> },
         { tab: 'site_content', subSection: 'Informasi Singkat Landing Page', label: 'Informasi Singkat Beranda', icon: <FileText className="w-3.5 h-3.5" /> },
