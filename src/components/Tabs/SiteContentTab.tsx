@@ -10,6 +10,8 @@ const KEY_RELATIONS: Record<string, { photoKey: string; emailKey?: string }> = {
   gov_upm_name: { photoKey: 'gov_upm_photo', emailKey: 'gov_upm_email' }
 };
 
+const normalizePersonName = (name: string) => name.toLowerCase().replace(/[^a-z0-9]/g, '');
+
 interface SiteContentTabProps {
   siteContent: DbSiteContent[];
   isLoadingData: boolean;
@@ -49,6 +51,12 @@ export default function SiteContentTab({
   const [savingKeys, setSavingKeys] = useState<{ [key: string]: boolean }>({});
   const [uploadingKeys, setUploadingKeys] = useState<{ [key: string]: boolean }>({});
   const [uploadErrors, setUploadErrors] = useState<{ [key: string]: string }>({});
+
+  const findLinkedDosen = (name: string) => {
+    const target = normalizePersonName(name || '');
+    if (!target) return null;
+    return dosenList.find((dosen) => normalizePersonName(dosen.name || '') === target) || null;
+  };
 
   const handleFileUpload = async (key: string, file: File) => {
     setUploadingKeys((prev) => ({ ...prev, [key]: true }));
@@ -133,7 +141,7 @@ export default function SiteContentTab({
       const rel = KEY_RELATIONS[key];
       if (rel) {
         const promises: Promise<any>[] = [];
-        const linkedDosen = dosenList.find(d => d.name === vals.id);
+        const linkedDosen = findLinkedDosen(vals.id);
 
         if (rel.photoKey) {
           const photoVals = editValues[rel.photoKey] || { id: '', en: '' };
@@ -166,10 +174,20 @@ export default function SiteContentTab({
   const handleSaveKeys = async (keys: string[], savingKey: string) => {
     setSavingKeys((prev) => ({ ...prev, [savingKey]: true }));
     try {
-      await Promise.all(keys.map((key) => {
+      const valuesToSave: Record<string, { id: string; en: string | null }> = {};
+
+      keys.forEach((key) => {
         const vals = editValues[key] || { id: '', en: '' };
-        return onUpdateContent(key, vals.id, vals.en || null);
-      }));
+        valuesToSave[key] = { id: vals.id, en: vals.en || null };
+
+        const rel = KEY_RELATIONS[key];
+        const linkedDosen = rel ? findLinkedDosen(vals.id) : null;
+        if (rel?.photoKey && linkedDosen?.img_src) {
+          valuesToSave[rel.photoKey] = { id: linkedDosen.img_src, en: linkedDosen.img_src };
+        }
+      });
+
+      await Promise.all(Object.entries(valuesToSave).map(([key, vals]) => onUpdateContent(key, vals.id, vals.en)));
     } finally {
       setSavingKeys((prev) => ({ ...prev, [savingKey]: false }));
     }
@@ -376,7 +394,7 @@ export default function SiteContentTab({
   const renderKaprodiEditor = () => {
     const keys = ['sambutan_title', 'kaprodi_welcome', 'kaprodi_welcome_p2', 'kaprodi_name', 'kaprodi_title', 'kaprodi_photo_url'];
     const savingKey = 'section:kaprodi';
-    const selectedDosen = dosenList.find((d) => d.name === getValue('kaprodi_name'));
+    const selectedDosen = findLinkedDosen(getValue('kaprodi_name'));
     const photoUrl = selectedDosen?.img_src || getValue('kaprodi_photo_url');
 
     return (
@@ -413,7 +431,7 @@ export default function SiteContentTab({
                     className="w-full px-3 py-2 bg-white border border-slate-200 rounded-lg text-xs focus:outline-none focus:ring-2 focus:ring-slate-900/10 focus:border-slate-400 transition cursor-pointer"
                     value={selectedDosen?.name || ''}
                     onChange={(e) => {
-                      const selected = dosenList.find((d) => d.name === e.target.value);
+                      const selected = findLinkedDosen(e.target.value);
                       if (selected) {
                         handleInputChange('kaprodi_name', 'id', selected.name);
                         handleInputChange('kaprodi_name', 'en', selected.name);
@@ -862,6 +880,64 @@ export default function SiteContentTab({
     </div>
   });
 
+  const renderDosenLinkedPersonEditor = (prefix: 'gov_sec' | 'gov_upm', label: string) => {
+    const nameKey = `${prefix}_name`;
+    const titleKey = `${prefix}_title`;
+    const emailKey = `${prefix}_email`;
+    const photoKey = `${prefix}_photo`;
+    const linkedDosen = findLinkedDosen(getValue(nameKey));
+    const effectivePhoto = linkedDosen?.img_src || getValue(photoKey);
+
+    return (
+      <div key={prefix} className="rounded-2xl border border-slate-200 bg-slate-50/60 p-5 space-y-5">
+        <div className="flex items-start justify-between gap-3">
+          <div>
+            <h4 className="text-xs font-bold text-slate-900 uppercase tracking-wide">{label}</h4>
+            <p className="text-[10px] text-slate-400 mt-1">Pilih dari data dosen agar foto preview dan public page memakai foto Supabase.</p>
+          </div>
+          {effectivePhoto && <img src={effectivePhoto} className="w-14 h-14 rounded-xl object-cover border border-slate-200 bg-white shrink-0" alt={label} />}
+        </div>
+
+        {dosenList.length > 0 && (
+          <label className="space-y-1.5 block">
+            <span className="text-[10px] font-bold text-slate-500 uppercase tracking-wide">Hubungkan dengan data dosen</span>
+            <select
+              className="w-full px-3 py-2 bg-white border border-slate-200 rounded-lg text-xs focus:outline-none focus:ring-2 focus:ring-slate-900/10 focus:border-slate-400 transition cursor-pointer"
+              value={linkedDosen?.name || ''}
+              onChange={(e) => {
+                const selected = findLinkedDosen(e.target.value);
+                if (selected) {
+                  handleInputChange(nameKey, 'id', selected.name);
+                  handleInputChange(nameKey, 'en', selected.name);
+                  if (selected.img_src) {
+                    handleInputChange(photoKey, 'id', selected.img_src);
+                    handleInputChange(photoKey, 'en', selected.img_src);
+                  }
+                }
+              }}
+            >
+              <option value="">Ketik manual / non-dosen</option>
+              {dosenList.map((dosen) => <option key={dosen.id} value={dosen.name}>{dosen.name}</option>)}
+            </select>
+          </label>
+        )}
+
+        {renderTextField(nameKey, 'Nama')}
+        {renderTextField(titleKey, 'Jabatan')}
+        {renderTextField(emailKey, 'Email')}
+        {linkedDosen?.img_src ? (
+          <div className="rounded-xl border border-indigo-100 bg-indigo-50/60 p-4 flex gap-4 items-center">
+            <img src={linkedDosen.img_src} className="w-20 h-20 rounded-xl object-cover border border-indigo-100 bg-white shrink-0" alt={linkedDosen.name} />
+            <div>
+              <p className="text-xs font-bold text-indigo-900">Foto terhubung dari Supabase</p>
+              <p className="text-[11px] text-indigo-700 leading-relaxed mt-1">Preview memakai foto profil <b>{linkedDosen.name}</b>. Tombol Simpan Section akan ikut menyimpan URL foto ini ke <code>{photoKey}</code>.</p>
+            </div>
+          </div>
+        ) : renderMediaField(photoKey, 'Foto', 'image/*')}
+      </div>
+    );
+  };
+
   const renderTataKelolaEditor = () => {
     const keys = ['gov_sec_name', 'gov_sec_title', 'gov_sec_email', 'gov_sec_photo', 'gov_upm_name', 'gov_upm_title', 'gov_upm_email', 'gov_upm_photo'];
     return renderGuidedSection({
@@ -870,15 +946,8 @@ export default function SiteContentTab({
       keys,
       savingKey: 'section:tata_kelola',
       children: <div className="grid grid-cols-1 xl:grid-cols-2 gap-5">
-        {[{ prefix: 'gov_sec', label: 'Sekretaris Program Studi' }, { prefix: 'gov_upm', label: 'Unit Penjaminan Mutu' }].map((role) => (
-          <div key={role.prefix} className="rounded-2xl border border-slate-200 bg-slate-50/60 p-5 space-y-5">
-            <h4 className="text-xs font-bold text-slate-900 uppercase tracking-wide">{role.label}</h4>
-            {renderTextField(`${role.prefix}_name`, 'Nama')}
-            {renderTextField(`${role.prefix}_title`, 'Jabatan')}
-            {renderTextField(`${role.prefix}_email`, 'Email')}
-            {renderMediaField(`${role.prefix}_photo`, 'Foto', 'image/*')}
-          </div>
-        ))}
+        {renderDosenLinkedPersonEditor('gov_sec', 'Sekretaris Program Studi')}
+        {renderDosenLinkedPersonEditor('gov_upm', 'Unit Penjaminan Mutu')}
       </div>
     });
   };
@@ -1227,7 +1296,7 @@ export default function SiteContentTab({
                       );
                       const parentKey = parentRelation ? parentRelation[0] : null;
                       const parentVal = parentKey ? (editValues[parentKey]?.id || '') : '';
-                      const linkedDosen = parentVal ? dosenList.find(d => d.name === parentVal) : null;
+                      const linkedDosen = parentVal ? findLinkedDosen(parentVal) : null;
 
                       const isFocused = focusedKey === item.key;
 
@@ -1457,11 +1526,11 @@ export default function SiteContentTab({
                                     <label className="text-xs font-bold text-slate-700 block">Hubungkan dengan Data Dosen:</label>
                                     <select
                                       className="w-full px-3 py-2 bg-white border border-slate-200 rounded-lg text-xs focus:outline-none focus:ring-2 focus:ring-slate-900/10 focus:border-slate-400 transition cursor-pointer"
-                                      value={dosenList.some(d => d.name === vals.id) ? dosenList.find(d => d.name === vals.id)?.name : ''}
+                                      value={findLinkedDosen(vals.id)?.name || ''}
                                       onChange={(e) => {
                                         const val = e.target.value;
                                         if (val) {
-                                          const selectedDosen = dosenList.find(d => d.name === val);
+                                          const selectedDosen = findLinkedDosen(val);
                                           if (selectedDosen) {
                                             // 1. Update name
                                             handleInputChange(item.key, 'id', selectedDosen.name);
