@@ -745,6 +745,161 @@ export default function CrudModal({
               )}
 
               {dosenForm.category === 'dosen' && (
+                <div className="grid grid-cols-2 gap-4">
+                  <div className="space-y-1">
+                    <label className="text-xs font-bold text-slate-700">Mata Kuliah Diampu (Bahasa Indonesia)</label>
+                    <textarea
+                      placeholder="Pisahkan dengan koma atau baris baru"
+                      className="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-sm min-h-[90px] focus:outline-none focus:ring-2 focus:ring-slate-900/10 focus:border-slate-400 focus:bg-white transition"
+                      value={dosenForm.courses || ''}
+                      onChange={(e) => setDosenForm({ ...dosenForm, courses: e.target.value })}
+                    />
+                  </div>
+                  <div className="space-y-1">
+                    <label className="text-xs font-bold text-slate-700">Courses Taught (English)</label>
+                    <textarea
+                      placeholder="Separate with commas or new lines"
+                      className="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-sm min-h-[90px] focus:outline-none focus:ring-2 focus:ring-slate-900/10 focus:border-slate-400 focus:bg-white transition"
+                      value={dosenForm.courses_en || ''}
+                      onChange={(e) => setDosenForm({ ...dosenForm, courses_en: e.target.value })}
+                    />
+                  </div>
+                </div>
+              )}
+
+              {dosenForm.category === 'dosen' && (
+                <div className="space-y-4 border border-dashed border-slate-200 rounded-2xl p-4 bg-slate-50/40">
+                  <p className="text-xs font-bold uppercase tracking-wider text-slate-500 m-0">Section Profil Dinamis (Detail Dosen)</p>
+
+                  <div className="space-y-3 rounded-xl border border-slate-200 bg-white p-4">
+                    <label className="inline-flex items-center gap-2 text-xs font-semibold text-slate-700">
+                      <input
+                        type="checkbox"
+                        className="rounded border-slate-300"
+                        checked={dosenForm.show_academic_focus !== false}
+                        onChange={(e) => setDosenForm({ ...dosenForm, show_academic_focus: e.target.checked })}
+                      />
+                      Tampilkan section Fokus Akademik
+                    </label>
+                    <div className="grid grid-cols-2 gap-3">
+                      <input
+                        type="text"
+                        placeholder="Judul ID (opsional)"
+                        className="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-lg text-xs"
+                        value={dosenForm.academic_focus_title || ''}
+                        onChange={(e) => setDosenForm({ ...dosenForm, academic_focus_title: e.target.value })}
+                      />
+                      <input
+                        type="text"
+                        placeholder="Title EN (optional)"
+                        className="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-lg text-xs"
+                        value={dosenForm.academic_focus_title_en || ''}
+                        onChange={(e) => setDosenForm({ ...dosenForm, academic_focus_title_en: e.target.value })}
+                      />
+                    </div>
+                    <div className="grid grid-cols-2 gap-3">
+                      <textarea
+                        placeholder="Deskripsi ID (opsional, kosong = default)"
+                        className="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-lg text-xs min-h-[72px]"
+                        value={dosenForm.academic_focus_body || ''}
+                        onChange={(e) => setDosenForm({ ...dosenForm, academic_focus_body: e.target.value })}
+                      />
+                      <textarea
+                        placeholder="Description EN (optional, empty = default)"
+                        className="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-lg text-xs min-h-[72px]"
+                        value={dosenForm.academic_focus_body_en || ''}
+                        onChange={(e) => setDosenForm({ ...dosenForm, academic_focus_body_en: e.target.value })}
+                      />
+                    </div>
+                  </div>
+
+                  <div className="space-y-3 rounded-xl border border-slate-200 bg-white p-4">
+                    <label className="inline-flex items-center gap-2 text-xs font-semibold text-slate-700">
+                      <input
+                        type="checkbox"
+                        className="rounded border-slate-300"
+                        checked={dosenForm.show_publication_index !== false}
+                        onChange={(e) => setDosenForm({ ...dosenForm, show_publication_index: e.target.checked })}
+                      />
+                      Tampilkan section Indeks Publikasi
+                    </label>
+                    <div className="grid grid-cols-2 gap-3">
+                      <input
+                        type="text"
+                        placeholder="Judul ID (opsional)"
+                        className="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-lg text-xs"
+                        value={dosenForm.publication_index_title || ''}
+                        onChange={(e) => setDosenForm({ ...dosenForm, publication_index_title: e.target.value })}
+                      />
+                      <input
+                        type="text"
+                        placeholder="Title EN (optional)"
+                        className="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-lg text-xs"
+                        value={dosenForm.publication_index_title_en || ''}
+                        onChange={(e) => setDosenForm({ ...dosenForm, publication_index_title_en: e.target.value })}
+                      />
+                    </div>
+                    <div className="grid grid-cols-2 gap-3">
+                      <textarea
+                        placeholder="Deskripsi ID (opsional, kosong = default)"
+                        className="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-lg text-xs min-h-[72px]"
+                        value={dosenForm.publication_index_body || ''}
+                        onChange={(e) => setDosenForm({ ...dosenForm, publication_index_body: e.target.value })}
+                      />
+                      <textarea
+                        placeholder="Description EN (optional, empty = default)"
+                        className="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-lg text-xs min-h-[72px]"
+                        value={dosenForm.publication_index_body_en || ''}
+                        onChange={(e) => setDosenForm({ ...dosenForm, publication_index_body_en: e.target.value })}
+                      />
+                    </div>
+                  </div>
+
+                  <div className="space-y-3 rounded-xl border border-slate-200 bg-white p-4">
+                    <label className="inline-flex items-center gap-2 text-xs font-semibold text-slate-700">
+                      <input
+                        type="checkbox"
+                        className="rounded border-slate-300"
+                        checked={dosenForm.show_student_guidance !== false}
+                        onChange={(e) => setDosenForm({ ...dosenForm, show_student_guidance: e.target.checked })}
+                      />
+                      Tampilkan section Bimbingan Mahasiswa
+                    </label>
+                    <div className="grid grid-cols-2 gap-3">
+                      <input
+                        type="text"
+                        placeholder="Judul ID (opsional)"
+                        className="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-lg text-xs"
+                        value={dosenForm.student_guidance_title || ''}
+                        onChange={(e) => setDosenForm({ ...dosenForm, student_guidance_title: e.target.value })}
+                      />
+                      <input
+                        type="text"
+                        placeholder="Title EN (optional)"
+                        className="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-lg text-xs"
+                        value={dosenForm.student_guidance_title_en || ''}
+                        onChange={(e) => setDosenForm({ ...dosenForm, student_guidance_title_en: e.target.value })}
+                      />
+                    </div>
+                    <div className="grid grid-cols-2 gap-3">
+                      <textarea
+                        placeholder="Deskripsi ID (opsional, kosong = default)"
+                        className="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-lg text-xs min-h-[72px]"
+                        value={dosenForm.student_guidance_body || ''}
+                        onChange={(e) => setDosenForm({ ...dosenForm, student_guidance_body: e.target.value })}
+                      />
+                      <textarea
+                        placeholder="Description EN (optional, empty = default)"
+                        className="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-lg text-xs min-h-[72px]"
+                        value={dosenForm.student_guidance_body_en || ''}
+                        onChange={(e) => setDosenForm({ ...dosenForm, student_guidance_body_en: e.target.value })}
+                      />
+                    </div>
+                  </div>
+                </div>
+              )}
+
+              {dosenForm.category === 'dosen' && (
                 <div className="grid grid-cols-3 gap-4 border border-dashed border-slate-200 rounded-2xl p-4 bg-slate-50/50">
                   <div className="space-y-1">
                     <label className="text-xs font-bold text-slate-700">ID Scopus</label>

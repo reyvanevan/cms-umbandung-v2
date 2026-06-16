@@ -191,7 +191,7 @@ export default function App() {
   });
 
   const [dosenForm, setDosenForm] = useState<Omit<DbDosen, 'id' | 'created_at'>>({
-    name: '', img_src: '', scopus: '', sinta: '', scholar: '', facebook: '', twitter: '', tiktok: '', instagram: '', category: 'dosen', role: '', role_en: '', expertise: '', expertise_en: '', sort_order: 0
+    name: '', img_src: '', scopus: '', sinta: '', scholar: '', facebook: '', twitter: '', tiktok: '', instagram: '', category: 'dosen', role: '', role_en: '', expertise: '', expertise_en: '', courses: '', courses_en: '', academic_focus_title: '', academic_focus_title_en: '', academic_focus_body: '', academic_focus_body_en: '', show_academic_focus: true, publication_index_title: '', publication_index_title_en: '', publication_index_body: '', publication_index_body_en: '', show_publication_index: true, student_guidance_title: '', student_guidance_title_en: '', student_guidance_body: '', student_guidance_body_en: '', show_student_guidance: true, sort_order: 0
   });
 
   const [courseForm, setCourseForm] = useState<Omit<DbKurikulumCourse, 'id' | 'created_at'>>({
@@ -725,7 +725,7 @@ export default function App() {
     setPartnerForm({ name: '', category: 'industri', category_en: 'industri', logo_url: '' });
     setStatForm({ number: '', label: '', label_en: '', sort_order: landingStats.length + 1 });
     setPortfolioForm({ image: '', title: '', medium: '', technique: '', year: '', gridClass: 'col-span-1', sort_order: landingPortfolioItems.length + 1 });
-    setDosenForm({ name: '', img_src: '', scopus: '', sinta: '', scholar: '', facebook: '', twitter: '', tiktok: '', instagram: '', category: 'dosen', role: '', role_en: '', expertise: '', expertise_en: '', sort_order: dosenList.length + 1 });
+    setDosenForm({ name: '', img_src: '', scopus: '', sinta: '', scholar: '', facebook: '', twitter: '', tiktok: '', instagram: '', category: 'dosen', role: '', role_en: '', expertise: '', expertise_en: '', courses: '', courses_en: '', academic_focus_title: '', academic_focus_title_en: '', academic_focus_body: '', academic_focus_body_en: '', show_academic_focus: true, publication_index_title: '', publication_index_title_en: '', publication_index_body: '', publication_index_body_en: '', show_publication_index: true, student_guidance_title: '', student_guidance_title_en: '', student_guidance_body: '', student_guidance_body_en: '', show_student_guidance: true, sort_order: dosenList.length + 1 });
     setCourseForm({ semester: 'I', name: '', name_en: '', credits: 2, sort_order: courses.length + 1, rps_url: '' });
     setPloForm({ code: '', type: '', type_en: '', text: '', text_en: '', sort_order: plos.length + 1 });
     setProfileForm({ title: '', title_en: '', desc: '', desc_en: '', sort_order: profiles.length + 1 });
@@ -813,6 +813,23 @@ export default function App() {
         role_en: item.role_en || '',
         expertise: item.expertise || '',
         expertise_en: item.expertise_en || '',
+        courses: item.courses || '',
+        courses_en: item.courses_en || '',
+        academic_focus_title: item.academic_focus_title || '',
+        academic_focus_title_en: item.academic_focus_title_en || '',
+        academic_focus_body: item.academic_focus_body || '',
+        academic_focus_body_en: item.academic_focus_body_en || '',
+        show_academic_focus: item.show_academic_focus !== false,
+        publication_index_title: item.publication_index_title || '',
+        publication_index_title_en: item.publication_index_title_en || '',
+        publication_index_body: item.publication_index_body || '',
+        publication_index_body_en: item.publication_index_body_en || '',
+        show_publication_index: item.show_publication_index !== false,
+        student_guidance_title: item.student_guidance_title || '',
+        student_guidance_title_en: item.student_guidance_title_en || '',
+        student_guidance_body: item.student_guidance_body || '',
+        student_guidance_body_en: item.student_guidance_body_en || '',
+        show_student_guidance: item.show_student_guidance !== false,
         sort_order: item.sort_order || 0
       });
     } else if (activeTab === 'kurikulum_courses') {

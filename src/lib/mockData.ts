@@ -91,6 +91,23 @@ export interface DbDosen {
   role_en: string | null;
   expertise: string | null;
   expertise_en: string | null;
+  courses?: string | null;
+  courses_en?: string | null;
+  academic_focus_title?: string | null;
+  academic_focus_title_en?: string | null;
+  academic_focus_body?: string | null;
+  academic_focus_body_en?: string | null;
+  show_academic_focus?: boolean;
+  publication_index_title?: string | null;
+  publication_index_title_en?: string | null;
+  publication_index_body?: string | null;
+  publication_index_body_en?: string | null;
+  show_publication_index?: boolean;
+  student_guidance_title?: string | null;
+  student_guidance_title_en?: string | null;
+  student_guidance_body?: string | null;
+  student_guidance_body_en?: string | null;
+  show_student_guidance?: boolean;
   sort_order: number;
   created_at: string;
 }
