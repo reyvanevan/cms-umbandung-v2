@@ -606,7 +606,7 @@ export default function SiteContentTab({
       { name: 'Video Profil', desc: 'Judul, deskripsi, URL YouTube', keys: ['video_profile_title', 'video_profile_desc', 'hero_video_url'] },
       { name: 'Statistik Ribbon', desc: 'Data dikelola di tab Statistik Ribbon', keys: [] },
       { name: 'Berita Terkini', desc: 'Data dikelola di tab Berita Terkini', keys: [] },
-      { name: 'Agenda Kegiatan', desc: 'Data dikelola di tab Agenda Kegiatan', keys: [] },
+      { name: 'Event Terkini', desc: 'Data dikelola di tab Event Terkini', keys: [] },
       { name: 'Galeri Prestasi', desc: 'Data dikelola di tab Galeri Prestasi', keys: [] },
       { name: 'Quote / Editorial Slider', desc: 'Empat slide quote editorial', keys: Array.from({ length: 4 }).flatMap((_, idx) => {
         const n = idx + 1;

@@ -36,7 +36,7 @@ export default function DashboardTab({
             <span>Welcome back</span>
           </div>
           <h1 className="text-2xl font-bold text-gray-900">Sistem Kontrol Akademik</h1>
-          <p className="text-sm text-gray-400 mt-1">Kelola konten, berita, agenda, dan portofolio prodi secara dinamis.</p>
+          <p className="text-sm text-gray-400 mt-1">Kelola konten, berita, event, dan portofolio prodi secara dinamis.</p>
         </div>
       </div>
 
@@ -58,9 +58,9 @@ export default function DashboardTab({
           <div>
             <div className="flex items-center gap-1.5 text-xs font-semibold text-gray-600 mb-1">
               <Calendar className="w-3.5 h-3.5" />
-              <span>Agenda Kegiatan</span>
+              <span>Event Terkini</span>
             </div>
-            <p className="text-[11px] text-gray-400">Workshop, seminar, & kuliah umum</p>
+            <p className="text-[11px] text-gray-400">Event, seminar, & kuliah umum</p>
           </div>
         </div>
 
@@ -119,7 +119,7 @@ export default function DashboardTab({
         {/* Upcoming Events Card */}
         <div className="bg-white border border-gray-100 rounded-3xl p-6 shadow-sm flex flex-col justify-between">
           <div className="flex items-center justify-between mb-5">
-            <h3 className="text-base font-bold text-gray-900 uppercase tracking-wider">Agenda Terdekat</h3>
+            <h3 className="text-base font-bold text-gray-900 uppercase tracking-wider">Event Terkini</h3>
             <button
               onClick={() => setActiveTab('events')}
               className="text-xs font-semibold text-indigo-600 hover:text-indigo-800 transition flex items-center gap-1 cursor-pointer"
@@ -142,7 +142,7 @@ export default function DashboardTab({
                 </div>
               </div>
             ))}
-            {events.length === 0 && <div className="text-sm text-gray-400 py-6 text-center">Belum ada agenda terdekat.</div>}
+            {events.length === 0 && <div className="text-sm text-gray-400 py-6 text-center">Belum ada event terkini.</div>}
           </div>
         </div>
       </div>

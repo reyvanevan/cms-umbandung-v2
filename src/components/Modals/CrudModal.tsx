@@ -144,7 +144,7 @@ export default function CrudModal({
   const getTabTitle = () => {
     switch (activeTab) {
       case 'news': return 'Artikel Berita';
-      case 'events': return 'Agenda Kegiatan';
+      case 'events': return 'Event Terkini';
       case 'testimonials': return 'Testimoni Alumni';
       case 'partners': return 'Mitra Industri';
       case 'landing_stats': return 'Statistik Ribbon';
@@ -312,7 +312,7 @@ export default function CrudModal({
                 </div>
               </div>
               <div className="space-y-1">
-                <label className="text-xs font-bold text-slate-700">Judul Agenda (Bahasa Indonesia)</label>
+                <label className="text-xs font-bold text-slate-700">Judul Event (Bahasa Indonesia)</label>
                 <input
                   type="text"
                   className="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-slate-900/10 focus:border-slate-400 focus:bg-white transition"
@@ -322,7 +322,7 @@ export default function CrudModal({
                 />
               </div>
               <div className="space-y-1">
-                <label className="text-xs font-bold text-slate-700">Judul Agenda (English)</label>
+                <label className="text-xs font-bold text-slate-700">Judul Event (English)</label>
                 <input
                   type="text"
                   className="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-slate-900/10 focus:border-slate-400 focus:bg-white transition"

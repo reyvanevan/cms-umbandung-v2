@@ -502,10 +502,10 @@ export default function App() {
       } else if (activeTab === 'events') {
         if (activeModal === 'create') {
           await dataService.createEvent(eventForm);
-          triggerToast('Agenda berhasil dibuat!');
+          triggerToast('Event berhasil dibuat!');
         } else if (activeModal === 'edit' && editingId) {
           await dataService.updateEvent(editingId, eventForm);
-          triggerToast('Agenda berhasil diperbarui!');
+          triggerToast('Event berhasil diperbarui!');
         }
       } else if (activeTab === 'testimonials') {
         if (activeModal === 'create') {

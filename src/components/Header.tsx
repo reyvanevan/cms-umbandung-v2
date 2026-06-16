@@ -32,7 +32,7 @@ const TAB_LABELS: Record<TabType, string> = {
   testimonials: 'Testimoni Alumni',
   alumni: 'Direktori Alumni',
   news: 'Berita & Artikel',
-  events: 'Agenda Kegiatan',
+  events: 'Event Terkini',
   kegiatan_dosen: 'Kegiatan Dosen',
   kegiatan_mahasiswa: 'Kegiatan Mahasiswa',
   settings: 'Setup Database & Akun',

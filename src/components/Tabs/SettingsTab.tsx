@@ -71,7 +71,7 @@ export default function SettingsTab({
 );`
     },
     {
-      title: 'Tabel events (Agenda)',
+      title: 'Tabel events (Event Terkini)',
       sql: `create table events (
   id uuid default gen_random_uuid() primary key,
   created_at timestamp with time zone default timezone('utc'::text, now()) not null,

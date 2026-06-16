@@ -103,7 +103,7 @@ export default function Sidebar({
         { tab: 'site_content', subSection: 'Video Profil', label: 'Video Profil', icon: <FileText className="w-3.5 h-3.5" /> },
         { tab: 'landing_stats', label: 'Statistik Ribbon', icon: <TrendingUp className="w-3.5 h-3.5" /> },
         { tab: 'news', label: 'Berita Terkini', icon: <Newspaper className="w-3.5 h-3.5" /> },
-        { tab: 'events', label: 'Agenda Kegiatan', icon: <Calendar className="w-3.5 h-3.5" /> },
+        { tab: 'events', label: 'Event Terkini', icon: <Calendar className="w-3.5 h-3.5" /> },
         { tab: 'prestasi', label: 'Galeri Prestasi', icon: <Trophy className="w-3.5 h-3.5" /> },
         { tab: 'site_content', subSection: 'Editorial Slider', label: 'Quote / Editorial Slider', icon: <FileText className="w-3.5 h-3.5" /> },
         { tab: 'partners', label: 'Mitra & Kolaborasi', icon: <Building2 className="w-3.5 h-3.5" /> },
@@ -161,7 +161,7 @@ export default function Sidebar({
       icon: <Newspaper className="w-4 h-4" />,
       items: [
         { tab: 'news', label: 'Berita & Artikel', icon: <Newspaper className="w-3.5 h-3.5" /> },
-        { tab: 'events', label: 'Agenda Kegiatan', icon: <Calendar className="w-3.5 h-3.5" /> },
+        { tab: 'events', label: 'Event Terkini', icon: <Calendar className="w-3.5 h-3.5" /> },
         { tab: 'kegiatan_dosen', label: 'Kegiatan Dosen', icon: <Activity className="w-3.5 h-3.5" /> },
         { tab: 'kegiatan_mahasiswa', label: 'Kegiatan Mahasiswa', icon: <Activity className="w-3.5 h-3.5" /> },
       ],
