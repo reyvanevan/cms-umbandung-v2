@@ -21,7 +21,6 @@ import {
 export function getSubSectionName(key: string): string {
   if (key.startsWith('hero_')) return 'Spanduk & Jumbotron';
   if (key.startsWith('kaprodi_')) return 'Sambutan Kepala Program Studi';
-  if (key.startsWith('philosophy_')) return 'Filosofi Pembelajaran';
   if (key.startsWith('info_')) return 'Informasi Singkat Landing Page';
   if (key.startsWith('visi_') || key.startsWith('misi_') || key.startsWith('tujuan_') || key.startsWith('sasaran_')) return 'Visi & Misi Akademik';
   if (key.startsWith('gov_sec_') || key.startsWith('gov_upm_')) return 'Sekretaris & UPM (Tata Kelola)';
@@ -285,7 +284,6 @@ export default function App() {
     const homeSubSections = [
       'Spanduk & Jumbotron',
       'Sambutan Kepala Program Studi',
-      'Filosofi Pembelajaran',
       'Informasi Singkat Landing Page',
       'Video Profil',
       'Editorial Slider'

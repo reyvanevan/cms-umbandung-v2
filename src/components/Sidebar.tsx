@@ -9,7 +9,6 @@ import {
   LogOut,
   LayoutGrid,
   TrendingUp,
-  Image,
   FileText,
   GraduationCap,
   BookOpen,
@@ -63,7 +62,7 @@ export default function Sidebar({
   // Which groups are open — default: open the one containing current activeTab/subSection
   const getInitialOpen = () => {
     return {
-      beranda: ['landing_portfolio', 'landing_stats', 'partners'].includes(activeTab) || (activeTab === 'site_content' && activeSubSection !== 'Panduan Kurikulum & MBKM' && activeSubSection !== 'Kerjasama & Kemitraan' && activeSubSection !== 'Informasi Kontak & Sosial Media (Footer)'),
+      beranda: ['laboratorium', 'landing_stats', 'news', 'events', 'prestasi', 'partners', 'testimonials'].includes(activeTab) || (activeTab === 'site_content' && activeSubSection !== 'Panduan Kurikulum & MBKM' && activeSubSection !== 'Kerjasama & Kemitraan' && activeSubSection !== 'Informasi Kontak & Sosial Media (Footer)'),
       tentang_kami: ['dosen', 'visi_misi', 'tata_kelola', 'laboratorium'].includes(activeTab) || (activeTab === 'site_content' && activeSubSection === 'Kerjasama & Kemitraan'),
       akademik: ['kurikulum_courses', 'kurikulum_plos', 'kurikulum_profiles', 'publikasi_dosen', 'tugas_akhir_steps', 'kkn_documents'].includes(activeTab) || activeTab === 'kkn_content' || (activeTab === 'site_content' && activeSubSection === 'Panduan Kurikulum & MBKM'),
       statistik: ['statistik_maba'].includes(activeTab),
@@ -98,13 +97,16 @@ export default function Sidebar({
       items: [
         { tab: 'site_content', subSection: 'Spanduk & Jumbotron', label: 'Spanduk & Jumbotron', icon: <FileText className="w-3.5 h-3.5" /> },
         { tab: 'site_content', subSection: 'Sambutan Kepala Program Studi', label: 'Sambutan Kaprodi', icon: <FileText className="w-3.5 h-3.5" /> },
-        { tab: 'site_content', subSection: 'Filosofi Pembelajaran', label: 'Filosofi Pembelajaran', icon: <FileText className="w-3.5 h-3.5" /> },
         { tab: 'site_content', subSection: 'Informasi Singkat Landing Page', label: 'Informasi Singkat Beranda', icon: <FileText className="w-3.5 h-3.5" /> },
+        { tab: 'laboratorium', label: 'Laboratorium', icon: <Building2 className="w-3.5 h-3.5" /> },
         { tab: 'site_content', subSection: 'Video Profil', label: 'Video Profil', icon: <FileText className="w-3.5 h-3.5" /> },
-        { tab: 'site_content', subSection: 'Editorial Slider', label: 'Editorial Slider', icon: <FileText className="w-3.5 h-3.5" /> },
-        { tab: 'landing_portfolio', label: 'Galeri Portfolio', icon: <Image className="w-3.5 h-3.5" /> },
         { tab: 'landing_stats', label: 'Statistik Ribbon', icon: <TrendingUp className="w-3.5 h-3.5" /> },
-        { tab: 'partners', label: 'Kemitraan Industri (Logo)', icon: <Building2 className="w-3.5 h-3.5" /> },
+        { tab: 'news', label: 'Berita Terkini', icon: <Newspaper className="w-3.5 h-3.5" /> },
+        { tab: 'events', label: 'Agenda Kegiatan', icon: <Calendar className="w-3.5 h-3.5" /> },
+        { tab: 'prestasi', label: 'Galeri Prestasi', icon: <Trophy className="w-3.5 h-3.5" /> },
+        { tab: 'site_content', subSection: 'Editorial Slider', label: 'Quote / Editorial Slider', icon: <FileText className="w-3.5 h-3.5" /> },
+        { tab: 'partners', label: 'Mitra & Kolaborasi', icon: <Building2 className="w-3.5 h-3.5" /> },
+        { tab: 'testimonials', label: 'Testimoni Alumni', icon: <MessageSquare className="w-3.5 h-3.5" /> },
       ],
     },
     {
