@@ -280,6 +280,50 @@ export const SITE_CONTENT_LABELS: Record<string, LabelConfig> = {
     label: 'Label Tombol Panduan Capstone',
     desc: 'Teks tombol CTA untuk membuka dokumen panduan.'
   },
+  spm_heading: {
+    label: 'Judul Halaman Sistem Penjaminan Mutu',
+    desc: 'Judul besar pada halaman Sistem Penjaminan Mutu.'
+  },
+  spm_description: {
+    label: 'Deskripsi Halaman Sistem Penjaminan Mutu',
+    desc: 'Kalimat pembuka di hero halaman Sistem Penjaminan Mutu.'
+  },
+  spm_overview_title: {
+    label: 'Judul Overview Sistem Mutu',
+    desc: 'Judul kartu ringkasan budaya mutu program studi.'
+  },
+  spm_overview_desc: {
+    label: 'Deskripsi Overview Sistem Mutu',
+    desc: 'Penjelasan utama mengenai penerapan sistem penjaminan mutu internal.'
+  },
+  spm_policy_title: {
+    label: 'Judul Kebijakan Mutu',
+    desc: 'Judul kartu arah kebijakan mutu program studi.'
+  },
+  spm_policy_desc: {
+    label: 'Deskripsi Kebijakan Mutu',
+    desc: 'Penjelasan singkat arah kebijakan dan akuntabilitas mutu.'
+  },
+  spm_cycle_items: {
+    label: 'Siklus PPEPP / Peningkatan Mutu',
+    desc: 'Format per baris: Nama tahap | Deskripsi tahap.'
+  },
+  spm_standards: {
+    label: 'Fokus Standar Mutu',
+    desc: 'Daftar fokus standar mutu, satu item per baris.'
+  },
+  spm_roles: {
+    label: 'Peran Pelaksana Sistem Mutu',
+    desc: 'Format per baris: Nama peran | Deskripsi tanggung jawab.'
+  },
+  spm_document_url: {
+    label: 'Link Dokumen Mutu',
+    desc: 'URL dokumen rujukan sistem penjaminan mutu. Isi # jika belum tersedia.'
+  },
+  spm_cta_label: {
+    label: 'Label Tombol Dokumen Mutu',
+    desc: 'Teks tombol CTA untuk membuka dokumen mutu.'
+  },
   kerjasama_heading: {
     label: 'Judul Halaman Kerjasama',
     desc: 'Judul besar di bagian atas halaman Kerjasama & Kemitraan (contoh: Kemitraan & Sinergi Industri).'

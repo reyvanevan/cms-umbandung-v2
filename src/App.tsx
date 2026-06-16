@@ -27,6 +27,7 @@ export function getSubSectionName(key: string): string {
   if (key.startsWith('gov_sec_') || key.startsWith('gov_upm_')) return 'Sekretaris & UPM (Tata Kelola)';
   if (key.startsWith('kurikulum_guideline_')) return 'Panduan Kurikulum & MBKM';
   if (key.startsWith('kkn_')) return 'Praktik Kerja & KKN';
+  if (key.startsWith('spm_')) return 'Sistem Penjaminan Mutu';
   if (key.startsWith('kerjasama_')) return 'Kerjasama & Kemitraan';
   if (key.startsWith('footer_')) return 'Informasi Kontak & Sosial Media (Footer)';
   return 'Spanduk & Jumbotron';
@@ -99,6 +100,7 @@ export type TabType =
   | 'kurikulum_content'
   | 'tugas_akhir_content'
   | 'capstone_content'
+  | 'spm_content'
   | 'kerjasama_content'
   | 'statistik_content'
   | 'alumni_content'
@@ -316,6 +318,8 @@ export default function App() {
       setActiveSubSection('Persyaratan & Timeline Tugas Akhir');
     } else if (activeTab === 'capstone_content' && activeSubSection !== 'Capstone Design') {
       setActiveSubSection('Capstone Design');
+    } else if (activeTab === 'spm_content' && activeSubSection !== 'Sistem Penjaminan Mutu') {
+      setActiveSubSection('Sistem Penjaminan Mutu');
     } else if (activeTab === 'kerjasama_content' && activeSubSection !== 'Kerjasama & Kemitraan') {
       setActiveSubSection('Kerjasama & Kemitraan');
     } else if (activeTab === 'statistik_content' && activeSubSection !== 'Teks Halaman Statistik') {
@@ -369,7 +373,7 @@ export default function App() {
         ]);
         setPartners(partList);
         setSiteContents(contentList);
-      } else if (activeTab === 'site_content' || activeTab === 'visi_misi' || activeTab === 'tata_kelola' || activeTab === 'kurikulum_content' || activeTab === 'tugas_akhir_content' || activeTab === 'capstone_content' || activeTab === 'kerjasama_content' || activeTab === 'statistik_content' || activeTab === 'alumni_content' || activeTab === 'kegiatan_dosen_content' || activeTab === 'kegiatan_mahasiswa_content' || activeTab === 'publikasi_content' || activeTab === 'dosen_content' || activeTab === 'global_content' || activeTab === 'kkn_content') {
+      } else if (activeTab === 'site_content' || activeTab === 'visi_misi' || activeTab === 'tata_kelola' || activeTab === 'kurikulum_content' || activeTab === 'tugas_akhir_content' || activeTab === 'capstone_content' || activeTab === 'spm_content' || activeTab === 'kerjasama_content' || activeTab === 'statistik_content' || activeTab === 'alumni_content' || activeTab === 'kegiatan_dosen_content' || activeTab === 'kegiatan_mahasiswa_content' || activeTab === 'publikasi_content' || activeTab === 'dosen_content' || activeTab === 'global_content' || activeTab === 'kkn_content') {
         const [contentList, dList] = await Promise.all([
           dataService.getSiteContent(),
           dataService.getDosen()
@@ -1109,6 +1113,7 @@ export default function App() {
             ['kurikulum_content', 'kurikulum'],
             ['tugas_akhir_content', 'tugas_akhir'],
             ['capstone_content', 'capstone'],
+            ['spm_content', 'spm'],
             ['kerjasama_content', 'kerjasama'],
             ['statistik_content', 'statistik'],
             ['alumni_content', 'alumni'],

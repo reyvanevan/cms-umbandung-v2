@@ -63,7 +63,7 @@ export default function Sidebar({
   const getInitialOpen = () => {
     return {
       beranda: ['laboratorium', 'landing_stats', 'news', 'events', 'prestasi', 'partners', 'testimonials'].includes(activeTab) || (activeTab === 'site_content' && activeSubSection !== 'Panduan Kurikulum & MBKM' && activeSubSection !== 'Kerjasama & Kemitraan' && activeSubSection !== 'Informasi Kontak & Sosial Media (Footer)'),
-      tentang_kami: ['dosen', 'dosen_content', 'visi_misi', 'tata_kelola', 'laboratorium', 'kerjasama_content'].includes(activeTab),
+      tentang_kami: ['dosen', 'dosen_content', 'visi_misi', 'tata_kelola', 'laboratorium', 'kerjasama_content', 'spm_content'].includes(activeTab),
       akademik: ['kurikulum_content', 'kurikulum_courses', 'kurikulum_plos', 'kurikulum_profiles', 'capstone_content', 'publikasi_content', 'publikasi_dosen', 'tugas_akhir_content', 'tugas_akhir_steps', 'kkn_documents'].includes(activeTab) || activeTab === 'kkn_content',
       statistik: ['statistik_content', 'statistik_maba'].includes(activeTab),
       mahasiswa_alumni: ['prestasi', 'testimonials', 'alumni_content', 'alumni', 'alumni_sectors'].includes(activeTab),
@@ -120,6 +120,7 @@ export default function Sidebar({
         { tab: 'dosen_content', subSection: 'Teks Halaman Dosen', label: 'Teks Halaman Dosen', icon: <FileText className="w-3.5 h-3.5" /> },
         { tab: 'dosen', label: 'Dosen & Staff (SDM)', icon: <Users className="w-3.5 h-3.5" /> },
         { tab: 'kerjasama_content', subSection: 'Kerjasama & Kemitraan', label: 'Kerjasama & Kemitraan', icon: <FileText className="w-3.5 h-3.5" /> },
+        { tab: 'spm_content', subSection: 'Sistem Penjaminan Mutu', label: 'Sistem Penjaminan Mutu', icon: <FileText className="w-3.5 h-3.5" /> },
         { tab: 'laboratorium', label: 'Laboratorium', icon: <Building2 className="w-3.5 h-3.5" /> },
       ],
     },
