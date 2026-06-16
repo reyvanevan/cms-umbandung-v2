@@ -1,4 +1,4 @@
-import { Plus, Search, Edit2, Trash2, RefreshCw } from 'lucide-react';
+import { Edit2, Plus, RefreshCw, Search, Trash2, TrendingUp } from 'lucide-react';
 import { type DbLandingStat } from '../../lib/mockData';
 
 interface StatsTabProps {
@@ -11,111 +11,61 @@ interface StatsTabProps {
   openDeleteModal: (id: string) => void;
 }
 
-export default function StatsTab({
-  stats,
-  searchQuery,
-  setSearchQuery,
-  isLoadingData,
-  openCreateModal,
-  openEditModal,
-  openDeleteModal
-}: StatsTabProps) {
+export default function StatsTab({ stats, searchQuery, setSearchQuery, isLoadingData, openCreateModal, openEditModal, openDeleteModal }: StatsTabProps) {
   const filteredStats = stats.filter((item) => {
     if (!searchQuery) return true;
     const query = searchQuery.toLowerCase();
-    return (
-      item.number.toLowerCase().includes(query) ||
-      item.label.toLowerCase().includes(query)
-    );
+    return item.number.toLowerCase().includes(query) || item.label.toLowerCase().includes(query) || (item.label_en || '').toLowerCase().includes(query);
   });
 
   return (
-    <div className="bg-white border border-gray-100 rounded-3xl p-6 shadow-sm space-y-6 select-none glass-card">
-      {/* Header controls */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
-        {/* Search */}
-        <div className="relative w-full sm:max-w-xs">
-          <Search className="absolute left-3 top-2.5 w-4.5 h-4.5 text-gray-400" />
-          <input
-            type="text"
-            placeholder="Cari label/nilai statistik..."
-            className="w-full pl-10 pr-4 py-2 bg-gray-50 border border-gray-100 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-gray-200 focus:bg-white transition"
-            value={searchQuery}
-            onChange={(e) => setSearchQuery(e.target.value)}
-          />
+    <div className="space-y-6 select-none">
+      <div className="bg-white border border-slate-200/80 rounded-2xl p-6 shadow-xs space-y-5">
+        <div className="flex flex-col lg:flex-row lg:items-start justify-between gap-5">
+          <div className="max-w-2xl">
+            <div className="flex items-center gap-2 text-[10px] font-bold uppercase tracking-widest text-slate-400 mb-2">
+              <TrendingUp className="w-4 h-4" /> Home Section 07
+            </div>
+            <h2 className="text-lg font-bold text-slate-950 tracking-tight">Statistik Ribbon</h2>
+            <p className="text-xs text-slate-500 mt-1 leading-relaxed">Kelola angka ringkas yang muncul sebagai pita statistik di landing page. Jaga label pendek agar tetap terbaca di desktop dan mobile.</p>
+          </div>
+          <button onClick={openCreateModal} className="px-4 py-2 bg-slate-900 hover:bg-slate-800 text-white rounded-xl text-xs font-semibold flex items-center justify-center gap-1.5 shadow-sm transition cursor-pointer">
+            <Plus className="w-4 h-4" /> Tambah Statistik
+          </button>
         </div>
-
-        {/* Create button */}
-        <button
-          onClick={openCreateModal}
-          className="px-4 py-2 bg-black hover:bg-gray-900 text-white rounded-xl text-xs font-semibold flex items-center justify-center gap-1.5 shadow-md shadow-gray-200/50 transition cursor-pointer self-start sm:self-auto"
-        >
-          <Plus className="w-4 h-4" />
-          <span>Tambah Ribbon Stat</span>
-        </button>
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pt-4 border-t border-slate-100">
+          <div className="text-xs text-slate-500"><b className="text-slate-900">{stats.length}</b> item tersimpan</div>
+          <div className="relative w-full sm:max-w-xs">
+            <Search className="absolute left-3 top-2.5 w-4 h-4 text-slate-400" />
+            <input type="text" placeholder="Cari nilai atau label..." className="w-full pl-9 pr-4 py-2 bg-slate-50 border border-slate-200 rounded-xl text-xs focus:outline-none focus:ring-2 focus:ring-slate-900/10 focus:bg-white transition" value={searchQuery} onChange={(e) => setSearchQuery(e.target.value)} />
+          </div>
+        </div>
       </div>
 
-      {/* Loading & Table */}
       {isLoadingData ? (
-        <div className="py-20 flex flex-col items-center justify-center gap-3 text-gray-400">
-          <RefreshCw className="w-8 h-8 animate-spin text-black" />
-          <p className="text-sm">Memuat data statistik...</p>
-        </div>
+        <div className="py-20 flex flex-col items-center justify-center gap-3 text-slate-400 bg-white border border-slate-200 rounded-2xl"><RefreshCw className="w-7 h-7 animate-spin text-slate-900" /><p className="text-sm">Memuat statistik...</p></div>
+      ) : filteredStats.length === 0 ? (
+        <div className="py-16 bg-white border border-dashed border-slate-200 rounded-2xl text-center"><p className="text-sm font-medium text-slate-600">Belum ada statistik yang cocok</p><p className="text-xs text-slate-400 mt-1">Tambah statistik atau ubah kata pencarian.</p></div>
       ) : (
-        <div className="overflow-x-auto border border-gray-100 rounded-2xl max-w-2xl">
-          <table className="w-full text-left border-collapse text-sm">
-            <thead>
-              <tr className="bg-gray-50 border-b border-gray-100 text-gray-500 font-semibold text-xs uppercase tracking-wider">
-                <th className="p-4" style={{ width: '80px' }}>Urutan</th>
-                <th className="p-4">Angka / Nilai</th>
-                <th className="p-4">Label Statistik</th>
-                <th className="p-4" style={{ width: '100px' }}>Aksi</th>
-              </tr>
-            </thead>
-            <tbody className="divide-y divide-gray-50 text-gray-700">
-              {filteredStats.map((item) => (
-                <tr key={item.id} className="hover:bg-gray-50/50 transition">
-                  <td className="p-4 text-xs font-bold text-gray-400">
-                    #{item.sort_order}
-                  </td>
-                  <td className="p-4 font-extrabold text-gray-950 text-base">
-                    {item.number}
-                  </td>
-                  <td className="p-4 text-gray-600 font-medium text-xs">
-                    <div className="font-bold text-gray-900">{item.label}</div>
-                    {item.label_en && (
-                      <div className="text-[10px] text-gray-400 mt-0.5 italic">EN: {item.label_en}</div>
-                    )}
-                  </td>
-                  <td className="p-4">
-                    <div className="flex gap-2">
-                      <button
-                        onClick={() => openEditModal(item)}
-                        className="p-1.5 hover:bg-gray-100 rounded-lg text-gray-500 hover:text-gray-950 transition cursor-pointer"
-                        title="Edit Stat"
-                      >
-                        <Edit2 className="w-4 h-4" />
-                      </button>
-                      <button
-                        onClick={() => openDeleteModal(item.id)}
-                        className="p-1.5 hover:bg-red-50 rounded-lg text-gray-400 hover:text-red-600 transition cursor-pointer"
-                        title="Hapus Stat"
-                      >
-                        <Trash2 className="w-4 h-4" />
-                      </button>
-                    </div>
-                  </td>
-                </tr>
-              ))}
-              {filteredStats.length === 0 && (
-                <tr>
-                  <td colSpan={4} className="p-8 text-center text-gray-400 text-sm">
-                    Tidak ada statistik ditemukan.
-                  </td>
-                </tr>
-              )}
-            </tbody>
-          </table>
+        <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-4">
+          {filteredStats.map((item) => (
+            <div key={item.id} className="bg-slate-950 text-white border border-slate-900 rounded-2xl p-5 min-h-[190px] flex flex-col justify-between shadow-sm">
+              <div>
+                <div className="flex items-center justify-between gap-3 mb-6">
+                  <span className="text-[10px] font-mono text-white/35">ORDER {item.sort_order}</span>
+                  <div className="flex gap-1.5">
+                    <button onClick={() => openEditModal(item)} className="p-1.5 rounded-lg bg-white/10 hover:bg-white/20 text-white transition" title="Edit"><Edit2 className="w-4 h-4" /></button>
+                    <button onClick={() => openDeleteModal(item.id)} className="p-1.5 rounded-lg bg-white/10 hover:bg-red-500/30 text-white transition" title="Hapus"><Trash2 className="w-4 h-4" /></button>
+                  </div>
+                </div>
+                <p className="font-serif text-4xl font-bold leading-none">{item.number}</p>
+              </div>
+              <div className="pt-5 border-t border-white/10">
+                <p className="text-xs font-semibold leading-snug text-white/80">{item.label}</p>
+                {item.label_en && <p className="text-[10px] text-white/35 mt-1 line-clamp-2">{item.label_en}</p>}
+              </div>
+            </div>
+          ))}
         </div>
       )}
     </div>

@@ -1,4 +1,4 @@
-import { Plus, Search, Edit2, Trash2, RefreshCw } from 'lucide-react';
+import { Edit2, MessageSquare, Plus, RefreshCw, Search, Trash2 } from 'lucide-react';
 import { type DbTestimonial } from '../../lib/mockData';
 
 interface TestimonialsTabProps {
@@ -11,116 +11,36 @@ interface TestimonialsTabProps {
   openDeleteModal: (id: string) => void;
 }
 
-export default function TestimonialsTab({
-  testimonials,
-  searchQuery,
-  setSearchQuery,
-  isLoadingData,
-  openCreateModal,
-  openEditModal,
-  openDeleteModal
-}: TestimonialsTabProps) {
+export default function TestimonialsTab({ testimonials, searchQuery, setSearchQuery, isLoadingData, openCreateModal, openEditModal, openDeleteModal }: TestimonialsTabProps) {
   const filteredTestimonials = testimonials.filter((item) => {
     if (!searchQuery) return true;
     const query = searchQuery.toLowerCase();
-    return (
-      item.by.toLowerCase().includes(query) ||
-      (item.by_en && item.by_en.toLowerCase().includes(query)) ||
-      item.testimonial.toLowerCase().includes(query) ||
-      (item.testimonial_en && item.testimonial_en.toLowerCase().includes(query))
-    );
+    return item.by.toLowerCase().includes(query) || (item.by_en || '').toLowerCase().includes(query) || item.testimonial.toLowerCase().includes(query) || (item.testimonial_en || '').toLowerCase().includes(query);
   });
 
   return (
-    <div className="bg-white border border-gray-100 rounded-3xl p-6 shadow-sm space-y-6 select-none glass-card">
-      {/* Header controls */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
-        {/* Search */}
-        <div className="relative w-full sm:max-w-xs">
-          <Search className="absolute left-3 top-2.5 w-4.5 h-4.5 text-gray-400" />
-          <input
-            type="text"
-            placeholder="Cari nama alumni/kutipan..."
-            className="w-full pl-10 pr-4 py-2 bg-gray-50 border border-gray-100 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-gray-200 focus:bg-white transition"
-            value={searchQuery}
-            onChange={(e) => setSearchQuery(e.target.value)}
-          />
+    <div className="space-y-6 select-none">
+      <div className="bg-white border border-slate-200/80 rounded-2xl p-6 shadow-xs space-y-5">
+        <div className="flex flex-col lg:flex-row lg:items-start justify-between gap-5">
+          <div className="max-w-2xl"><div className="flex items-center gap-2 text-[10px] font-bold uppercase tracking-widest text-slate-400 mb-2"><MessageSquare className="w-4 h-4" /> Home Section 13</div><h2 className="text-lg font-bold text-slate-950 tracking-tight">Testimoni Alumni</h2><p className="text-xs text-slate-500 mt-1 leading-relaxed">Kelola kutipan alumni yang muncul di landing page. Preview membantu mengecek panjang kutipan, nama, jabatan, dan foto.</p></div>
+          <button onClick={openCreateModal} className="px-4 py-2 bg-slate-900 hover:bg-slate-800 text-white rounded-xl text-xs font-semibold flex items-center justify-center gap-1.5 shadow-sm transition cursor-pointer"><Plus className="w-4 h-4" /> Tambah Testimoni</button>
         </div>
-
-        {/* Create button */}
-        <button
-          onClick={openCreateModal}
-          className="px-4 py-2 bg-black hover:bg-gray-900 text-white rounded-xl text-xs font-semibold flex items-center justify-center gap-1.5 shadow-md shadow-gray-200/50 transition cursor-pointer self-start sm:self-auto"
-        >
-          <Plus className="w-4 h-4" />
-          <span>Tambah Testimoni</span>
-        </button>
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pt-4 border-t border-slate-100"><div className="text-xs text-slate-500"><b className="text-slate-900">{testimonials.length}</b> testimoni tersimpan</div><div className="relative w-full sm:max-w-xs"><Search className="absolute left-3 top-2.5 w-4 h-4 text-slate-400" /><input type="text" placeholder="Cari nama/kutipan..." className="w-full pl-9 pr-4 py-2 bg-slate-50 border border-slate-200 rounded-xl text-xs focus:outline-none focus:ring-2 focus:ring-slate-900/10 focus:bg-white transition" value={searchQuery} onChange={(e) => setSearchQuery(e.target.value)} /></div></div>
       </div>
 
-      {/* Loading & Table */}
       {isLoadingData ? (
-        <div className="py-20 flex flex-col items-center justify-center gap-3 text-gray-400">
-          <RefreshCw className="w-8 h-8 animate-spin text-black" />
-          <p className="text-sm">Memuat data testimoni...</p>
-        </div>
+        <div className="py-20 flex flex-col items-center justify-center gap-3 text-slate-400 bg-white border border-slate-200 rounded-2xl"><RefreshCw className="w-7 h-7 animate-spin text-slate-900" /><p className="text-sm">Memuat testimoni...</p></div>
+      ) : filteredTestimonials.length === 0 ? (
+        <div className="py-16 bg-white border border-dashed border-slate-200 rounded-2xl text-center"><p className="text-sm font-medium text-slate-600">Belum ada testimoni yang cocok</p><p className="text-xs text-slate-400 mt-1">Tambah testimoni atau ubah kata pencarian.</p></div>
       ) : (
-        <div className="overflow-x-auto border border-gray-100 rounded-2xl">
-          <table className="w-full text-left border-collapse text-sm">
-            <thead>
-              <tr className="bg-gray-50 border-b border-gray-100 text-gray-500 font-semibold text-xs uppercase tracking-wider">
-                <th className="p-4" style={{ width: '80px' }}>Foto</th>
-                <th className="p-4">Alumni & Jabatan (Bilingual)</th>
-                <th className="p-4">Kutipan Testimoni</th>
-                <th className="p-4" style={{ width: '100px' }}>Aksi</th>
-              </tr>
-            </thead>
-            <tbody className="divide-y divide-gray-50 text-gray-700">
-              {filteredTestimonials.map((item) => (
-                <tr key={item.id} className="hover:bg-gray-50/50 transition">
-                  <td className="p-4">
-                    <img src={item.img_src} className="w-12 h-12 object-cover rounded-xl border border-gray-100 bg-gray-50" alt="" />
-                  </td>
-                  <td className="p-4 max-w-[200px] break-words">
-                    <div className="font-semibold text-gray-950 text-sm leading-snug">{item.by}</div>
-                    {item.by_en && (
-                      <div className="text-xs text-gray-400 font-medium italic mt-1">{item.by_en}</div>
-                    )}
-                  </td>
-                  <td className="p-4 max-w-[350px] break-words text-gray-500 text-xs leading-relaxed">
-                    <p className="italic">"{item.testimonial}"</p>
-                    {item.testimonial_en && (
-                      <p className="italic text-gray-400 mt-1">"{item.testimonial_en}"</p>
-                    )}
-                  </td>
-                  <td className="p-4">
-                    <div className="flex gap-2">
-                      <button
-                        onClick={() => openEditModal(item)}
-                        className="p-1.5 hover:bg-gray-100 rounded-lg text-gray-500 hover:text-gray-950 transition cursor-pointer"
-                        title="Edit Testimoni"
-                      >
-                        <Edit2 className="w-4 h-4" />
-                      </button>
-                      <button
-                        onClick={() => openDeleteModal(item.id)}
-                        className="p-1.5 hover:bg-red-50 rounded-lg text-gray-400 hover:text-red-600 transition cursor-pointer"
-                        title="Hapus Testimoni"
-                      >
-                        <Trash2 className="w-4 h-4" />
-                      </button>
-                    </div>
-                  </td>
-                </tr>
-              ))}
-              {filteredTestimonials.length === 0 && (
-                <tr>
-                  <td colSpan={4} className="p-8 text-center text-gray-400 text-sm">
-                    Tidak ada testimoni ditemukan.
-                  </td>
-                </tr>
-              )}
-            </tbody>
-          </table>
+        <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-5">
+          {filteredTestimonials.map((item) => (
+            <div key={item.id} className="bg-white border border-slate-200 rounded-2xl p-5 shadow-sm hover:border-slate-300 transition min-h-[260px] flex flex-col justify-between">
+              <div className="flex items-start justify-between gap-3"><div className="text-5xl font-serif text-slate-200 leading-none">“</div><div className="flex gap-1.5"><button onClick={() => openEditModal(item)} className="p-1.5 rounded-lg bg-slate-100 text-slate-700 hover:bg-slate-200"><Edit2 className="w-4 h-4" /></button><button onClick={() => openDeleteModal(item.id)} className="p-1.5 rounded-lg bg-red-50 text-red-600 hover:bg-red-100"><Trash2 className="w-4 h-4" /></button></div></div>
+              <div className="space-y-4"><p className="text-sm text-slate-600 leading-relaxed italic line-clamp-5">{item.testimonial}</p>{item.testimonial_en && <p className="text-xs text-slate-400 leading-relaxed italic line-clamp-2">{item.testimonial_en}</p>}</div>
+              <div className="flex items-center gap-3 pt-5 mt-5 border-t border-slate-100"><img src={item.img_src} className="w-11 h-11 rounded-xl object-cover border border-slate-200 bg-slate-50" alt="" /><div className="min-w-0"><p className="text-xs font-bold text-slate-950 truncate">{item.by}</p>{item.by_en && <p className="text-[10px] text-slate-400 truncate mt-0.5">{item.by_en}</p>}</div></div>
+            </div>
+          ))}
         </div>
       )}
     </div>

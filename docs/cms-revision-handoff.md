@@ -20,14 +20,15 @@ Status after the 2026-06-16 implementation pass:
 - [x] Publikasi / Tulisan Dosen has CMS-managed page heading and description fields.
 - [x] Dosen list page has CMS-managed page heading and description fields.
 - [x] Public Astro layouts consume the newly added CMS keys where applicable.
+- [x] Home list-based tabs (`Laboratorium`, `Statistik Ribbon`, `Berita Terkini`, `Event Terkini`, `Galeri Prestasi`, `Mitra & Kolaborasi`, `Testimoni Alumni`) now use richer landing-section-style CMS views with section summaries, search, empty states, and preview cards instead of plain tables.
+- [x] Dosen detail page was audited. It currently renders existing lecturer fields only (`name`, `img_src`, role, expertise, SINTA/Scopus/Scholar, social links) plus static fallback bio/highlights, so no schema expansion was added.
 - [x] `cms-prodi` build passed with `npm run build`.
 - [x] `prodi-umbandung` build passed with `npm run build`; Supabase DNS warnings were expected in the restricted environment and final exit code was `0`.
 
 Remaining / intentionally deferred:
 
-- [ ] Home list-based tabs (`Laboratorium`, `Statistik Ribbon`, `Berita Terkini`, `Event Terkini`, `Galeri Prestasi`, `Mitra & Kolaborasi`, `Testimoni Alumni`) are still mostly CRUD/table UI. They are editable, but not fully redesigned into richer landing-section editors.
-- [ ] Dosen detail profile expansion is deferred. Do not add education, research interests, selected publications, email, or bio fields until the public detail page is audited and confirmed to render them.
 - [ ] Tugas Akhir document/templates currently use `site_content` line-list fields. A dedicated repeatable documents table can still be added later if document metadata grows beyond simple name/link rows.
+- [ ] Dosen detail profile expansion remains deferred by design. Add education, research interests, selected publications, email, or bio fields only after the public detail page is intentionally redesigned to render those fields.
 
 This document is a handoff note for the next AI/engineer working on the CMS and public site integration. The current work has focused on the Home/Landing page only. Most non-Home pages still need the same level of CMS/UX cleanup.
 
