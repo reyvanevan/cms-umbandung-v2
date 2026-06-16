@@ -163,6 +163,313 @@ export default function SiteContentTab({
     }
   };
 
+  const handleSaveKeys = async (keys: string[], savingKey: string) => {
+    setSavingKeys((prev) => ({ ...prev, [savingKey]: true }));
+    try {
+      await Promise.all(keys.map((key) => {
+        const vals = editValues[key] || { id: '', en: '' };
+        return onUpdateContent(key, vals.id, vals.en || null);
+      }));
+    } finally {
+      setSavingKeys((prev) => ({ ...prev, [savingKey]: false }));
+    }
+  };
+
+  const getValue = (key: string, lang: 'id' | 'en' = 'id') => {
+    const vals = editValues[key] || { id: '', en: '' };
+    return lang === 'id' ? vals.id : vals.en;
+  };
+
+  const isVideoUrl = (url: string) => {
+    const lower = url.toLowerCase();
+    return lower.endsWith('.mp4') || lower.endsWith('.webm') || lower.endsWith('.ogg') || lower.startsWith('data:video/');
+  };
+
+  const renderTextField = (key: string, label: string, options?: { multiline?: boolean; placeholder?: string }) => {
+    const multiline = options?.multiline ?? false;
+    const baseClass = 'w-full px-3 py-2 bg-white border border-slate-200 rounded-lg text-xs focus:outline-none focus:ring-2 focus:ring-slate-900/10 focus:border-slate-400 transition';
+    return (
+      <div className="space-y-3">
+        <div>
+          <p className="text-xs font-bold text-slate-800">{label}</p>
+          <p className="text-[10px] text-slate-400 mt-0.5">{getHelpText(key)}</p>
+        </div>
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
+          <label className="space-y-1.5">
+            <span className="text-[10px] font-bold text-slate-500 uppercase tracking-wide">Bahasa Indonesia</span>
+            {multiline ? (
+              <textarea
+                id={`input-id-${key}`}
+                className={`${baseClass} min-h-[112px] leading-relaxed resize-y`}
+                value={getValue(key, 'id')}
+                placeholder={options?.placeholder}
+                onChange={(e) => handleInputChange(key, 'id', e.target.value)}
+              />
+            ) : (
+              <input
+                id={`input-id-${key}`}
+                className={baseClass}
+                value={getValue(key, 'id')}
+                placeholder={options?.placeholder}
+                onChange={(e) => handleInputChange(key, 'id', e.target.value)}
+              />
+            )}
+          </label>
+          <label className="space-y-1.5">
+            <span className="text-[10px] font-bold text-indigo-500 uppercase tracking-wide">English</span>
+            {multiline ? (
+              <textarea
+                id={`input-en-${key}`}
+                className={`${baseClass} min-h-[112px] leading-relaxed resize-y`}
+                value={getValue(key, 'en')}
+                placeholder="Kosongkan untuk memakai teks Indonesia"
+                onChange={(e) => handleInputChange(key, 'en', e.target.value)}
+              />
+            ) : (
+              <input
+                id={`input-en-${key}`}
+                className={baseClass}
+                value={getValue(key, 'en')}
+                placeholder="Kosongkan untuk memakai teks Indonesia"
+                onChange={(e) => handleInputChange(key, 'en', e.target.value)}
+              />
+            )}
+          </label>
+        </div>
+      </div>
+    );
+  };
+
+  const renderMediaField = (key: string, label: string, accept = 'image/*,video/*') => {
+    const val = getValue(key, 'id');
+    return (
+      <div className="space-y-3">
+        <div>
+          <p className="text-xs font-bold text-slate-800">{label}</p>
+          <p className="text-[10px] text-slate-400 mt-0.5">{getHelpText(key)}</p>
+        </div>
+        <div className="flex flex-col md:flex-row gap-4 rounded-xl border border-slate-200 bg-slate-50/60 p-4">
+          <div className="w-full md:w-48 aspect-video bg-white border border-slate-200 rounded-lg overflow-hidden flex items-center justify-center shrink-0">
+            {val ? (
+              isVideoUrl(val) ? (
+                <video src={val} className="w-full h-full object-cover" controls muted />
+              ) : (
+                <img src={val} className="w-full h-full object-cover" alt="Preview" />
+              )
+            ) : (
+              <span className="text-[10px] font-medium text-slate-400">Belum ada media</span>
+            )}
+          </div>
+          <div className="flex-1 space-y-3 min-w-0">
+            <label className="space-y-1.5 block">
+              <span className="flex items-center gap-1 text-[11px] font-bold text-slate-600">
+                <Upload className="w-3.5 h-3.5" />
+                Unggah File
+              </span>
+              <input
+                type="file"
+                accept={accept}
+                onChange={(e) => {
+                  const file = e.target.files?.[0];
+                  if (file) handleFileUpload(key, file);
+                }}
+                className="w-full text-xs text-slate-500 file:mr-4 file:py-1.5 file:px-3 file:rounded-lg file:border-0 file:text-[11px] file:font-semibold file:bg-slate-900 file:text-white hover:file:bg-slate-800 file:cursor-pointer"
+                disabled={uploadingKeys[key]}
+              />
+            </label>
+            <label className="space-y-1.5 block">
+              <span className="flex items-center gap-1 text-[11px] font-bold text-slate-600">
+                <LinkIcon className="w-3.5 h-3.5" />
+                URL Media
+              </span>
+              <input
+                id={`input-id-${key}`}
+                className="w-full px-3 py-2 bg-white border border-slate-200 rounded-lg text-xs focus:outline-none focus:ring-2 focus:ring-slate-900/10 focus:border-slate-400 transition"
+                value={val}
+                placeholder="/assets/nama-file.png atau https://..."
+                onChange={(e) => {
+                  handleInputChange(key, 'id', e.target.value);
+                  handleInputChange(key, 'en', e.target.value);
+                }}
+              />
+            </label>
+            {uploadingKeys[key] && <p className="text-[10px] text-indigo-600 animate-pulse font-medium">Sedang mengunggah file...</p>}
+            {uploadErrors[key] && <p className="text-[10px] text-red-500 font-semibold">{uploadErrors[key]}</p>}
+          </div>
+        </div>
+      </div>
+    );
+  };
+
+  const renderHeroEditor = () => {
+    const keys = ['hero_title', 'hero_subtitle', 'hero_bg_url', 'hero_overlay_opacity'];
+    const savingKey = 'section:hero';
+    const bgUrl = getValue('hero_bg_url');
+    const overlay = getValue('hero_overlay_opacity') || '40';
+
+    return (
+      <div className="space-y-5">
+        <div className="bg-white border border-slate-200/80 rounded-2xl shadow-xs overflow-hidden">
+          <div className="grid grid-cols-1 xl:grid-cols-[minmax(0,1fr)_360px]">
+            <div className="p-6 space-y-6">
+              <div className="flex flex-col sm:flex-row sm:items-start justify-between gap-4 pb-4 border-b border-slate-100">
+                <div>
+                  <h3 className="text-sm font-bold text-slate-900">Spanduk & Jumbotron</h3>
+                  <p className="text-xs text-slate-500 mt-1 max-w-2xl">Atur pesan utama, latar visual, dan tingkat gelap overlay hero di halaman depan.</p>
+                </div>
+                <button
+                  onClick={() => handleSaveKeys(keys, savingKey)}
+                  disabled={savingKeys[savingKey]}
+                  className="px-4 py-2 bg-slate-900 hover:bg-slate-800 disabled:bg-slate-300 text-white rounded-xl text-xs font-semibold flex items-center justify-center gap-1.5 shadow-sm transition cursor-pointer shrink-0"
+                >
+                  {savingKeys[savingKey] ? <RefreshCw className="w-3.5 h-3.5 animate-spin" /> : <Save className="w-3.5 h-3.5" />}
+                  Simpan Hero
+                </button>
+              </div>
+              {renderTextField('hero_title', 'Judul utama')}
+              {renderTextField('hero_subtitle', 'Subjudul', { multiline: true })}
+              {renderMediaField('hero_bg_url', 'Background hero')}
+              <div className="space-y-2">
+                <div className="flex items-center justify-between gap-4">
+                  <div>
+                    <p className="text-xs font-bold text-slate-800">Overlay gelap</p>
+                    <p className="text-[10px] text-slate-400 mt-0.5">0 terang penuh, 100 gelap penuh.</p>
+                  </div>
+                  <span className="text-[11px] font-bold text-indigo-600 bg-indigo-50 px-2 py-1 rounded-md">{overlay}%</span>
+                </div>
+                <input
+                  type="range"
+                  min="0"
+                  max="100"
+                  value={overlay}
+                  onChange={(e) => {
+                    handleInputChange('hero_overlay_opacity', 'id', e.target.value);
+                    handleInputChange('hero_overlay_opacity', 'en', e.target.value);
+                  }}
+                  className="w-full h-1.5 bg-slate-200 rounded-lg appearance-none cursor-pointer accent-slate-900"
+                />
+              </div>
+            </div>
+            <div className="bg-slate-950 p-5 flex flex-col gap-3">
+              <p className="text-[10px] font-bold uppercase tracking-widest text-white/50">Preview</p>
+              <div className="relative aspect-[4/5] rounded-xl overflow-hidden bg-slate-900 border border-white/10">
+                {bgUrl && (
+                  isVideoUrl(bgUrl)
+                    ? <video src={bgUrl} className="absolute inset-0 w-full h-full object-cover" autoPlay loop muted />
+                    : <img src={bgUrl} className="absolute inset-0 w-full h-full object-cover" alt="Hero preview" />
+                )}
+                <div className="absolute inset-0 bg-black" style={{ opacity: (parseFloat(overlay) || 0) / 100 }} />
+                <div className="relative h-full p-6 flex flex-col justify-center text-white">
+                  <p className="text-[9px] uppercase tracking-widest text-white/60 mb-3">Universitas Muhammadiyah Bandung</p>
+                  <h4 className="font-serif text-3xl leading-none">{getValue('hero_title') || 'Judul Hero'}</h4>
+                  <p className="text-xs leading-relaxed text-white/75 mt-4 line-clamp-4">{getValue('hero_subtitle') || 'Subjudul hero akan tampil di sini.'}</p>
+                </div>
+              </div>
+              <p className="text-[10px] text-white/40 leading-relaxed">Preview ini membantu cek keterbacaan teks terhadap background dan overlay.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    );
+  };
+
+  const renderEditorialEditor = () => {
+    const slideCount = 4;
+    const keys = Array.from({ length: slideCount }).flatMap((_, idx) => {
+      const n = idx + 1;
+      return [
+        `editorial_slide_${n}_title`,
+        `editorial_slide_${n}_subtitle`,
+        `editorial_slide_${n}_description`,
+        `editorial_slide_${n}_accent`,
+        `editorial_slide_${n}_image_url`
+      ];
+    });
+    const savingKey = 'section:editorial';
+
+    return (
+      <div className="bg-white border border-slate-200/80 rounded-2xl shadow-xs p-6 space-y-6">
+        <div className="flex flex-col sm:flex-row sm:items-start justify-between gap-4 pb-4 border-b border-slate-100">
+          <div>
+            <h3 className="text-sm font-bold text-slate-900">Editorial Slider</h3>
+            <p className="text-xs text-slate-500 mt-1 max-w-2xl">Kelola empat slide editorial di beranda: judul, tokoh/subjudul, narasi, warna aksen, dan gambar.</p>
+          </div>
+          <button
+            onClick={() => handleSaveKeys(keys, savingKey)}
+            disabled={savingKeys[savingKey]}
+            className="px-4 py-2 bg-slate-900 hover:bg-slate-800 disabled:bg-slate-300 text-white rounded-xl text-xs font-semibold flex items-center justify-center gap-1.5 shadow-sm transition cursor-pointer shrink-0"
+          >
+            {savingKeys[savingKey] ? <RefreshCw className="w-3.5 h-3.5 animate-spin" /> : <Save className="w-3.5 h-3.5" />}
+            Simpan Semua Slide
+          </button>
+        </div>
+        <div className="grid grid-cols-1 gap-5">
+          {Array.from({ length: slideCount }).map((_, idx) => {
+            const n = idx + 1;
+            const accentKey = `editorial_slide_${n}_accent`;
+            const imageKey = `editorial_slide_${n}_image_url`;
+            const accent = getValue(accentKey) || '#C4956A';
+            const imageUrl = getValue(imageKey);
+
+            return (
+              <div key={n} className="rounded-2xl border border-slate-200 bg-slate-50/50 p-5 space-y-5">
+                <div className="flex flex-col lg:flex-row gap-5">
+                  <div className="lg:w-64 shrink-0 space-y-3">
+                    <div className="flex items-center justify-between">
+                      <p className="text-xs font-bold text-slate-900 uppercase tracking-wide">Slide {n}</p>
+                      <span className="text-[10px] font-mono text-slate-400">editorial_slide_{n}</span>
+                    </div>
+                    <div className="relative aspect-[4/3] rounded-xl overflow-hidden bg-slate-950 border border-slate-200">
+                      {imageUrl && <img src={imageUrl} className="absolute inset-0 w-full h-full object-cover" alt={`Editorial slide ${n}`} />}
+                      <div className="absolute inset-0" style={{ background: `linear-gradient(135deg, ${accent}55 0%, rgba(0,0,0,0.75) 65%)` }} />
+                      <div className="absolute inset-x-0 bottom-0 p-4 text-white">
+                        <p className="text-[9px] font-mono mb-1" style={{ color: accent }}>{String(n).padStart(2, '0')} / 04</p>
+                        <p className="font-serif text-xl leading-tight line-clamp-2">{getValue(`editorial_slide_${n}_title`) || `Slide ${n}`}</p>
+                      </div>
+                    </div>
+                  </div>
+                  <div className="flex-1 min-w-0 space-y-5">
+                    {renderTextField(`editorial_slide_${n}_title`, 'Judul slide')}
+                    {renderTextField(`editorial_slide_${n}_subtitle`, 'Subjudul / tokoh')}
+                    {renderTextField(`editorial_slide_${n}_description`, 'Deskripsi', { multiline: true })}
+                    <div className="grid grid-cols-1 lg:grid-cols-[180px_minmax(0,1fr)] gap-5">
+                      <div className="space-y-3">
+                        <div>
+                          <p className="text-xs font-bold text-slate-800">Warna aksen</p>
+                          <p className="text-[10px] text-slate-400 mt-0.5">Kode HEX untuk aksen slide.</p>
+                        </div>
+                        <div className="flex items-center gap-2">
+                          <input
+                            type="color"
+                            value={/^#[0-9A-Fa-f]{6}$/.test(accent) ? accent : '#C4956A'}
+                            onChange={(e) => {
+                              handleInputChange(accentKey, 'id', e.target.value);
+                              handleInputChange(accentKey, 'en', e.target.value);
+                            }}
+                            className="h-10 w-12 rounded-lg border border-slate-200 bg-white p-1 cursor-pointer"
+                          />
+                          <input
+                            className="min-w-0 flex-1 px-3 py-2 bg-white border border-slate-200 rounded-lg text-xs font-mono focus:outline-none focus:ring-2 focus:ring-slate-900/10 focus:border-slate-400 transition"
+                            value={accent}
+                            onChange={(e) => {
+                              handleInputChange(accentKey, 'id', e.target.value);
+                              handleInputChange(accentKey, 'en', e.target.value);
+                            }}
+                          />
+                        </div>
+                      </div>
+                      {renderMediaField(imageKey, 'Gambar slide', 'image/*')}
+                    </div>
+                  </div>
+                </div>
+              </div>
+            );
+          })}
+        </div>
+      </div>
+    );
+  };
+
   // Helper to categorize content key
   const getCategoryForKey = (key: string) => {
     if (key.startsWith('kkn_')) return 'kkn';
@@ -180,6 +487,7 @@ export default function SiteContentTab({
 
   const getSubSectionName = (key: string) => {
     if (key.startsWith('kkn_')) return 'Praktik Kerja & KKN';
+    if (key === 'hero_video_url') return 'Video Profil';
     if (key.startsWith('hero_')) return 'Spanduk & Jumbotron';
     if (key.startsWith('kaprodi_')) return 'Sambutan Kepala Program Studi';
     if (key.startsWith('philosophy_')) return 'Filosofi Pembelajaran';
@@ -318,6 +626,14 @@ export default function SiteContentTab({
             subsections.map((subName) => {
               const sectionItems = filteredContent.filter((c) => getSubSectionName(c.key) === subName);
               if (sectionItems.length === 0) return null;
+
+              if (!searchQuery && subName === 'Spanduk & Jumbotron') {
+                return <div key={subName}>{renderHeroEditor()}</div>;
+              }
+
+              if (!searchQuery && subName === 'Editorial Slider') {
+                return <div key={subName}>{renderEditorialEditor()}</div>;
+              }
 
               return (
                 <div key={subName} className="space-y-4">
