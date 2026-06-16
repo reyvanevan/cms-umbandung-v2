@@ -286,7 +286,9 @@ export default function App() {
       'Spanduk & Jumbotron',
       'Sambutan Kepala Program Studi',
       'Filosofi Pembelajaran',
-      'Informasi Singkat Landing Page'
+      'Informasi Singkat Landing Page',
+      'Video Profil',
+      'Editorial Slider'
     ];
 
     if (activeTab === 'site_content' && (!activeSubSection || !homeSubSections.includes(activeSubSection))) {

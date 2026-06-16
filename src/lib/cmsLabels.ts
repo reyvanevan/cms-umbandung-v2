@@ -12,6 +12,18 @@ export const SITE_CONTENT_LABELS: Record<string, LabelConfig> = {
     label: 'Sub-judul Utama Website',
     desc: 'Deskripsi pendek di bawah judul utama untuk menjelaskan visi program studi.'
   },
+  hero_video_url: {
+    label: 'URL Video Profil YouTube',
+    desc: 'Link video profil yang ditampilkan pada section Video Profil di beranda.'
+  },
+  video_profile_title: {
+    label: 'Video Profil: Judul Section',
+    desc: 'Judul besar di samping video profil pada halaman beranda.'
+  },
+  video_profile_desc: {
+    label: 'Video Profil: Deskripsi Section',
+    desc: 'Paragraf penjelasan di samping video profil pada halaman beranda.'
+  },
   kaprodi_welcome: {
     label: 'Kalimat Sambutan Kaprodi (Paragraf 1)',
     desc: 'Paragraf pertama kalimat sambutan selamat datang dari Ketua Program Studi.'
@@ -72,6 +84,26 @@ export const SITE_CONTENT_LABELS: Record<string, LabelConfig> = {
     label: 'Gambar Filosofi Pembelajaran (URL)',
     desc: 'Tautan atau nama file gambar ilustrasi di samping kutipan filosofi pembelajaran.'
   },
+  editorial_slide_1_title: { label: 'Editorial Slide 1: Judul', desc: 'Judul besar pada slide editorial pertama di beranda.' },
+  editorial_slide_1_subtitle: { label: 'Editorial Slide 1: Subjudul / Tokoh', desc: 'Subjudul atau nama tokoh pada slide editorial pertama.' },
+  editorial_slide_1_description: { label: 'Editorial Slide 1: Deskripsi', desc: 'Paragraf narasi pada slide editorial pertama.' },
+  editorial_slide_1_accent: { label: 'Editorial Slide 1: Warna Aksen', desc: 'Kode warna HEX untuk aksen slide pertama, contoh: #C4956A.' },
+  editorial_slide_1_image_url: { label: 'Editorial Slide 1: Gambar', desc: 'URL gambar untuk slide editorial pertama.' },
+  editorial_slide_2_title: { label: 'Editorial Slide 2: Judul', desc: 'Judul besar pada slide editorial kedua di beranda.' },
+  editorial_slide_2_subtitle: { label: 'Editorial Slide 2: Subjudul / Tokoh', desc: 'Subjudul atau nama tokoh pada slide editorial kedua.' },
+  editorial_slide_2_description: { label: 'Editorial Slide 2: Deskripsi', desc: 'Paragraf narasi pada slide editorial kedua.' },
+  editorial_slide_2_accent: { label: 'Editorial Slide 2: Warna Aksen', desc: 'Kode warna HEX untuk aksen slide kedua, contoh: #8BA7B8.' },
+  editorial_slide_2_image_url: { label: 'Editorial Slide 2: Gambar', desc: 'URL gambar untuk slide editorial kedua.' },
+  editorial_slide_3_title: { label: 'Editorial Slide 3: Judul', desc: 'Judul besar pada slide editorial ketiga di beranda.' },
+  editorial_slide_3_subtitle: { label: 'Editorial Slide 3: Subjudul / Tokoh', desc: 'Subjudul atau nama tokoh pada slide editorial ketiga.' },
+  editorial_slide_3_description: { label: 'Editorial Slide 3: Deskripsi', desc: 'Paragraf narasi pada slide editorial ketiga.' },
+  editorial_slide_3_accent: { label: 'Editorial Slide 3: Warna Aksen', desc: 'Kode warna HEX untuk aksen slide ketiga, contoh: #7A9E7E.' },
+  editorial_slide_3_image_url: { label: 'Editorial Slide 3: Gambar', desc: 'URL gambar untuk slide editorial ketiga.' },
+  editorial_slide_4_title: { label: 'Editorial Slide 4: Judul', desc: 'Judul besar pada slide editorial keempat di beranda.' },
+  editorial_slide_4_subtitle: { label: 'Editorial Slide 4: Subjudul / Tokoh', desc: 'Subjudul atau nama tokoh pada slide editorial keempat.' },
+  editorial_slide_4_description: { label: 'Editorial Slide 4: Deskripsi', desc: 'Paragraf narasi pada slide editorial keempat.' },
+  editorial_slide_4_accent: { label: 'Editorial Slide 4: Warna Aksen', desc: 'Kode warna HEX untuk aksen slide keempat, contoh: #D4A955.' },
+  editorial_slide_4_image_url: { label: 'Editorial Slide 4: Gambar', desc: 'URL gambar untuk slide editorial keempat.' },
   visi_misi_vision: {
     label: 'Visi Keilmuan',
     desc: 'Rumusan Visi utama Program Studi Teknik Informatika.'

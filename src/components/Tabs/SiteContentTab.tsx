@@ -167,7 +167,7 @@ export default function SiteContentTab({
   const getCategoryForKey = (key: string) => {
     if (key.startsWith('kkn_')) return 'kkn';
     if (key.startsWith('footer_')) return 'global';
-    if (key.startsWith('hero_') || key.startsWith('kaprodi_') || key.startsWith('philosophy_') || key.startsWith('logo_') || key.startsWith('sambutan_') || key.startsWith('info_singkat_')) {
+    if (key.startsWith('hero_') || key.startsWith('kaprodi_') || key.startsWith('philosophy_') || key.startsWith('logo_') || key.startsWith('sambutan_') || key.startsWith('info_singkat_') || key.startsWith('video_profile_') || key.startsWith('editorial_')) {
       return 'beranda';
     }
     if (key.startsWith('visi_misi_')) return 'visi_misi';
@@ -183,6 +183,8 @@ export default function SiteContentTab({
     if (key.startsWith('hero_')) return 'Spanduk & Jumbotron';
     if (key.startsWith('kaprodi_')) return 'Sambutan Kepala Program Studi';
     if (key.startsWith('philosophy_')) return 'Filosofi Pembelajaran';
+    if (key.startsWith('video_profile_') || key === 'hero_video_url') return 'Video Profil';
+    if (key.startsWith('editorial_')) return 'Editorial Slider';
     if (key.startsWith('footer_')) return 'Informasi Kontak & Sosial Media (Footer)';
     if (key.startsWith('info_singkat_') || key.startsWith('info_')) return 'Informasi Singkat Landing Page';
     if (key.startsWith('gov_sec_') || key.startsWith('gov_upm_') || key.startsWith('gov_')) return 'Sekretaris & UPM (Tata Kelola)';

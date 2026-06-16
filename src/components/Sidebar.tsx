@@ -100,6 +100,8 @@ export default function Sidebar({
         { tab: 'site_content', subSection: 'Sambutan Kepala Program Studi', label: 'Sambutan Kaprodi', icon: <FileText className="w-3.5 h-3.5" /> },
         { tab: 'site_content', subSection: 'Filosofi Pembelajaran', label: 'Filosofi Pembelajaran', icon: <FileText className="w-3.5 h-3.5" /> },
         { tab: 'site_content', subSection: 'Informasi Singkat Landing Page', label: 'Informasi Singkat Beranda', icon: <FileText className="w-3.5 h-3.5" /> },
+        { tab: 'site_content', subSection: 'Video Profil', label: 'Video Profil', icon: <FileText className="w-3.5 h-3.5" /> },
+        { tab: 'site_content', subSection: 'Editorial Slider', label: 'Editorial Slider', icon: <FileText className="w-3.5 h-3.5" /> },
         { tab: 'landing_portfolio', label: 'Galeri Portfolio', icon: <Image className="w-3.5 h-3.5" /> },
         { tab: 'landing_stats', label: 'Statistik Ribbon', icon: <TrendingUp className="w-3.5 h-3.5" /> },
         { tab: 'partners', label: 'Kemitraan Industri (Logo)', icon: <Building2 className="w-3.5 h-3.5" /> },

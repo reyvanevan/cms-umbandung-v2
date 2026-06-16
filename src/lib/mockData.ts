@@ -614,6 +614,18 @@ export const initialSiteContent: DbSiteContent[] = [
     updated_at: new Date().toISOString()
   },
   {
+    key: 'video_profile_title',
+    value: 'Mengembangkan Teknologi Pangan Masa Depan',
+    value_en: 'Engineering the Future of Food Technology',
+    updated_at: new Date().toISOString()
+  },
+  {
+    key: 'video_profile_desc',
+    value: 'Saksikan langsung kehidupan akademik program studi S1 Teknologi Pangan Universitas Muhammadiyah Bandung. Video profil kami memperlihatkan aktivitas laboratorium, pendampingan dosen ahli, dan dedikasi mahasiswa dalam mengembangkan inovasi pangan halal, aman, dan bergizi.',
+    value_en: 'Experience the academic life of the S1 Food Technology program at Universitas Muhammadiyah Bandung. Our profile video shows laboratory activities, faculty mentorship, and student dedication in developing halal, safe, and nutritious food innovations.',
+    updated_at: new Date().toISOString()
+  },
+  {
     key: 'kaprodi_welcome',
     value: 'Selamat datang di portal resmi Program Studi S1 Teknologi Pangan Universitas Muhammadiyah Bandung. Kami berkomitmen untuk menghasilkan lulusan yang unggul, profesional, dan berjiwa wirausaha di bidang teknologi pengolahan pangan, keamanan pangan, serta jaminan produk halal.',
     value_en: 'Welcome to the official portal of the S1 Program in Food Technology at Universitas Muhammadiyah Bandung. We are committed to shaping graduates who are excellent, professional, and entrepreneurial in food processing technology, food safety, and halal product assurance.',
@@ -695,6 +707,126 @@ export const initialSiteContent: DbSiteContent[] = [
     key: 'philosophy_body',
     value: 'Kami percaya bahwa teknologi pangan bukan hanya tentang proses pengolahan, melainkan tentang menjamin keamanan pangan, ketersediaan gizi, keberlanjutan sumber daya, serta kehalalan bagi masyarakat.',
     value_en: 'We believe that food technology is not just about processing, but about ensuring food safety, nutritional availability, resource sustainability, and halal compliance for society.',
+    updated_at: new Date().toISOString()
+  },
+  {
+    key: 'editorial_slide_1_title',
+    value: 'Keamanan Pangan & Masa Depan',
+    value_en: 'Food Safety & The Future',
+    updated_at: new Date().toISOString()
+  },
+  {
+    key: 'editorial_slide_1_subtitle',
+    value: 'Dr. Harvey W. Wiley (Bapak Teknologi Pangan Modern)',
+    value_en: 'Dr. Harvey W. Wiley (Father of Modern Food Technology)',
+    updated_at: new Date().toISOString()
+  },
+  {
+    key: 'editorial_slide_1_description',
+    value: 'Teknologi pangan bukan sekadar tentang pengawetan, melainkan tentang menjaga integritas gizi dan memastikan setiap suapan aman untuk generasi masa depan.',
+    value_en: 'Food technology is not just about preservation; it is about protecting nutritional integrity and ensuring that every bite is safe for future generations.',
+    updated_at: new Date().toISOString()
+  },
+  {
+    key: 'editorial_slide_1_accent',
+    value: '#C4956A',
+    value_en: '#C4956A',
+    updated_at: new Date().toISOString()
+  },
+  {
+    key: 'editorial_slide_1_image_url',
+    value: 'https://images.unsplash.com/photo-1576086213369-97a306dca665?q=80&w=600&auto=format&fit=crop',
+    value_en: 'https://images.unsplash.com/photo-1576086213369-97a306dca665?q=80&w=600&auto=format&fit=crop',
+    updated_at: new Date().toISOString()
+  },
+  {
+    key: 'editorial_slide_2_title',
+    value: 'Inovasi & Ketahanan Global',
+    value_en: 'Innovation & Global Security',
+    updated_at: new Date().toISOString()
+  },
+  {
+    key: 'editorial_slide_2_subtitle',
+    value: 'Prof. Nicholas Appert (Pelopor Pengawetan Pangan)',
+    value_en: 'Prof. Nicholas Appert (Pioneer of Food Preservation)',
+    updated_at: new Date().toISOString()
+  },
+  {
+    key: 'editorial_slide_2_description',
+    value: 'Menemukan cara baru untuk mengolah dan mengawetkan pangan secara berkelanjutan adalah tantangan terbesar ilmu pangan. Inovasi sains adalah kunci ketahanan pangan global.',
+    value_en: 'Finding new ways to process and preserve food sustainably is the greatest challenge of food science. Scientific innovation is the key to global food security.',
+    updated_at: new Date().toISOString()
+  },
+  {
+    key: 'editorial_slide_2_accent',
+    value: '#8BA7B8',
+    value_en: '#8BA7B8',
+    updated_at: new Date().toISOString()
+  },
+  {
+    key: 'editorial_slide_2_image_url',
+    value: 'https://images.unsplash.com/photo-1542838132-92c53300491e?q=80&w=600&auto=format&fit=crop',
+    value_en: 'https://images.unsplash.com/photo-1542838132-92c53300491e?q=80&w=600&auto=format&fit=crop',
+    updated_at: new Date().toISOString()
+  },
+  {
+    key: 'editorial_slide_3_title',
+    value: 'Biokimia & Nutrisi Cerdas',
+    value_en: 'Biochemistry & Smart Nutrition',
+    updated_at: new Date().toISOString()
+  },
+  {
+    key: 'editorial_slide_3_subtitle',
+    value: 'Dr. Mary Engle Pennington (Pelopor Kimia Pangan)',
+    value_en: 'Dr. Mary Engle Pennington (Pioneer of Food Chemistry)',
+    updated_at: new Date().toISOString()
+  },
+  {
+    key: 'editorial_slide_3_description',
+    value: 'Dengan menguasai kimia pangan dan teknologi rantai dingin, kita dapat merekayasa struktur nutrisi yang lebih cerdas untuk mencegah kerusakan dan meningkatkan kualitas hidup.',
+    value_en: 'By mastering food chemistry and cold-chain technologies, we can engineer smarter nutritional structures to combat spoilage and elevate the quality of life.',
+    updated_at: new Date().toISOString()
+  },
+  {
+    key: 'editorial_slide_3_accent',
+    value: '#7A9E7E',
+    value_en: '#7A9E7E',
+    updated_at: new Date().toISOString()
+  },
+  {
+    key: 'editorial_slide_3_image_url',
+    value: 'https://images.unsplash.com/photo-1530026405186-ed1ea0ac7a63?q=80&w=600&auto=format&fit=crop',
+    value_en: 'https://images.unsplash.com/photo-1530026405186-ed1ea0ac7a63?q=80&w=600&auto=format&fit=crop',
+    updated_at: new Date().toISOString()
+  },
+  {
+    key: 'editorial_slide_4_title',
+    value: 'Bioteknologi & Fermentasi',
+    value_en: 'Biotechnology & Fermentation',
+    updated_at: new Date().toISOString()
+  },
+  {
+    key: 'editorial_slide_4_subtitle',
+    value: 'Louis Pasteur (Bapak Mikrobiologi Pangan)',
+    value_en: 'Louis Pasteur (Father of Food Microbiology)',
+    updated_at: new Date().toISOString()
+  },
+  {
+    key: 'editorial_slide_4_description',
+    value: 'Mikroorganisme adalah pabrik alami. Mengendalikan fermentasi dan bioproses pangan adalah jembatan utama menuju kedaulatan pangan mandiri dan kesehatan.',
+    value_en: 'Microorganisms are natural factories. Controlling fermentation and bioprocesses is the ultimate bridge to independent food sovereignty and health.',
+    updated_at: new Date().toISOString()
+  },
+  {
+    key: 'editorial_slide_4_accent',
+    value: '#D4A955',
+    value_en: '#D4A955',
+    updated_at: new Date().toISOString()
+  },
+  {
+    key: 'editorial_slide_4_image_url',
+    value: 'https://images.unsplash.com/photo-1581093588401-fbb62a02f120?q=80&w=600&auto=format&fit=crop',
+    value_en: 'https://images.unsplash.com/photo-1581093588401-fbb62a02f120?q=80&w=600&auto=format&fit=crop',
     updated_at: new Date().toISOString()
   },
   {
