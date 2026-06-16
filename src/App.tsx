@@ -14,6 +14,7 @@ import {
   type DbKurikulumPlo,
   type DbKurikulumProfile,
   type DbTaStep,
+  type DbAlumniSector,
   type DbLaboratorium,
   type DbKknDocument
 } from './lib/mockData';
@@ -58,6 +59,7 @@ import PublikasiDosenTab from './components/Tabs/PublikasiDosenTab';
 import KegiatanDosenTab from './components/Tabs/KegiatanDosenTab';
 import KegiatanMahasiswaTab from './components/Tabs/KegiatanMahasiswaTab';
 import AlumniTab from './components/Tabs/AlumniTab';
+import AlumniSectorsTab from './components/Tabs/AlumniSectorsTab';
 import StatistikMabaTab from './components/Tabs/StatistikMabaTab';
 import LaboratoriumTab from './components/Tabs/LaboratoriumTab';
 import KknDocumentsTab from './components/Tabs/KknDocumentsTab';
@@ -89,10 +91,20 @@ export type TabType =
   | 'kegiatan_dosen'
   | 'kegiatan_mahasiswa'
   | 'alumni'
+  | 'alumni_sectors'
   | 'statistik_maba'
   | 'laboratorium'
   | 'visi_misi'
   | 'tata_kelola'
+  | 'kurikulum_content'
+  | 'tugas_akhir_content'
+  | 'kerjasama_content'
+  | 'statistik_content'
+  | 'alumni_content'
+  | 'kegiatan_dosen_content'
+  | 'kegiatan_mahasiswa_content'
+  | 'publikasi_content'
+  | 'dosen_content'
   | 'global_content'
   | 'kkn_content'
   | 'kkn_documents';
@@ -132,6 +144,7 @@ export default function App() {
   const [kegiatanDosenList, setKegiatanDosenList] = useState<any[]>([]);
   const [kegiatanMahasiswaList, setKegiatanMahasiswaList] = useState<any[]>([]);
   const [alumniList, setAlumniList] = useState<any[]>([]);
+  const [alumniSectors, setAlumniSectors] = useState<DbAlumniSector[]>([]);
   const [statistikMabaList, setStatistikMabaList] = useState<any[]>([]);
   const [laboratoriumList, setLaboratoriumList] = useState<DbLaboratorium[]>([]);
   const [kknDocuments, setKknDocuments] = useState<DbKknDocument[]>([]);
@@ -296,6 +309,24 @@ export default function App() {
       setActiveSubSection('Visi & Misi Akademik');
     } else if (activeTab === 'tata_kelola' && activeSubSection !== 'Sekretaris & UPM (Tata Kelola)') {
       setActiveSubSection('Sekretaris & UPM (Tata Kelola)');
+    } else if (activeTab === 'kurikulum_content' && activeSubSection !== 'Panduan Kurikulum & MBKM') {
+      setActiveSubSection('Panduan Kurikulum & MBKM');
+    } else if (activeTab === 'tugas_akhir_content' && activeSubSection !== 'Persyaratan & Timeline Tugas Akhir') {
+      setActiveSubSection('Persyaratan & Timeline Tugas Akhir');
+    } else if (activeTab === 'kerjasama_content' && activeSubSection !== 'Kerjasama & Kemitraan') {
+      setActiveSubSection('Kerjasama & Kemitraan');
+    } else if (activeTab === 'statistik_content' && activeSubSection !== 'Teks Halaman Statistik') {
+      setActiveSubSection('Teks Halaman Statistik');
+    } else if (activeTab === 'alumni_content' && activeSubSection !== 'Teks Halaman Alumni') {
+      setActiveSubSection('Teks Halaman Alumni');
+    } else if (activeTab === 'kegiatan_dosen_content' && activeSubSection !== 'Teks Halaman Kegiatan Dosen') {
+      setActiveSubSection('Teks Halaman Kegiatan Dosen');
+    } else if (activeTab === 'kegiatan_mahasiswa_content' && activeSubSection !== 'Teks Halaman Kegiatan Mahasiswa') {
+      setActiveSubSection('Teks Halaman Kegiatan Mahasiswa');
+    } else if (activeTab === 'publikasi_content' && activeSubSection !== 'Teks Halaman Publikasi') {
+      setActiveSubSection('Teks Halaman Publikasi');
+    } else if (activeTab === 'dosen_content' && activeSubSection !== 'Teks Halaman Dosen') {
+      setActiveSubSection('Teks Halaman Dosen');
     } else if (activeTab === 'global_content' && activeSubSection !== 'Informasi Kontak & Sosial Media (Footer)') {
       setActiveSubSection('Informasi Kontak & Sosial Media (Footer)');
     } else if (activeTab === 'kkn_content' && activeSubSection !== 'Praktik Kerja & KKN') {
@@ -330,7 +361,7 @@ export default function App() {
         ]);
         setPartners(partList);
         setSiteContents(contentList);
-      } else if (activeTab === 'site_content' || activeTab === 'visi_misi' || activeTab === 'tata_kelola' || activeTab === 'global_content' || activeTab === 'kkn_content') {
+      } else if (activeTab === 'site_content' || activeTab === 'visi_misi' || activeTab === 'tata_kelola' || activeTab === 'kurikulum_content' || activeTab === 'tugas_akhir_content' || activeTab === 'kerjasama_content' || activeTab === 'statistik_content' || activeTab === 'alumni_content' || activeTab === 'kegiatan_dosen_content' || activeTab === 'kegiatan_mahasiswa_content' || activeTab === 'publikasi_content' || activeTab === 'dosen_content' || activeTab === 'global_content' || activeTab === 'kkn_content') {
         const [contentList, dList] = await Promise.all([
           dataService.getSiteContent(),
           dataService.getDosen()
@@ -373,6 +404,8 @@ export default function App() {
         setKegiatanMahasiswaList(await dataService.getKegiatanMahasiswa());
       } else if (activeTab === 'alumni') {
         setAlumniList(await dataService.getAlumni());
+      } else if (activeTab === 'alumni_sectors') {
+        setAlumniSectors(await dataService.getAlumniSectors());
       } else if (activeTab === 'statistik_maba') {
         setStatistikMabaList(await dataService.getStatistikMaba());
       } else if (activeTab === 'laboratorium') {
@@ -1060,6 +1093,33 @@ export default function App() {
             />
           )}
 
+          {([
+            ['kurikulum_content', 'kurikulum'],
+            ['tugas_akhir_content', 'tugas_akhir'],
+            ['kerjasama_content', 'kerjasama'],
+            ['statistik_content', 'statistik'],
+            ['alumni_content', 'alumni'],
+            ['kegiatan_dosen_content', 'kegiatan_dosen'],
+            ['kegiatan_mahasiswa_content', 'kegiatan_mahasiswa'],
+            ['publikasi_content', 'publikasi'],
+            ['dosen_content', 'dosen']
+          ] as const).map(([tab, cat]) => activeTab === tab && (
+            <SiteContentTab
+              key={tab}
+              siteContent={siteContents}
+              isLoadingData={isLoadingData}
+              connectionMode={connectionMode}
+              onUpdateContent={handleUpdateSiteContent}
+              category={cat}
+              dosenList={dosenList}
+              activeSubSection={activeSubSection}
+              setActiveSubSection={setActiveSubSection}
+              focusedKey={focusedKey}
+              setFocusedKey={setFocusedKey}
+              hideHeader={true}
+            />
+          ))}
+
           {/* GLOBAL CONTENT VIEW */}
           {activeTab === 'global_content' && (
             <SiteContentTab
@@ -1197,6 +1257,15 @@ export default function App() {
               openCreateModal={openCreateModal}
               openEditModal={openEditModal}
               openDeleteModal={openDeleteModal}
+            />
+          )}
+
+          {activeTab === 'alumni_sectors' && (
+            <AlumniSectorsTab
+              sectors={alumniSectors}
+              isLoadingData={isLoadingData}
+              onChanged={fetchCollectionData}
+              triggerToast={triggerToast}
             />
           )}
 

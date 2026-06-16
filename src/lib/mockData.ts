@@ -209,6 +209,15 @@ export interface DbAlumni {
   created_at: string;
 }
 
+export interface DbAlumniSector {
+  id: string;
+  name: string;
+  name_en: string | null;
+  percentage: string;
+  sort_order: number;
+  created_at: string;
+}
+
 export interface DbStatistikMaba {
   id: string;
   year: string;
@@ -1164,7 +1173,51 @@ export const initialSiteContent: DbSiteContent[] = [
     value: 'https://bit.ly/daftar-seminar-kkn',
     value_en: 'https://bit.ly/daftar-seminar-kkn',
     updated_at: new Date().toISOString()
-  }
+  },
+  { key: 'gov_sec_title', value: 'Sekretaris Program Studi', value_en: 'Secretary of Department', updated_at: new Date().toISOString() },
+  { key: 'gov_upm_title', value: 'Unit Penjaminan Mutu', value_en: 'Quality Assurance Unit', updated_at: new Date().toISOString() },
+  { key: 'kurikulum_heading', value: 'Kurikulum Akademik', value_en: 'Academic Curriculum', updated_at: new Date().toISOString() },
+  { key: 'kurikulum_intro_title', value: 'Struktur Pembelajaran Berbasis Kompetensi', value_en: 'Competency-Based Learning Structure', updated_at: new Date().toISOString() },
+  { key: 'kurikulum_intro_desc', value: 'Kurikulum disusun untuk menghubungkan fondasi sains, praktik studio/laboratorium, proyek kolaboratif, dan pengalaman industri.', value_en: 'The curriculum connects scientific foundations, studio/laboratory practice, collaborative projects, and industry experience.', updated_at: new Date().toISOString() },
+  { key: 'kurikulum_guideline_title', value: 'Panduan Kurikulum & MBKM', value_en: 'Curriculum & MBKM Guide', updated_at: new Date().toISOString() },
+  { key: 'kurikulum_guideline_desc', value: 'Mahasiswa dapat membaca struktur mata kuliah, capaian pembelajaran, profil lulusan, serta skema MBKM yang mendukung pengalaman profesional.', value_en: 'Students can review course structure, learning outcomes, graduate profiles, and MBKM schemes supporting professional experience.', updated_at: new Date().toISOString() },
+  { key: 'kurikulum_mbkm_title', value: 'Magang Industri dan MBKM', value_en: 'Industry Internship and MBKM', updated_at: new Date().toISOString() },
+  { key: 'kurikulum_mbkm_desc', value: 'Mahasiswa difasilitasi mengambil pengalaman magang, proyek independen, pertukaran pelajar, atau riset terapan sesuai arahan akademik program studi.', value_en: 'Students are supported in internships, independent projects, student exchange, or applied research under academic guidance.', updated_at: new Date().toISOString() },
+  { key: 'tugas_akhir_heading', value: 'Tugas Akhir', value_en: 'Final Project', updated_at: new Date().toISOString() },
+  { key: 'tugas_akhir_templates', value: 'Template Proposal Tugas Akhir | https://example.com/template-proposal\nTemplate Laporan Tugas Akhir | https://example.com/template-laporan\nPanduan Sidang dan Revisi | https://example.com/panduan-sidang', value_en: 'Final Project Proposal Template | https://example.com/template-proposal\nFinal Report Template | https://example.com/template-laporan\nDefense and Revision Guide | https://example.com/panduan-sidang', updated_at: new Date().toISOString() },
+  { key: 'tugas_akhir_sample_topics', value: 'Pengembangan material tekstil berkelanjutan berbasis serat lokal\nEksplorasi motif batik kontemporer untuk modest fashion\nPerancangan produk kriya tekstil dengan pendekatan circular design', value_en: 'Sustainable textile material development based on local fibers\nContemporary batik motif exploration for modest fashion\nTextile craft product design using a circular design approach', updated_at: new Date().toISOString() },
+  { key: 'kerjasama_flow_title', value: 'Alur Kerjasama Kemitraan', value_en: 'How We Collaborate', updated_at: new Date().toISOString() },
+  { key: 'kerjasama_flow_steps', value: 'Inisiasi & Penjajakan | Diskusi awal mengenai tujuan dan keselarasan minat kolaborasi.\nPenyusunan MoU/MoA | Perumusan draf hukum dan teknis pelaksanaan program kerja.\nTanda Tangan & Rilis | Penandatanganan resmi oleh pimpinan dan peluncuran program.\nEvaluasi Tahunan | Tinjauan berkala terhadap realisasi program dan perpanjangan kerjasama.', value_en: 'Inquiry & Alignment | Initial dialogue to identify mutual collaboration interests.\nDrafting MoA / MoU | Formulating legal and technical scopes for implementation.\nSigning & Launch | Official executive signing and formal launch of projects.\nAnnual Review | Evaluating operational benchmarks and extending partnerships.', updated_at: new Date().toISOString() },
+  { key: 'kkn_description', value: 'Praktik Kerja dan KKN mempertemukan pengalaman lapangan, pengabdian masyarakat, dan penerapan kompetensi akademik dalam konteks profesional.', value_en: 'Practical Work and KKN connect field experience, community engagement, and academic competence in professional contexts.', updated_at: new Date().toISOString() },
+  { key: 'statistik_heading', value: 'Statistik Akademik Prodi', value_en: 'Academic Program Statistics', updated_at: new Date().toISOString() },
+  { key: 'statistik_description', value: 'Visualisasi data statistik mahasiswa baru dan rata-rata masa studi kelulusan program studi.', value_en: 'Visualizing new student statistics and average graduation duration for the study program.', updated_at: new Date().toISOString() },
+  { key: 'statistik_maba_title', value: 'Rata - Rata Mahasiswa Baru', value_en: 'New Student Intake', updated_at: new Date().toISOString() },
+  { key: 'statistik_maba_desc', value: 'Pertumbuhan minat pendaftaran mahasiswa baru stabil meningkat dari tahun ke tahun.', value_en: 'New student enrollment interest shows steady yearly growth.', updated_at: new Date().toISOString() },
+  { key: 'statistik_maba_value', value: '50.6', value_en: '50.6', updated_at: new Date().toISOString() },
+  { key: 'statistik_maba_label', value: 'RATA-RATA MABA / TAHUN', value_en: 'AVG STUDENTS / YEAR', updated_at: new Date().toISOString() },
+  { key: 'statistik_study_title', value: 'Rasio Masa Studi', value_en: 'Study Duration Ratio', updated_at: new Date().toISOString() },
+  { key: 'statistik_study_desc', value: 'Sebagian besar mahasiswa menyelesaikan studi tepat waktu melalui bimbingan akademik yang terstruktur.', value_en: 'Most students complete their studies on time through structured academic mentoring.', updated_at: new Date().toISOString() },
+  { key: 'statistik_study_value', value: '3.8 Tahun', value_en: '3.8 Years', updated_at: new Date().toISOString() },
+  { key: 'statistik_study_label', value: 'RATA-RATA WAKTU LULUS', value_en: 'AVERAGE GRADUATION TIME', updated_at: new Date().toISOString() },
+  { key: 'statistik_chart_title', value: 'Trend Penerimaan Mahasiswa Baru', value_en: 'New Student Admission Trends', updated_at: new Date().toISOString() },
+  { key: 'alumni_heading', value: 'Jejak Karier & Alumni', value_en: 'Alumni & Careers', updated_at: new Date().toISOString() },
+  { key: 'alumni_description', value: 'Gerbang jejaring alumni program studi, profil karier lulusan, dan layanan tracer study.', value_en: 'The study program alumni network, graduate career profiles, and tracer study services.', updated_at: new Date().toISOString() },
+  { key: 'alumni_sector_title', value: 'Sebaran Sektor Industri Lulusan', value_en: 'Graduate Career Pathways', updated_at: new Date().toISOString() },
+  { key: 'alumni_sector_desc', value: 'Data pelacakan alumni menunjukkan fleksibilitas karier lulusan di berbagai sektor profesional.', value_en: 'Graduate tracking data shows career flexibility across professional sectors.', updated_at: new Date().toISOString() },
+  { key: 'alumni_profiles_title', value: 'Profil Alumni Berprestasi', value_en: 'Featured Alumni Profiles', updated_at: new Date().toISOString() },
+  { key: 'alumni_tracer_title', value: 'Tracer Study & Pusat Karier', value_en: 'Tracer Study & Career Hub', updated_at: new Date().toISOString() },
+  { key: 'alumni_tracer_subtitle', value: 'Memfasilitasi transisi lulusan, jejaring profesional, dan umpan balik untuk pengembangan kurikulum.', value_en: 'Facilitating graduate transitions, professional networking, and feedback for curriculum improvement.', updated_at: new Date().toISOString() },
+  { key: 'alumni_tracer_url', value: 'https://tracer.umbandung.ac.id', value_en: 'https://tracer.umbandung.ac.id', updated_at: new Date().toISOString() },
+  { key: 'alumni_career_url', value: 'https://cdc.umbandung.ac.id', value_en: 'https://cdc.umbandung.ac.id', updated_at: new Date().toISOString() },
+  { key: 'alumni_network_url', value: '#', value_en: '#', updated_at: new Date().toISOString() },
+  { key: 'kegiatan_dosen_heading', value: 'Kegiatan & Pengabdian Dosen', value_en: 'Faculty Activities & Initiatives', updated_at: new Date().toISOString() },
+  { key: 'kegiatan_dosen_description', value: 'Dokumentasi kiprah akademik, pengabdian masyarakat, dan riset kolaboratif yang dilakukan oleh jajaran dosen.', value_en: 'Documentation of academic endeavors, community service, and collaborative research conducted by faculty members.', updated_at: new Date().toISOString() },
+  { key: 'kegiatan_mahasiswa_heading', value: 'Kegiatan & Kreativitas Mahasiswa', value_en: 'Student Activities & Creations', updated_at: new Date().toISOString() },
+  { key: 'kegiatan_mahasiswa_description', value: 'Jelajahi dinamika kehidupan kreatif mahasiswa melalui pameran karya, kompetisi, workshop, dan aktivitas himpunan.', value_en: 'Explore student creative life through exhibitions, competitions, workshops, and student association activities.', updated_at: new Date().toISOString() },
+  { key: 'publikasi_heading', value: 'Tulisan & Karya Ilmiah Dosen', value_en: 'Faculty Publications & Research', updated_at: new Date().toISOString() },
+  { key: 'publikasi_description', value: 'Daftar publikasi penelitian, artikel ilmiah, jurnal, prosiding, opini media, dan buku referensi akademik dosen.', value_en: 'A directory of research publications, scientific articles, journals, proceedings, media articles, and academic reference books authored by faculty.', updated_at: new Date().toISOString() },
+  { key: 'dosen_heading', value: 'Profil Dosen, Karyawan, & Laboran', value_en: 'Lecturer, Staff, & Technician Profiles', updated_at: new Date().toISOString() },
+  { key: 'dosen_description', value: 'Daftar dosen pengajar, laboran, dan staf akademik program studi beserta keahlian profesionalnya.', value_en: 'List of faculty members, laboratory technicians, and academic staff with their professional expertise.', updated_at: new Date().toISOString() }
 ];
 
 const initialKurikulumCourses: DbKurikulumCourse[] = [
@@ -1353,6 +1406,13 @@ const initialAlumni: DbAlumni[] = [
   { id: 'alumni-2', name: 'Risa Fitria, S.T.P.', class_of: 'Angkatan 2019', class_of_en: 'Class of 2019', role: 'R&D Specialist', company: 'Garudafood', quote: 'Integrasi sains pangan dengan bisnis wirausaha memberikan bekal kuat di industri pangan nasional.', quote_en: 'Integrating food science with entrepreneurship gave me a strong edge in the national food industry.', image_url: '/assets/alumni-2.png', sort_order: 2, created_at: new Date().toISOString() }
 ];
 
+const initialAlumniSectors: DbAlumniSector[] = [
+  { id: 'sector-1', name: 'Industri Kreatif & Manufaktur', name_en: 'Creative Industry & Manufacturing', percentage: '40%', sort_order: 1, created_at: new Date().toISOString() },
+  { id: 'sector-2', name: 'Riset, Desain, & Pengembangan Produk', name_en: 'Research, Design, & Product Development', percentage: '30%', sort_order: 2, created_at: new Date().toISOString() },
+  { id: 'sector-3', name: 'Wirausaha & Brand Mandiri', name_en: 'Entrepreneurship & Independent Brands', percentage: '20%', sort_order: 3, created_at: new Date().toISOString() },
+  { id: 'sector-4', name: 'Pendidikan, Komunitas, & Institusi Publik', name_en: 'Education, Communities, & Public Institutions', percentage: '10%', sort_order: 4, created_at: new Date().toISOString() }
+];
+
 const initialStatistikMaba: DbStatistikMaba[] = [
   { id: 'stat-1', year: '2021', count: 32, sort_order: 1, created_at: new Date().toISOString() },
   { id: 'stat-2', year: '2022', count: 38, sort_order: 2, created_at: new Date().toISOString() },
@@ -1533,6 +1593,9 @@ function initStorage() {
   }
   if (!localStorage.getItem('mock_alumni')) {
     localStorage.setItem('mock_alumni', JSON.stringify(initialAlumni));
+  }
+  if (!localStorage.getItem('mock_alumni_sectors')) {
+    localStorage.setItem('mock_alumni_sectors', JSON.stringify(initialAlumniSectors));
   }
   if (!localStorage.getItem('mock_statistik_maba')) {
     localStorage.setItem('mock_statistik_maba', JSON.stringify(initialStatistikMaba));

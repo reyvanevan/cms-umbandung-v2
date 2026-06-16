@@ -15,7 +15,7 @@ interface SiteContentTabProps {
   isLoadingData: boolean;
   connectionMode: 'supabase' | 'mock';
   onUpdateContent: (key: string, value: string, valueEn: string | null) => Promise<void>;
-  category?: 'beranda' | 'visi_misi' | 'tata_kelola' | 'kurikulum' | 'tugas_akhir' | 'kerjasama' | 'kkn' | 'global';
+  category?: 'beranda' | 'visi_misi' | 'tata_kelola' | 'kurikulum' | 'tugas_akhir' | 'kerjasama' | 'kkn' | 'statistik' | 'alumni' | 'kegiatan_dosen' | 'kegiatan_mahasiswa' | 'publikasi' | 'dosen' | 'global';
   hideHeader?: boolean;
   dosenList?: DbDosen[];
   activeSubSection?: string | null;
@@ -37,7 +37,7 @@ export default function SiteContentTab({
   setFocusedKey
 }: SiteContentTabProps) {
   const [searchQuery, setSearchQuery] = useState('');
-  const [activeCategory, setActiveCategory] = useState<'beranda' | 'visi_misi' | 'tata_kelola' | 'kurikulum' | 'tugas_akhir' | 'kerjasama' | 'kkn' | 'global'>(category || 'beranda');
+  const [activeCategory, setActiveCategory] = useState<'beranda' | 'visi_misi' | 'tata_kelola' | 'kurikulum' | 'tugas_akhir' | 'kerjasama' | 'kkn' | 'statistik' | 'alumni' | 'kegiatan_dosen' | 'kegiatan_mahasiswa' | 'publikasi' | 'dosen' | 'global'>(category || 'beranda');
 
   React.useEffect(() => {
     if (category) {
@@ -743,6 +743,219 @@ export default function SiteContentTab({
     );
   };
 
+  const renderLineListField = (key: string, label: string, placeholder?: string) => {
+    const lines = (getValue(key, 'id') || '').split('\n');
+    const enLines = (getValue(key, 'en') || '').split('\n');
+
+    const updateLine = (lang: 'id' | 'en', index: number, value: string) => {
+      const next = (lang === 'id' ? [...lines] : [...enLines]);
+      next[index] = value;
+      handleInputChange(key, lang, next.join('\n'));
+    };
+
+    const addLine = () => {
+      handleInputChange(key, 'id', [...lines, ''].join('\n'));
+      handleInputChange(key, 'en', [...enLines, ''].join('\n'));
+    };
+
+    const removeLine = (index: number) => {
+      handleInputChange(key, 'id', lines.filter((_, idx) => idx !== index).join('\n'));
+      handleInputChange(key, 'en', enLines.filter((_, idx) => idx !== index).join('\n'));
+    };
+
+    return (
+      <div className="space-y-3">
+        <div className="flex items-start justify-between gap-3">
+          <div>
+            <p className="text-xs font-bold text-slate-800">{label}</p>
+            <p className="text-[10px] text-slate-400 mt-0.5">Setiap baris disimpan sebagai satu item daftar.</p>
+          </div>
+          <button type="button" onClick={addLine} className="px-3 py-1.5 rounded-lg bg-slate-100 hover:bg-slate-200 text-[11px] font-bold text-slate-700 transition">
+            Tambah Item
+          </button>
+        </div>
+        <div className="space-y-3">
+          {lines.map((line, idx) => (
+            <div key={`${key}-${idx}`} className="rounded-xl border border-slate-200 bg-slate-50/60 p-3 space-y-2">
+              <div className="flex items-center justify-between gap-2">
+                <span className="text-[10px] font-bold text-slate-400 uppercase tracking-widest">Item {idx + 1}</span>
+                {lines.length > 1 && (
+                  <button type="button" onClick={() => removeLine(idx)} className="text-[10px] font-bold text-red-500 hover:text-red-700">
+                    Hapus
+                  </button>
+                )}
+              </div>
+              <input
+                className="w-full px-3 py-2 bg-white border border-slate-200 rounded-lg text-xs focus:outline-none focus:ring-2 focus:ring-slate-900/10 focus:border-slate-400 transition"
+                value={line}
+                placeholder={placeholder}
+                onChange={(e) => updateLine('id', idx, e.target.value)}
+              />
+              <input
+                className="w-full px-3 py-2 bg-white border border-indigo-100 rounded-lg text-xs focus:outline-none focus:ring-2 focus:ring-indigo-900/10 focus:border-indigo-300 transition"
+                value={enLines[idx] || ''}
+                placeholder="English translation"
+                onChange={(e) => updateLine('en', idx, e.target.value)}
+              />
+            </div>
+          ))}
+        </div>
+      </div>
+    );
+  };
+
+  const renderGuidedSection = (config: {
+    title: string;
+    desc: string;
+    keys: string[];
+    savingKey: string;
+    children: React.ReactNode;
+    preview?: React.ReactNode;
+  }) => (
+    <div className="bg-white border border-slate-200/80 rounded-2xl shadow-xs overflow-hidden">
+      <div className={config.preview ? 'grid grid-cols-1 xl:grid-cols-[minmax(0,1fr)_360px]' : ''}>
+        <div className="p-6 space-y-6">
+          <div className="flex flex-col sm:flex-row sm:items-start justify-between gap-4 pb-4 border-b border-slate-100">
+            <div>
+              <h3 className="text-sm font-bold text-slate-900">{config.title}</h3>
+              <p className="text-xs text-slate-500 mt-1 max-w-2xl">{config.desc}</p>
+            </div>
+            <button
+              onClick={() => handleSaveKeys(config.keys, config.savingKey)}
+              disabled={savingKeys[config.savingKey]}
+              className="px-4 py-2 bg-slate-900 hover:bg-slate-800 disabled:bg-slate-300 text-white rounded-xl text-xs font-semibold flex items-center justify-center gap-1.5 shadow-sm transition cursor-pointer shrink-0"
+            >
+              {savingKeys[config.savingKey] ? <RefreshCw className="w-3.5 h-3.5 animate-spin" /> : <Save className="w-3.5 h-3.5" />}
+              Simpan Section
+            </button>
+          </div>
+          {config.children}
+        </div>
+        {config.preview && (
+          <div className="bg-slate-50 p-5 border-t xl:border-t-0 xl:border-l border-slate-200">
+            <p className="text-[10px] font-bold uppercase tracking-widest text-slate-400 mb-3">Preview</p>
+            {config.preview}
+          </div>
+        )}
+      </div>
+    </div>
+  );
+
+  const renderVisiMisiEditor = () => renderGuidedSection({
+    title: 'Visi & Misi Akademik',
+    desc: 'Kelola visi, misi, tujuan, dan strategi sebagai struktur halaman, bukan textarea mentah.',
+    keys: ['visi_misi_vision', 'visi_misi_missions', 'visi_misi_goals', 'visi_misi_strategies'],
+    savingKey: 'section:visi_misi',
+    children: <>
+      {renderTextField('visi_misi_vision', 'Visi', { multiline: true })}
+      {renderLineListField('visi_misi_missions', 'Misi')}
+      {renderLineListField('visi_misi_goals', 'Tujuan')}
+      {renderLineListField('visi_misi_strategies', 'Strategi')}
+    </>,
+    preview: <div className="rounded-2xl border border-slate-200 bg-white p-5 space-y-4">
+      <h4 className="font-serif text-2xl text-slate-950">{getValue('visi_misi_vision') || 'Visi prodi'}</h4>
+      <div className="space-y-2">
+        {(getValue('visi_misi_missions') || '').split('\n').filter(Boolean).slice(0, 4).map((line, idx) => (
+          <p key={idx} className="text-xs text-slate-600 leading-relaxed"><b>{idx + 1}.</b> {line}</p>
+        ))}
+      </div>
+    </div>
+  });
+
+  const renderTataKelolaEditor = () => {
+    const keys = ['gov_sec_name', 'gov_sec_title', 'gov_sec_email', 'gov_sec_photo', 'gov_upm_name', 'gov_upm_title', 'gov_upm_email', 'gov_upm_photo'];
+    return renderGuidedSection({
+      title: 'Struktur Organisasi / Tata Kelola',
+      desc: 'Hubungkan nama pimpinan ke data dosen bila tersedia, lalu lengkapi jabatan, email, dan foto.',
+      keys,
+      savingKey: 'section:tata_kelola',
+      children: <div className="grid grid-cols-1 xl:grid-cols-2 gap-5">
+        {[{ prefix: 'gov_sec', label: 'Sekretaris Program Studi' }, { prefix: 'gov_upm', label: 'Unit Penjaminan Mutu' }].map((role) => (
+          <div key={role.prefix} className="rounded-2xl border border-slate-200 bg-slate-50/60 p-5 space-y-5">
+            <h4 className="text-xs font-bold text-slate-900 uppercase tracking-wide">{role.label}</h4>
+            {renderTextField(`${role.prefix}_name`, 'Nama')}
+            {renderTextField(`${role.prefix}_title`, 'Jabatan')}
+            {renderTextField(`${role.prefix}_email`, 'Email')}
+            {renderMediaField(`${role.prefix}_photo`, 'Foto', 'image/*')}
+          </div>
+        ))}
+      </div>
+    });
+  };
+
+  const renderKurikulumOverviewEditor = () => renderGuidedSection({
+    title: 'Ringkasan Halaman Kurikulum',
+    desc: 'Atur copy halaman Kurikulum, pengantar MBKM, dan narasi magang tanpa mengubah tabel mata kuliah/CPL/profil lulusan.',
+    keys: ['kurikulum_heading', 'kurikulum_description', 'kurikulum_intro_title', 'kurikulum_intro_desc', 'kurikulum_guideline_title', 'kurikulum_guideline_desc', 'kurikulum_mbkm_title', 'kurikulum_mbkm_desc'],
+    savingKey: 'section:kurikulum_overview',
+    children: <>
+      {renderTextField('kurikulum_heading', 'Judul halaman')}
+      {renderTextField('kurikulum_description', 'Deskripsi halaman', { multiline: true })}
+      {renderTextField('kurikulum_intro_title', 'Judul intro kurikulum')}
+      {renderTextField('kurikulum_intro_desc', 'Deskripsi intro kurikulum', { multiline: true })}
+      {renderTextField('kurikulum_guideline_title', 'Judul panduan kurikulum')}
+      {renderTextField('kurikulum_guideline_desc', 'Deskripsi panduan kurikulum', { multiline: true })}
+      {renderTextField('kurikulum_mbkm_title', 'Judul MBKM / magang')}
+      {renderTextField('kurikulum_mbkm_desc', 'Deskripsi MBKM / magang', { multiline: true })}
+    </>
+  });
+
+  const renderTugasAkhirEditor = () => renderGuidedSection({
+    title: 'Tugas Akhir',
+    desc: 'Kelola intro, prasyarat, dokumen template, dan contoh topik tugas akhir.',
+    keys: ['tugas_akhir_heading', 'tugas_akhir_description', 'tugas_akhir_prereq_desc', 'tugas_akhir_templates', 'tugas_akhir_sample_topics'],
+    savingKey: 'section:tugas_akhir',
+    children: <>
+      {renderTextField('tugas_akhir_heading', 'Judul halaman')}
+      {renderTextField('tugas_akhir_description', 'Deskripsi halaman', { multiline: true })}
+      {renderLineListField('tugas_akhir_prereq_desc', 'Prasyarat')}
+      {renderLineListField('tugas_akhir_templates', 'Template dokumen')}
+      {renderLineListField('tugas_akhir_sample_topics', 'Contoh topik')}
+    </>
+  });
+
+  const renderKerjasamaEditor = () => renderGuidedSection({
+    title: 'Kerjasama & Kemitraan',
+    desc: 'Kelola heading, CTA, dan alur operasional kerjasama.',
+    keys: ['kerjasama_heading', 'kerjasama_description', 'kerjasama_intro_title', 'kerjasama_intro_desc', 'kerjasama_flow_title', 'kerjasama_flow_steps'],
+    savingKey: 'section:kerjasama',
+    children: <>
+      {renderTextField('kerjasama_heading', 'Judul halaman')}
+      {renderTextField('kerjasama_description', 'Deskripsi halaman', { multiline: true })}
+      {renderTextField('kerjasama_intro_title', 'Judul CTA kemitraan')}
+      {renderTextField('kerjasama_intro_desc', 'Deskripsi CTA kemitraan', { multiline: true })}
+      {renderTextField('kerjasama_flow_title', 'Judul alur kerjasama')}
+      {renderLineListField('kerjasama_flow_steps', 'Langkah alur kerjasama', 'Judul langkah | Deskripsi langkah')}
+    </>
+  });
+
+  const renderKknEditor = () => renderGuidedSection({
+    title: 'Praktik Kerja & KKN',
+    desc: 'Kelompokkan teks halaman, link mitra, link panduan, dan link pendaftaran dalam satu editor.',
+    keys: ['kkn_title', 'kkn_description', 'kkn_section1_title', 'kkn_section1_desc', 'kkn_section2_title', 'kkn_section2_desc', 'kkn_section3_title', 'kkn_section3_desc', 'kkn_link_mitra', 'kkn_link_panduan', 'kkn_link_pendaftaran'],
+    savingKey: 'section:kkn',
+    children: <>
+      {renderTextField('kkn_title', 'Judul halaman')}
+      {renderTextField('kkn_description', 'Deskripsi halaman', { multiline: true })}
+      <div className="grid grid-cols-1 xl:grid-cols-3 gap-5">
+        {[1, 2, 3].map((idx) => <div key={idx} className="rounded-2xl border border-slate-200 bg-slate-50/60 p-5 space-y-5">{renderTextField(`kkn_section${idx}_title`, `Judul blok ${idx}`)}{renderTextField(`kkn_section${idx}_desc`, `Deskripsi blok ${idx}`, { multiline: true })}</div>)}
+      </div>
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-5">
+        {renderTextField('kkn_link_mitra', 'Link mitra')}
+        {renderTextField('kkn_link_panduan', 'Link panduan')}
+        {renderTextField('kkn_link_pendaftaran', 'Link pendaftaran')}
+      </div>
+    </>
+  });
+
+  const renderSimplePageIntroEditor = (title: string, desc: string, keys: string[], savingKey: string) => renderGuidedSection({
+    title,
+    desc,
+    keys,
+    savingKey,
+    children: <>{keys.map((key) => renderTextField(key, getHumanLabel(key), { multiline: key.endsWith('_description') || key.endsWith('_desc') || key.includes('subtitle') }))}</>
+  });
+
   // Helper to categorize content key
   const getCategoryForKey = (key: string) => {
     if (key.startsWith('kkn_')) return 'kkn';
@@ -755,6 +968,12 @@ export default function SiteContentTab({
     if (key.startsWith('kurikulum_')) return 'kurikulum';
     if (key.startsWith('tugas_akhir_')) return 'tugas_akhir';
     if (key.startsWith('kerjasama_')) return 'kerjasama';
+    if (key.startsWith('statistik_')) return 'statistik';
+    if (key.startsWith('alumni_')) return 'alumni';
+    if (key.startsWith('kegiatan_dosen_')) return 'kegiatan_dosen';
+    if (key.startsWith('kegiatan_mahasiswa_')) return 'kegiatan_mahasiswa';
+    if (key.startsWith('publikasi_')) return 'publikasi';
+    if (key.startsWith('dosen_')) return 'dosen';
     return 'beranda';
   };
 
@@ -772,6 +991,12 @@ export default function SiteContentTab({
     if (key.startsWith('kurikulum_')) return 'Panduan Kurikulum & MBKM';
     if (key.startsWith('tugas_akhir_')) return 'Persyaratan & Timeline Tugas Akhir';
     if (key.startsWith('kerjasama_')) return 'Kerjasama & Kemitraan';
+    if (key.startsWith('statistik_')) return 'Teks Halaman Statistik';
+    if (key.startsWith('alumni_')) return 'Teks Halaman Alumni';
+    if (key.startsWith('kegiatan_dosen_')) return 'Teks Halaman Kegiatan Dosen';
+    if (key.startsWith('kegiatan_mahasiswa_')) return 'Teks Halaman Kegiatan Mahasiswa';
+    if (key.startsWith('publikasi_')) return 'Teks Halaman Publikasi';
+    if (key.startsWith('dosen_')) return 'Teks Halaman Dosen';
     return 'General';
   };
 
@@ -783,6 +1008,12 @@ export default function SiteContentTab({
     { id: 'tugas_akhir', name: 'Tugas Akhir', icon: BookOpen, desc: 'Persyaratan dan timeline skripsi mahasiswa.' },
     { id: 'kerjasama', name: 'Kerjasama', icon: Award, desc: 'Kalimat pembuka daftar mitra industri.' },
     { id: 'kkn', name: 'Praktik Kerja & KKN', icon: BookOpen, desc: 'Pengaturan deskripsi dan tautan halaman KKN.' },
+    { id: 'statistik', name: 'Statistik', icon: Settings, desc: 'Judul, deskripsi, dan kartu statistik.' },
+    { id: 'alumni', name: 'Alumni', icon: Users, desc: 'Intro halaman alumni dan tracer study.' },
+    { id: 'kegiatan_dosen', name: 'Kegiatan Dosen', icon: FileText, desc: 'Intro halaman kegiatan dosen.' },
+    { id: 'kegiatan_mahasiswa', name: 'Kegiatan Mahasiswa', icon: FileText, desc: 'Intro halaman kegiatan mahasiswa.' },
+    { id: 'publikasi', name: 'Publikasi', icon: BookOpen, desc: 'Intro halaman tulisan dosen.' },
+    { id: 'dosen', name: 'Dosen', icon: Users, desc: 'Intro halaman daftar dosen.' },
     { id: 'global', name: 'Global', icon: Settings, desc: 'Konten yang dipakai lintas halaman seperti footer, kontak, dan sosial media.' }
   ] as const;
 
@@ -924,6 +1155,54 @@ export default function SiteContentTab({
 
               if (!searchQuery && subName === 'Editorial Slider') {
                 return <div key={subName}>{renderEditorialEditor()}</div>;
+              }
+
+              if (!searchQuery && subName === 'Visi & Misi Akademik') {
+                return <div key={subName}>{renderVisiMisiEditor()}</div>;
+              }
+
+              if (!searchQuery && subName === 'Sekretaris & UPM (Tata Kelola)') {
+                return <div key={subName}>{renderTataKelolaEditor()}</div>;
+              }
+
+              if (!searchQuery && subName === 'Panduan Kurikulum & MBKM') {
+                return <div key={subName}>{renderKurikulumOverviewEditor()}</div>;
+              }
+
+              if (!searchQuery && subName === 'Persyaratan & Timeline Tugas Akhir') {
+                return <div key={subName}>{renderTugasAkhirEditor()}</div>;
+              }
+
+              if (!searchQuery && subName === 'Kerjasama & Kemitraan') {
+                return <div key={subName}>{renderKerjasamaEditor()}</div>;
+              }
+
+              if (!searchQuery && subName === 'Praktik Kerja & KKN') {
+                return <div key={subName}>{renderKknEditor()}</div>;
+              }
+
+              if (!searchQuery && subName === 'Teks Halaman Statistik') {
+                return <div key={subName}>{renderSimplePageIntroEditor('Teks Halaman Statistik', 'Atur heading, deskripsi, kartu masa studi, dan label chart statistik.', ['statistik_heading', 'statistik_description', 'statistik_maba_title', 'statistik_maba_desc', 'statistik_maba_value', 'statistik_maba_label', 'statistik_study_title', 'statistik_study_desc', 'statistik_study_value', 'statistik_study_label', 'statistik_chart_title'], 'section:statistik')}</div>;
+              }
+
+              if (!searchQuery && subName === 'Teks Halaman Alumni') {
+                return <div key={subName}>{renderSimplePageIntroEditor('Teks Halaman Alumni', 'Atur intro, sebaran sektor karier, dan CTA tracer study alumni.', ['alumni_heading', 'alumni_description', 'alumni_sector_title', 'alumni_sector_desc', 'alumni_profiles_title', 'alumni_tracer_title', 'alumni_tracer_subtitle', 'alumni_tracer_url', 'alumni_career_url', 'alumni_network_url'], 'section:alumni')}</div>;
+              }
+
+              if (!searchQuery && subName === 'Teks Halaman Kegiatan Dosen') {
+                return <div key={subName}>{renderSimplePageIntroEditor('Teks Halaman Kegiatan Dosen', 'Atur judul dan deskripsi halaman kegiatan dosen.', ['kegiatan_dosen_heading', 'kegiatan_dosen_description'], 'section:kegiatan_dosen')}</div>;
+              }
+
+              if (!searchQuery && subName === 'Teks Halaman Kegiatan Mahasiswa') {
+                return <div key={subName}>{renderSimplePageIntroEditor('Teks Halaman Kegiatan Mahasiswa', 'Atur judul dan deskripsi halaman kegiatan mahasiswa.', ['kegiatan_mahasiswa_heading', 'kegiatan_mahasiswa_description'], 'section:kegiatan_mahasiswa')}</div>;
+              }
+
+              if (!searchQuery && subName === 'Teks Halaman Publikasi') {
+                return <div key={subName}>{renderSimplePageIntroEditor('Teks Halaman Publikasi', 'Atur judul dan deskripsi halaman tulisan/publikasi dosen.', ['publikasi_heading', 'publikasi_description'], 'section:publikasi')}</div>;
+              }
+
+              if (!searchQuery && subName === 'Teks Halaman Dosen') {
+                return <div key={subName}>{renderSimplePageIntroEditor('Teks Halaman Dosen', 'Atur judul dan deskripsi halaman daftar dosen dan staff.', ['dosen_heading', 'dosen_description'], 'section:dosen')}</div>;
               }
 
               return (

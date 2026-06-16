@@ -63,11 +63,11 @@ export default function Sidebar({
   const getInitialOpen = () => {
     return {
       beranda: ['laboratorium', 'landing_stats', 'news', 'events', 'prestasi', 'partners', 'testimonials'].includes(activeTab) || (activeTab === 'site_content' && activeSubSection !== 'Panduan Kurikulum & MBKM' && activeSubSection !== 'Kerjasama & Kemitraan' && activeSubSection !== 'Informasi Kontak & Sosial Media (Footer)'),
-      tentang_kami: ['dosen', 'visi_misi', 'tata_kelola', 'laboratorium'].includes(activeTab) || (activeTab === 'site_content' && activeSubSection === 'Kerjasama & Kemitraan'),
-      akademik: ['kurikulum_courses', 'kurikulum_plos', 'kurikulum_profiles', 'publikasi_dosen', 'tugas_akhir_steps', 'kkn_documents'].includes(activeTab) || activeTab === 'kkn_content' || (activeTab === 'site_content' && activeSubSection === 'Panduan Kurikulum & MBKM'),
-      statistik: ['statistik_maba'].includes(activeTab),
-      mahasiswa_alumni: ['prestasi', 'testimonials', 'alumni'].includes(activeTab),
-      galeri_kegiatan: ['news', 'events', 'kegiatan_dosen', 'kegiatan_mahasiswa'].includes(activeTab),
+      tentang_kami: ['dosen', 'dosen_content', 'visi_misi', 'tata_kelola', 'laboratorium', 'kerjasama_content'].includes(activeTab),
+      akademik: ['kurikulum_content', 'kurikulum_courses', 'kurikulum_plos', 'kurikulum_profiles', 'publikasi_content', 'publikasi_dosen', 'tugas_akhir_content', 'tugas_akhir_steps', 'kkn_documents'].includes(activeTab) || activeTab === 'kkn_content',
+      statistik: ['statistik_content', 'statistik_maba'].includes(activeTab),
+      mahasiswa_alumni: ['prestasi', 'testimonials', 'alumni_content', 'alumni', 'alumni_sectors'].includes(activeTab),
+      galeri_kegiatan: ['news', 'events', 'kegiatan_dosen_content', 'kegiatan_dosen', 'kegiatan_mahasiswa_content', 'kegiatan_mahasiswa'].includes(activeTab),
       pengaturan: ['settings', 'global_content'].includes(activeTab),
     };
   };
@@ -117,8 +117,9 @@ export default function Sidebar({
       items: [
         { tab: 'visi_misi', subSection: 'Visi & Misi Akademik', label: 'Visi & Misi Akademik', icon: <FileText className="w-3.5 h-3.5" /> },
         { tab: 'tata_kelola', subSection: 'Sekretaris & UPM (Tata Kelola)', label: 'Struktur Organisasi (Tata Kelola)', icon: <Users className="w-3.5 h-3.5" /> },
+        { tab: 'dosen_content', subSection: 'Teks Halaman Dosen', label: 'Teks Halaman Dosen', icon: <FileText className="w-3.5 h-3.5" /> },
         { tab: 'dosen', label: 'Dosen & Staff (SDM)', icon: <Users className="w-3.5 h-3.5" /> },
-        { tab: 'site_content', subSection: 'Kerjasama & Kemitraan', label: 'Kerjasama & Kemitraan (Teks)', icon: <FileText className="w-3.5 h-3.5" /> },
+        { tab: 'kerjasama_content', subSection: 'Kerjasama & Kemitraan', label: 'Kerjasama & Kemitraan', icon: <FileText className="w-3.5 h-3.5" /> },
         { tab: 'laboratorium', label: 'Laboratorium', icon: <Building2 className="w-3.5 h-3.5" /> },
       ],
     },
@@ -127,11 +128,13 @@ export default function Sidebar({
       label: 'Halaman Akademik',
       icon: <GraduationCap className="w-4 h-4" />,
       items: [
-        { tab: 'site_content', subSection: 'Panduan Kurikulum & MBKM', label: 'Panduan Kurikulum & MBKM', icon: <FileText className="w-3.5 h-3.5" /> },
+        { tab: 'kurikulum_content', subSection: 'Panduan Kurikulum & MBKM', label: 'Ringkasan Kurikulum & MBKM', icon: <FileText className="w-3.5 h-3.5" /> },
         { tab: 'kurikulum_courses', label: 'Editor Mata Kuliah (Kurikulum)', icon: <BookOpen className="w-3.5 h-3.5" /> },
         { tab: 'kurikulum_plos', label: 'Capaian Pembelajaran (CPL)', icon: <Award className="w-3.5 h-3.5" /> },
         { tab: 'kurikulum_profiles', label: 'Profil Lulusan', icon: <Users className="w-3.5 h-3.5" /> },
+        { tab: 'publikasi_content', subSection: 'Teks Halaman Publikasi', label: 'Teks Halaman Publikasi', icon: <FileText className="w-3.5 h-3.5" /> },
         { tab: 'publikasi_dosen', label: 'Publikasi Dosen', icon: <BookOpen className="w-3.5 h-3.5" /> },
+        { tab: 'tugas_akhir_content', subSection: 'Persyaratan & Timeline Tugas Akhir', label: 'Teks & Dokumen Tugas Akhir', icon: <FileText className="w-3.5 h-3.5" /> },
         { tab: 'tugas_akhir_steps', label: 'Tahapan Tugas Akhir', icon: <GraduationCap className="w-3.5 h-3.5" /> },
         { tab: 'kkn_content', subSection: 'Praktik Kerja & KKN', label: 'Praktik Kerja & KKN (Teks)', icon: <FileText className="w-3.5 h-3.5" /> },
         { tab: 'kkn_documents', label: 'Dokumen Praktik Kerja & KKN', icon: <BookOpen className="w-3.5 h-3.5" /> },
@@ -142,6 +145,7 @@ export default function Sidebar({
       label: 'Halaman Statistik',
       icon: <BarChart3 className="w-4 h-4" />,
       items: [
+        { tab: 'statistik_content', subSection: 'Teks Halaman Statistik', label: 'Teks Halaman Statistik', icon: <FileText className="w-3.5 h-3.5" /> },
         { tab: 'statistik_maba', label: 'Statistik Mahasiswa Baru (Maba)', icon: <BarChart3 className="w-3.5 h-3.5" /> },
       ],
     },
@@ -152,6 +156,8 @@ export default function Sidebar({
       items: [
         { tab: 'prestasi', label: 'Prestasi Mahasiswa', icon: <Trophy className="w-3.5 h-3.5" /> },
         { tab: 'testimonials', label: 'Testimoni Alumni', icon: <MessageSquare className="w-3.5 h-3.5" /> },
+        { tab: 'alumni_content', subSection: 'Teks Halaman Alumni', label: 'Teks & Tracer Alumni', icon: <FileText className="w-3.5 h-3.5" /> },
+        { tab: 'alumni_sectors', label: 'Sektor Karier Alumni', icon: <BarChart3 className="w-3.5 h-3.5" /> },
         { tab: 'alumni', label: 'Direktori Alumni', icon: <GraduationCap className="w-3.5 h-3.5" /> },
       ],
     },
@@ -162,7 +168,9 @@ export default function Sidebar({
       items: [
         { tab: 'news', label: 'Berita & Artikel', icon: <Newspaper className="w-3.5 h-3.5" /> },
         { tab: 'events', label: 'Event Terkini', icon: <Calendar className="w-3.5 h-3.5" /> },
+        { tab: 'kegiatan_dosen_content', subSection: 'Teks Halaman Kegiatan Dosen', label: 'Teks Halaman Kegiatan Dosen', icon: <FileText className="w-3.5 h-3.5" /> },
         { tab: 'kegiatan_dosen', label: 'Kegiatan Dosen', icon: <Activity className="w-3.5 h-3.5" /> },
+        { tab: 'kegiatan_mahasiswa_content', subSection: 'Teks Halaman Kegiatan Mahasiswa', label: 'Teks Halaman Kegiatan Mahasiswa', icon: <FileText className="w-3.5 h-3.5" /> },
         { tab: 'kegiatan_mahasiswa', label: 'Kegiatan Mahasiswa', icon: <Activity className="w-3.5 h-3.5" /> },
       ],
     },

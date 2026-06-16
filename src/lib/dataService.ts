@@ -1,5 +1,5 @@
 import { getSupabaseClient } from './supabase';
-import { mockDb, initialSiteContent, type DbNews, type DbEvent, type DbTestimonial, type DbPartner, type DbSiteContent, type DbLandingStat, type DbLandingPartner, type DbLandingPortfolioItem, type DbDosen, type DbKurikulumCourse, type DbKurikulumPlo, type DbKurikulumProfile, type DbTaStep, type DbPrestasi, type DbPublikasiDosen, type DbKegiatanDosen, type DbKegiatanMahasiswa, type DbAlumni, type DbStatistikMaba, type DbLaboratorium, type DbKknDocument } from './mockData';
+import { mockDb, initialSiteContent, type DbNews, type DbEvent, type DbTestimonial, type DbPartner, type DbSiteContent, type DbLandingStat, type DbLandingPartner, type DbLandingPortfolioItem, type DbDosen, type DbKurikulumCourse, type DbKurikulumPlo, type DbKurikulumProfile, type DbTaStep, type DbPrestasi, type DbPublikasiDosen, type DbKegiatanDosen, type DbKegiatanMahasiswa, type DbAlumni, type DbAlumniSector, type DbStatistikMaba, type DbLaboratorium, type DbKknDocument } from './mockData';
 
 
 
@@ -1167,6 +1167,34 @@ export const dataService = {
     if (error) throw new Error(`Supabase error: ${error.message}`);
   },
 
+  getAlumniSectors: async (): Promise<DbAlumniSector[]> => {
+    const supabase = getSupabaseClient();
+    if (!supabase) return mockDb.getAll<DbAlumniSector>('alumni_sectors').sort((a, b) => a.sort_order - b.sort_order);
+    const { data, error } = await supabase.from('alumni_sectors').select('*').order('sort_order');
+    if (error) { console.warn('getAlumniSectors fallback:', error.message); return mockDb.getAll<DbAlumniSector>('alumni_sectors').sort((a, b) => a.sort_order - b.sort_order); }
+    return data || [];
+  },
+  createAlumniSector: async (row: Omit<DbAlumniSector, 'id' | 'created_at'>): Promise<DbAlumniSector> => {
+    const supabase = getSupabaseClient();
+    if (!supabase) return mockDb.insert<DbAlumniSector>('alumni_sectors', row);
+    const { data, error } = await supabase.from('alumni_sectors').insert([row]).select().single();
+    if (error) throw new Error(`Supabase error: ${error.message}`);
+    return data;
+  },
+  updateAlumniSector: async (id: string, updates: Partial<DbAlumniSector>): Promise<DbAlumniSector> => {
+    const supabase = getSupabaseClient();
+    if (!supabase) { const u = mockDb.update<DbAlumniSector>('alumni_sectors', id, updates); if (!u) throw new Error('Not found'); return u; }
+    const { data, error } = await supabase.from('alumni_sectors').update(updates).eq('id', id).select().single();
+    if (error) throw new Error(`Supabase error: ${error.message}`);
+    return data;
+  },
+  deleteAlumniSector: async (id: string): Promise<void> => {
+    const supabase = getSupabaseClient();
+    if (!supabase) { mockDb.delete('alumni_sectors', id); return; }
+    const { error } = await supabase.from('alumni_sectors').delete().eq('id', id);
+    if (error) throw new Error(`Supabase error: ${error.message}`);
+  },
+
   // --- STATISTIK MABA ---
   getStatistikMaba: async (): Promise<DbStatistikMaba[]> => {
     const supabase = getSupabaseClient();
@@ -1225,4 +1253,3 @@ export const dataService = {
     if (error) throw new Error(`Supabase error: ${error.message}`);
   }
 };
-
