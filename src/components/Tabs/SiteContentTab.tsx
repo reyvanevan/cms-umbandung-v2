@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Save, Search, RefreshCw, Upload, Link as LinkIcon, Home, FileText, Users, GraduationCap, BookOpen, Award } from 'lucide-react';
+import { Save, Search, RefreshCw, Upload, Link as LinkIcon, Home, FileText, Users, GraduationCap, BookOpen, Award, Settings } from 'lucide-react';
 import { type DbSiteContent, type DbDosen } from '../../lib/mockData';
 import { handleImageUpload } from '../../lib/supabase';
 import { getHumanLabel, getHelpText } from '../../lib/cmsLabels';
@@ -15,7 +15,7 @@ interface SiteContentTabProps {
   isLoadingData: boolean;
   connectionMode: 'supabase' | 'mock';
   onUpdateContent: (key: string, value: string, valueEn: string | null) => Promise<void>;
-  category?: 'beranda' | 'visi_misi' | 'tata_kelola' | 'kurikulum' | 'tugas_akhir' | 'kerjasama' | 'kkn';
+  category?: 'beranda' | 'visi_misi' | 'tata_kelola' | 'kurikulum' | 'tugas_akhir' | 'kerjasama' | 'kkn' | 'global';
   hideHeader?: boolean;
   dosenList?: DbDosen[];
   activeSubSection?: string | null;
@@ -37,7 +37,7 @@ export default function SiteContentTab({
   setFocusedKey
 }: SiteContentTabProps) {
   const [searchQuery, setSearchQuery] = useState('');
-  const [activeCategory, setActiveCategory] = useState<'beranda' | 'visi_misi' | 'tata_kelola' | 'kurikulum' | 'tugas_akhir' | 'kerjasama' | 'kkn'>(category || 'beranda');
+  const [activeCategory, setActiveCategory] = useState<'beranda' | 'visi_misi' | 'tata_kelola' | 'kurikulum' | 'tugas_akhir' | 'kerjasama' | 'kkn' | 'global'>(category || 'beranda');
 
   React.useEffect(() => {
     if (category) {
@@ -166,7 +166,8 @@ export default function SiteContentTab({
   // Helper to categorize content key
   const getCategoryForKey = (key: string) => {
     if (key.startsWith('kkn_')) return 'kkn';
-    if (key.startsWith('hero_') || key.startsWith('kaprodi_') || key.startsWith('philosophy_') || key.startsWith('logo_') || key.startsWith('sambutan_') || key.startsWith('footer_') || key.startsWith('info_singkat_')) {
+    if (key.startsWith('footer_')) return 'global';
+    if (key.startsWith('hero_') || key.startsWith('kaprodi_') || key.startsWith('philosophy_') || key.startsWith('logo_') || key.startsWith('sambutan_') || key.startsWith('info_singkat_')) {
       return 'beranda';
     }
     if (key.startsWith('visi_misi_')) return 'visi_misi';
@@ -199,7 +200,8 @@ export default function SiteContentTab({
     { id: 'kurikulum', name: 'Kurikulum', icon: GraduationCap, desc: 'Pengantar sebaran SKS dan program magang.' },
     { id: 'tugas_akhir', name: 'Tugas Akhir', icon: BookOpen, desc: 'Persyaratan dan timeline skripsi mahasiswa.' },
     { id: 'kerjasama', name: 'Kerjasama', icon: Award, desc: 'Kalimat pembuka daftar mitra industri.' },
-    { id: 'kkn', name: 'Praktik Kerja & KKN', icon: BookOpen, desc: 'Pengaturan deskripsi dan tautan halaman KKN.' }
+    { id: 'kkn', name: 'Praktik Kerja & KKN', icon: BookOpen, desc: 'Pengaturan deskripsi dan tautan halaman KKN.' },
+    { id: 'global', name: 'Global', icon: Settings, desc: 'Konten yang dipakai lintas halaman seperti footer, kontak, dan sosial media.' }
   ] as const;
 
   // Filter content by search query, subsection, & category

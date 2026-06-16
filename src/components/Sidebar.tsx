@@ -63,13 +63,13 @@ export default function Sidebar({
   // Which groups are open — default: open the one containing current activeTab/subSection
   const getInitialOpen = () => {
     return {
-      beranda: ['landing_portfolio', 'landing_stats', 'partners'].includes(activeTab) || (activeTab === 'site_content' && activeSubSection !== 'Panduan Kurikulum & MBKM' && activeSubSection !== 'Kerjasama & Kemitraan'),
+      beranda: ['landing_portfolio', 'landing_stats', 'partners'].includes(activeTab) || (activeTab === 'site_content' && activeSubSection !== 'Panduan Kurikulum & MBKM' && activeSubSection !== 'Kerjasama & Kemitraan' && activeSubSection !== 'Informasi Kontak & Sosial Media (Footer)'),
       tentang_kami: ['dosen', 'visi_misi', 'tata_kelola', 'laboratorium'].includes(activeTab) || (activeTab === 'site_content' && activeSubSection === 'Kerjasama & Kemitraan'),
       akademik: ['kurikulum_courses', 'kurikulum_plos', 'kurikulum_profiles', 'publikasi_dosen', 'tugas_akhir_steps', 'kkn_documents'].includes(activeTab) || activeTab === 'kkn_content' || (activeTab === 'site_content' && activeSubSection === 'Panduan Kurikulum & MBKM'),
       statistik: ['statistik_maba'].includes(activeTab),
       mahasiswa_alumni: ['prestasi', 'testimonials', 'alumni'].includes(activeTab),
       galeri_kegiatan: ['news', 'events', 'kegiatan_dosen', 'kegiatan_mahasiswa'].includes(activeTab),
-      pengaturan: ['settings'].includes(activeTab),
+      pengaturan: ['settings', 'global_content'].includes(activeTab),
     };
   };
 
@@ -103,7 +103,6 @@ export default function Sidebar({
         { tab: 'landing_portfolio', label: 'Galeri Portfolio', icon: <Image className="w-3.5 h-3.5" /> },
         { tab: 'landing_stats', label: 'Statistik Ribbon', icon: <TrendingUp className="w-3.5 h-3.5" /> },
         { tab: 'partners', label: 'Kemitraan Industri (Logo)', icon: <Building2 className="w-3.5 h-3.5" /> },
-        { tab: 'site_content', subSection: 'Informasi Kontak & Sosial Media (Footer)', label: 'Informasi Kontak & Sosial', icon: <FileText className="w-3.5 h-3.5" /> },
       ],
     },
     {
@@ -167,6 +166,7 @@ export default function Sidebar({
       label: 'Pengaturan',
       icon: <Settings className="w-4 h-4" />,
       items: [
+        { tab: 'global_content', subSection: 'Informasi Kontak & Sosial Media (Footer)', label: 'Footer & Kontak Global', icon: <FileText className="w-3.5 h-3.5" /> },
         { tab: 'settings', label: 'Setup Database & Akun', icon: <Settings className="w-3.5 h-3.5" /> },
       ],
     },

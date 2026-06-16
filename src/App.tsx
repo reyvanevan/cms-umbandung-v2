@@ -94,6 +94,7 @@ export type TabType =
   | 'laboratorium'
   | 'visi_misi'
   | 'tata_kelola'
+  | 'global_content'
   | 'kkn_content'
   | 'kkn_documents';
 
@@ -281,13 +282,22 @@ export default function App() {
 
   // Set default activeSubSection when tab changes
   useEffect(() => {
-    if (activeTab === 'site_content' && !activeSubSection) {
+    const homeSubSections = [
+      'Spanduk & Jumbotron',
+      'Sambutan Kepala Program Studi',
+      'Filosofi Pembelajaran',
+      'Informasi Singkat Landing Page'
+    ];
+
+    if (activeTab === 'site_content' && (!activeSubSection || !homeSubSections.includes(activeSubSection))) {
       setActiveSubSection('Spanduk & Jumbotron');
-    } else if (activeTab === 'visi_misi' && !activeSubSection) {
+    } else if (activeTab === 'visi_misi' && activeSubSection !== 'Visi & Misi Akademik') {
       setActiveSubSection('Visi & Misi Akademik');
-    } else if (activeTab === 'tata_kelola' && !activeSubSection) {
+    } else if (activeTab === 'tata_kelola' && activeSubSection !== 'Sekretaris & UPM (Tata Kelola)') {
       setActiveSubSection('Sekretaris & UPM (Tata Kelola)');
-    } else if (activeTab === 'kkn_content' && !activeSubSection) {
+    } else if (activeTab === 'global_content' && activeSubSection !== 'Informasi Kontak & Sosial Media (Footer)') {
+      setActiveSubSection('Informasi Kontak & Sosial Media (Footer)');
+    } else if (activeTab === 'kkn_content' && activeSubSection !== 'Praktik Kerja & KKN') {
       setActiveSubSection('Praktik Kerja & KKN');
     }
   }, [activeTab, activeSubSection]);
@@ -319,7 +329,7 @@ export default function App() {
         ]);
         setPartners(partList);
         setSiteContents(contentList);
-      } else if (activeTab === 'site_content' || activeTab === 'visi_misi' || activeTab === 'tata_kelola' || activeTab === 'kkn_content') {
+      } else if (activeTab === 'site_content' || activeTab === 'visi_misi' || activeTab === 'tata_kelola' || activeTab === 'global_content' || activeTab === 'kkn_content') {
         const [contentList, dList] = await Promise.all([
           dataService.getSiteContent(),
           dataService.getDosen()
@@ -1040,6 +1050,23 @@ export default function App() {
               connectionMode={connectionMode}
               onUpdateContent={handleUpdateSiteContent}
               category="tata_kelola"
+              dosenList={dosenList}
+              activeSubSection={activeSubSection}
+              setActiveSubSection={setActiveSubSection}
+              focusedKey={focusedKey}
+              setFocusedKey={setFocusedKey}
+              hideHeader={true}
+            />
+          )}
+
+          {/* GLOBAL CONTENT VIEW */}
+          {activeTab === 'global_content' && (
+            <SiteContentTab
+              siteContent={siteContents}
+              isLoadingData={isLoadingData}
+              connectionMode={connectionMode}
+              onUpdateContent={handleUpdateSiteContent}
+              category="global"
               dosenList={dosenList}
               activeSubSection={activeSubSection}
               setActiveSubSection={setActiveSubSection}
