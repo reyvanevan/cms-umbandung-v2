@@ -682,16 +682,26 @@ export const dataService = {
       return mockDb.insert<DbDosen>('dosen', dosen);
     }
 
-    const { data, error } = await supabase
-      .from('dosen')
-      .insert([dosen])
-      .select()
-      .single();
+    let payload = { ...dosen };
+    while (true) {
+      const { data, error } = await supabase
+        .from('dosen')
+        .insert([payload])
+        .select()
+        .single();
 
-    if (error) {
-      throw new Error(`Supabase error: ${error.message}`);
+      if (error) {
+        const match = error.message.match(/Could not find the '([^']+)' column/i);
+        if (match && match[1]) {
+          const missingColumn = match[1];
+          console.warn(`Removing missing column '${missingColumn}' from payload and retrying...`);
+          delete (payload as any)[missingColumn];
+          continue;
+        }
+        throw new Error(`Supabase error: ${error.message}`);
+      }
+      return data;
     }
-    return data;
   },
 
   updateDosen: async (id: string, updates: Partial<DbDosen>): Promise<DbDosen> => {
@@ -702,17 +712,27 @@ export const dataService = {
       return updated;
     }
 
-    const { data, error } = await supabase
-      .from('dosen')
-      .update(updates)
-      .eq('id', id)
-      .select()
-      .single();
+    let payload = { ...updates };
+    while (true) {
+      const { data, error } = await supabase
+        .from('dosen')
+        .update(payload)
+        .eq('id', id)
+        .select()
+        .single();
 
-    if (error) {
-      throw new Error(`Supabase error: ${error.message}`);
+      if (error) {
+        const match = error.message.match(/Could not find the '([^']+)' column/i);
+        if (match && match[1]) {
+          const missingColumn = match[1];
+          console.warn(`Removing missing column '${missingColumn}' from payload and retrying...`);
+          delete (payload as any)[missingColumn];
+          continue;
+        }
+        throw new Error(`Supabase error: ${error.message}`);
+      }
+      return data;
     }
-    return data;
   },
 
   deleteDosen: async (id: string): Promise<void> => {
