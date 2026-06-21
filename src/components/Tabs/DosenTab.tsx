@@ -20,6 +20,63 @@ export default function DosenTab({
   openEditModal,
   openDeleteModal
 }: DosenTabProps) {
+  const getSintaUrl = (val: string | null | undefined): string | null => {
+    if (!val) return null;
+    const trimmed = val.trim();
+    if (trimmed === '' || trimmed === '-' || trimmed === '#') return null;
+    if (/^https?:\/\//i.test(trimmed)) return trimmed;
+    if (trimmed.includes('sinta.')) return `https://${trimmed}`;
+    return `https://sinta.kemdiktisaintek.go.id/authors/profile/${trimmed}`;
+  };
+
+  const getSintaId = (val: string | null | undefined): string | null => {
+    if (!val) return null;
+    const trimmed = val.trim();
+    if (trimmed === '' || trimmed === '-' || trimmed === '#') return null;
+    if (trimmed.includes('profile/')) {
+      return trimmed.split('profile/').pop()?.split(/[?#]/)[0] || trimmed;
+    }
+    return trimmed.split('/').filter(Boolean).pop() || trimmed;
+  };
+
+  const getScopusUrl = (val: string | null | undefined): string | null => {
+    if (!val) return null;
+    const trimmed = val.trim();
+    if (trimmed === '' || trimmed === '-' || trimmed === '#') return null;
+    if (/^https?:\/\//i.test(trimmed)) return trimmed;
+    if (trimmed.includes('scopus.')) return `https://${trimmed}`;
+    return `https://www.scopus.com/authid/detail.uri?authorId=${trimmed}`;
+  };
+
+  const getScopusId = (val: string | null | undefined): string | null => {
+    if (!val) return null;
+    const trimmed = val.trim();
+    if (trimmed === '' || trimmed === '-' || trimmed === '#') return null;
+    if (trimmed.includes('authorId=')) {
+      return trimmed.split('authorId=').pop()?.split('&')[0] || trimmed;
+    }
+    return trimmed.split('/').filter(Boolean).pop() || trimmed;
+  };
+
+  const getScholarUrl = (val: string | null | undefined): string | null => {
+    if (!val) return null;
+    const trimmed = val.trim();
+    if (trimmed === '' || trimmed === '-' || trimmed === '#') return null;
+    if (/^https?:\/\//i.test(trimmed)) return trimmed;
+    if (trimmed.includes('scholar.')) return `https://${trimmed}`;
+    return `https://scholar.google.com/citations?user=${trimmed}`;
+  };
+
+  const getScholarId = (val: string | null | undefined): string | null => {
+    if (!val) return null;
+    const trimmed = val.trim();
+    if (trimmed === '' || trimmed === '-' || trimmed === '#') return null;
+    if (trimmed.includes('user=')) {
+      return trimmed.split('user=').pop()?.split('&')[0] || trimmed;
+    }
+    return trimmed.split('/').filter(Boolean).pop() || trimmed;
+  };
+
   const filteredDosen = dosenList.filter((item) => {
     if (!searchQuery) return true;
     const query = searchQuery.toLowerCase();
@@ -75,81 +132,89 @@ export default function DosenTab({
               </tr>
             </thead>
             <tbody className="divide-y divide-gray-50 text-gray-700">
-              {filteredDosen.map((item) => (
-                <tr key={item.id} className="hover:bg-gray-50/50 transition">
-                  <td className="p-4">
-                    <img 
-                      src={item.img_src || 'https://images.unsplash.com/photo-1560250097-0b93528c311a?q=80&w=300&auto=format&fit=crop'} 
-                      alt={item.name} 
-                      className="w-10 h-10 object-cover rounded-lg border border-gray-200 bg-gray-50"
-                    />
-                  </td>
-                  <td className="p-4 font-semibold text-gray-950 text-sm">
-                    {item.name}
-                  </td>
-                  <td className="p-4">
-                    <span className={`inline-flex items-center px-2 py-0.5 rounded-full text-xs font-semibold ${
-                      item.category === 'dosen' 
-                        ? 'bg-blue-50 text-blue-700' 
-                        : item.category === 'kepala_laboratorium'
-                          ? 'bg-purple-50 text-purple-700'
-                          : 'bg-amber-50 text-amber-700'
-                    }`}>
-                      {item.category === 'dosen' 
-                        ? 'Dosen' 
-                        : item.category === 'kepala_laboratorium'
-                          ? 'Kepala Laboratorium'
-                          : 'Karyawan / Laboran'}
-                    </span>
-                  </td>
-                  <td className="p-4 text-xs font-medium text-gray-600">
-                    {item.role || '-'}
-                  </td>
-                  <td className="p-4 text-xs font-mono text-gray-500">
-                    {item.category === 'dosen' && item.scopus && item.scopus !== '-' ? (
-                      <a 
-                        href={`https://www.scopus.com/authid/detail.uri?authorId=${item.scopus}`} 
-                        target="_blank" 
-                        rel="noopener noreferrer"
-                        className="text-indigo-600 hover:text-indigo-900 hover:underline"
-                      >
-                        {item.scopus}
-                      </a>
-                    ) : (
-                      item.scopus || '-'
-                    )}
-                  </td>
-                  <td className="p-4 text-xs font-mono text-gray-500">
-                    {item.category === 'dosen' && item.sinta && item.sinta !== '-' ? (
-                      <a 
-                        href={`https://sinta.kemdiktisaintek.go.id/authors/profile/${item.sinta}`} 
-                        target="_blank" 
-                        rel="noopener noreferrer"
-                        className="text-indigo-600 hover:text-indigo-900 hover:underline"
-                      >
-                        {item.sinta}
-                      </a>
-                    ) : (
-                      item.sinta || '-'
-                    )}
-                  </td>
-                  <td className="p-4 text-xs font-mono text-gray-500 truncate max-w-[120px]">
-                    {item.category === 'dosen' && item.scholar && item.scholar !== '-' && item.scholar !== '#' ? (
-                      <a 
-                        href={`https://scholar.google.com/citations?user=${item.scholar}`} 
-                        target="_blank" 
-                        rel="noopener noreferrer"
-                        className="text-indigo-600 hover:text-indigo-900 hover:underline"
-                      >
-                        {item.scholar}
-                      </a>
-                    ) : (
-                      item.scholar || '-'
-                    )}
-                  </td>
-                  <td className="p-4 text-xs font-semibold text-gray-900">
-                    {item.sort_order}
-                  </td>
+              {filteredDosen.map((item) => {
+                const sintaUrl = getSintaUrl(item.sinta);
+                const sintaId = getSintaId(item.sinta);
+                const scopusUrl = getScopusUrl(item.scopus);
+                const scopusId = getScopusId(item.scopus);
+                const scholarUrl = getScholarUrl(item.scholar);
+                const scholarId = getScholarId(item.scholar);
+
+                return (
+                  <tr key={item.id} className="hover:bg-gray-50/50 transition">
+                    <td className="p-4">
+                      <img 
+                        src={item.img_src || 'https://images.unsplash.com/photo-1560250097-0b93528c311a?q=80&w=300&auto=format&fit=crop'} 
+                        alt={item.name} 
+                        className="w-10 h-10 object-cover rounded-lg border border-gray-200 bg-gray-50"
+                      />
+                    </td>
+                    <td className="p-4 font-semibold text-gray-950 text-sm">
+                      {item.name}
+                    </td>
+                    <td className="p-4">
+                      <span className={`inline-flex items-center px-2 py-0.5 rounded-full text-xs font-semibold ${
+                        item.category === 'dosen' 
+                          ? 'bg-blue-50 text-blue-700' 
+                          : item.category === 'kepala_laboratorium'
+                            ? 'bg-purple-50 text-purple-700'
+                            : 'bg-amber-50 text-amber-700'
+                      }`}>
+                        {item.category === 'dosen' 
+                          ? 'Dosen' 
+                          : item.category === 'kepala_laboratorium'
+                            ? 'Kepala Laboratorium'
+                            : 'Karyawan / Laboran'}
+                      </span>
+                    </td>
+                    <td className="p-4 text-xs font-medium text-gray-600">
+                      {item.role || '-'}
+                    </td>
+                    <td className="p-4 text-xs font-mono text-gray-500">
+                      {item.category === 'dosen' && scopusUrl && scopusId ? (
+                        <a 
+                          href={scopusUrl} 
+                          target="_blank" 
+                          rel="noopener noreferrer"
+                          className="text-indigo-600 hover:text-indigo-900 hover:underline"
+                        >
+                          {scopusId}
+                        </a>
+                      ) : (
+                        scopusId || '-'
+                      )}
+                    </td>
+                    <td className="p-4 text-xs font-mono text-gray-500">
+                      {item.category === 'dosen' && sintaUrl && sintaId ? (
+                        <a 
+                          href={sintaUrl} 
+                          target="_blank" 
+                          rel="noopener noreferrer"
+                          className="text-indigo-600 hover:text-indigo-900 hover:underline"
+                        >
+                          {sintaId}
+                        </a>
+                      ) : (
+                        sintaId || '-'
+                      )}
+                    </td>
+                    <td className="p-4 text-xs font-mono text-gray-500 truncate max-w-[120px]">
+                      {item.category === 'dosen' && scholarUrl && scholarId ? (
+                        <a 
+                          href={scholarUrl} 
+                          target="_blank" 
+                          rel="noopener noreferrer"
+                          className="text-indigo-600 hover:text-indigo-900 hover:underline"
+                        >
+                          {scholarId}
+                        </a>
+                      ) : (
+                        scholarId || '-'
+                      )}
+                    </td>
+                    <td className="p-4 text-xs font-semibold text-gray-900">
+                      {item.sort_order}
+                    </td>
                   <td className="p-4">
                     <div className="flex gap-2">
                       <button
