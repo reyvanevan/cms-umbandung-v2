@@ -23,10 +23,10 @@ export default function KegiatanMahasiswaTab({ kegiatanList, searchQuery, setSea
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div className="relative w-full sm:max-w-xs">
           <Search className="absolute left-3 top-2.5 w-4.5 h-4.5 text-gray-400" />
-          <input type="text" placeholder="Cari kegiatan mahasiswa..." className="w-full pl-10 pr-4 py-2 bg-gray-50 border border-gray-100 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-gray-200 focus:bg-white transition" value={searchQuery} onChange={e => setSearchQuery(e.target.value)} />
+          <input type="text" placeholder="Cari Hima / kegiatan mahasiswa..." className="w-full pl-10 pr-4 py-2 bg-gray-50 border border-gray-100 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-gray-200 focus:bg-white transition" value={searchQuery} onChange={e => setSearchQuery(e.target.value)} />
         </div>
         <button onClick={openCreateModal} className="px-4 py-2 bg-black hover:bg-gray-900 text-white rounded-xl text-xs font-semibold flex items-center gap-1.5 shadow-md transition cursor-pointer self-start sm:self-auto">
-          <Plus className="w-4 h-4" /><span>Tambah Kegiatan</span>
+          <Plus className="w-4 h-4" /><span>Tambah Kegiatan Hima/Mhs</span>
         </button>
       </div>
 
@@ -67,7 +67,7 @@ export default function KegiatanMahasiswaTab({ kegiatanList, searchQuery, setSea
                 </tr>
               ))}
               {filtered.length === 0 && (
-                <tr><td colSpan={5} className="p-8 text-center text-gray-400 text-sm">Tidak ada kegiatan mahasiswa ditemukan.</td></tr>
+                <tr><td colSpan={5} className="p-8 text-center text-gray-400 text-sm">Tidak ada kegiatan Hima atau mahasiswa ditemukan.</td></tr>
               )}
             </tbody>
           </table>

@@ -421,8 +421,7 @@ export const dataService = {
 
     const { data, error } = await supabase
       .from('site_content')
-      .update(updates)
-      .eq('key', key)
+      .upsert({ key, ...updates })
       .select()
       .single();
 

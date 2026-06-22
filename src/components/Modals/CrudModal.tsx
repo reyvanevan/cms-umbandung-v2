@@ -157,7 +157,7 @@ export default function CrudModal({
       case 'prestasi': return 'Prestasi';
       case 'publikasi_dosen': return 'Publikasi Dosen';
       case 'kegiatan_dosen': return 'Kegiatan Dosen';
-      case 'kegiatan_mahasiswa': return 'Kegiatan Mahasiswa';
+      case 'kegiatan_mahasiswa': return 'Hima & Kegiatan Mahasiswa';
       case 'alumni': return 'Alumni';
       case 'statistik_maba': return 'Statistik Maba';
       case 'laboratorium': return 'Laboratorium';
@@ -1707,22 +1707,23 @@ export default function CrudModal({
           )}
 
           {/* KEGIATAN MAHASISWA FORM */}
+          {/* KEGIATAN MAHASISWA FORM */}
           {activeTab === 'kegiatan_mahasiswa' && kegiatanMahasiswaForm && setKegiatanMahasiswaForm && (
             <>
               <div className="grid grid-cols-2 gap-4">
                 <div className="space-y-1">
-                  <label className="text-xs font-bold text-slate-700">Nama Kegiatan (ID)</label>
+                  <label className="text-xs font-bold text-slate-700">Nama Kegiatan Hima/Mahasiswa (ID)</label>
                   <input
                     type="text"
                     className="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-slate-900/10 focus:border-slate-400 focus:bg-white transition"
                     value={kegiatanMahasiswaForm.title}
                     onChange={(e) => setKegiatanMahasiswaForm({ ...kegiatanMahasiswaForm, title: e.target.value })}
-                    placeholder="Nama kegiatan..."
+                    placeholder="Nama kegiatan Hima/mahasiswa..."
                     required
                   />
                 </div>
                 <div className="space-y-1">
-                  <label className="text-xs font-bold text-slate-700">Nama Kegiatan (EN)</label>
+                  <label className="text-xs font-bold text-slate-700">Nama Kegiatan Hima/Mahasiswa (EN)</label>
                   <input
                     type="text"
                     className="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-slate-900/10 focus:border-slate-400 focus:bg-white transition"
@@ -1782,7 +1783,7 @@ export default function CrudModal({
               </div>
 
               <div className="space-y-1">
-                <label className="text-xs font-bold text-slate-700">Deskripsi Kegiatan (ID)</label>
+                <label className="text-xs font-bold text-slate-700">Deskripsi Kegiatan Hima/Mahasiswa (ID)</label>
                 <textarea
                   rows={3}
                   className="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-slate-900/10 focus:border-slate-400 focus:bg-white transition resize-none"
@@ -1794,7 +1795,7 @@ export default function CrudModal({
               </div>
 
               <div className="space-y-1">
-                <label className="text-xs font-bold text-slate-700">Deskripsi Kegiatan (EN)</label>
+                <label className="text-xs font-bold text-slate-700">Deskripsi Kegiatan Hima/Mahasiswa (EN)</label>
                 <textarea
                   rows={3}
                   className="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-slate-900/10 focus:border-slate-400 focus:bg-white transition resize-none"
@@ -1805,7 +1806,7 @@ export default function CrudModal({
               </div>
 
               <div className="space-y-1">
-                <label className="text-xs font-bold text-slate-700 block">Foto Kegiatan</label>
+                <label className="text-xs font-bold text-slate-700 block">Foto Kegiatan Hima/Mahasiswa</label>
                 <div className="flex flex-col sm:flex-row gap-3 items-center">
                   {kegiatanMahasiswaForm.image_url && (
                     <img src={kegiatanMahasiswaForm.image_url} className="w-14 h-14 object-cover rounded-xl border border-slate-200 shrink-0 bg-slate-50" alt="Preview" />
