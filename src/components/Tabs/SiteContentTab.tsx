@@ -203,8 +203,9 @@ export default function SiteContentTab({
     return lower.endsWith('.mp4') || lower.endsWith('.webm') || lower.endsWith('.ogg') || lower.startsWith('data:video/');
   };
 
-  const renderTextField = (key: string, label: string, options?: { multiline?: boolean; placeholder?: string }) => {
+  const renderTextField = (key: string, label: string, options?: { multiline?: boolean; placeholder?: string; minHeight?: string }) => {
     const multiline = options?.multiline ?? false;
+    const minH = options?.minHeight ?? '112px';
     const baseClass = 'w-full px-3 py-2 bg-white border border-slate-200 rounded-lg text-xs focus:outline-none focus:ring-2 focus:ring-slate-900/10 focus:border-slate-400 transition';
     return (
       <div className="space-y-3">
@@ -221,7 +222,8 @@ export default function SiteContentTab({
             {multiline ? (
               <textarea
                 id={`input-id-${key}`}
-                className={`${baseClass} min-h-[112px] leading-relaxed resize-y`}
+                className={`${baseClass} leading-relaxed resize-y`}
+                style={{ minHeight: minH }}
                 value={getValue(key, 'id')}
                 placeholder={options?.placeholder}
                 onChange={(e) => handleInputChange(key, 'id', e.target.value)}
@@ -241,7 +243,8 @@ export default function SiteContentTab({
             {multiline ? (
               <textarea
                 id={`input-en-${key}`}
-                className={`${baseClass} min-h-[112px] leading-relaxed resize-y`}
+                className={`${baseClass} leading-relaxed resize-y`}
+                style={{ minHeight: minH }}
                 value={getValue(key, 'en')}
                 placeholder="Kosongkan untuk memakai teks Indonesia"
                 onChange={(e) => handleInputChange(key, 'en', e.target.value)}
@@ -908,8 +911,8 @@ export default function SiteContentTab({
                     onChange={(e) => updateItem('id', idx, 'title', e.target.value)}
                   />
                   <textarea
-                    rows={2}
-                    className="w-full px-3 py-2 bg-white border border-slate-200 rounded-lg text-xs focus:outline-none focus:ring-2 focus:ring-slate-900/10 focus:border-slate-400 transition resize-none"
+                    rows={5}
+                    className="w-full px-3 py-2 bg-white border border-slate-200 rounded-lg text-xs focus:outline-none focus:ring-2 focus:ring-slate-900/10 focus:border-slate-400 transition resize-y"
                     value={item.desc}
                     placeholder={descPlaceholder || "Penjelasan singkat"}
                     onChange={(e) => updateItem('id', idx, 'desc', e.target.value)}
@@ -925,8 +928,8 @@ export default function SiteContentTab({
                     onChange={(e) => updateItem('en', idx, 'title', e.target.value)}
                   />
                   <textarea
-                    rows={2}
-                    className="w-full px-3 py-2 bg-white border border-indigo-150 rounded-lg text-xs focus:outline-none focus:ring-2 focus:ring-indigo-900/10 focus:border-indigo-300 transition resize-none"
+                    rows={5}
+                    className="w-full px-3 py-2 bg-white border border-indigo-150 rounded-lg text-xs focus:outline-none focus:ring-2 focus:ring-indigo-900/10 focus:border-indigo-300 transition resize-y"
                     value={parsedEn[idx]?.desc || ''}
                     placeholder={descPlaceholder ? `${descPlaceholder} (EN)` : "Short description (EN)"}
                     onChange={(e) => updateItem('en', idx, 'desc', e.target.value)}
@@ -950,7 +953,13 @@ export default function SiteContentTab({
       'capstone_milestones',
       'capstone_deliverables',
       'capstone_guide_url',
-      'capstone_cta_label'
+      'capstone_cta_label',
+      'capstone_course_1_code',
+      'capstone_course_1_name',
+      'capstone_course_1_desc',
+      'capstone_course_2_code',
+      'capstone_course_2_name',
+      'capstone_course_2_desc'
     ];
     return renderGuidedSection({
       title: 'Capstone Design',
@@ -965,6 +974,27 @@ export default function SiteContentTab({
           {renderTextField('capstone_overview_title', 'Judul Overview')}
           {renderTextField('capstone_overview_desc', 'Deskripsi Overview', { multiline: true })}
         </div>
+        
+        <div className="rounded-2xl border border-slate-200 bg-slate-50/40 p-5 space-y-5">
+          <p className="text-xs font-bold text-slate-900 uppercase tracking-wide">Fase Capstone: Mata Kuliah Terintegrasi</p>
+          <div className="rounded-xl border border-slate-200 bg-white p-4 space-y-4">
+            <p className="text-xs font-bold text-slate-800 border-b pb-2">Fase Awal (Fase Produk)</p>
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
+              {renderTextField('capstone_course_1_code', 'Kode Mata Kuliah (Fase Produk)')}
+              {renderTextField('capstone_course_1_name', 'Nama Mata Kuliah (Fase Produk)')}
+            </div>
+            {renderTextField('capstone_course_1_desc', 'Deskripsi & Luaran Akhir (Fase Produk)', { multiline: true, minHeight: '320px' })}
+          </div>
+          <div className="rounded-xl border border-slate-200 bg-white p-4 space-y-4">
+            <p className="text-xs font-bold text-slate-800 border-b pb-2">Fase Lanjutan (Scale-Up & Bisnis)</p>
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
+              {renderTextField('capstone_course_2_code', 'Kode Mata Kuliah (Fase Scale-Up)')}
+              {renderTextField('capstone_course_2_name', 'Nama Mata Kuliah (Fase Scale-Up)')}
+            </div>
+            {renderTextField('capstone_course_2_desc', 'Deskripsi & Luaran Akhir (Fase Scale-Up)', { multiline: true, minHeight: '320px' })}
+          </div>
+        </div>
+
         {renderLineListField('capstone_outcomes', 'Luaran Utama Capstone')}
         {renderPairListField('capstone_milestones', 'Tahapan Proyek Capstone (Milestones)', 'Nama Tahapan', 'Deskripsi Tahapan')}
         {renderPairListField('capstone_deliverables', 'Deliverables Capstone', 'Nama Deliverable', 'Deskripsi Deliverable')}

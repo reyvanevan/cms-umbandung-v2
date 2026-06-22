@@ -443,6 +443,30 @@ export const SITE_CONTENT_LABELS: Record<string, LabelConfig> = {
   kkn_link_pendaftaran: {
     label: 'KKN: Tautan Pendaftaran Seminar',
     desc: 'URL/Link formulir pendaftaran ujian / seminar hasil KKN.'
+  },
+  capstone_course_1_code: {
+    label: 'Fase Produk: Kode MK',
+    desc: 'Kode mata kuliah untuk Fase Produk / Fase Awal Capstone (contoh: TP06135).'
+  },
+  capstone_course_1_name: {
+    label: 'Fase Produk: Nama MK',
+    desc: 'Nama mata kuliah untuk Fase Produk / Fase Awal Capstone.'
+  },
+  capstone_course_1_desc: {
+    label: 'Fase Produk: Deskripsi Lengkap MK',
+    desc: 'Penjelasan lengkap mata kuliah Fase Produk (ruang lingkup, proses, R&D, dan luaran akhir MVP).'
+  },
+  capstone_course_2_code: {
+    label: 'Fase Scale-Up: Kode MK',
+    desc: 'Kode mata kuliah untuk Fase Scale-Up & Bisnis / Fase Lanjutan Capstone (contoh: TP05130).'
+  },
+  capstone_course_2_name: {
+    label: 'Fase Scale-Up: Nama MK',
+    desc: 'Nama mata kuliah untuk Fase Scale-Up & Bisnis / Fase Lanjutan Capstone.'
+  },
+  capstone_course_2_desc: {
+    label: 'Fase Scale-Up: Deskripsi Lengkap MK',
+    desc: 'Penjelasan lengkap mata kuliah Fase Scale-Up & Bisnis (skala industri, Design Thinking, kelayakan finansial, dan luaran Business Plan).'
   }
 };
 
