@@ -1008,6 +1008,8 @@ export default function App() {
               openCreateModal={openCreateModal}
               openEditModal={openEditModal}
               openDeleteModal={openDeleteModal}
+              siteContent={siteContents}
+              onUpdateContent={handleUpdateSiteContent}
             />
           )}
 
