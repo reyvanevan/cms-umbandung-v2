@@ -825,6 +825,157 @@ export default function SiteContentTab({
     );
   };
 
+  const renderPairListField = (key: string, label: string, titlePlaceholder?: string, descPlaceholder?: string) => {
+    const rawId = getValue(key, 'id') || '';
+    const rawEn = getValue(key, 'en') || '';
+    
+    const lines = rawId.split('\n').filter(Boolean);
+    const enLines = rawEn.split('\n').filter(Boolean);
+
+    const parsedId = lines.map(line => {
+      const parts = line.split('|');
+      return { title: parts[0]?.trim() || '', desc: parts.slice(1).join('|').trim() || '' };
+    });
+
+    const parsedEn = enLines.map(line => {
+      const parts = line.split('|');
+      return { title: parts[0]?.trim() || '', desc: parts.slice(1).join('|').trim() || '' };
+    });
+
+    // Make sure we have at least one item if empty
+    if (parsedId.length === 0) {
+      parsedId.push({ title: '', desc: '' });
+    }
+    while (parsedEn.length < parsedId.length) {
+      parsedEn.push({ title: '', desc: '' });
+    }
+
+    const updateItem = (lang: 'id' | 'en', index: number, field: 'title' | 'desc', value: string) => {
+      const targetList = lang === 'id' ? [...parsedId] : [...parsedEn];
+      if (!targetList[index]) {
+        targetList[index] = { title: '', desc: '' };
+      }
+      targetList[index][field] = value.replace(/\|/g, ''); // strip out any pipe characters
+      
+      const serialized = targetList.map(item => `${item.title} | ${item.desc}`).join('\n');
+      handleInputChange(key, lang, serialized);
+    };
+
+    const addItem = () => {
+      const nextId = [...parsedId, { title: '', desc: '' }];
+      const nextEn = [...parsedEn, { title: '', desc: '' }];
+      handleInputChange(key, 'id', nextId.map(item => `${item.title} | ${item.desc}`).join('\n'));
+      handleInputChange(key, 'en', nextEn.map(item => `${item.title} | ${item.desc}`).join('\n'));
+    };
+
+    const removeItem = (index: number) => {
+      const nextId = parsedId.filter((_, idx) => idx !== index);
+      const nextEn = parsedEn.filter((_, idx) => idx !== index);
+      handleInputChange(key, 'id', nextId.map(item => `${item.title} | ${item.desc}`).join('\n'));
+      handleInputChange(key, 'en', nextEn.map(item => `${item.title} | ${item.desc}`).join('\n'));
+    };
+
+    return (
+      <div className="space-y-3">
+        <div className="flex items-start justify-between gap-3">
+          <div>
+            <p className="text-xs font-bold text-slate-800">{label}</p>
+            <p className="text-[10px] text-slate-400 mt-0.5">Format terstruktur: Judul dan penjelasan dipisahkan otomatis.</p>
+          </div>
+          <button type="button" onClick={addItem} className="px-3 py-1.5 rounded-lg bg-slate-100 hover:bg-slate-200 text-[11px] font-bold text-slate-700 transition">
+            Tambah Item
+          </button>
+        </div>
+        <div className="space-y-4">
+          {parsedId.map((item, idx) => (
+            <div key={`${key}-${idx}`} className="rounded-2xl border border-slate-200 bg-slate-50/60 p-4 space-y-3">
+              <div className="flex items-center justify-between gap-2 border-b border-slate-150 pb-2">
+                <span className="text-[10px] font-bold text-slate-400 uppercase tracking-widest">Item {idx + 1}</span>
+                {parsedId.length > 1 && (
+                  <button type="button" onClick={() => removeItem(idx)} className="text-[10px] font-bold text-red-500 hover:text-red-700">
+                    Hapus
+                  </button>
+                )}
+              </div>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                {/* Bahasa Indonesia */}
+                <div className="space-y-2">
+                  <p className="text-[10px] font-bold text-slate-500 uppercase">Bahasa Indonesia</p>
+                  <input
+                    className="w-full px-3 py-2 bg-white border border-slate-200 rounded-lg text-xs focus:outline-none focus:ring-2 focus:ring-slate-900/10 focus:border-slate-400 transition"
+                    value={item.title}
+                    placeholder={titlePlaceholder || "Judul"}
+                    onChange={(e) => updateItem('id', idx, 'title', e.target.value)}
+                  />
+                  <textarea
+                    rows={2}
+                    className="w-full px-3 py-2 bg-white border border-slate-200 rounded-lg text-xs focus:outline-none focus:ring-2 focus:ring-slate-900/10 focus:border-slate-400 transition resize-none"
+                    value={item.desc}
+                    placeholder={descPlaceholder || "Penjelasan singkat"}
+                    onChange={(e) => updateItem('id', idx, 'desc', e.target.value)}
+                  />
+                </div>
+                {/* English */}
+                <div className="space-y-2">
+                  <p className="text-[10px] font-bold text-indigo-500 uppercase">English Translation</p>
+                  <input
+                    className="w-full px-3 py-2 bg-white border border-indigo-150 rounded-lg text-xs focus:outline-none focus:ring-2 focus:ring-indigo-900/10 focus:border-indigo-300 transition"
+                    value={parsedEn[idx]?.title || ''}
+                    placeholder={titlePlaceholder ? `${titlePlaceholder} (EN)` : "Title (EN)"}
+                    onChange={(e) => updateItem('en', idx, 'title', e.target.value)}
+                  />
+                  <textarea
+                    rows={2}
+                    className="w-full px-3 py-2 bg-white border border-indigo-150 rounded-lg text-xs focus:outline-none focus:ring-2 focus:ring-indigo-900/10 focus:border-indigo-300 transition resize-none"
+                    value={parsedEn[idx]?.desc || ''}
+                    placeholder={descPlaceholder ? `${descPlaceholder} (EN)` : "Short description (EN)"}
+                    onChange={(e) => updateItem('en', idx, 'desc', e.target.value)}
+                  />
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    );
+  };
+
+  const renderCapstoneEditor = () => {
+    const keys = [
+      'capstone_heading',
+      'capstone_description',
+      'capstone_overview_title',
+      'capstone_overview_desc',
+      'capstone_outcomes',
+      'capstone_milestones',
+      'capstone_deliverables',
+      'capstone_guide_url',
+      'capstone_cta_label'
+    ];
+    return renderGuidedSection({
+      title: 'Capstone Design',
+      desc: 'Atur heading, overview, luaran utama, milestone, deliverables, dan tautan dokumen panduan Capstone.',
+      keys,
+      savingKey: 'section:capstone',
+      children: <>
+        {renderTextField('capstone_heading', 'Judul Halaman Capstone')}
+        {renderTextField('capstone_description', 'Deskripsi Halaman Capstone', { multiline: true })}
+        <div className="rounded-2xl border border-slate-200 bg-slate-50/40 p-5 space-y-4">
+          <p className="text-xs font-bold text-slate-900 uppercase tracking-wide">Overview Studio</p>
+          {renderTextField('capstone_overview_title', 'Judul Overview')}
+          {renderTextField('capstone_overview_desc', 'Deskripsi Overview', { multiline: true })}
+        </div>
+        {renderLineListField('capstone_outcomes', 'Luaran Utama Capstone')}
+        {renderPairListField('capstone_milestones', 'Tahapan Proyek Capstone (Milestones)', 'Nama Tahapan', 'Deskripsi Tahapan')}
+        {renderPairListField('capstone_deliverables', 'Deliverables Capstone', 'Nama Deliverable', 'Deskripsi Deliverable')}
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-5">
+          {renderTextField('capstone_guide_url', 'Link Panduan Capstone')}
+          {renderTextField('capstone_cta_label', 'Label Tombol Panduan')}
+        </div>
+      </>
+    });
+  };
+
   const renderGuidedSection = (config: {
     title: string;
     desc: string;
@@ -1252,7 +1403,7 @@ export default function SiteContentTab({
               }
 
               if (!searchQuery && subName === 'Capstone Design') {
-                return <div key={subName}>{renderSimplePageIntroEditor('Capstone Design', 'Atur heading, overview, luaran, milestone, deliverables, dan CTA panduan Capstone.', ['capstone_heading', 'capstone_description', 'capstone_overview_title', 'capstone_overview_desc', 'capstone_outcomes', 'capstone_milestones', 'capstone_deliverables', 'capstone_guide_url', 'capstone_cta_label'], 'section:capstone')}</div>;
+                return <div key={subName}>{renderCapstoneEditor()}</div>;
               }
 
               if (!searchQuery && subName === 'Sistem Penjaminan Mutu') {
