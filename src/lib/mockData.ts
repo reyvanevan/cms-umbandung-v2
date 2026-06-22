@@ -265,6 +265,24 @@ export interface DbKknDocument {
   created_at: string;
 }
 
+export interface DbKarir {
+  id: string;
+  title: string;
+  title_en: string | null;
+  company: string;
+  location: string;
+  location_en: string | null;
+  type: string;
+  type_en: string | null;
+  link: string | null;
+  requirements: string;
+  requirements_en: string | null;
+  image_url: string | null;
+  sort_order: number;
+  created_at: string;
+}
+
+
 
 
 
@@ -567,6 +585,42 @@ const initialLandingPortfolioItems: DbLandingPortfolioItem[] = [
     sort_order: 5
   }
 ];
+
+export const initialKarir: DbKarir[] = [
+  {
+    id: '1',
+    title: 'Quality Control Staff',
+    title_en: 'Quality Control Staff',
+    company: 'PT Indofood CBP Sukses Makmur',
+    location: 'Bandung',
+    location_en: 'Bandung',
+    type: 'Full-time',
+    type_en: 'Full-time',
+    link: 'https://indofood.com/careers',
+    requirements: '1. Lulusan S1 Teknologi Pangan / Kimia / Biologi.\n2. Memahami HACCP & ISO 22000.\n3. Jujur, disiplin, dan mampu bekerja dalam tim.',
+    requirements_en: '1. Bachelor degree in Food Technology / Chemistry / Biology.\n2. Understanding HACCP & ISO 22000.\n3. Honest, disciplined, and able to work in a team.',
+    image_url: null,
+    sort_order: 1,
+    created_at: new Date().toISOString()
+  },
+  {
+    id: '2',
+    title: 'Research & Development Intern',
+    title_en: 'Research & Development Intern',
+    company: 'PT Nutrifood Indonesia',
+    location: 'Ciawi, Bogor',
+    location_en: 'Ciawi, Bogor',
+    type: 'Internship',
+    type_en: 'Internship',
+    link: 'https://nutrifood.co.id/careers',
+    requirements: '1. Mahasiswa tingkat akhir / Fresh Graduate S1 Teknologi Pangan.\n2. IPK minimal 3.00.\n3. Tertarik pada formulasi produk pangan baru.',
+    requirements_en: '1. Final year student / Fresh Graduate of Food Technology.\n2. Minimum GPA of 3.00.\n3. Interested in new food product formulation.',
+    image_url: null,
+    sort_order: 2,
+    created_at: new Date().toISOString()
+  }
+];
+
 
 export const initialSiteContent: DbSiteContent[] = [
   {
@@ -1657,7 +1711,11 @@ function initStorage() {
   if (!localStorage.getItem('mock_statistik_maba')) {
     localStorage.setItem('mock_statistik_maba', JSON.stringify(initialStatistikMaba));
   }
+  if (!localStorage.getItem('mock_karir')) {
+    localStorage.setItem('mock_karir', JSON.stringify(initialKarir));
+  }
 }
+
 
 // Run immediately
 initStorage();

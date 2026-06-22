@@ -50,9 +50,10 @@ const TAB_LABELS: Record<TabType, string> = {
   settings: 'Setup Database & Akun',
   kkn_content: 'Konten KKN',
   kkn_documents: 'Dokumen KKN',
+  karir: 'Pengembangan Karir (Lowongan)',
 };
 
-const TAB_GROUPS: Partial<Record<TabType, string>> = {
+const TAB_GROUPS: Record<TabType, string> = {
   dashboard: 'Beranda / Landing',
   landing_portfolio: 'Beranda / Landing',
   landing_stats: 'Beranda / Landing',
@@ -77,6 +78,7 @@ const TAB_GROUPS: Partial<Record<TabType, string>> = {
   tugas_akhir_steps: 'Akademik',
   kkn_content: 'Akademik',
   kkn_documents: 'Akademik',
+  karir: 'Mahasiswa & Alumni',
   statistik_content: 'Statistik',
   statistik_maba: 'Statistik',
   prestasi: 'Mahasiswa & Alumni',

@@ -19,7 +19,8 @@ import {
   Building2,
   Trophy,
   Activity,
-  BarChart3
+  BarChart3,
+  Briefcase
 } from 'lucide-react';
 import { type TabType } from '../App';
 
@@ -157,11 +158,12 @@ export default function Sidebar({
       icon: <Users className="w-4 h-4" />,
       items: [
         { tab: 'prestasi', label: 'Prestasi Mahasiswa', icon: <Trophy className="w-3.5 h-3.5" /> },
-        { tab: 'kegiatan_mahasiswa_content', subSection: 'Teks Halaman Kegiatan Mahasiswa', label: 'Teks Halaman Hima & Kegiatan', icon: <FileText className="w-3.5 h-3.5" /> },
-        { tab: 'kegiatan_mahasiswa', label: 'Hima & Kegiatan Mahasiswa', icon: <Activity className="w-3.5 h-3.5" /> },
+        { tab: 'kegiatan_mahasiswa_content', subSection: 'Teks Halaman Kegiatan Mahasiswa', label: 'Teks Halaman Himpunan Mahasiswa', icon: <FileText className="w-3.5 h-3.5" /> },
+        { tab: 'kegiatan_mahasiswa', label: 'Himpunan Mahasiswa & Kegiatan', icon: <Activity className="w-3.5 h-3.5" /> },
         { tab: 'testimonials', label: 'Testimoni Alumni', icon: <MessageSquare className="w-3.5 h-3.5" /> },
         { tab: 'alumni_content', subSection: 'Teks Halaman Alumni', label: 'Teks & Tracer Alumni', icon: <FileText className="w-3.5 h-3.5" /> },
         { tab: 'alumni_sectors', label: 'Sektor Karier Alumni', icon: <BarChart3 className="w-3.5 h-3.5" /> },
+        { tab: 'karir', label: 'Pengembangan Karir', icon: <Briefcase className="w-3.5 h-3.5" /> },
         { tab: 'alumni', label: 'Direktori Alumni', icon: <GraduationCap className="w-3.5 h-3.5" /> },
       ],
     },
@@ -174,8 +176,8 @@ export default function Sidebar({
         { tab: 'events', label: 'Event Terkini', icon: <Calendar className="w-3.5 h-3.5" /> },
         { tab: 'kegiatan_dosen_content', subSection: 'Teks Halaman Kegiatan Dosen', label: 'Teks Halaman Kegiatan Dosen', icon: <FileText className="w-3.5 h-3.5" /> },
         { tab: 'kegiatan_dosen', label: 'Kegiatan Dosen', icon: <Activity className="w-3.5 h-3.5" /> },
-        { tab: 'kegiatan_mahasiswa_content', subSection: 'Teks Halaman Kegiatan Mahasiswa', label: 'Teks Halaman Hima & Kegiatan', icon: <FileText className="w-3.5 h-3.5" /> },
-        { tab: 'kegiatan_mahasiswa', label: 'Hima & Kegiatan Mahasiswa', icon: <Activity className="w-3.5 h-3.5" /> },
+        { tab: 'kegiatan_mahasiswa_content', subSection: 'Teks Halaman Kegiatan Mahasiswa', label: 'Teks Halaman Himpunan Mahasiswa', icon: <FileText className="w-3.5 h-3.5" /> },
+        { tab: 'kegiatan_mahasiswa', label: 'Himpunan Mahasiswa & Kegiatan', icon: <Activity className="w-3.5 h-3.5" /> },
       ],
     },
     {

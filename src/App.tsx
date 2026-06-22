@@ -16,7 +16,8 @@ import {
   type DbTaStep,
   type DbAlumniSector,
   type DbLaboratorium,
-  type DbKknDocument
+  type DbKknDocument,
+  type DbKarir
 } from './lib/mockData';
 
 export function getSubSectionName(key: string): string {
@@ -64,6 +65,7 @@ import AlumniSectorsTab from './components/Tabs/AlumniSectorsTab';
 import StatistikMabaTab from './components/Tabs/StatistikMabaTab';
 import LaboratoriumTab from './components/Tabs/LaboratoriumTab';
 import KknDocumentsTab from './components/Tabs/KknDocumentsTab';
+import KarirTab from './components/Tabs/KarirTab';
 
 
 export interface Toast {
@@ -110,7 +112,8 @@ export type TabType =
   | 'dosen_content'
   | 'global_content'
   | 'kkn_content'
-  | 'kkn_documents';
+  | 'kkn_documents'
+  | 'karir';
 
 export default function App() {
   // --- Auth State ---
@@ -151,6 +154,7 @@ export default function App() {
   const [statistikMabaList, setStatistikMabaList] = useState<any[]>([]);
   const [laboratoriumList, setLaboratoriumList] = useState<DbLaboratorium[]>([]);
   const [kknDocuments, setKknDocuments] = useState<DbKknDocument[]>([]);
+  const [karirList, setKarirList] = useState<DbKarir[]>([]);
 
   const [isLoadingData, setIsLoadingData] = useState<boolean>(false);
 
@@ -233,6 +237,9 @@ export default function App() {
   });
   const [kknDocumentForm, setKknDocumentForm] = useState<Omit<DbKknDocument, 'id' | 'created_at'>>({
     name: '', name_en: '', file_url: '', sort_order: 0
+  });
+  const [karirForm, setKarirForm] = useState<Omit<DbKarir, 'id' | 'created_at'>>({
+    title: '', title_en: '', company: '', location: '', location_en: '', type: '', type_en: '', link: '', requirements: '', requirements_en: '', image_url: '', sort_order: 0
   });
 
   // --- Toast Trigger Helper ---
@@ -422,6 +429,8 @@ export default function App() {
         setStatistikMabaList(await dataService.getStatistikMaba());
       } else if (activeTab === 'laboratorium') {
         setLaboratoriumList(await dataService.getLaboratorium());
+      } else if (activeTab === 'karir') {
+        setKarirList(await dataService.getKarir());
       }
     } catch (err: any) {
       console.error(err);
@@ -643,6 +652,9 @@ export default function App() {
       } else if (activeTab === 'kkn_documents') {
         if (activeModal === 'create') { await dataService.createKknDocument(kknDocumentForm); triggerToast('Dokumen KKN berhasil ditambahkan!'); }
         else if (activeModal === 'edit' && editingId) { await dataService.updateKknDocument(editingId, kknDocumentForm); triggerToast('Dokumen KKN berhasil diperbarui!'); }
+      } else if (activeTab === 'karir') {
+        if (activeModal === 'create') { await dataService.createKarir(karirForm); triggerToast('Lowongan kerja berhasil ditambahkan!'); }
+        else if (activeModal === 'edit' && editingId) { await dataService.updateKarir(editingId, karirForm); triggerToast('Lowongan kerja berhasil diperbarui!'); }
       }
 
       setActiveModal(null);
@@ -694,6 +706,8 @@ export default function App() {
         await dataService.deleteLaboratorium(deletingId);
       } else if (activeTab === 'kkn_documents') {
         await dataService.deleteKknDocument(deletingId);
+      } else if (activeTab === 'karir') {
+        await dataService.deleteKarir(deletingId);
       }
 
       triggerToast('Item berhasil dihapus!', 'success');
@@ -738,6 +752,7 @@ export default function App() {
     setStatistikMabaForm({ year: '', count: 0, sort_order: statistikMabaList.length + 1 });
     setLaboratoriumForm({ name: '', name_en: '', desc: '', desc_en: '', image_url: '', sort_order: laboratoriumList.length + 1 });
     setKknDocumentForm({ name: '', name_en: '', file_url: '', sort_order: kknDocuments.length + 1 });
+    setKarirForm({ title: '', title_en: '', company: '', location: '', location_en: '', type: '', type_en: '', link: '', requirements: '', requirements_en: '', image_url: '', sort_order: karirList.length + 1 });
     setActiveModal('create');
   };
 
@@ -886,6 +901,21 @@ export default function App() {
         name: item.name,
         name_en: item.name_en || '',
         file_url: item.file_url || '',
+        sort_order: item.sort_order || 0
+      });
+    } else if (activeTab === 'karir') {
+      setKarirForm({
+        title: item.title,
+        title_en: item.title_en || '',
+        company: item.company,
+        location: item.location,
+        location_en: item.location_en || '',
+        type: item.type,
+        type_en: item.type_en || '',
+        link: item.link || '',
+        requirements: item.requirements,
+        requirements_en: item.requirements_en || '',
+        image_url: item.image_url || '',
         sort_order: item.sort_order || 0
       });
     }
@@ -1297,6 +1327,19 @@ export default function App() {
             />
           )}
 
+          {/* KARIR VIEW */}
+          {activeTab === 'karir' && (
+            <KarirTab
+              karirList={karirList}
+              searchQuery={searchQuery}
+              setSearchQuery={setSearchQuery}
+              isLoadingData={isLoadingData}
+              openCreateModal={openCreateModal}
+              openEditModal={openEditModal}
+              openDeleteModal={openDeleteModal}
+            />
+          )}
+
           {activeTab === 'alumni_sectors' && (
             <AlumniSectorsTab
               sectors={alumniSectors}
@@ -1427,6 +1470,8 @@ export default function App() {
           setLaboratoriumForm={setLaboratoriumForm}
           kknDocumentForm={kknDocumentForm}
           setKknDocumentForm={setKknDocumentForm}
+          karirForm={karirForm}
+          setKarirForm={setKarirForm}
         />
       )}
 

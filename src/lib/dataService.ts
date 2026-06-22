@@ -1,5 +1,5 @@
 import { getSupabaseClient } from './supabase';
-import { mockDb, initialSiteContent, type DbNews, type DbEvent, type DbTestimonial, type DbPartner, type DbSiteContent, type DbLandingStat, type DbLandingPartner, type DbLandingPortfolioItem, type DbDosen, type DbKurikulumCourse, type DbKurikulumPlo, type DbKurikulumProfile, type DbTaStep, type DbPrestasi, type DbPublikasiDosen, type DbKegiatanDosen, type DbKegiatanMahasiswa, type DbAlumni, type DbAlumniSector, type DbStatistikMaba, type DbLaboratorium, type DbKknDocument } from './mockData';
+import { mockDb, initialSiteContent, type DbNews, type DbEvent, type DbTestimonial, type DbPartner, type DbSiteContent, type DbLandingStat, type DbLandingPartner, type DbLandingPortfolioItem, type DbDosen, type DbKurikulumCourse, type DbKurikulumPlo, type DbKurikulumProfile, type DbTaStep, type DbPrestasi, type DbPublikasiDosen, type DbKegiatanDosen, type DbKegiatanMahasiswa, type DbAlumni, type DbAlumniSector, type DbStatistikMaba, type DbLaboratorium, type DbKknDocument, type DbKarir } from './mockData';
 
 
 
@@ -1309,5 +1309,35 @@ export const dataService = {
     if (!supabase) { mockDb.delete('kkn_documents', id); return; }
     const { error } = await supabase.from('praktik_kerja_docs').delete().eq('id', id);
     if (error) throw new Error(`Supabase error: ${error.message}`);
+  },
+
+  // --- KARIR (PENGEMBANGAN KARIR) ---
+  getKarir: async (): Promise<DbKarir[]> => {
+    const supabase = getSupabaseClient();
+    if (!supabase) return mockDb.getAll<DbKarir>('karir').sort((a, b) => a.sort_order - b.sort_order);
+    const { data, error } = await supabase.from('karir').select('*').order('sort_order');
+    if (error) { console.warn('getKarir fallback:', error.message); return mockDb.getAll<DbKarir>('karir').sort((a, b) => a.sort_order - b.sort_order); }
+    return data || [];
+  },
+  createKarir: async (row: Omit<DbKarir, 'id' | 'created_at'>): Promise<DbKarir> => {
+    const supabase = getSupabaseClient();
+    if (!supabase) return mockDb.insert<DbKarir>('karir', row);
+    const { data, error } = await supabase.from('karir').insert([row]).select().single();
+    if (error) throw new Error(`Supabase error: ${error.message}`);
+    return data;
+  },
+  updateKarir: async (id: string, updates: Partial<DbKarir>): Promise<DbKarir> => {
+    const supabase = getSupabaseClient();
+    if (!supabase) { const u = mockDb.update<DbKarir>('karir', id, updates); if (!u) throw new Error('Not found'); return u; }
+    const { data, error } = await supabase.from('karir').update(updates).eq('id', id).select().single();
+    if (error) throw new Error(`Supabase error: ${error.message}`);
+    return data;
+  },
+  deleteKarir: async (id: string): Promise<void> => {
+    const supabase = getSupabaseClient();
+    if (!supabase) { mockDb.delete('karir', id); return; }
+    const { error } = await supabase.from('karir').delete().eq('id', id);
+    if (error) throw new Error(`Supabase error: ${error.message}`);
   }
 };
+

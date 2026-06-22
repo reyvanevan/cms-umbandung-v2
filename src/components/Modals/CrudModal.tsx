@@ -20,7 +20,8 @@ import {
     type DbPublikasiDosen,
     type DbStatistikMaba,
     type DbTaStep,
-    type DbTestimonial
+    type DbTestimonial,
+    type DbKarir
 } from '../../lib/mockData';
 import { handleImageUpload } from '../../lib/supabase';
 
@@ -68,6 +69,8 @@ interface CrudModalProps {
   setLaboratoriumForm?: React.Dispatch<React.SetStateAction<Omit<DbLaboratorium, 'id' | 'created_at'>>>;
   kknDocumentForm?: Omit<DbKknDocument, 'id' | 'created_at'>;
   setKknDocumentForm?: React.Dispatch<React.SetStateAction<Omit<DbKknDocument, 'id' | 'created_at'>>>;
+  karirForm?: Omit<DbKarir, 'id' | 'created_at'>;
+  setKarirForm?: React.Dispatch<React.SetStateAction<Omit<DbKarir, 'id' | 'created_at'>>>;
 }
 
 export default function CrudModal({
@@ -113,7 +116,9 @@ export default function CrudModal({
   laboratoriumForm,
   setLaboratoriumForm,
   kknDocumentForm,
-  setKknDocumentForm
+  setKknDocumentForm,
+  karirForm,
+  setKarirForm
 }: CrudModalProps) {
   const [isUploading, setIsUploading] = React.useState(false);
   const [uploadError, setUploadError] = React.useState<string | null>(null);
@@ -162,6 +167,7 @@ export default function CrudModal({
       case 'statistik_maba': return 'Statistik Maba';
       case 'laboratorium': return 'Laboratorium';
       case 'kkn_documents': return 'Dokumen KKN';
+      case 'karir': return 'Lowongan Kerja';
       default: return 'Data';
     }
   };
@@ -2139,6 +2145,154 @@ export default function CrudModal({
                   onChange={(e) => setStatistikMabaForm({ ...statistikMabaForm, sort_order: parseInt(e.target.value) || 0 })}
                   required
                 />
+              </div>
+            </>
+          )}
+
+          {/* KARIR FORM */}
+          {activeTab === 'karir' && karirForm && setKarirForm && (
+            <>
+              <div className="space-y-1">
+                <label className="text-xs font-bold text-slate-700">Nama Posisi / Lowongan (Bahasa Indonesia)</label>
+                <input
+                  type="text"
+                  className="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-slate-900/10 focus:border-slate-400 focus:bg-white transition"
+                  value={karirForm.title}
+                  onChange={(e) => setKarirForm({ ...karirForm, title: e.target.value })}
+                  required
+                />
+              </div>
+              <div className="space-y-1">
+                <label className="text-xs font-bold text-slate-700">Nama Posisi / Lowongan (English)</label>
+                <input
+                  type="text"
+                  className="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-slate-900/10 focus:border-slate-400 focus:bg-white transition"
+                  value={karirForm.title_en || ''}
+                  onChange={(e) => setKarirForm({ ...karirForm, title_en: e.target.value })}
+                />
+              </div>
+              <div className="space-y-1">
+                <label className="text-xs font-bold text-slate-700">Perusahaan / Institusi</label>
+                <input
+                  type="text"
+                  className="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-slate-900/10 focus:border-slate-400 focus:bg-white transition"
+                  value={karirForm.company}
+                  onChange={(e) => setKarirForm({ ...karirForm, company: e.target.value })}
+                  required
+                />
+              </div>
+              <div className="grid grid-cols-2 gap-4">
+                <div className="space-y-1">
+                  <label className="text-xs font-bold text-slate-700">Lokasi Kerja (Bahasa Indonesia)</label>
+                  <input
+                    type="text"
+                    className="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-slate-900/10 focus:border-slate-400 focus:bg-white transition"
+                    value={karirForm.location}
+                    onChange={(e) => setKarirForm({ ...karirForm, location: e.target.value })}
+                    placeholder="Contoh: Bandung"
+                    required
+                  />
+                </div>
+                <div className="space-y-1">
+                  <label className="text-xs font-bold text-slate-700">Lokasi Kerja (English)</label>
+                  <input
+                    type="text"
+                    className="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-slate-900/10 focus:border-slate-400 focus:bg-white transition"
+                    value={karirForm.location_en || ''}
+                    onChange={(e) => setKarirForm({ ...karirForm, location_en: e.target.value })}
+                    placeholder="Contoh: Bandung"
+                  />
+                </div>
+              </div>
+              <div className="grid grid-cols-2 gap-4">
+                <div className="space-y-1">
+                  <label className="text-xs font-bold text-slate-700">Tipe Kontrak (Bahasa Indonesia)</label>
+                  <input
+                    type="text"
+                    className="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-slate-900/10 focus:border-slate-400 focus:bg-white transition"
+                    value={karirForm.type}
+                    onChange={(e) => setKarirForm({ ...karirForm, type: e.target.value })}
+                    placeholder="Contoh: Penuh Waktu, Magang"
+                    required
+                  />
+                </div>
+                <div className="space-y-1">
+                  <label className="text-xs font-bold text-slate-700">Tipe Kontrak (English)</label>
+                  <input
+                    type="text"
+                    className="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-slate-900/10 focus:border-slate-400 focus:bg-white transition"
+                    value={karirForm.type_en || ''}
+                    onChange={(e) => setKarirForm({ ...karirForm, type_en: e.target.value })}
+                    placeholder="Contoh: Full-time, Internship"
+                  />
+                </div>
+              </div>
+              <div className="space-y-1">
+                <label className="text-xs font-bold text-slate-700">Link Apply / Pendaftaran (Optional)</label>
+                <input
+                  type="text"
+                  className="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-slate-900/10 focus:border-slate-400 focus:bg-white transition"
+                  value={karirForm.link || ''}
+                  onChange={(e) => setKarirForm({ ...karirForm, link: e.target.value })}
+                  placeholder="https://..."
+                />
+              </div>
+              <div className="space-y-1">
+                <label className="text-xs font-bold text-slate-700">Persyaratan & Kualifikasi (Bahasa Indonesia)</label>
+                <textarea
+                  className="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-slate-900/10 focus:border-slate-400 focus:bg-white transition min-h-[100px]"
+                  value={karirForm.requirements}
+                  onChange={(e) => setKarirForm({ ...karirForm, requirements: e.target.value })}
+                  placeholder="Gunakan baris baru untuk setiap poin persyaratan"
+                  required
+                />
+              </div>
+              <div className="space-y-1">
+                <label className="text-xs font-bold text-slate-700">Persyaratan & Kualifikasi (English)</label>
+                <textarea
+                  className="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-slate-900/10 focus:border-slate-400 focus:bg-white transition min-h-[100px]"
+                  value={karirForm.requirements_en || ''}
+                  onChange={(e) => setKarirForm({ ...karirForm, requirements_en: e.target.value })}
+                  placeholder="Use new line for each requirement item"
+                />
+              </div>
+              <div className="grid grid-cols-2 gap-4">
+                <div className="space-y-1">
+                  <label className="text-xs font-bold text-slate-700 block">Logo Perusahaan</label>
+                  <div className="flex flex-col sm:flex-row gap-3 items-center">
+                    {karirForm.image_url && (
+                      <img src={karirForm.image_url} className="w-14 h-14 object-contain rounded-xl border border-slate-200 shrink-0 bg-slate-50 p-1" alt="Logo Preview" />
+                    )}
+                    <div className="flex-1 w-full space-y-2">
+                      <input
+                        type="file"
+                        accept="image/*"
+                        onChange={(e) => handleFileChange(e, (url) => setKarirForm({ ...karirForm, image_url: url }))}
+                        className="w-full text-xs text-slate-500 file:mr-4 file:py-1.5 file:px-3 file:rounded-lg file:border-0 file:text-[11px] file:font-semibold file:bg-slate-900 file:text-white hover:file:bg-slate-800 file:cursor-pointer"
+                        disabled={isUploading}
+                      />
+                      <input
+                        type="text"
+                        placeholder="Atau masukkan URL logo..."
+                        className="w-full px-4 py-2 bg-slate-50 border border-slate-200 rounded-xl text-xs focus:outline-none focus:ring-2 focus:ring-slate-900/10 focus:border-slate-400 focus:bg-white transition"
+                        value={karirForm.image_url || ''}
+                        onChange={(e) => setKarirForm({ ...karirForm, image_url: e.target.value })}
+                      />
+                    </div>
+                  </div>
+                  {isUploading && <p className="text-[10px] text-slate-500 animate-pulse">Mengunggah gambar...</p>}
+                  {uploadError && <p className="text-[10px] text-red-500 font-semibold">{uploadError}</p>}
+                </div>
+                <div className="space-y-1">
+                  <label className="text-xs font-bold text-slate-700">Urutan (Sort Order)</label>
+                  <input
+                    type="number"
+                    className="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-slate-900/10 focus:border-slate-400 focus:bg-white transition"
+                    value={karirForm.sort_order}
+                    onChange={(e) => setKarirForm({ ...karirForm, sort_order: parseInt(e.target.value) || 0 })}
+                    required
+                  />
+                </div>
               </div>
             </>
           )}
